@@ -1,0 +1,48 @@
+title Add Genre to Blacklist
+
+
+participant User
+
+participant Blacklist View
+
+participant Blacklist Controller
+participant Blacklist Manager
+participant Blacklist Service
+participant Blacklist Data Access Layer
+
+User->Blacklist View: User selects genre to add to blacklist
+
+Blacklist View->Blacklist Controller: call http put (user, blacklist, genre)
+
+Blacklist Controller-> Blacklist Controller: BlacklistAdd(self, genre)
+
+Blacklist Controller-> Blacklist Controller: Log access
+
+Blacklist Controller-> Blacklist Manager: BlacklistManager()
+
+Blacklist Manager-> Blacklist Manager: BlacklistAddGenre(self, genre)
+
+Blacklist Manager->Blacklist Service: BlacklistService()
+
+Blacklist Service-> Blacklist Data Access Layer: BlacklistAddGenre(genre)
+
+database database
+Blacklist Data Access Layer->Blacklist Data Access Layer: log database access
+
+Blacklist Data Access Layer-> database: AddGenretoBlacklist(genre)
+
+
+Blacklist Data Access Layer-> database: insert genre into blacklist
+Blacklist Data Access Layer-> database: execute query
+Blacklist Data Access Layer-> database: commit transaction
+
+database->Blacklist Data Access Layer: return revised blacklist
+
+Blacklist Data Access Layer->Blacklist Data Access Layer: log database return time
+
+Blacklist Data Access Layer->Blacklist Service: return true
+
+Blacklist Service->Blacklist Manager: return true
+Blacklist Manager->Blacklist Controller: return true
+Blacklist Controller->Blacklist View: return success code 200
+Blacklist View->User: return "Blacklist updated successfully"
