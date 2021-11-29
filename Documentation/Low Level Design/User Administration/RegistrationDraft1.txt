@@ -1,0 +1,24 @@
+title Registration
+participant HomeView Program
+participant "Authorization \nManager" as auth
+
+participant User Manager
+participant "User Management \nService" as service
+participant Data Access Object
+database database
+
+[->HomeView Program: Create user
+activate HomeView Program
+HomeView Program->User Manager: new UserManager()
+activate User Manager
+User Manager->service: new UserManagementService()
+activate service
+service->Data Access Object: new UM.DAO()
+activate Data Access Object
+Data Access Object->Data Access Object: Constructor()
+HomeView Program->auth: Create new User(string email, string fname, \nstring lname, string password, string role, \nDateTime registerTime) 
+activate auth
+auth->auth:verify User(string email, string fname, \nstring lname, string password, string role, \nDateTime registerTime)
+auth->HomeView Program: return true
+deactivate auth
+HomeView Program->User Manager: UserManager.CreateUser(user)

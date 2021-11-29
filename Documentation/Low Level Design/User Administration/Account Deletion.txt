@@ -1,0 +1,35 @@
+title Registration
+participant User
+participant User Manager
+participant User Management Service
+participant "User Data Access Object" as dao
+database database
+
+User->User Manager: selects Delete Account
+activate User Manager
+
+User Manager->User Management Service: UMService()
+activate User Management Service
+
+User Manager->User Management Service: deleteUser(User object)
+
+User Management Service->dao: deleteUser(User object)
+activate dao
+dao->dao: log database access
+dao->database: deleteUser(User object)
+activate database
+database->database:verify user
+database->dao: return true (user in database)
+dao->database: delete user from database
+database->dao:return true
+deactivate database
+
+dao->dao:log database return time
+dao->dao:log account deletion date/time
+dao->User Management Service:return true
+deactivate dao
+User Management Service->User Manager:return true
+deactivate User Management Service
+User Manager->User:return "Account has been successfully deleted"
+User Manager->User:User is redirected to HomeView login page
+deactivate User Manager

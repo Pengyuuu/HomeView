@@ -1,0 +1,38 @@
+title Registration
+participant User
+participant User Manager
+participant Authorization Manager
+participant User Management Service
+participant "User Data Access Object" as dao
+database database
+
+User->User Manager: createUser(string email,\nstring fname, string lname)
+activate User Manager
+User Manager->Authorization Manager: AuthorizationManager(newUser)
+activate Authorization Manager
+Authorization Manager->User Manager: return User object
+User Manager->Authorization Manager: checkNewUser(User object)
+Authorization Manager->User Manager: return true
+deactivate Authorization Manager
+User Manager->User Management Service: UMService()
+activate User Management Service
+
+User Manager->User Management Service: createUser(User object)
+
+User Management Service->dao: createUser(User object)
+activate dao
+dao->dao: log database access
+dao->database: createUser(User object)
+activate database
+database->database:verify user
+database->dao: return false (user already in database)
+
+deactivate database
+
+dao->dao:log database return time
+dao->User Management Service:return false
+deactivate dao
+User Management Service->User Manager:return false
+deactivate User Management Service
+User Manager->User:return "Invalid. That account has already been created."
+deactivate User Manager

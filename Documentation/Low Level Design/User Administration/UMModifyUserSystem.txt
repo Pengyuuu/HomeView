@@ -1,0 +1,44 @@
+title Modify Users in System
+participant "System Administrator" as s
+participant HomeView Program
+
+
+participant User Manager
+participant "User Management \nService" as service
+participant Data Access Object
+database database
+
+s->HomeView Program: selects a user account and \nchooses whether to Delete, Update,\nEnable, Disable the account
+activate HomeView Program
+HomeView Program->User Manager: new UserManager()
+activate User Manager
+User Manager->service: new UMService()
+activate service
+service->Data Access Object: new UM.DAO()
+activate Data Access Object
+Data Access Object->Data Access Object: Constructor()
+
+
+
+HomeView Program->User Manager: UserManager.ModifyUser(user, modifications)
+User Manager->User Manager:verifyAdmin()
+User Manager->HomeView Program:return true
+
+
+User Manager->service: UMServiceModifyUser(user, modifications)
+service->Data Access Object:UM.DAOModifyUser(user, modifications)
+Data Access Object->database:modifyUser(user, modifications)
+activate database
+
+database->database:selects user account
+database->database:executes modifications
+database->Data Access Object:return true
+deactivate database
+Data Access Object->service:return true
+deactivate Data Access Object
+service->User Manager:return true
+deactivate service
+User Manager->HomeView Program:return "Specified modifications successful"
+deactivate User Manager
+HomeView Program->s:return "Specified modifications successful"
+deactivate HomeView Program

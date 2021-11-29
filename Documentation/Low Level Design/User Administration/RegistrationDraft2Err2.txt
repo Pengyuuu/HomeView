@@ -1,0 +1,16 @@
+title Registration
+participant User
+participant User Manager
+participant Authorization Manager
+
+
+User->User Manager: createUser(string email,\nstring fname, string lname)
+activate User Manager
+User Manager->Authorization Manager: AuthorizationManager(newUser)
+activate Authorization Manager
+Authorization Manager->User Manager: return User object
+User Manager->Authorization Manager: checkNewUser(User object)
+Authorization Manager->User Manager: return false
+deactivate Authorization Manager
+User Manager->User:return "Invalid email/password\n credentials. Try again"
+deactivate User Manager

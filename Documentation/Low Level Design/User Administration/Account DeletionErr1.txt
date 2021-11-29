@@ -1,0 +1,34 @@
+title Registration
+participant User
+participant User Manager
+participant User Management Service
+participant "User Data Access Object" as dao
+database database
+
+User->User Manager: selects Delete Account
+activate User Manager
+
+User Manager->User Management Service: UMService()
+activate User Management Service
+
+User Manager->User Management Service: deleteUser(User object)
+
+User Management Service->dao: deleteUser(User object)
+activate dao
+dao->dao: log database access
+dao->database: deleteUser(User object)
+activate database
+database->database:verify user
+database->dao: return true (user in database)
+dao->database: delete user from database
+database ->database:Database unable to delete user account
+database->dao:return false
+deactivate database
+
+dao->dao:log database return time
+dao->User Management Service:return false
+deactivate dao
+User Management Service->User Manager:return false
+deactivate User Management Service
+User Manager->User:return "Account unable to be deleted. Database error."
+deactivate User Manager
