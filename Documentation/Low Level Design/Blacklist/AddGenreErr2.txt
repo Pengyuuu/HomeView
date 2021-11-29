@@ -46,5 +46,5 @@ Blacklist Data Access Layer->Blacklist Service: return true
 
 Blacklist Service->Blacklist Manager: return true
 Blacklist Manager->Blacklist Controller: return true
-Blacklist Controller->Blacklist View: return success code 200
-Blacklist View->User: return "Blacklist updated successfully"
+Blacklist Controller->Blacklist View: return error code 500
+Blacklist View->User: return "Blacklist failed to update. HTTP PUT unsuccessful."

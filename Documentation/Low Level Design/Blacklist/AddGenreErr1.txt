@@ -32,19 +32,15 @@ Blacklist Data Access Layer->Blacklist Data Access Layer: log database access
 Blacklist Data Access Layer-> database: AddGenretoBlacklist(genre)
 
 database->database: verify(genre)
-database->Blacklist Data Access Layer: return true (genre is not already in blacklist)
+database->Blacklist Data Access Layer: return false (genre is already in blacklist)
 
-Blacklist Data Access Layer-> database: insert genre into blacklist
-Blacklist Data Access Layer-> database: execute query
-Blacklist Data Access Layer-> database: commit transaction
 
-database->Blacklist Data Access Layer: return revised blacklist
 
 Blacklist Data Access Layer->Blacklist Data Access Layer: log database return time
 
-Blacklist Data Access Layer->Blacklist Service: return true
+Blacklist Data Access Layer->Blacklist Service: return false
 
-Blacklist Service->Blacklist Manager: return true
-Blacklist Manager->Blacklist Controller: return true
+Blacklist Service->Blacklist Manager: return false
+Blacklist Manager->Blacklist Controller: return false
 Blacklist Controller->Blacklist View: return success code 200
-Blacklist View->User: return "Blacklist updated successfully"
+Blacklist View->User: return "Blacklist failed to update. Genre already in blacklist"
