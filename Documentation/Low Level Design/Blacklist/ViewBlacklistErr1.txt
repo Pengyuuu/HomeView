@@ -1,38 +1,33 @@
-title Remove Actress/Actor from Blacklist
+title View Blacklist
 
 
-User->Blacklist View: User click on Blacklist page
-
+User->Blacklist View: User clicks on Blacklist page
+activate Blacklist View
 Blacklist View->Blacklist Controller: call http get
-
-Blacklist Controller-> Blacklist Manager: BlacklistManagerGetBlacklist(user)
-
-Blacklist Manager->Blacklist Service: BlacklistServiceGetBlacklist()
-
-Blacklist Service-> Blacklist Data Access Layer: entities = dal.DalGetAll()
-
+activate Blacklist Controller
+Blacklist Controller-> Blacklist Manager: BlacklistManagerGet(user)
+activate Blacklist Manager
+Blacklist Manager->Blacklist Service: BlacklistServiceGet(user)
+activate Blacklist Service
+Blacklist Service-> Blacklist Data Access Object: blacklist = DAO.GetAll()
+activate Blacklist Data Access Object
 database database
-Blacklist Data Access Layer-> database: select * from blacklist
-Blacklist Data Access Layer-> database: execute query
-Blacklist Data Access Layer-> database: commit transaction
-
-Blacklist Data Access Layer->Blacklist Service: return list<entities>
-Blacklist Service->Blacklist Service: entitiesToModel(list<entities>)
-Blacklist Service->Blacklist Manager: return list<models>
-Blacklist Manager->Blacklist Controller: return list<models>
-#Blacklist Controller->Blacklist View: return true
-
-#alt #red http get unsuccessful
+Blacklist Data Access Object-> database: select * from blacklist
+activate database
+Blacklist Data Access Object-> database: execute query
+Blacklist Data Access Object-> database: commit transaction
+deactivate database
+Blacklist Data Access Object->Blacklist Service: return list<blacklist>
+deactivate Blacklist Data Access Object
+Blacklist Service->Blacklist Service: entitiesToModel(list<blacklist>)
+Blacklist Service->Blacklist Manager: return list<blacklist>
+deactivate Blacklist Service
+Blacklist Manager->Blacklist Controller: return list<blacklist>
+deactivate Blacklist Manager
 Blacklist Controller->Blacklist View: return error code 500
-#end
+deactivate Blacklist Controller
 
 Blacklist View->User: returns Blacklist View error
 Blacklist View->User: Blacklist info is not displayed to user
-
-
-#alt #red Blacklist info is not displayed to user
-#Blacklist View->User: user is unable to view blacklist info
-#end
-
-#User->Blacklist View: user clicks Add Actress
+deactivate Blacklist View
 

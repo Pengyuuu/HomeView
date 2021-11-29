@@ -2,34 +2,39 @@ title Remove Actress/Actor from Blacklist
 
 
 User->Blacklist View: User clicks "X" displayed next to \nan Actor/Actress on their Blacklist page
-
+activate Blacklist View
 Blacklist View->Blacklist Controller: call http put (user, blacklist, actor)
-
-Blacklist Controller-> Blacklist Controller: BlacklistRemove(self, actor)
+activate Blacklist Controller
+Blacklist Controller-> Blacklist Controller: BlacklistRemoveActor(self, actor)
 
 Blacklist Controller-> Blacklist Controller: Log access
 
 Blacklist Controller-> Blacklist Manager: BlacklistManager()
-
-Blacklist Manager-> Blacklist Manager: BlacklistRemove(self, actor)
+activate Blacklist Manager
+Blacklist Manager-> Blacklist Manager: BlacklistRemoveActor(self, actor)
 
 Blacklist Manager->Blacklist Service: BlacklistService()
-
-Blacklist Service-> Blacklist Data Access Layer: BlacklistRemoveActor(actor)
-
+activate Blacklist Service
+Blacklist Service-> Blacklist Data Access Object: BlacklistRemoveActor(actor)
+activate Blacklist Data Access Object
 database database
-Blacklist Data Access Layer->Blacklist Data Access Layer: log database access
-Blacklist Data Access Layer-> database: select actor from blacklist
-Blacklist Data Access Layer-> database: execute query
-Blacklist Data Access Layer-> database: commit transaction
+Blacklist Data Access Object->Blacklist Data Access Object: log database access
+Blacklist Data Access Object-> database: select actor from blacklist
+activate database
+Blacklist Data Access Object-> database: execute query
+Blacklist Data Access Object-> database: commit transaction
 
-database->Blacklist Data Access Layer: return revised blacklist
+database->Blacklist Data Access Object: return revised blacklist
+deactivate database
+Blacklist Data Access Object->Blacklist Data Access Object: log database return time
 
-Blacklist Data Access Layer->Blacklist Data Access Layer: log database return time
-
-Blacklist Data Access Layer->Blacklist Service: return true
-
+Blacklist Data Access Object->Blacklist Service: return true
+deactivate Blacklist Data Access Object
 Blacklist Service->Blacklist Manager: return true
+deactivate Blacklist Service
 Blacklist Manager->Blacklist Controller: return true
+deactivate Blacklist Manager
 Blacklist Controller->Blacklist View: return error code 500
+deactivate Blacklist Controller
 Blacklist View->User: return "Blacklist failed to update. HTTP PUT unsuccessful"
+deactivate Blacklist View

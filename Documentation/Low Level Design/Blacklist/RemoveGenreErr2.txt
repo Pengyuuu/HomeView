@@ -1,54 +1,38 @@
-title Add Genre to Blacklist
+title Remove Genre from Blacklist
 
-
-participant User
-
-participant Blacklist View
-
-participant Blacklist Controller
-participant Blacklist Manager
-participant Blacklist Service
-participant Blacklist Data Access Object
-
-User->Blacklist View: User selects genre to add to blacklist
+User->Blacklist View: User clicks "X" displayed next to \na genre on their Blacklist page
 activate Blacklist View
 Blacklist View->Blacklist Controller: call http put (user, blacklist, genre)
 activate Blacklist Controller
-Blacklist Controller-> Blacklist Controller: BlacklistAddGenre(self, genre)
+Blacklist Controller-> Blacklist Controller: BlacklistRemoveGenre(self, genre)
 
 Blacklist Controller-> Blacklist Controller: Log access
 
 Blacklist Controller-> Blacklist Manager: BlacklistManager()
 activate Blacklist Manager
-Blacklist Manager-> Blacklist Manager: BlacklistAddGenre(self, genre)
+Blacklist Manager-> Blacklist Manager: BlacklistRemoveGenre(self, genre)
 
 Blacklist Manager->Blacklist Service: BlacklistService()
 activate Blacklist Service
-Blacklist Service-> Blacklist Data Access Object: BlacklistAddGenre(genre)
+Blacklist Service-> Blacklist Data Access Object: BlacklistRemoveGenre(genre)
 activate Blacklist Data Access Object
 database database
 Blacklist Data Access Object->Blacklist Data Access Object: log database access
-
-Blacklist Data Access Object-> database: BlacklistAddGenre(genre)
+Blacklist Data Access Object-> database: select genre from blacklist
 activate database
-database->database: verify(genre)
-database->Blacklist Data Access Object: return true (genre is not already in blacklist)
-
-Blacklist Data Access Object-> database: insert genre into blacklist
 Blacklist Data Access Object-> database: execute query
 Blacklist Data Access Object-> database: commit transaction
 
 database->Blacklist Data Access Object: return revised blacklist
 deactivate database
 Blacklist Data Access Object->Blacklist Data Access Object: log database return time
-
 Blacklist Data Access Object->Blacklist Service: return true
 deactivate Blacklist Data Access Object
 Blacklist Service->Blacklist Manager: return true
 deactivate Blacklist Service
 Blacklist Manager->Blacklist Controller: return true
 deactivate Blacklist Manager
-Blacklist Controller->Blacklist View: return success code 200
+Blacklist Controller->Blacklist View: return error code 500
 deactivate Blacklist Controller
-Blacklist View->User: return "Blacklist updated successfully"
+Blacklist View->User: return "Blacklist failed to update. HTTP PUT unsuccessful"
 deactivate Blacklist View

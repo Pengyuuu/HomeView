@@ -1,0 +1,41 @@
+title Enable/Disable Blacklist
+
+
+User->Blacklist View: User clicks on Enable/Disable \non Blacklist page
+activate Blacklist View
+Blacklist View->Blacklist Controller: call http put(user, blacklist, status)
+
+activate Blacklist Controller
+Blacklist Controller->Blacklist Controller: BlacklistStatus(self, status)
+Blacklist Controller->Blacklist Controller: log access
+Blacklist Controller-> Blacklist Manager: BlacklistManager()
+
+activate Blacklist Manager
+Blacklist Manager->Blacklist Manager: BlacklistStatus(self, status)
+Blacklist Manager->Blacklist Service: BlacklistService()
+activate Blacklist Service
+Blacklist Service-> Blacklist Data Access Object: BlacklistStatus(status)
+activate Blacklist Data Access Object
+Blacklist Data Access Object->Blacklist Data Access Object: log database access
+database database
+Blacklist Data Access Object-> database: set blacklist status in user's database to enabled/disabled
+activate database
+Blacklist Data Access Object-> database: execute query
+Blacklist Data Access Object-> database: commit transaction
+database->Blacklist Data Access Object: return true
+deactivate database
+
+Blacklist Data Access Object->Blacklist Data Access Object: log database return time
+Blacklist Data Access Object->Blacklist Service: return true
+deactivate Blacklist Data Access Object
+
+Blacklist Service->Blacklist Manager: return true
+deactivate Blacklist Service
+Blacklist Manager->Blacklist Controller: return true
+deactivate Blacklist Manager
+Blacklist Controller->Blacklist View: return error code 500
+deactivate Blacklist Controller
+
+Blacklist View->User: Blacklist status unable \nto change to requested mode.
+deactivate Blacklist View
+
