@@ -1,6 +1,6 @@
 title User Management Create Users in System
 participant "System Administrator" as s
-participant HomeView Program
+participant UAD
 participant "User Account View" as view
 
 participant User Manager
@@ -8,25 +8,25 @@ participant "User Management \nService" as service
 participant Data Access Object
 database database
 
-s->HomeView Program: Create user
-activate HomeView Program
-HomeView Program->User Manager: new UserManager()
+s->UAD: Create user
+activate UAD
+UAD->User Manager: new UserManager()
 activate User Manager
 User Manager->service: new UMService()
 activate service
 service->Data Access Object: new UM.DAO()
 activate Data Access Object
 Data Access Object->Data Access Object: Constructor()
-HomeView Program->view: Create new User(string email, string fname, \nstring lname, string password, string role, \nDateTime registerTime) 
+UAD->view: Create new User(string email, string fname, \nstring lname, string password, string role, \nDateTime registerTime) 
 activate view
 view->view:verifyUser(string email, string fname, \nstring lname, string password, string role, \nDateTime registerTime)
-view->HomeView Program: return true
+view->UAD: return true
 deactivate view
-HomeView Program->User Manager: UserManager.CreateUser(user object)
+UAD->User Manager: UserManager.CreateUser(user object)
 User Manager->User Manager:verifyAdmin()
-User Manager->HomeView Program:return true
+User Manager->UAD:return true
 User Manager->User Manager:checkNewUser(user object)
-User Manager->HomeView Program:return true
+User Manager->UAD:return true
 User Manager->service: UMServiceCreateUser(user object)
 service->Data Access Object:UM.DAOCreateUser(user object)
 Data Access Object->database:createUser(user object)
@@ -39,7 +39,7 @@ Data Access Object->service:return false
 deactivate Data Access Object
 service->User Manager:return false
 deactivate service
-User Manager->HomeView Program:return "Account creation unsuccessful. Account already exists in system."
+User Manager->UAD:return "Account creation unsuccessful. Account already exists in system."
 deactivate User Manager
-HomeView Program->s:return "Account creation unsuccessful.\n Account already exists in system."
-deactivate HomeView Program
+UAD->s:return "Account creation unsuccessful.\n Account already exists in system."
+deactivate UAD

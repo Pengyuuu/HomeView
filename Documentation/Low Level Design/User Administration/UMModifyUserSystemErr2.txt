@@ -1,6 +1,6 @@
 title Modify Users in System
 participant "System Administrator" as s
-participant HomeView Program
+participant UAD
 
 
 participant User Manager
@@ -8,9 +8,9 @@ participant "User Management \nService" as service
 participant Data Access Object
 database database
 
-s->HomeView Program: selects a user account and \nchooses whether to Delete, Update,\nEnable, Disable the account
-activate HomeView Program
-HomeView Program->User Manager: new UserManager()
+s->UAD: selects a user account and \nchooses whether to Delete, Update,\nEnable, Disable the account
+activate UAD
+UAD->User Manager: new UserManager()
 activate User Manager
 User Manager->service: new UMService()
 activate service
@@ -20,9 +20,9 @@ Data Access Object->Data Access Object: Constructor()
 
 
 
-HomeView Program->User Manager: UserManager.ModifyUser(user, modifications)
+UAD->User Manager: UserManager.ModifyUser(user, modifications)
 User Manager->User Manager:verifyAdmin()
-User Manager->HomeView Program:return true
+User Manager->UAD:return true
 
 
 User Manager->service: UMServiceModifyUser(user, modifications)
@@ -38,7 +38,7 @@ Data Access Object->service:return false
 deactivate Data Access Object
 service->User Manager:return false
 deactivate service
-User Manager->HomeView Program:return "Unable to make specified modifications "
+User Manager->UAD:return "Unable to make specified modifications "
 deactivate User Manager
-HomeView Program->s:return "Unable to make specified modifications"
-deactivate HomeView Program
+UAD->s:return "Unable to make specified modifications"
+deactivate UAD

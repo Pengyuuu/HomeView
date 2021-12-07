@@ -1,15 +1,15 @@
 title Modify Users in System
 participant "System Administrator" as s
-participant HomeView Program
+participant UAD
 
 
 participant User Manager
 participant "User Management \nService" as service
 participant Data Access Object
 
-s->HomeView Program: selects a user account and \nchooses whether to Delete, Update,\nEnable, Disable the account
-activate HomeView Program
-HomeView Program->User Manager: new UserManager()
+s->UAD: selects a user account and \nchooses whether to Delete, Update,\nEnable, Disable the account
+activate UAD
+UAD->User Manager: new UserManager()
 activate User Manager
 User Manager->service: new UMService()
 activate service
@@ -19,12 +19,12 @@ Data Access Object->Data Access Object: Constructor()
 
 
 
-HomeView Program->User Manager: UserManager.ModifyUser(user, modifications)
+UAD->User Manager: UserManager.ModifyUser(user, modifications)
 User Manager->User Manager:verifyAdmin()
-User Manager->HomeView Program:return false
+User Manager->UAD:return false
 deactivate service
 deactivate User Manager
 deactivate Data Access Object
-HomeView Program->s:return "Unauthorized access."
+UAD->s:return "Unauthorized access."
 
 
