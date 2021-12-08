@@ -1,0 +1,23 @@
+title Show ActWiki
+
+participant User
+participant ActWiki Controller
+participant ActWiki Manager
+
+
+activate User
+User ->ActWiki Controller: User clicks on ActWiki
+activate ActWiki Controller
+ActWiki Controller ->ActWiki Manager:new ActWikiManager(self)
+activate ActWiki Manager
+ActWiki Manager ->ActWiki Manager: ctor(Controller)
+ActWiki Manager -->ActWiki Controller:ActWikiManager() instance
+deactivate ActWiki Manager 
+ActWiki Controller ->ActWiki Manager:ActWikiManager.ActWikiPage()
+activate ActWiki Manager
+
+ActWiki Controller<--ActWiki Manager:return ActWikiResource
+deactivate ActWiki Manager
+User<--ActWiki Controller:displayActWikiHome(ActWikiResource)
+
+

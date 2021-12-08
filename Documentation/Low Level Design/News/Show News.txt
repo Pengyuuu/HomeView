@@ -1,0 +1,42 @@
+title Show News Page
+
+participant User
+participant News Controller
+participant News Manager
+participant News Service
+participant Data Access Object
+participant SQL Server
+
+activate User
+User ->News Controller: User clicks on News Page
+activate News Controller
+News Controller ->News Manager:new NewsManager(self)
+activate News Manager
+News Manager ->News Manager: ctor(Controller)
+News Manager -->News Controller:NewsManager() instance
+deactivate News Manager 
+News Controller ->News Manager:NewsManager.getArticles()
+activate News Manager
+News Manager->News Service:new NewsService(self)
+activate News Service
+News Service->News Service:ctor(NewsManager)
+News Manager<--News Service:NewsService instance
+deactivate News Service
+News Manager ->News Service:getArticles()
+activate News Service
+News Service ->Data Access Object: new DAO()
+activate Data Access Object
+Data Access Object ->Data Access Object:ctor()
+Data Access Object -->News Service: DAO() instance
+deactivate Data Access Object
+News Service ->Data Access Object:DAO.read(*)
+activate Data Access Object
+Data Access Object ->SQL Server:select * from articles
+activate SQL Server
+SQL Server -->Data Access Object:return List<article>
+deactivate SQL Server
+News Service<--Data Access Object:return List<Article>
+News Manager<--News Service:return List<Article>
+News Controller<--News Manager:return List<Article>
+User<--News Controller:displayNewsHome(List<Article>)
+

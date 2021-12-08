@@ -1,0 +1,45 @@
+title Search Actor/Actress
+
+participant User
+participant ActWiki Controller
+participant ActWiki Manager
+participant ActWiki Service
+participant Data Access Object
+participant SQL Server
+
+activate User
+User ->ActWiki Controller: User enters actor/actress on ActWiki
+activate ActWiki Controller
+User ->ActWiki Controller: User enters search
+ActWiki Controller ->ActWiki Manager:new ActWikiManager(self)
+activate ActWiki Manager
+ActWiki Manager ->ActWiki Manager: ctor(Controller)
+ActWiki Manager -->ActWiki Controller:ActWikiManager() instance
+deactivate ActWiki Manager 
+ActWiki Controller ->ActWiki Controller: parseEntry(entry)
+ActWiki Controller ->ActWiki Manager:ActWikiManager.getActors(search)
+activate ActWiki Manager
+ActWiki Manager->ActWiki Service:new ActWikiService(self)
+activate ActWiki Service
+ActWiki Service->ActWiki Service:ctor(ActWikiManager)
+ActWiki Manager<--ActWiki Service:ActWikiService instance
+deactivate ActWiki Service
+ActWiki Manager ->ActWiki Service:searchArticles(search)
+activate ActWiki Service
+ActWiki Service ->Data Access Object: new DAO()
+activate Data Access Object
+Data Access Object ->Data Access Object:ctor()
+Data Access Object -->ActWiki Service: DAO() instance
+deactivate Data Access Object
+ActWiki Service ->Data Access Object:DAO.read(actors)
+activate Data Access Object
+Data Access Object ->SQL Server:select actors from actors_table
+activate SQL Server
+SQL Server -->Data Access Object:return List<actor>
+deactivate SQL Server
+ActWiki Service<--Data Access Object:return List<Actor>
+ActWiki Manager<--ActWiki Service:return List<Actor>
+ActWiki Controller<--ActWiki Manager:return List<Actor>
+User<--ActWiki Controller:displayActWikiResults(List<Actor>)
+
+
