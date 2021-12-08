@@ -1,0 +1,38 @@
+
+
+participant User
+participant Web Page
+participant Logging Manager
+participant Logging Service
+participant Data Access Object
+participant SQL Server
+
+participantspacing equal
+
+
+activate User
+User ->Web Page: Non-critical User Action
+deactivate User
+
+activate Web Page
+Web Page -> Web Page: any user action
+Web Page -> Web Page: call user action method
+Web Page ->Logging Manager: call info type log
+deactivate Web Page
+
+activate Logging Manager
+activate Logging Service
+Logging Manager ->Logging Manager: new log();
+Logging Manager ->Logging Service: log.info(msg)
+
+deactivate Logging Manager
+
+Logging Service ->Logging Service : add sessionID, DateTime, IP, and msg/action type
+
+activate Data Access Object
+Logging Service ->Data Access Object: log.create(log logFile)
+activate SQL Server
+Data Access Object ->SQL Server: .csv log file stored into database
+
+
+

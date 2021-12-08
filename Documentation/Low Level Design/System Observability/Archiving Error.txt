@@ -1,0 +1,60 @@
+
+
+participant SQL Server
+participant Archiving Controller
+participant Archiving Manager
+participant Archiving Service
+participant SQL Data Access Object
+participant Archiving Server
+activate SQL Server
+SQL Server ->Archiving Controller: 00:00:00AM 1st of month \noffload log entries >30 days\nsends logs
+activate Archiving Controller
+group #FFFFFF Not started on time/did not grab logs >30 days #black
+SQL Server ->Archiving Controller: Archival process not start on time / \ndid not grab logs >30 days
+Archiving Controller -->Archiving Controller:return false 
+end
+
+Archiving Controller ->Archiving Manager: new Archiving Manager()
+activate Archiving Manager
+Archiving Manager ->Archiving Manager: constructor()
+Archiving Manager -->Archiving Controller: Archiving Manager Instance
+
+Archiving Controller ->Archiving Controller: create list of oldLogs
+
+Archiving Controller ->Archiving Manager: list oldLogs
+
+
+Archiving Manager ->Archiving Manager: compress(list oldLogs)
+group #FFFFFF Not successfully compressed/consolidated #black
+Archiving Manager ->Archiving Manager: not successfully compressed/consolidated
+Archiving Manager -->Archiving Controller: return false
+end
+
+Archiving Manager ->Archiving Manager: create(list oldLogs), \ncreate a list of compressed/consolidated logs
+
+Archiving Manager ->Archiving Service: compressed list oldLogs
+activate Archiving Service
+Archiving Service ->SQL Data Access Object: compressed list oldLogs
+activate SQL Data Access Object
+SQL Data Access Object ->Archiving Server: compressed logs stored in database
+activate Archiving Server
+group #FFFFFF Logs not successfully stored #black
+SQL Data Access Object ->Archiving Server: not successfully stored
+Archiving Server-->Archiving Controller: return false
+end
+
+Archiving Server -->SQL Data Access Object: return true
+
+deactivate Archiving Server
+SQL Data Access Object -->Archiving Service: return true
+deactivate SQL Data Access Object
+Archiving Service -->Archiving Manager: return true
+Archiving Manager -->Archiving Controller: return true
+deactivate Archiving Service
+Archiving Controller -->SQL Server: delete archived files
+deactivateafter Archiving Manager
+group #FFFFFF Archived files not deleted #black
+Archiving Controller -->SQL Server: files are not deleted
+Archiving Controller -->Archiving Controller: return false
+end
+

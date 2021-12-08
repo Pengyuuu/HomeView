@@ -1,0 +1,37 @@
+
+
+participant SQL Server
+participant Archiving Controller
+participant Archiving Manager
+participant Archiving Service
+participant SQL Data Access Object
+participant Archiving Server
+
+SQL Server ->Archiving Controller: 00:00:00AM 1st of month \noffload log entries >30 days\nsends logs
+
+Archiving Controller ->Archiving Manager: new Archiving Manager()
+Archiving Manager ->Archiving Manager: constructor()
+Archiving Manager -->Archiving Controller: Archiving Manager Instance
+
+Archiving Controller ->Archiving Controller: create list of oldLogs
+
+Archiving Controller ->Archiving Manager: list oldLogs
+
+
+Archiving Manager ->Archiving Manager: compress(list oldLogs)
+
+Archiving Manager ->Archiving Manager: create(list oldLogs), \ncreate a list of compressed logs
+
+Archiving Manager ->Archiving Service: compressed list oldLogs
+
+Archiving Service ->SQL Data Access Object: compressed list oldLogs
+
+SQL Data Access Object ->Archiving Server: compressed logs stored in database
+
+Archiving Server -->SQL Data Access Object: return true
+SQL Data Access Object -->Archiving Service: return true
+Archiving Service -->Archiving Manager: return true
+Archiving Manager -->Archiving Controller: return true
+Archiving Controller -->SQL Server: delete archived files
+
+

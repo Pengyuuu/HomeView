@@ -1,0 +1,39 @@
+participant System Admin
+participant UAD Controller
+participant UAD Manager
+participant UAD Service
+participant UAD Data Access Object
+
+System Admin ->UAD Controller: clicks on Usage Analysis Dashboard
+activate UAD Controller
+
+UAD Controller ->UAD Manager: new UAD Manager()
+
+activate UAD Manager
+
+UAD Manager ->UAD Manager: constructor
+
+UAD Manager -->UAD Controller: UAD instance
+UAD Controller ->UAD Manager: UAD.create(user)
+
+
+UAD Manager ->UAD Service:UAD.retrieveGraphData(), returns list of ICharts
+
+activate UAD Service
+
+UAD Service ->UAD Service:isAuthorized(requiredPermissionsPassed), admin level permissions needed
+
+UAD Service->UAD Service:constructor, instatiate graph components
+UAD Service->UAD Data Access Object:Data.RetrieveDataGraph()
+
+activate UAD Data Access Object
+
+UAD Data Access Object ->UAD Data Access Object: isAuthorized(requiredPermissionsPassed)
+UAD Data Access Object -->UAD Service: return true
+
+UAD Service->UAD Service: takes the data and parses the list of dash data into the graph components
+UAD Service -->UAD Manager:return ResponseDAO.Enum<lGraphs>
+UAD Manager -->UAD Controller:return ResponseDAO.Enum<lGraphs>
+UAD Controller -->System Admin:return ResponseDAO.Enum<lGraphs>
+
+
