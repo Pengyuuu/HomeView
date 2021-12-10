@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj": {}
+    "C:\\Users\\ctlam\\Desktop\\491\\Project\\HomeView\\Unite.HomeView.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj": {
+    "C:\\Users\\ctlam\\Desktop\\491\\Project\\HomeView\\Unite.HomeView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj",
+        "projectUniqueName": "C:\\Users\\ctlam\\Desktop\\491\\Project\\HomeView\\Unite.HomeView.csproj",
         "projectName": "Unite.HomeView",
-        "projectPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj",
-        "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\obj\\",
+        "projectPath": "C:\\Users\\ctlam\\Desktop\\491\\Project\\HomeView\\Unite.HomeView.csproj",
+        "packagesPath": "C:\\Users\\ctlam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ctlam\\Desktop\\491\\Project\\HomeView\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ctlam\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
