@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "rO694tULJ1XC9tIPMzmr0xwP9L/sFu2BoiaJK252t5FHR1sipJjBdvhuCS7YeWfVSWvlyUsQC7/8ufwZTw0BGw==",
+  "dgSpecHash": "9y0emdCg70ifCxBxzumT4nfuia6Fsne38R9mf2JYIP8HZwue6fzxVSBxqxwzFed/ckSFfJrI4E8K4esC516iRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
