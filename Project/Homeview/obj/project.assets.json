@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danny\\Google Drive\\devProjects\\VisualProjects\\HomeView\\HomeView\\HomeView.csproj",
+      "projectUniqueName": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\HomeView.csproj",
       "projectName": "HomeView",
-      "projectPath": "C:\\Users\\danny\\Google Drive\\devProjects\\VisualProjects\\HomeView\\HomeView\\HomeView.csproj",
+      "projectPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\HomeView.csproj",
       "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danny\\Google Drive\\devProjects\\VisualProjects\\HomeView\\HomeView\\obj\\",
+      "outputPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

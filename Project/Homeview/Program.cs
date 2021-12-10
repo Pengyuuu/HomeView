@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace HomeView
+namespace Homeview
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("git");
+            Console.WriteLine("Hello World!");
         }
     }
 }

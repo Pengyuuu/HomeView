@@ -5,9 +5,4 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Logger\" />
-    <Folder Include="UM\" />
-  </ItemGroup>
-
 </Project>
