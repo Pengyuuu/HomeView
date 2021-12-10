@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Homeview
+namespace Unite.Homeview
 {
     class Program
     {
