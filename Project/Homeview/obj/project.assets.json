@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\HomeView.csproj",
-      "projectName": "HomeView",
-      "projectPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\HomeView.csproj",
+      "projectUniqueName": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj",
+      "projectName": "Unite.HomeView",
+      "projectPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\Unite.HomeView.csproj",
       "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\danny\\Source\\Repos\\Project\\HomeView\\obj\\",
       "projectStyle": "PackageReference",

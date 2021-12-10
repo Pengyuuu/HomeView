@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeView", "HomeView\HomeView.csproj", "{D388BBEE-0A96-490F-88BF-BA8A0936A5D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unite.HomeView", "HomeView\Unite.HomeView.csproj", "{D388BBEE-0A96-490F-88BF-BA8A0936A5D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
