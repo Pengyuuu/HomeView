@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "Hq4Uh577E0ZMSHsnlFrMzIojaXitpf8QIzBvflpXwCt0Gkppr5Luy44p+IL8Ly/7tAKORpyuYxHfx6zCijtD9A==",
+  "dgSpecHash": "9y0emdCg70ifCxBxzumT4nfuia6Fsne38R9mf2JYIP8HZwue6fzxVSBxqxwzFed/ckSFfJrI4E8K4esC516iRw==",
   "success": true,
   "projectFilePath": "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\lamer\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
