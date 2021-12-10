@@ -2,7 +2,11 @@
 
 public class User
 {
-	public User()
+	string firstName;
+	string lastName;
+	string email;
+
+	public User(char firstName,  )
 	{		
 	}
 }
