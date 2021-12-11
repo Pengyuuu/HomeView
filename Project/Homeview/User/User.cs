@@ -21,4 +21,39 @@ public class User
 		regDate = DateTime.UtcNow;
 
 	}
+
+	public string getfirst()
+    {
+		return this.firstName;
+    }
+
+	public string getlast()
+    {
+		return this.lastName;
+    }
+
+	public string getemail()
+    {
+		return this.email;
+    }
+
+	public string getpw()
+    {
+		return this.password;
+    }
+
+	public DateTime getdob()
+    {
+		return this.dob;
+    }
+
+	public string getdisp()
+    {
+		return this.dispName;
+    }
+
+	public DateTime getreg()
+    {
+		return this.regDate;
+    }
 }
