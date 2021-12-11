@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj": {}
+    "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj": {
+    "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
+        "projectUniqueName": "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
         "projectName": "Unite.HomeView",
-        "projectPath": "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
-        "packagesPath": "C:\\Users\\lamer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lamer\\Source\\Repos\\HomeView\\Project\\HomeView\\obj\\",
+        "projectPath": "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
+        "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lamer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,12 +39,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.Extensions.Logging": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
