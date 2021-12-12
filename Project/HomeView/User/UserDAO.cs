@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 // need nuget
 
-public class UserDAO
+class UserDAO
 {
 	public UserDAO()
 	{
@@ -12,7 +12,7 @@ public class UserDAO
     }
 
 	public Boolean createUser(User u) {
-
+        Boolean success = true;
         SqlConnection connection = new SqlConnection(@connectionString);
 
 
@@ -39,13 +39,13 @@ public class UserDAO
         catch (SqlException e)
         {
             Console.WriteLine("Error Generated. Details: " + e.ToString());
-            return false;
+            success = false;
         }
         finally
         {
             connection.Close();
         }
 
-        return true;
+        return success;
     }
 }

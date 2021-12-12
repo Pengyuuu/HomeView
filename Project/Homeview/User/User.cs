@@ -1,14 +1,15 @@
 ﻿using System;
 
+//namespace UserManagement
 public class User
 {
-	string firstName;
-	string lastName;
-	string email;
-	string password;
-	DateTime dob;
-	string dispName;
-	DateTime regDate;
+	private string firstName;
+	private string lastName;
+	private string email;
+	private string password;
+	private DateTime dob;
+	private string dispName;
+	private DateTime regDate;
 
 	public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName)
 	{
