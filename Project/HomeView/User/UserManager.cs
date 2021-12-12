@@ -64,7 +64,7 @@ class UserManager
     }
 
 
-	public String UserManager.CreateUser(User u)
+	public String UserManagerCreateUser(User u)
     {
 		Boolean adminCheck = verifyAdmin();
 		Boolean newuserCheck = checkNewUser();
@@ -81,4 +81,25 @@ class UserManager
 		string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 		return m;
     }
+
+	/* Modifies a user record in the system 
+	 * 2 = Update information
+	 * 3 = Delete account
+	 * 4 = Disable
+	 * 5 = Enable
+	 */
+	public String UserManagerModifyUser(User u, int mode)
+	{
+		Boolean adminCheck = verifyAdmin();
+
+		if (!adminCheck)
+		{
+			return "Unauthorized access.";
+		}
+		
+
+
+		string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+		return m;
+	}
 }

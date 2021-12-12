@@ -15,6 +15,11 @@ class UMService
 
     }
 
+	public Boolean UMServiceModifyUser(User u)
+	{
+		return userdao.modifyUser(u);
+
+	}
 
 }
 
