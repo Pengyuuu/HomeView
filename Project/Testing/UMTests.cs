@@ -128,9 +128,11 @@ namespace UMTests
         public void UserManager_VerifyAdminShouldVerifyIfAdmin()
         {
             Boolean expected = true;
+            string expectedUser = "TeamUnite";
+            string expectedPW = "Testing";
             
             UserManager userManagerTest = new UserManager();
-            Boolean actual = userManagerTest.verifyAdmin();
+            Boolean actual = userManagerTest.verifyAdmin(expectedUser, expectedPW);
 
             Assert.Equal(expected, actual);
         }
@@ -147,12 +149,48 @@ namespace UMTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
         public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
         {
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank");
+            string expected = "User account record creation successful.";
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager();
+            String actual = userManager.UserManagerCreateUser(adminInput, pw, newUser);
+
+            Assert.Equal(expected, actual);
 
 
         }
 
+        // USER SHOULD BE IN DATABASE FOR THIS TEST
+        [Fact]
+        public void UserManager_CreationUserShouldDisplayUserCreactionUnsuccessful()
+        {
+            string expected = "Account creation unsuccessful. Account already exists in system. ";
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager();
+            String actual = userManager.UserManagerCreateUser(adminInput, pw, actualUser);
+
+            Assert.Equal(expected, actual);
+        }
+
+
+        public void UserManager_ModifyUserMode1ShouldDisplayIfInfoUpdated()
+        {
+
+        }
+
+        public void UserManager_ModifyUserMode2ShouldDisplayIfAccountDeleted()
+        {
+
+        }
+
+        public void 
         // Probably add separate test for each modify mode later
         public void UserManager_ModifyUserShouldDisplayUserModifySuccess()
         {
