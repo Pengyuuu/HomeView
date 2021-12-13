@@ -29,12 +29,12 @@ namespace Unite.HomeView.User
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
-                command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = u.getfirst();
-                command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = u.getlast();
+                command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = u.getfirst();
+                command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = u.getlast();
                 command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail();
-                command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = u.getpw();
+                command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = u.getpw();
                 command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob();
-                command.Parameters.AddWithValue("@dispName", SqlDbType.NVarChar).Value = u.getdisp();
+                command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = u.getdisp();
                 command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
                 command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = u.getstatus();
 
@@ -74,12 +74,12 @@ namespace Unite.HomeView.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
-                    command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = userMod.getfirst();
-                    command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = userMod.getlast();
+                    command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.getfirst();
+                    command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.getlast();
                     command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = userMod.getemail();
-                    command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = userMod.getpw();
+                    command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = userMod.getpw();
                     command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.getdob();
-                    command.Parameters.AddWithValue("@dispName", SqlDbType.NVarChar).Value = userMod.getdisp();
+                    command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
                     command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = userMod.getreg();
                     command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = userMod.getstatus();
                     command.ExecuteNonQuery();

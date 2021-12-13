@@ -14,8 +14,9 @@ namespace Unite.HomeView.User
 		private string dispName;
 		private DateTime regDate;
 		private int status;
-
-		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName)
+		private Role role;
+		
+		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
 		{
 			id++;
 			userId = id;
@@ -27,6 +28,7 @@ namespace Unite.HomeView.User
 			dob = birth;
 			regDate = DateTime.UtcNow;
 			status = 1;
+			role = r;
 
 		}
 
@@ -73,6 +75,18 @@ namespace Unite.HomeView.User
 		public int getstatus()
         {
 			return this.status;
+        }
+		
+		public Role getrole()
+        {
+			return this.role;
+        }
+
+		public enum Role
+        {
+			SystemAdmin = 1,
+			Admin,
+			User
         }
 	}
 }
