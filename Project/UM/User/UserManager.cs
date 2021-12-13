@@ -1,7 +1,7 @@
 ﻿using System;
 
 /* User Authentication and Authorization Manager */
-namespace Unite.HomeView.User {
+namespace UM.User {
 	public class UserManager
 	{
 		private String admin = "TeamUnite";

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
-namespace Unite.HomeView.User
+namespace UM.User
 {
     class UserDAO
     {
+        private string connectionString;
         public UserDAO()
         {
 
-            string connectionString = "";
+            string connectionString = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
 
 
         }
@@ -19,7 +21,7 @@ namespace Unite.HomeView.User
         {
             Boolean success = true;
             
-            SqlConnection connection = new SqlConnection(@connectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
             try
