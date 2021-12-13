@@ -14,13 +14,10 @@ namespace Unite.HomeView.User {
 		}
 
 		/* Verifies if actor is system administrator */
-		public Boolean verifyAdmin()
+		public Boolean verifyAdmin(string adminInput, string pw)
 		{
-			Console.WriteLine("Enter username:");
-			string adminUsername = Console.ReadLine();
-			Console.WriteLine("Enter password:");
-			string pw = Console.ReadLine();
-			Boolean check1 = adminUsername == this.admin;
+			
+			Boolean check1 = adminInput == this.admin;
 			Boolean check2 = pw == this.adminpw;
 			return check1 == check2;
 
@@ -62,9 +59,9 @@ namespace Unite.HomeView.User {
 		}
 
 		/* Creates a new user record in system */
-		public String UserManagerCreateUser(User u)
+		public String UserManagerCreateUser(string adminInput, string pw, User u)
 		{
-			Boolean adminCheck = verifyAdmin();
+			Boolean adminCheck = verifyAdmin(adminInput, pw);
 			Boolean newuserCheck = checkNewUser(u);
 
 			if (!adminCheck)
@@ -86,23 +83,13 @@ namespace Unite.HomeView.User {
 		 * 3 = Disable
 		 * 4 = Enable
 		 */
-		public String UserManagerModifyUser(User u, int mode, User userMod)
+		public String UserManagerModifyUser(string adminInput, string pw, User u, int mode, User userMod)
 		{
-			Boolean adminCheck = verifyAdmin();
+			Boolean adminCheck = verifyAdmin(adminInput, pw);
 
 			if (!adminCheck)
 			{
 				return "Unauthorized access.";
-			}
-
-
-			// sep mode for update
-			if (mode == 1)
-            {
-				Console.WriteLine("Enter new first name:");
-				string newFirst = Console.ReadLine();
-				Console.WriteLine("Enter new last name:");
-				string pw = Console.ReadLine();
 			}
 
 			string m = this.umService.UMServiceModifyUser(u, mode, userMod) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
