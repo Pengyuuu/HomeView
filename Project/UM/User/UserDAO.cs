@@ -11,7 +11,7 @@ namespace UM.User
         public UserDAO()
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
 
 
         }
@@ -20,8 +20,8 @@ namespace UM.User
         public Boolean createUser(User u)
         {
             Boolean success = true;
-            
-            SqlConnection connection = new SqlConnection(connectionString);
+            string conn = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Data\\Database\\Homeview.mdf;Integrated Security=True";
+            SqlConnection connection = new SqlConnection(conn);
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
             try
@@ -32,7 +32,7 @@ namespace UM.User
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
-                command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = u.getfirst();
+                command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = u.getfirst();
                 command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = u.getlast();
                 command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail();
                 command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = u.getpw();
