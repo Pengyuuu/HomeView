@@ -60,7 +60,7 @@ namespace Unite.HomeView.User
 		 */
         public Boolean modifyUser(User u, int mode)
         {
-            Boolean su = true;
+            Boolean success = true;
             SqlConnection connection = new SqlConnection(@connectionString);
             string query = "";
      
