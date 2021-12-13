@@ -17,7 +17,7 @@ namespace UM.User
 
 		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName)
 		{
-			userId++;
+			id++;
 			userId = id;
 			firstName = fName;
 			lastName = lName;

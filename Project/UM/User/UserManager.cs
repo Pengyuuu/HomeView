@@ -14,13 +14,10 @@ namespace UM.User {
 		}
 
 		/* Verifies if actor is system administrator */
-		public Boolean verifyAdmin()
+		public Boolean verifyAdmin(string adminInput, string pw)
 		{
-			Console.WriteLine("Enter username:");
-			string adminUsername = Console.ReadLine();
-			Console.WriteLine("Enter password:");
-			string pw = Console.ReadLine();
-			Boolean check1 = adminUsername == this.admin;
+			
+			Boolean check1 = adminInput == this.admin;
 			Boolean check2 = pw == this.adminpw;
 			return check1 == check2;
 
@@ -62,9 +59,9 @@ namespace UM.User {
 		}
 
 		/* Creates a new user record in system */
-		public String UserManagerCreateUser(User u)
+		public String UserManagerCreateUser(string adminInput, string pw, User u)
 		{
-			Boolean adminCheck = verifyAdmin();
+			Boolean adminCheck = verifyAdmin(adminInput, pw);
 			Boolean newuserCheck = checkNewUser(u);
 
 			if (!adminCheck)
@@ -86,19 +83,16 @@ namespace UM.User {
 		 * 3 = Disable
 		 * 4 = Enable
 		 */
-		public String UserManagerModifyUser(User u, int mode)
+		public String UserManagerModifyUser(string adminInput, string pw, User u, int mode, User userMod)
 		{
-			Boolean adminCheck = verifyAdmin();
+			Boolean adminCheck = verifyAdmin(adminInput, pw);
 
 			if (!adminCheck)
 			{
 				return "Unauthorized access.";
 			}
 
-
-			// sep mode for update
-
-			string m = this.umService.UMServiceModifyUser(u, mode) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+			string m = this.umService.UMServiceModifyUser(u, mode, userMod) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			return m;
 		}
 	}
