@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
-using System.Configuration;
 
 namespace UM.User
 {
     class UserDAO
     {
-        private string connectionString;
         public UserDAO()
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
+            string connectionString = "";
 
 
         }
@@ -21,7 +19,7 @@ namespace UM.User
         {
             Boolean success = true;
             
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(@connectionString);
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
             try
