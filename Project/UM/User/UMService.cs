@@ -17,9 +17,9 @@ namespace Unite.HomeView.User
 
 		}
 
-		public Boolean UMServiceModifyUser(User u, int mode)
+		public Boolean UMServiceModifyUser(User u, int mode, User userMod)
 		{
-			return userdao.modifyUser(u, mode);
+			return userdao.modifyUser(u, mode, userMod);
 
 		}
 

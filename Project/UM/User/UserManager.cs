@@ -86,7 +86,7 @@ namespace Unite.HomeView.User {
 		 * 3 = Disable
 		 * 4 = Enable
 		 */
-		public String UserManagerModifyUser(User u, int mode)
+		public String UserManagerModifyUser(User u, int mode, User userMod)
 		{
 			Boolean adminCheck = verifyAdmin();
 
@@ -97,8 +97,15 @@ namespace Unite.HomeView.User {
 
 
 			// sep mode for update
+			if (mode == 1)
+            {
+				Console.WriteLine("Enter new first name:");
+				string newFirst = Console.ReadLine();
+				Console.WriteLine("Enter new last name:");
+				string pw = Console.ReadLine();
+			}
 
-			string m = this.umService.UMServiceModifyUser(u, mode) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+			string m = this.umService.UMServiceModifyUser(u, mode, userMod) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			return m;
 		}
 	}

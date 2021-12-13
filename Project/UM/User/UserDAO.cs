@@ -62,7 +62,7 @@ namespace Unite.HomeView.User
 		 * 3 = Disable
 		 * 4 = Enable
 		 */
-        public Boolean modifyUser(User u, int mode)
+        public Boolean modifyUser(User u, int mode, User userMod)
         {
             Boolean success = true;
             SqlConnection connection = new SqlConnection(@connectionString);
@@ -129,7 +129,9 @@ namespace Unite.HomeView.User
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlCommand command = new SqlCommand("DisableUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record disabled successfully");
                 }
@@ -150,7 +152,9 @@ namespace Unite.HomeView.User
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlCommand command = new SqlCommand("EnableUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record enabled successfully");
                 }
