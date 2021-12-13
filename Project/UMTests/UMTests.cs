@@ -125,5 +125,20 @@ namespace UMTests
             // Assert
             Assert.Equal(expected, actual.getreg());
         }
+
+        public void UserDAO_CreateUserShouldCreateUserAndSaveToDatabase()
+        {
+
+        }
+
+        public void UserDAO_ModifyUserShouldModifyUserAndSaveToDatabase()
+        {
+
+        }
+
+        public void UserManager_VerifyAdminShouldVerifyIfAdmin()
+        {
+
+        }
     }
 }
