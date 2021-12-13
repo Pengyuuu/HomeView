@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unite.HomeView.Contracts;
+using Unite.HomeView.Logging;
 
 namespace Unite.HomeView.Logging
 {
@@ -43,6 +45,12 @@ namespace Unite.HomeView.Logging
             log.Level = level;
             log.Category = category;
             log.Timestamp = timestamp;
+        }
+
+        // This method should send the log to the data access object
+        private void create(Log logFile)
+        {
+
         }
     }
 }
