@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Local settings (.vs)",
+    "\\Project",
+    "\\Project\\HomeView",
+    "\\Project\\HomeView\\User"
   ],
-  "SelectedNode": "\\Unite.Homeview.sln",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
