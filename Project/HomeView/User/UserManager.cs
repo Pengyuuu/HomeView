@@ -1,6 +1,4 @@
 ﻿using System;
-//using UserManagement.User;
-
 
 /* User Authentication and Authorization Manager */
 namespace Unite.HomeView.User {
@@ -8,9 +6,9 @@ namespace Unite.HomeView.User {
 	{
 		private String admin = "TeamUnite";
 		private String adminpw = "Testing";
-		private UMService = umservice;
+		private UMService umService;
 
-	public UserManager()
+		public UserManager()
 		{
 			umService = new UMService();
 		}
@@ -23,7 +21,7 @@ namespace Unite.HomeView.User {
 			Console.WriteLine("Enter password:");
 			string pw = Console.ReadLine();
 			Boolean check1 = adminUsername == this.admin ? true : false;
-			Boolean check2 = adminpw == this.adminpw ? true : false;
+			Boolean check2 = pw == this.adminpw ? true : false;
 			return check1 == check2;
 
 		}
@@ -37,7 +35,6 @@ namespace Unite.HomeView.User {
 
 			string pw = u.getpw();
 			int pwMinLength = 12;
-			int fields = 3;     // must have valid at least 12 char, at least 1 upper char, at least 1 non-alphanum char
 			Boolean containsUpper = false;
 			Boolean containsNonAlpha = false;
 			Boolean lengthCheck = false;
@@ -68,7 +65,7 @@ namespace Unite.HomeView.User {
 		public String UserManagerCreateUser(User u)
 		{
 			Boolean adminCheck = verifyAdmin();
-			Boolean newuserCheck = checkNewUser();
+			Boolean newuserCheck = checkNewUser(u);
 
 			if (!adminCheck)
 			{
