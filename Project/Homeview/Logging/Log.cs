@@ -8,13 +8,22 @@ namespace Unite.HomeView.Logging
 {
     class Log
     {
+        // Number identifier for the log
         public int Id { get; set; }
 
+        // Title of user performing operation
+        public string UserOperation { get; set; }
+
+        // Description of operation
         public string Description { get; set; }
 
-        public string Mycol { get; set; }
+        // Level of the log
+        public LogLevel Level { get; set; }
 
-        // I don't know what datatype timestamp is supposed to be
-        public string Timestamp { get; set; }
+        // Category of log
+        public LogCategory Category { get; set; }
+
+        // Timestamp operation was performed
+        public DateTime Timestamp { get; set; }
     }
 }
