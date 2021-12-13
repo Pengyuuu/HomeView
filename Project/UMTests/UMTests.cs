@@ -131,12 +131,39 @@ namespace UMTests
 
         }
 
+        // Probably add separate test for each modify mode later
         public void UserDAO_ModifyUserShouldModifyUserAndSaveToDatabase()
         {
 
         }
 
         public void UserManager_VerifyAdminShouldVerifyIfAdmin()
+        {
+
+        }
+
+        public void UserManager_CheckNewUserShouldCheckIfUserEnteredValidArguements()
+        {
+
+        }
+
+        public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
+        {
+
+        }
+
+        // Probably add separate test for each modify mode later
+        public void UserManager_ModifyUserShouldDisplayUserModifySuccess()
+        {
+
+        }
+
+        public void UMService_CreateUserShouldCheckForUserCreationDatabaseSuccess()
+        {
+
+        }
+
+        public void UMService_ModifyUserShouldCheckForUserModifyDatabaseSuccess()
         {
 
         }
