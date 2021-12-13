@@ -10,7 +10,7 @@ namespace UMTests
         [Theory]
         public void User_UserShouldBeCreatedAndAddedToDatabase()
         {
-            // Arrange more testing
+            // Arrange more testing change
 
 
             // Act
