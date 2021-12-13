@@ -2,7 +2,7 @@
 
 /* User Authentication and Authorization Manager */
 namespace Unite.HomeView.User {
-	class UserManager
+	public class UserManager
 	{
 		private String admin = "TeamUnite";
 		private String adminpw = "Testing";

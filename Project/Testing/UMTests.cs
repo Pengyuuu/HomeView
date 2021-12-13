@@ -1,11 +1,14 @@
 using Xunit;
 using System;
 using Unite.HomeView.User;
+
 namespace UMTests
 {
     public class UserTests
     {
-        
+        //12 characters, 1 uppercase, 1 nonalpha numeric
+        private static System.DateTime actualDate = new DateTime(2011, 6, 10);
+        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith");
         public void User_UserShouldBeCreatedAndAddedToDatabase()
         {
             // Arrange
@@ -26,10 +29,7 @@ namespace UMTests
             // Arrange
             String expected = "John";
 
-            // Act
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getfirst());
@@ -42,10 +42,7 @@ namespace UMTests
             // Arrange
             String expected = "Smith";
 
-            // Arrange
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getlast());
@@ -57,10 +54,7 @@ namespace UMTests
             // Arrange
             String expected = "JohnSmith@gmail.com";
 
-            // Arrange
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getemail());
@@ -72,10 +66,7 @@ namespace UMTests
             // Arrange
             String expected = "abc123";
 
-            // Arrange
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getpw());
@@ -87,10 +78,7 @@ namespace UMTests
             // Arrange
             System.DateTime expected = new DateTime(2011, 6, 10);
 
-            // Arrange
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getdob());
@@ -102,25 +90,21 @@ namespace UMTests
             // Arrange
             String expected = "JSmith";
 
-            // Arrange
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getdisp());
         }
 
+        // May or may not work... 
+        // Maybe access database to get reg time to verify.
         [Fact]
         public void User_GetRegShouldReturnRegistrationDate()
         {
             // Arrange
             System.DateTime expected = DateTime.UtcNow;
 
-            // Arrange
-            System.DateTime actualDate = new DateTime(2011, 6, 10);
-            User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
-
+            User actual = actualUser;
 
             // Assert
             Assert.Equal(expected, actual.getreg());
@@ -128,9 +112,6 @@ namespace UMTests
 
         public void UserDAO_CreateUserShouldCreateUserAndSaveToDatabase()
         {
-            // Arrange
-
-
 
         }
 
@@ -140,18 +121,34 @@ namespace UMTests
 
         }
 
+        // Not sure how this will run when tested
+        // Requires user input into console to verify if Admin
+        [Fact]
         public void UserManager_VerifyAdminShouldVerifyIfAdmin()
         {
+            Boolean expected = true;
+            
+            UserManager userManagerTest = new UserManager();
+            Boolean actual = userManagerTest.verifyAdmin();
 
+            Assert.Equal(expected, actual);
         }
 
+        [Fact]
         public void UserManager_CheckNewUserShouldCheckIfUserEnteredValidArguements()
         {
+            Boolean expected = true;
 
+            
+            UserManager userManager = new UserManager();
+            Boolean actual = userManager.checkNewUser(actualUser);
+
+            Assert.Equal(expected, actual);
         }
 
         public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
         {
+
 
         }
 
