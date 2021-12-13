@@ -6,12 +6,11 @@ namespace Unite.HomeView.User
 {
     class UserDAO
     {
+        private static string connectionString;
+
         public UserDAO()
         {
-
-            string connectionString = "";
-
-
+            connectionString = "";
         }
 
         /* Creates a new user record in system */
@@ -19,7 +18,7 @@ namespace Unite.HomeView.User
         {
             Boolean success = true;
             
-            SqlConnection connection = new SqlConnection(@connectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
             try
