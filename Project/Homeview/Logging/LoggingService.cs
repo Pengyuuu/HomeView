@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Unite.HomeView.Logging
 {
-    class LoggingService : Contracts.ILogService
+    class LoggingService : ILogService
     {
         // Creates a log object
         private Log log;
@@ -35,13 +35,11 @@ namespace Unite.HomeView.Logging
         }
 
         // Method to create log 
-        public void Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
+        public void Log(int id, string desc, string mycol, string timestamp)
         {
             log.Id = id;
-            log.UserOperation = userop;
             log.Description = desc;
-            log.Level = level;
-            log.Category = category;
+            log.Mycol = mycol;
             log.Timestamp = timestamp;
         }
     }
