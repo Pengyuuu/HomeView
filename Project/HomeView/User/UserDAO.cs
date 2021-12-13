@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-// need nuget
 
 namespace Unite.HomeView.User
 {
