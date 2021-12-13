@@ -4967,19 +4967,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danny\\.nuget\\packages\\": {}
+    "C:\\Users\\Rin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
+      "projectUniqueName": "F:\\Rin\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
       "projectName": "Unite.HomeView",
-      "projectPath": "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
-      "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\HomeView\\obj\\",
+      "projectPath": "F:\\Rin\\Source\\Repos\\HomeView\\Project\\HomeView\\Unite.HomeView.csproj",
+      "packagesPath": "C:\\Users\\Rin\\.nuget\\packages\\",
+      "outputPath": "F:\\Rin\\Source\\Repos\\HomeView\\Project\\HomeView\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Rin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
