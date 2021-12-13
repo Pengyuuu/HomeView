@@ -1,25 +1,28 @@
 ﻿using System;
 
-class UMService
+namespace Unite.HomeView.User
 {
-	private UserDAO userdao;
-
-	public UMService()
+	class UMService
 	{
-		userdao = new UserDAO();
-	}
+		private UserDAO userdao;
 
-	public Boolean UMServiceCreateUser(User u)
-    {
-		return userdao.createUser(u);
+		public UMService()
+		{
+			userdao = new UserDAO();
+		}
 
-    }
+		public Boolean UMServiceCreateUser(User u)
+		{
+			return userdao.createUser(u);
 
-	public Boolean UMServiceModifyUser(User u)
-	{
-		return userdao.modifyUser(u);
+		}
+
+		public Boolean UMServiceModifyUser(User u)
+		{
+			return userdao.modifyUser(u);
+
+		}
 
 	}
 
 }
-
