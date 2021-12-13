@@ -10,7 +10,7 @@ namespace UMTests
         [Theory]
         public void User_UserShouldBeCreatedAndAddedToDatabase()
         {
-            // Arrange
+            // Arrange  test
 
 
             // Act
@@ -18,7 +18,7 @@ namespace UMTests
             Unite.HomeView.User.User actual = new Unite.HomeView.User.User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, "JSmith");
 
             // Assert
-            string query = 
+            string query = "SELECT JSmith";
             SqlConnection connection = new SqlConnection(@connectionString);
             SqlCommand command = new SqlCommand(query, connection);
             try

@@ -21,7 +21,7 @@ namespace Unite.HomeView.User {
 			Console.WriteLine("Enter username:");
 			string adminUsername = Console.ReadLine();
 			Console.WriteLine("Enter password:");
-			stirng pw = Console.ReadLine();
+			string pw = Console.ReadLine();
 			Boolean check1 = adminUsername == this.admin ? true : false;
 			Boolean check2 = adminpw == this.adminpw ? true : false;
 			return check1 == check2;
