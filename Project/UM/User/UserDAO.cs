@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Data;
 
-namespace Unite.HomeView.User
+namespace UM.User
 {
     class UserDAO
     {
@@ -37,6 +37,7 @@ namespace Unite.HomeView.User
                 command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = u.getdisp();
                 command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
                 command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = u.getstatus();
+                command.Parameters.AddWithValue("@role", SqlDbType.Bit).Value = ((int)u.getrole());
 
                 command.ExecuteNonQuery();
                 Console.WriteLine("User record inserted successfully");
@@ -82,6 +83,8 @@ namespace Unite.HomeView.User
                     command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
                     command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = userMod.getreg();
                     command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = userMod.getstatus();
+                    command.Parameters.AddWithValue("@role", SqlDbType.Bit).Value = ((int)userMod.getrole());
+
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record updated successfully");
                 }
