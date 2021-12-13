@@ -26,7 +26,7 @@ namespace UMTests
             // Arrange
             String expected = "John";
 
-            // Arrange
+            // Act
             System.DateTime actualDate = new DateTime(2011, 6, 10);
             User actual = new User("John", "Smith", "JohnSmith@gmail.com", "abc123", actualDate, dName: "JSmith");
 
@@ -128,6 +128,9 @@ namespace UMTests
 
         public void UserDAO_CreateUserShouldCreateUserAndSaveToDatabase()
         {
+            // Arrange
+
+
 
         }
 
