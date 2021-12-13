@@ -4,8 +4,8 @@
 namespace UM.User {
 	public class UserManager
 	{
-		//private String admin = "TeamUnite";
-		//private String adminpw = "Testing";
+		private String admin = "TeamUnite";
+		private String adminpw = "Testing";
 		private UMService umService;
 
 		public UserManager()
