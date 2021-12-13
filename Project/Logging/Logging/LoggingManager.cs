@@ -41,9 +41,13 @@ namespace Logging.Logging
         }
 
         // Manager communicates with Service layer through this method
-        public void info(string desc)
+        public void Info(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
         {
+            // Create new logging service here
+            LoggingService logService = LoggingService.GetInstance;
 
+            // Call a logging service function to send in the log file
+            logService.Create(log);
         }
     }
 }

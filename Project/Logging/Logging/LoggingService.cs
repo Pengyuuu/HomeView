@@ -48,7 +48,7 @@ namespace Unite.HomeView.Logging
         }
 
         // This method should send the log to the data access object
-        private void create(Log logFile)
+        public void Create(Log logFile)
         {
 
         }
