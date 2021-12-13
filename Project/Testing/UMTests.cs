@@ -1,6 +1,7 @@
 using Xunit;
 using System;
-using Unite.HomeView.User;
+using UM.User;
+
 
 namespace UMTests
 {
