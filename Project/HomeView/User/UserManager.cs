@@ -1,6 +1,4 @@
 ﻿using System;
-//using UserManagement.User;
-
 
 /* User Authentication and Authorization Manager */
 namespace Unite.HomeView.User {
@@ -8,9 +6,9 @@ namespace Unite.HomeView.User {
 	{
 		private String admin = "TeamUnite";
 		private String adminpw = "Testing";
-		private UMService = umservice;
+		private UMService umService;
 
-	public UserManager()
+		public UserManager()
 		{
 			umService = new UMService();
 		}
@@ -22,8 +20,8 @@ namespace Unite.HomeView.User {
 			string adminUsername = Console.ReadLine();
 			Console.WriteLine("Enter password:");
 			string pw = Console.ReadLine();
-			Boolean check1 = adminUsername == this.admin ? true : false;
-			Boolean check2 = adminpw == this.adminpw ? true : false;
+			Boolean check1 = adminUsername == this.admin;
+			Boolean check2 = pw == this.adminpw;
 			return check1 == check2;
 
 		}
@@ -37,7 +35,6 @@ namespace Unite.HomeView.User {
 
 			string pw = u.getpw();
 			int pwMinLength = 12;
-			int fields = 3;     // must have valid at least 12 char, at least 1 upper char, at least 1 non-alphanum char
 			Boolean containsUpper = false;
 			Boolean containsNonAlpha = false;
 			Boolean lengthCheck = false;
@@ -64,11 +61,11 @@ namespace Unite.HomeView.User {
 
 		}
 
-
+		/* Creates a new user record in system */
 		public String UserManagerCreateUser(User u)
 		{
 			Boolean adminCheck = verifyAdmin();
-			Boolean newuserCheck = checkNewUser();
+			Boolean newuserCheck = checkNewUser(u);
 
 			if (!adminCheck)
 			{
@@ -84,10 +81,10 @@ namespace Unite.HomeView.User {
 		}
 
 		/* Modifies a user record in the system 
-		 * 2 = Update information
-		 * 3 = Delete account
-		 * 4 = Disable
-		 * 5 = Enable
+		 * 1 = Update information
+		 * 2 = Delete account
+		 * 3 = Disable
+		 * 4 = Enable
 		 */
 		public String UserManagerModifyUser(User u, int mode)
 		{
@@ -100,7 +97,8 @@ namespace Unite.HomeView.User {
 
 
 
-			string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+
+			string m = this.umService.UMServiceModifyUser(u, mode) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			return m;
 		}
 	}
