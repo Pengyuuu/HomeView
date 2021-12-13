@@ -10,32 +10,37 @@ namespace Unite.HomeView.User
 
             string connectionString = "";
 
+
         }
 
         /* Creates a new user record in system */
         public Boolean createUser(User u)
         {
             Boolean success = true;
+            
             SqlConnection connection = new SqlConnection(@connectionString);
 
-            string first = u.getfirst();
-            string last = u.getlast();
-            string email = u.getemail();
-            string disp = u.getdisp();
-            string pw = u.getpw();
-            string dob = u.getdob() + "";
-            string reg = u.getreg() + "";
-
-            string query1 = "INSERT INTO Users (firstName, lastName, email, password, dob, dispName, regDate) VALUES('";
-            string query2 = first + "','" + last + "','" + email + "','" + pw + "','" + dob + "','" + disp + "','" + reg + "')";
-            string query = query1 + query1;
-
+ 
             SqlCommand command = new SqlCommand(query, connection);
             try
             {
                 connection.Open();
+
+                // Insert New User Recor Stored Procedure
+                SqlCommand command = new SqlCommand("InsertUser", sqlCon);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Id", SqlDbType.int).Value = u.getid());
+                command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = u.getfirst());
+                command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = u.getlast());
+                command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail());
+                command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = u.getpw());
+                command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob());
+                command.Parameters.AddWithValue("@dispName", SqlDbType.NVarChar).Value = u.getdisp());
+                command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg());
+       
                 command.ExecuteNonQuery();
-                Console.WriteLine("Records Inserted Successfully");
+                Console.WriteLine("User record inserted successfully");
             }
             catch (SqlException e)
             {
@@ -92,12 +97,13 @@ namespace Unite.HomeView.User
             else if (mode == 2)
             {
                 
-                query = "DELETE FROM Users WHERE email = " + u.getemail();
-
                 SqlCommand command = new SqlCommand(query, connection);
                 try
                 {
                     connection.Open();
+                    SqlCommand command = new SqlCommand("DeleteUser", sqlCon);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", SqlDbType.int).Value = u.getid());
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record removed successfully");
                 }

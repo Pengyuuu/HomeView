@@ -4,6 +4,8 @@ namespace Unite.HomeView.User
 {
 	public class User
 	{
+		private static int id = 0;
+		private int userId;
 		private string firstName;
 		private string lastName;
 		private string email;
@@ -14,6 +16,8 @@ namespace Unite.HomeView.User
 
 		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName)
 		{
+			userId++;
+			userId = id;
 			firstName = fName;
 			lastName = lName;
 			email = email_address;
@@ -23,6 +27,11 @@ namespace Unite.HomeView.User
 			regDate = DateTime.UtcNow;
 
 		}
+
+		public int getid()
+        {
+			return userId;
+        }
 
 		public string getfirst()
 		{
