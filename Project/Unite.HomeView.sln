@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unite.UMTests", "UMTests\Unite.UMTests.csproj", "{ED5B3BC1-9575-4A52-B757-1AA128F2D192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UM.Tests", "UMTests\UM.Tests.csproj", "{ED5B3BC1-9575-4A52-B757-1AA128F2D192}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "Logging\Logging.csproj", "{B082DE41-8BA0-44F6-B1F2-5A4C19A9C42A}"
 EndProject
