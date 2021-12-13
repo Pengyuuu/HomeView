@@ -96,7 +96,7 @@ namespace Unite.HomeView.User {
 			}
 
 
-
+			// sep mode for update
 
 			string m = this.umService.UMServiceModifyUser(u, mode) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			return m;

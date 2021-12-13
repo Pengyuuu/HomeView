@@ -13,6 +13,7 @@ namespace Unite.HomeView.User
 		private DateTime dob;
 		private string dispName;
 		private DateTime regDate;
+		private int status;
 
 		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName)
 		{
@@ -25,6 +26,7 @@ namespace Unite.HomeView.User
 			dispName = dName;
 			dob = birth;
 			regDate = DateTime.UtcNow;
+			status = 1;
 
 		}
 
@@ -67,5 +69,10 @@ namespace Unite.HomeView.User
 		{
 			return this.regDate;
 		}
+
+		public int getstatus()
+        {
+			return this.status;
+        }
 	}
 }

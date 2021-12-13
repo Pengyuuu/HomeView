@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
-// nu
+using System.Data;
+
 namespace Unite.HomeView.User
 {
     class UserDAO
@@ -20,25 +21,24 @@ namespace Unite.HomeView.User
             
             SqlConnection connection = new SqlConnection(@connectionString);
 
- 
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand("InsertUser", connection);
             try
             {
                 connection.Open();
 
                 // Insert New User Recor Stored Procedure
-                SqlCommand command = new SqlCommand("InsertUser", sqlCon);
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@Id", SqlDbType.int).Value = u.getid());
-                command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = u.getfirst());
-                command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = u.getlast());
-                command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail());
-                command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = u.getpw());
-                command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob());
-                command.Parameters.AddWithValue("@dispName", SqlDbType.NVarChar).Value = u.getdisp());
-                command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg());
-       
+                command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
+                command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = u.getfirst();
+                command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = u.getlast();
+                command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail();
+                command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = u.getpw();
+                command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob();
+                command.Parameters.AddWithValue("@dispName", SqlDbType.NVarChar).Value = u.getdisp();
+                command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
+                command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = u.getstatus();
+
                 command.ExecuteNonQuery();
                 Console.WriteLine("User record inserted successfully");
             }
@@ -66,19 +66,26 @@ namespace Unite.HomeView.User
         {
             Boolean success = true;
             SqlConnection connection = new SqlConnection(@connectionString);
-            string query = "";
      
             // Update
             if (mode == 1)
             {
-                string query1 = "INSERT INTO Users (firstName, lastName, email, password, dob, dispName, regDate) VALUES('";
-                string query2 = first + "','" + last + "','" + email + "','" + pw + "','" + dob + "','" + disp + "','" + reg + "')";
-                query = query1 + query1;
 
-                SqlCommand command = new SqlCommand(query, connection);
+
                 try
                 {
                     connection.Open();
+                    SqlCommand command = new SqlCommand("UpdateUser", connection);
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
+                    command.Parameters.AddWithValue("@firstName", SqlDbType.NVarChar).Value = u.getfirst();
+                    command.Parameters.AddWithValue("@lastName", SqlDbType.NVarChar).Value = u.getlast();
+                    command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail();
+                    command.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = u.getpw();
+                    command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob();
+                    command.Parameters.AddWithValue("@dispName", SqlDbType.NVarChar).Value = u.getdisp();
+                    command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
+                    command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = u.getstatus();
+
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record updated successfully");
                 }
@@ -96,14 +103,12 @@ namespace Unite.HomeView.User
             // Delete
             else if (mode == 2)
             {
-                
-                SqlCommand command = new SqlCommand(query, connection);
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("DeleteUser", sqlCon);
+                    SqlCommand command = new SqlCommand("DeleteUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.int).Value = u.getid());
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record removed successfully");
                 }
@@ -121,14 +126,10 @@ namespace Unite.HomeView.User
             // Disable
             else if (mode == 3)
             {
-                string query1 = "INSERT INTO Users (firstName, lastName, email, password, dob, dispName, regDate) VALUES('";
-                string query2 = first + "','" + last + "','" + email + "','" + pw + "','" + dob + "','" + disp + "','" + reg + "')";
-                query = query1 + query1;
-
-                SqlCommand command = new SqlCommand(query, connection);
                 try
                 {
                     connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record disabled successfully");
                 }
@@ -146,14 +147,10 @@ namespace Unite.HomeView.User
             // Enable
             else if (mode == 4)
             {
-                string query1 = "INSERT INTO Users (firstName, lastName, email, password, dob, dispName, regDate) VALUES('";
-                string query2 = first + "','" + last + "','" + email + "','" + pw + "','" + dob + "','" + disp + "','" + reg + "')";
-                query = query1 + query1;
-
-                SqlCommand command = new SqlCommand(query, connection);
                 try
                 {
                     connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record enabled successfully");
                 }
