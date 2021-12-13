@@ -4,9 +4,9 @@ namespace Unite.HomeView.Implementations
 {
     public class DatabaseLogService : Contracts.ILogService
     {
-        public void Log(string description)
+        public bool Log(int id, string description, string myCol, string timeStamp)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
