@@ -165,7 +165,7 @@ namespace UM.User
 		 * 4 = Enable
 		 * Returns true if successful, false if unsuccessful
 		 */
-        public Boolean modifyUser(User u, int mode, User userMod)
+        public Boolean modifyUser(int id, int mode, User userMod)
         {
             Boolean success = true;
             SqlConnection connection = new SqlConnection(connectionString);
@@ -178,7 +178,7 @@ namespace UM.User
                     // opens sql connection
                     connection.Open();
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.getfirst();
                     command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.getlast();
                     command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = userMod.getemail();
@@ -214,7 +214,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("DeleteUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record removed successfully");
                 }
@@ -240,7 +240,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("DisableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record disabled successfully");
                 }
@@ -265,7 +265,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("EnableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.ExecuteNonQuery();
                     Console.WriteLine("User record enabled successfully");
                 }

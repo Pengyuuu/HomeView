@@ -72,7 +72,7 @@ namespace UM.User {
         {
 			if (!this.verified)
 			{
-				return "Unauthorized access.";
+				return null;
 			}
 
 			if (!umService.UMServiceCheckUser(id))
@@ -82,7 +82,7 @@ namespace UM.User {
 			
 			if (this.umService.UMServiceGetUser(id) == null)
             {
-				return "Unable to get user record."
+				return null;
             }
 
 			User m = this.umService.UMServiceGetUser(id);
@@ -121,7 +121,7 @@ namespace UM.User {
 		 * 4 = Enable
 		 * Returns a success or unsuccessful message
 		 */
-		public String UserManagerModifyUser(User u, int mode, User userMod)
+		public String UserManagerModifyUser(int id, int mode, User userMod)
 		{
 			// if user is not admin, returns unauthorized access
 			if (!this.verified)
@@ -129,8 +129,13 @@ namespace UM.User {
 				return "Unauthorized access.";
 			}
 
+			if (!this.umService.UMServiceCheckUser(id))
+            {
+				return "User does not exist.";
+            }
+			
 			// calls service layer to modify user
-			string m = this.umService.UMServiceModifyUser(u, mode, userMod) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+			string m = this.umService.UMServiceModifyUser(id, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
 			return m;
 		}
 
@@ -183,15 +188,27 @@ namespace UM.User {
 				return "Unauthorized access.";
 			}
 
-			List<User> users = file.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
+			List<String> mods = file.ReadAllLines(file).Skip(1).ToList();
 			
 			string m = "";
-			int insertedUsers = 0;
-			int failedInsert = 0;
+			int successMods = 0;
+			int failedMods = 0;
 
-			foreach(User u in users)
+			foreach(String m in mods)
             {
-				string m = UserManagerCreateUser(u);
+				
+				string[] delimiter = csvLine(',');
+				int id = delimiter[0];
+				int mode = delimiter[1];
+
+				User userMod = new User();
+
+				Role r = (Role) (Convert.ToInt16(delimiter[9]));
+				userMod.updateUser(delimiter[2], delimiter[3], delimiter[4], delimiter[5], delimiter[6], Convert.ToDateTime(delimiter[7]), Convert.ToDateTime(delimiter[8]), Convert.ToInt16(delimiter[9]);
+
+
+				string m = UserManagerModifyUser(id, mode, userMod);
+
 				if (m == "Unauthorized access.")
                 {
 					return "Unauthorized access.";
@@ -202,14 +219,14 @@ namespace UM.User {
                 }
 				else if (m == "Account creation unsuccessful. Account already exists in system.")
                 {
-					failedInsert++;
+					failedMods++;
                 }
 				else if (m == "User account record creation successful.")
                 {
-					insertedUsers++;
+					successMods++;
                 }
             }
-			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
+			m = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
 			return m;
         }
 	}

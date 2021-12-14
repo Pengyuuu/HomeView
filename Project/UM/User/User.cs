@@ -79,6 +79,17 @@ namespace UM.User
 			this.role = r;
         }
 
+		// updates user to modded user
+		public void updateUser(User u)
+        {
+			this.firstName = u.firstName;
+			this.lastName = u.lastName;
+			this.email = u.email;
+			this.password = u.;
+			this.dob = birth;
+			this.dispName = dName;
+			this.role = r;
+        }
 
 		public void updateUser(string csvLine)
         {
