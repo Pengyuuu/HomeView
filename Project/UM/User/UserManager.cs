@@ -67,6 +67,35 @@ namespace UM.User {
 
 		}
 
+		public String UserManagerGetUser(int id)
+        {
+			if (!this.verified)
+			{
+				return "Unauthorized access.";
+			}
+
+			if (!umService.UMServiceCheckUser(id))
+            {
+				return 
+            }
+			
+			string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+			string m = this.umService.UMServiceCreateUser(u);
+			if (m == "No record found.")
+            {
+				return "Unable to get user record."
+            }
+
+			else if (m == "Unable to get user id: " + id)
+            {
+				return 
+            }
+
+
+			return m;
+
+        }
+
 		/* Creates a new user record in system 
 		 * Returns success or unsuccessful message
 		 */

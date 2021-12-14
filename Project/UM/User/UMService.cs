@@ -2,7 +2,7 @@
 
 namespace UM.User 
 {
-	class UMService
+	 public class UMService
 	{
 		// User DAO
 		private UserDAO userdao;
@@ -27,6 +27,20 @@ namespace UM.User
 		public Boolean UMServiceModifyUser(User u, int mode, User userMod)
 		{
 			return userdao.modifyUser(u, mode, userMod);
+
+		}
+
+		public Boolean UMServiceCheckUser(int id)
+		{
+			
+			return userdao.checkUser(id);
+
+		}
+
+		public String UMServiceGetUser(int id)
+		{
+			
+			return userdao.getUser(id);
 
 		}
 
