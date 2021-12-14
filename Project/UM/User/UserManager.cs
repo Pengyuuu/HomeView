@@ -68,6 +68,7 @@ namespace UM.User {
 		}
 
 		// Gets user
+		/*
 		public User UserManagerGetUser(int id)
         {
 			if (!this.verified)
@@ -88,7 +89,7 @@ namespace UM.User {
 			User m = this.umService.UMServiceGetUser(id);
 			return m;
 
-        }
+        }*/
 
 		/* Creates a new user record in system 
 		 * Returns success or unsuccessful message

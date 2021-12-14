@@ -27,11 +27,7 @@ namespace UM.User
 			this.lastName = "";
 			this.email = "";
 			this.password = "";
-			this.dob = null;
 			this.dispName = "";
-			this.regDate = null;
-			this.status = null;
-			this.role = null;
         }
 		
 		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
@@ -53,17 +49,17 @@ namespace UM.User
 		
 		public User(string csvLine)
 		{
-			string[] delimiter = csvLine(',');
-			userId = id;
-			firstName = delimiter[0];
-			lastName = delimiter[1];
-			email = delimiter[2];
-			password = delimiter[3];
-			dispName = delimiter[4];
-			dob = Convert.ToDateTime(delimiter[5]);
+			string[] delimiter = csvLine.Split(',');
+			userId = Convert.ToInt32(delimiter[0]);
+			firstName = delimiter[1];
+			lastName = delimiter[2];
+			email = delimiter[3];
+			password = delimiter[4];
+			dispName = delimiter[5];
+			dob = Convert.ToDateTime(delimiter[6]);
 			regDate = DateTime.UtcNow;
 			status = 1;
-			role = (Role) (Convert.ToInt16(delimiter[6]));
+			role = (Role) (Convert.ToInt16(delimiter[7]));
 
 		}
 		
@@ -85,15 +81,15 @@ namespace UM.User
 			this.firstName = u.firstName;
 			this.lastName = u.lastName;
 			this.email = u.email;
-			this.password = u.;
-			this.dob = birth;
-			this.dispName = dName;
-			this.role = r;
+			this.password = u.password;
+			this.dob = u.dob;
+			this.dispName = u.dispName;
+			this.role = u.role;
         }
 
 		public void updateUser(string csvLine)
         {
-			string[] delimiter = csvLine(',');
+			string[] delimiter = csvLine.Split(',');
 			this.firstName = delimiter[1];
 			this.lastName = delimiter[2];
 			this.email = delimiter[3];
@@ -109,7 +105,7 @@ namespace UM.User
 		public User getUser(string result)
         {
 			User setUser = new User();
-			setUser.updateUser(string result);
+			setUser.updateUser(result);
 			return setUser;
         }
 
@@ -121,9 +117,9 @@ namespace UM.User
 		}
 
 		/* sets  a user's first name */
-		public string setfirst(string n)
+		public string setfirst(User n)
 		{
-			this.firstName = n;
+			return n.firstName;
 		}
 
 		/* Gets a user's last name */

@@ -6,7 +6,7 @@ namespace UM.User
 {
 
     public class UserDAO
-    {
+    {   
         // SQL connection strings
         private static string connectionString;
 
@@ -20,8 +20,10 @@ namespace UM.User
         public String getUser(int id)
         {
             string result = "";
+            SqlConnection connection = new SqlConnection(connectionString);
+
             try
-             {   // connects to sql
+            {   // connects to sql
                     connection.Open();
                     SqlCommand command = new SqlCommand("GetUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -76,8 +78,10 @@ namespace UM.User
         public Boolean checkUser(int id)
         {
             Boolean result = false;
+            SqlConnection connection = new SqlConnection(connectionString);
+
             try
-             {   // connects to sql
+            {   // connects to sql
                     connection.Open();
                     SqlCommand command = new SqlCommand("GetUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -88,7 +92,7 @@ namespace UM.User
              
                     if (read.HasRows)
                     {
-                        success = true;
+                        result = true;
                     }
 
                     else
@@ -163,8 +167,8 @@ namespace UM.User
 		 * 2 = Delete account
 		 * 3 = Disable
 		 * 4 = Enable
-		 * Returns true if successful, false if unsuccessful
-		 */
+		 * Returns true if successful, false if unsuccessful*/
+		 
         public Boolean modifyUser(int id, int mode, User userMod)
         {
             Boolean success = true;
