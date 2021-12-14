@@ -67,7 +67,7 @@ namespace UM.User {
 
 		}
 
-		public String UserManagerGetUser(int id)
+		public User UserManagerGetUser(int id)
         {
 			if (!this.verified)
 			{
@@ -76,22 +76,15 @@ namespace UM.User {
 
 			if (!umService.UMServiceCheckUser(id))
             {
-				return 
+				return null;
             }
 			
-			string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
-			string m = this.umService.UMServiceCreateUser(u);
-			if (m == "No record found.")
+			if (this.umService.UMServiceGetUser(id) == null)
             {
 				return "Unable to get user record."
             }
 
-			else if (m == "Unable to get user id: " + id)
-            {
-				return 
-            }
-
-
+			User m = this.umService.UMServiceGetUser(id);
 			return m;
 
         }

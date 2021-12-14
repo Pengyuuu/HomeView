@@ -37,9 +37,16 @@ namespace UM.User
 
 		}
 
-		public String UMServiceGetUser(int id)
+		public User UMServiceGetUser(int id)
 		{
-			
+			if (!this.UMServiceCheckUser(id))
+            {
+				return null;
+            }
+
+			User fetchedUser = new User();
+			fetchedUser = fetchedUser.getUser(userdao.getUser(id));
+
 			return userdao.getUser(id);
 
 		}

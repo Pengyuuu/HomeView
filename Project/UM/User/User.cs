@@ -5,7 +5,6 @@ namespace UM.User
 	public class User
 	{
 		
-		private static int id = 0;		// id number counter
 		private int userId;				// user's id number
 		private string firstName;		// user's first name
 		private string lastName;		// user's last name
@@ -22,10 +21,23 @@ namespace UM.User
 		 * Creates a new User given first name, last name, email address, password, date of birth, display name, and Role
 		 * Returns: User
 		 */
+		public User()
+        {
+			this.firstName = "";
+			this.lastName = "";
+			this.email = "";
+			this.password = "";
+			this.dob = null;
+			this.dispName = "";
+			this.regDate = null;
+			this.status = null;
+			this.role = null;
+        }
+		
 		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
 		{
-			id++;
-			userId = id;
+			
+			
 			firstName = fName;
 			lastName = lName;
 			email = email_address;
@@ -38,11 +50,10 @@ namespace UM.User
 
 		}
 
-		/*
+		
 		public User(string csvLine)
 		{
 			string[] delimiter = csvLine(',');
-			id++;
 			userId = id;
 			firstName = delimiter[0];
 			lastName = delimiter[1];
@@ -55,9 +66,9 @@ namespace UM.User
 			role = (Role) (Convert.ToInt16(delimiter[6]));
 
 		}
-		*/
-
-		public void updateUser(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
+		
+		
+		public void updateUser(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
         {
 			this.firstName = fName;
 			this.lastName = lName;
@@ -67,33 +78,41 @@ namespace UM.User
 			this.dispName = dName;
 			this.role = r;
         }
+
 
 		public void updateUser(string csvLine)
         {
-			this.firstName = fName;
-			this.lastName = lName;
-			this.email = email_address;
-			this.password = pw;
-			this.dob = birth;
-			this.dispName = dName;
-			this.role = r;
+			string[] delimiter = csvLine(',');
+			this.firstName = delimiter[1];
+			this.lastName = delimiter[2];
+			this.email = delimiter[3];
+			this.password = delimiter[4];
+			this.dispName = delimiter[5];
+			this.dob = Convert.ToDateTime(delimiter[6]);
+			this.regDate = Convert.ToDateTime(delimiter[7]);
+			this.status = Convert.ToInt16(delimiter[8]);
+			this.role = (Role) (Convert.ToInt16(delimiter[9]));
         }
 
-		public User getUser(int id)
+
+		public User getUser(string result)
         {
-
+			User setUser = new User();
+			setUser.updateUser(string result);
+			return setUser;
         }
 
-		/* Gets a user's id number */
-		public int getid()
-        {
-			return userId;
-        }
 
 		/* Gets a user's first name */
 		public string getfirst()
 		{
 			return this.firstName;
+		}
+
+		/* sets  a user's first name */
+		public string setfirst(string n)
+		{
+			this.firstName = n;
 		}
 
 		/* Gets a user's last name */

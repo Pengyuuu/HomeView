@@ -127,7 +127,6 @@ namespace UM.User
                 // Insert New User Record Stored Procedure
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
                 command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = u.getfirst();
                 command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = u.getlast();
                 command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail();
