@@ -179,6 +179,7 @@ namespace UM.User {
         }
 		*/
 
+		/*
 		public String BulkOperationModifyUsers(string file)
         {
 
@@ -229,5 +230,6 @@ namespace UM.User {
 			m = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
 			return m;
         }
+		*/
 	}
 }

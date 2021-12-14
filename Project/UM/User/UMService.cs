@@ -2,7 +2,7 @@
 
 namespace UM.User 
 {
-	class UMService
+	public class UMService
 	{
 		// User DAO
 		private UserDAO userdao;
@@ -37,7 +37,6 @@ namespace UM.User
 
 		}
 
-		// gets user
 		public User UMServiceGetUser(int id)
 		{
 			User fetchedUser = new User();
