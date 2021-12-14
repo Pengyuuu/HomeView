@@ -6,7 +6,7 @@ namespace UM.User {
 	{
 		private String sysadmin = "TeamUnite";
 		private String sysadminpw = "Testing";
-		private UMService umService;
+		private static UMService umService;
 
 		public UserManager()
 		{
@@ -40,11 +40,13 @@ namespace UM.User {
 			Boolean containsNonAlpha = false;
 			Boolean lengthCheck = false;
 
+			// ensures password meets length requirement
 			if (pw.Length >= pwMinLength)
 			{
 				lengthCheck = true;
 			}
 
+			// ensures pasword meets capital and non-alphanumeric requirement
 			for (int i = 0; i < pw.Length; i++)
 			{
 				if (Char.IsUpper(pw[i]))
@@ -100,11 +102,13 @@ namespace UM.User {
 			// verifies user is system admin
 			Boolean adminCheck = verifyAdmin(adminInput, pw);
 
+			// if user is not admin, returns unauthorized access
 			if (!adminCheck)
 			{
 				return "Unauthorized access.";
 			}
 
+			// calls service layer to modify user
 			string m = this.umService.UMServiceModifyUser(u, mode, userMod) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			return m;
 		}

@@ -6,6 +6,7 @@ namespace UM.User
 {
     class UserDAO
     {
+        // SQL connection string
         private static string connectionString;
 
         public UserDAO()
@@ -25,7 +26,7 @@ namespace UM.User
             {
                 connection.Open();
 
-                // Insert New User Recor Stored Procedure
+                // Insert New User Record Stored Procedure
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
@@ -44,11 +45,13 @@ namespace UM.User
             }
             catch (SqlException e)
             {
+                // Unable to insert new user record
                 Console.WriteLine("Error Generated. Details: " + e.ToString());
                 success = false;
             }
             finally
             {
+                // closes sql connection
                 connection.Close();
             }
 
@@ -61,17 +64,19 @@ namespace UM.User
 		 * 2 = Delete account
 		 * 3 = Disable
 		 * 4 = Enable
+		 * Returns true if successful, false if unsuccessful
 		 */
         public Boolean modifyUser(User u, int mode, User userMod)
         {
             Boolean success = true;
-            SqlConnection connection = new SqlConnection(@connectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
      
-            // Update
+            // Update user record information
             if (mode == 1)
             {
                 try
                 {
+                    // opens sql connection
                     connection.Open();
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = u.getid();
@@ -90,20 +95,23 @@ namespace UM.User
                 }
                 catch (SqlException e)
                 {
+                    // unable to update user record
                     Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
                 {
+                    // closes sql connection
                     connection.Close();
                 }
             }
 
-            // Delete
+            // Delete user record
             else if (mode == 2)
             {
                 try
                 {
+                    // opens sql connection
                     connection.Open();
                     SqlCommand command = new SqlCommand("DeleteUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -113,20 +121,23 @@ namespace UM.User
                 }
                 catch (SqlException e)
                 {
+                    // unable to delete user record
                     Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
                 {
+                    // closes sql connection
                     connection.Close();
                 }
             }
 
-            // Disable
+            // Disable a user record
             else if (mode == 3)
             {
                 try
                 {
+                    // connects to sql
                     connection.Open();
                     SqlCommand command = new SqlCommand("DisableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -136,11 +147,13 @@ namespace UM.User
                 }
                 catch (SqlException e)
                 {
+                    // unable to disable user record
                     Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
                 {
+                    // closes sql connetion
                     connection.Close();
                 }
             }
@@ -149,7 +162,7 @@ namespace UM.User
             else if (mode == 4)
             {
                 try
-                {
+                {   // connects to sql
                     connection.Open();
                     SqlCommand command = new SqlCommand("EnableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
@@ -159,11 +172,13 @@ namespace UM.User
                 }
                 catch (SqlException e)
                 {
+                    // unable to enable user record
                     Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
                 {
+                    // closes sql connection
                     connection.Close();
                 }
             }

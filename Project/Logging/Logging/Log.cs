@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logging.Logging;
+using System;
 
 namespace Unite.HomeView.Logging
 {
@@ -12,7 +9,7 @@ namespace Unite.HomeView.Logging
         public int Id { get; set; }
 
         // Title of user performing operation
-        public string UserOperation { get; set; }
+        public LogUserOperation UserOperation { get; set; }
 
         // Description of operation
         public string Description { get; set; }
@@ -24,6 +21,6 @@ namespace Unite.HomeView.Logging
         public LogCategory Category { get; set; }
 
         // Timestamp operation was performed
-        public DateTime Timestamp { get; set; }
+        public DateTime timeStamp { get; set; }
     }
 }

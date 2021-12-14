@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Logging.Logging;
+using System;
 
-namespace Unite.HomeView.Contracts
+namespace Unite.HomeView.Logging
 {
     public interface ILogService
     {
-        bool Log(int id, string userop, string description, LogLevel level, string timeStamp);
+        bool Log(int id, LogUserOperation userOp, string description, LogLevel level, LogCategory category, DateTime timeStamp);
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Unite.HomeView.Logging;
 
 namespace Logging.Logging
@@ -25,30 +21,22 @@ namespace Logging.Logging
             }
         }
 
-        private LoggingManager()
-        {
-           
-        }
-        // Method to create log 
-        public bool Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
-        {
-            log.Id = id;
-            log.UserOperation = userop;
-            log.Description = desc;
-            log.Level = level;
-            log.Category = category;
-            log.Timestamp = timestamp;
-            return true;
-        }
-
         // Manager communicates with Service layer through this method
-        public void Info(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
+        public bool Info(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
             // Create new logging service here
             LoggingService logService = LoggingService.GetInstance;
 
+            log.Id = id;
+            log.UserOperation = userOp;
+            log.Description = desc;
+            log.Level = level;
+            log.Category = category;
+            log.timeStamp = timeStamp;
+
             // Call a logging service function to send in the log file
             logService.Create(log);
+            return true;
         }
     }
 }
