@@ -2,11 +2,10 @@
 
 namespace Logging.Logging
 {
-    public class LoggingManager
+    class LoggingManager
     {
         private Log log;
         private static LoggingManager instance = null;
-
         public static LoggingManager GetInstance
         {
 

@@ -2,7 +2,7 @@
 
 namespace Logging.Logging
 {
-    public class LoggingService : ILogService
+    class LoggingService : ILogService
     {
         // Creates a log object
         private Log log;

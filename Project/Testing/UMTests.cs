@@ -131,11 +131,11 @@ namespace UMTests
         public void UserManager_VerifyAdminShouldVerifyIfAdmin()
         {
             Boolean expected = true;
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManagerTest = new UserManager(adminInput, pw);
-            Boolean actual = userManagerTest.verifyAdmin(adminInput, pw);
+            string expectedUser = "TeamUnite";
+            string expectedPW = "Testing";
+            
+            UserManager userManagerTest = new UserManager();
+            Boolean actual = userManagerTest.verifyAdmin(expectedUser, expectedPW);
 
             Assert.Equal(expected, actual);
         }
@@ -145,10 +145,8 @@ namespace UMTests
         {
             Boolean expected = true;
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            
+            UserManager userManager = new UserManager();
             Boolean actual = userManager.checkNewUser(actualUser);
 
             Assert.Equal(expected, actual);
@@ -162,8 +160,8 @@ namespace UMTests
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
-            UserManager userManager = new UserManager(adminInput, pw);
-            String actual = userManager.UserManagerCreateUser(newUser);
+            UserManager userManager = new UserManager();
+            String actual = userManager.UserManagerCreateUser(adminInput, pw, newUser);
 
             Assert.Equal(expected, actual);
 
@@ -178,8 +176,8 @@ namespace UMTests
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
-            UserManager userManager = new UserManager(adminInput, pw);
-            String actual = userManager.UserManagerCreateUser(actualUser);
+            UserManager userManager = new UserManager();
+            String actual = userManager.UserManagerCreateUser(adminInput, pw, actualUser);
 
             Assert.Equal(expected, actual);
         }
@@ -200,31 +198,15 @@ namespace UMTests
 
 
         }
-        
-        // Need to remove UMService User Test after, else test may fail
-        [Fact]
+
         public void UMService_CreateUserShouldCheckForUserCreationDatabaseSuccess()
         {
-            Boolean expected = true;
 
-            User u = new User("UMService", "CreateUserTest", "Test@gmail.com", "Password1234!", actualDate, dName: "UMServiceCreateUserTest", Role.User);
-            UMService uMService = new UMService();
-
-            Boolean actual = uMService.UMServiceCreateUser(u);
-
-            Assert.Equal(expected, actual);
         }
 
-        [Theory]
-        [InlineData()]
-        public void UMService_ModifyUserShouldCheckForUserModifyDatabaseSuccess(User u, int mode, User userMod)
+        public void UMService_ModifyUserShouldCheckForUserModifyDatabaseSuccess()
         {
-            Boolean expected = true;
 
-            UMService uMService = new UMService();
-            Boolean actual = uMService.UMServiceModifyUser(u, mode, userMod);
-
-            Assert.Equal(expected, actual);
         }
     }
 }
