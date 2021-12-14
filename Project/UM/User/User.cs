@@ -38,6 +38,23 @@ namespace UM.User
 
 		}
 
+		public User(string csvLine)
+		{
+			string[] delimiter = csvLine(',');
+			id++;
+			userId = id;
+			firstName = delimiter[0];
+			lastName = delimiter[1];
+			email = delimiter[2];
+			password = delimiter[3];
+			dispName = delimiter[4];
+			dob = Convert.ToDateTime(delimiter[5]);
+			regDate = DateTime.UtcNow;
+			status = 1;
+			role = (Role) (Convert.ToInt16(delimiter[6]));
+
+		}
+
 		/* Gets a user's id number */
 		public int getid()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 /* User Authentication and Authorization Manager */
 namespace UM.User {
@@ -113,12 +114,33 @@ namespace UM.User {
 			return m;
 		}
 
-		public String BulkOperationCreateUsers()
+
+		public String BulkOperationCreateUsers(string file)
         {
+			// verifies user is system admin
+			Boolean adminCheck = verifyAdmin(adminInput, pw);
+			Boolean newuserCheck = checkNewUser(u);
+
+			// if user is not admin, returns unauthorized access
+			if (!adminCheck)
+			{
+				return "Unauthorized access.";
+			}
+			List<User> users = file.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
+			foreach(User u: users) {
+
+            }
+			//  if new user has incorrect inputs
+			if (!newuserCheck)
+			{
+				return "Invalid inputs for new user.";
+			}
+			
+			
 			return "";
         }
 
-		public String BulkOperationModifyUsers()
+		public String BulkOperationModifyUsers(string file)
         {
 			return "";
         }
