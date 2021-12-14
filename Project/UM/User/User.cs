@@ -116,10 +116,10 @@ namespace UM.User
 			return this.firstName;
 		}
 
-		/* sets  a user's first name */
-		public string setfirst(User n)
+		/* sets a user's first name */
+		public void setfirst(User n)
 		{
-			return n.firstName;
+			this.firstName = n.firstName;
 		}
 
 		/* Gets a user's last name */
@@ -128,10 +128,22 @@ namespace UM.User
 			return this.lastName;
 		}
 
+		/* sets a user's last name */
+		public void setLast(User n)
+		{
+			this.lastName = n.lastName;
+		}
+
 		/* Gets a user's email */
 		public string getemail()
 		{
 			return this.email;
+		}
+
+		/* sets a user's email */
+		public void setEmail(User n)
+		{
+			this.email = n.email;
 		}
 
 		/* Gets a user's password */
@@ -140,16 +152,34 @@ namespace UM.User
 			return this.password;
 		}
 
+		/* sets a user's password */
+		public void setpw(User n)
+		{
+			this.password = n.password;
+		}
+
 		/* Gets user's date of birth */
 		public DateTime getdob()
 		{
 			return this.dob;
 		}
 
+		/* sets a user's dob */
+		public void setbirth(User n)
+		{
+			this.dob = n.dob;
+		}
+
 		/* Gets a user's display name */
 		public string getdisp()
 		{
 			return this.dispName;
+		}
+
+		/* sets a user's display name */
+		public void setdisp(User n)
+		{
+			this.dispName = n.dispName;
 		}
 
 		/* Gets a user's registration date and time */
@@ -163,12 +193,24 @@ namespace UM.User
         {
 			return this.status;
         }
+
+		/* sets a user's status */
+		public void setstatus(User n)
+		{
+			this.status = n.status;
+		}
 		
 		/* Gets a user's role (System admin, admin, or user) */
 		public Role getrole()
         {
 			return this.role;
         }
+
+		/* sets a user's first name */
+		public void setRole(User n)
+		{
+			this.role = n.role;
+		}
 
 	}
 }
