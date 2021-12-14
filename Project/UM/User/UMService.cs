@@ -2,7 +2,7 @@
 
 namespace UM.User 
 {
-	class UMService
+	 public class UMService
 	{
 		// User DAO
 		private UserDAO userdao;

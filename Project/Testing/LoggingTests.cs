@@ -4,21 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Unite.HomeView.Logging;
 using Logging.Logging;
 
 namespace Testing.LoggingTests
 {
-    class LoggingTests
+    public class LoggingTests
 
     {
-        //Logging.Logging.LogUserOperation = Logging.Logging.LogUserOperation Create
         private static System.DateTime actualDate = new DateTime(2020, 8, 11);
-        
-        private Log actualLog = new Log(1, LogUserOperation.Create, "Test Log", LogLevel.Info, LogCategory.View, actualDate);
 
+        
+        //private Log actualLog = new Log(1, LogUserOperation.Create, "Test Log", LogLevel.Info, LogCategory.View, actualDate);
+        //test.Info(1, LogUserOperation.Create, "Test Log", LogLevel.Info, LogCategory.View, actualDate);
+
+        
         public void Log_GetIDShouldGetID()
         {
+            LoggingManager newtest = LoggingManager.GetInstance;
+            newtest.Info(101, LogUserOperation.Create, "Test Log", LogLevel.Info, LogCategory.View, actualDate);
+                       
+
             int expected = 1;
 
             int actual = actualLog.getId();
@@ -141,13 +146,38 @@ namespace Testing.LoggingTests
             Assert.Equal(expected.ToString(), actual.ToString());
         }
 
+        [Fact]
         public void LoggingManager_InfoShouldCreateLoggingServiceAndSendLogFile()
         {
+            Boolean expected = true;
 
+            LoggingManager logManager = LoggingManager.GetInstance;
+            Boolean actual = logManager.Info(102, LogUserOperation.Create, "Test Log - LoggingManager Info()", LogLevel.Info, LogCategory.View, actualDate);
+
+            Assert.Equal(expected, actual);
         }
 
+        public void LoggingService_LogShouldCreateLog()
+        {
+            Boolean expected = true;
+
+            LoggingService logService = LoggingService.GetInstance;
+            Boolean actual = logService.Log(103, LogUserOperation.Create, "Test Log - LoggingService Log()", LogLevel.Info, LogCategory.View, actualDate);
+
+            Assert.Equal(expected, actual);
+            
+        }
+
+        // Have to access database to check
         public void LoggingService_CreateShouldSendLogToDAO()
         {
+            LoggingManager logManager = LoggingManager.GetInstance;
+            // Log created
+            Boolean actual = logManager.Info(104, LogUserOperation.Create, "Test Log - LoggingService Create()", LogLevel.Info, LogCategory.View, actualDate);
+
+            // Access db
+
+            // Get 
 
         }
 
