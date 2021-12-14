@@ -38,27 +38,5 @@ namespace Logging.Logging
             }
             return true;
         }
-
-        public bool getLog()
-        {
-            SqlConnection conn = new SqlConnection(dbConn);
-            SqlCommand command = new SqlCommand("StoreLog", conn);
-            try
-            {
-                conn.Open();
-                command.CommandType = CommandType.StoredProcedure;
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException e)
-            {
-                conn.Close();
-                return false;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return true;
-        }
     }
 }
