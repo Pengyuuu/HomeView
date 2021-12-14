@@ -67,6 +67,7 @@ namespace UM.User {
 
 		}
 
+		// Gets user
 		public User UserManagerGetUser(int id)
         {
 			if (!this.verified)

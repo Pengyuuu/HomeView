@@ -4,6 +4,7 @@ using System.Data;
 
 namespace UM.User
 {
+
     public class UserDAO
     {
         // SQL connection strings
@@ -15,6 +16,7 @@ namespace UM.User
             connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\Homeview.mdf;Integrated Security=True";
         }
 
+        // gets user
         public String getUser(int id)
         {
             string result = "";

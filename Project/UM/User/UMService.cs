@@ -37,6 +37,7 @@ namespace UM.User
 
 		}
 
+		// gets user
 		public User UMServiceGetUser(int id)
 		{
 			if (!this.UMServiceCheckUser(id))

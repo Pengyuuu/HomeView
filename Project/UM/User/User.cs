@@ -67,7 +67,7 @@ namespace UM.User
 
 		}
 		
-		
+		// updates user
 		public void updateUser(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
         {
 			this.firstName = fName;
