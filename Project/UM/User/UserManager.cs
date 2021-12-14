@@ -6,7 +6,7 @@ namespace UM.User {
 	{
 		private String sysadmin = "TeamUnite";
 		private String sysadminpw = "Testing";
-		private static UMService umService;
+		private UMService umService;
 
 		public UserManager()
 		{

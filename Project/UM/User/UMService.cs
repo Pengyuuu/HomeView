@@ -5,7 +5,7 @@ namespace UM.User
 	class UMService
 	{
 		// User DAO
-		private static UserDAO userdao;
+		private UserDAO userdao;
 
 		public UMService()
 		{
