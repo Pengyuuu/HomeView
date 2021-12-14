@@ -4,18 +4,24 @@ namespace UM.User
 {
 	public class User
 	{
-		private static int id = 0;
-		private int userId;
-		private string firstName;
-		private string lastName;
-		private string email;
-		private string password;
-		private DateTime dob;
-		private string dispName;
-		private DateTime regDate;
-		private int status;
-		private Role role;
 		
+		private static int id = 0;		// id number counter
+		private int userId;				// user's id number
+		private string firstName;		// user's first name
+		private string lastName;		// user's last name
+		private string email;			// user's email
+		private string password;		// user's password
+		private DateTime dob;			// user's date of birth
+		private string dispName;		// user's display name
+		private DateTime regDate;		// user's registration date and time
+		private int status;				// user's status (enabled or disabled)
+		private Role role;				// user's Role (admin (not system admin), or user)
+		
+
+		/** User Constructor
+		 * Creates a new User given first name, last name, email address, password, date of birth, display name, and Role
+		 * Returns: User
+		 */
 		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
 		{
 			id++;
@@ -32,61 +38,65 @@ namespace UM.User
 
 		}
 
+		/* Gets a user's id number */
 		public int getid()
         {
 			return userId;
         }
 
+		/* Gets a user's first name */
 		public string getfirst()
 		{
 			return this.firstName;
 		}
 
+		/* Gets a user's last name */
 		public string getlast()
 		{
 			return this.lastName;
 		}
 
+		/* Gets a user's email */
 		public string getemail()
 		{
 			return this.email;
 		}
 
+		/* Gets a user's password */
 		public string getpw()
 		{
 			return this.password;
 		}
 
+		/* Gets user's date of birth */
 		public DateTime getdob()
 		{
 			return this.dob;
 		}
 
+		/* Gets a user's display name */
 		public string getdisp()
 		{
 			return this.dispName;
 		}
 
+		/* Gets a user's registration date and time */
 		public DateTime getreg()
 		{
 			return this.regDate;
 		}
 
+		/* Gets a usr's status (enabled or disabled) */
 		public int getstatus()
         {
 			return this.status;
         }
 		
+		/* Gets a user's role (System admin, admin, or user) */
 		public Role getrole()
         {
 			return this.role;
         }
 
-		public enum Role
-        {
-			SystemAdmin = 1,
-			Admin,
-			User
-        }
 	}
 }
