@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Archiving
+namespace Archive
 {
     public class Archiving
     {
