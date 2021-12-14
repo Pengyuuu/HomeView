@@ -11,11 +11,13 @@ namespace Testing.LoggingTests
     public class LoggingTests
 
     {
+        
         //Logging.Logging.LogUserOperation = Logging.Logging.LogUserOperation Create
         private static System.DateTime actualDate = new DateTime(2020, 8, 11);
         
-        private Log actualLog = new Log(1, LogUserOperation.Create, "Test Log", LogLevel.Info, LogCategory.View, actualDate);
+       //private Log actualLog = new Log(1, LogUserOperation.Create, "Test Log", LogLevel.Info, LogCategory.View, actualDate);
 
+        /*
         public void Log_GetIDShouldGetID()
         {
             int expected = 1;
@@ -139,6 +141,7 @@ namespace Testing.LoggingTests
 
             Assert.Equal(expected.ToString(), actual.ToString());
         }
+        */
 
         [Fact]
         public void LoggingManager_InfoShouldCreateLoggingServiceAndSendLogFile()
@@ -151,6 +154,7 @@ namespace Testing.LoggingTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
         public void LoggingService_LogShouldCreateLog()
         {
             Boolean expected = true;
@@ -163,15 +167,31 @@ namespace Testing.LoggingTests
         }
 
         // Have to access database to check
+        [Fact]
         public void LoggingService_CreateShouldSendLogToDAO()
         {
+            Boolean expected = true;
+
             LoggingManager logManager = LoggingManager.GetInstance;
             // Log created
-            Boolean actual = logManager.Info(104, LogUserOperation.Create, "Test Log - LoggingService Create()", LogLevel.Info, LogCategory.View, actualDate);
+            logManager.Info(104, LogUserOperation.Create, "Test Log - LoggingService Create()", LogLevel.Info, LogCategory.View, actualDate);
 
             // Access db
+            LogDAO dAccess = new LogDAO();
+            // Check if log 104 exists
+            Boolean actual = dAccess.getLog(104);
 
-            // Get 
+            Assert.Equal(expected, actual);
+
+        }
+
+        public void LogDAO_storeLogShouldStoreLogToDatabase()
+        {
+
+        }
+
+        public void LogDAO_getLogShouldGetLogFromDatabase()
+        {
 
         }
     }

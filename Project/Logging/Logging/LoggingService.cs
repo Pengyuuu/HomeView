@@ -42,5 +42,6 @@ namespace Logging.Logging
             LogDAO dAccess = new LogDAO();
             dAccess.storeLog(logFile);
         }
+
     }
 }

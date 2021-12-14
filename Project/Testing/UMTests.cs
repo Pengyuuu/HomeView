@@ -216,8 +216,7 @@ namespace UMTests
             Assert.Equal(expected, actual);
         }
 
-        [Theory]
-        [InlineData()]
+        
         public void UMService_ModifyUserShouldCheckForUserModifyDatabaseSuccess(User u, int mode, User userMod)
         {
             Boolean expected = true;

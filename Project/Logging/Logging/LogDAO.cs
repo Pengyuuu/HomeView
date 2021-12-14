@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Logging.Logging
 {
-    class LogDAO
+    public class LogDAO
     {
         private static string dbConn;
         public LogDAO()
@@ -49,6 +49,7 @@ namespace Logging.Logging
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                 command.ExecuteNonQuery();
+
             }
             catch (SqlException e)
             {
