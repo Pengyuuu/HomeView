@@ -9,7 +9,8 @@ namespace UMTests
     {
         //12 characters, 1 uppercase, 1 nonalpha numeric
         private static System.DateTime actualDate = new DateTime(2011, 6, 10);
-        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith");
+        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", Role.User);
+        private static User modifyUser = new User("Modify", "Andy", "ModifyAndy@gmail.com", "Password1234!", actualDate, dName: "MAndy", Role.User);
         public void User_UserShouldBeCreatedAndAddedToDatabase()
         {
             // Arrange
@@ -65,7 +66,7 @@ namespace UMTests
         public void User_GetPWShouldReturnPassword()
         {
             // Arrange
-            String expected = "abc123";
+            String expected = "Password1234!";
 
             User actual = actualUser;
 
@@ -73,6 +74,8 @@ namespace UMTests
             Assert.Equal(expected, actual.getpw());
         }
 
+
+        // Compares DateTime to the dot, need to compare just day
         [Fact]
         public void User_GetDOBShouldReturnDateOfBirth()
         {
@@ -82,7 +85,7 @@ namespace UMTests
             User actual = actualUser;
 
             // Assert
-            Assert.Equal(expected, actual.getdob());
+            Assert.Equal(expected.ToString(), actual.getdob().ToString());
         }
 
         [Fact]
@@ -108,7 +111,7 @@ namespace UMTests
             User actual = actualUser;
 
             // Assert
-            Assert.Equal(expected, actual.getreg());
+            Assert.Equal(expected.ToString(), actual.getreg().ToString());
         }
 
         public void UserDAO_CreateUserShouldCreateUserAndSaveToDatabase()
@@ -152,7 +155,7 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank");
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank", Role.User);
             string expected = "User account record creation successful.";
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -179,21 +182,20 @@ namespace UMTests
             Assert.Equal(expected, actual);
         }
 
-
-        public void UserManager_ModifyUserMode1ShouldDisplayIfInfoUpdated()
+        
+        //[Theory]
+        //[InlineData("TeamUnite", "Testing", modifyUser, 1, modifyUser)]
+        public void UserManager_ModifyUserModifyShouldBeSuccessful(string adminInput, string pw, User u, int mode, User userMod)
         {
+            string expected = "User account record creation successful.";
+
 
         }
 
-        public void UserManager_ModifyUserMode2ShouldDisplayIfAccountDeleted()
+        public void UserManager_ModifyUserModifyShouldBeUnSuccessful()
         {
+            string expected = "Account creation unsuccessful. Account already exists in system. ";
 
-        }
-
-        public void 
-        // Probably add separate test for each modify mode later
-        public void UserManager_ModifyUserShouldDisplayUserModifySuccess()
-        {
 
         }
 
