@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unite.HomeView.Contracts;
-using Unite.HomeView.Logging;
+﻿using Logging.Logging;
+using System;
 
 namespace Unite.HomeView.Logging
 {
@@ -32,21 +26,22 @@ namespace Unite.HomeView.Logging
         }
 
         // Method to create log 
-        public bool Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
+        public bool Log(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
             log.Id = id;
-            log.UserOperation = userop;
+            log.UserOperation = userOp;
             log.Description = desc;
             log.Level = level;
             log.Category = category;
-            log.Timestamp = timestamp;
+            log.timeStamp = timeStamp;
             return true;
         }
 
         // This method should send the log to the data access object
         public void Create(Log logFile)
         {
-
+            LogDAO dAccess = new LogDAO();
+            dAccess.storeLog(logFile);
         }
     }
 }
