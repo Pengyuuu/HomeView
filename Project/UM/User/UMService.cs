@@ -36,7 +36,8 @@ namespace UM.User
 			return userdao.checkUser(id);
 
 		}
-
+		/*
+		 
 		public User UMServiceGetUser(int id)
 		{
 			User fetchedUser = new User();
@@ -45,6 +46,8 @@ namespace UM.User
 			return userdao.getUser(id);
 
 		}
+		*/
+
 
 	}
 
