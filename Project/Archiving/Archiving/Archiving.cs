@@ -2,7 +2,8 @@
 
 namespace Archiving
 {
-    public class Class1
+    public class Archiving
     {
+
     }
 }
