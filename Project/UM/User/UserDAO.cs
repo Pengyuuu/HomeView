@@ -123,7 +123,7 @@ namespace UM.User
         {
             Boolean success = true;
             
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
             try
