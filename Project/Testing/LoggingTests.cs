@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Unite.HomeView.Logging;
 using Logging.Logging;
 
 namespace Testing.LoggingTests
 {
-    class LoggingTests
+    public class LoggingTests
 
     {
         //Logging.Logging.LogUserOperation = Logging.Logging.LogUserOperation Create
@@ -141,18 +140,38 @@ namespace Testing.LoggingTests
             Assert.Equal(expected.ToString(), actual.ToString());
         }
 
+        [Fact]
         public void LoggingManager_InfoShouldCreateLoggingServiceAndSendLogFile()
         {
+            Boolean expected = true;
+
+            LoggingManager logManager = LoggingManager.GetInstance;
+            Boolean actual = logManager.Info(102, LogUserOperation.Create, "Test Log - LoggingManager Info()", LogLevel.Info, LogCategory.View, actualDate);
+
+            Assert.Equal(expected, actual);
+        }
+
+        public void LoggingService_LogShouldCreateLog()
+        {
+            Boolean expected = true;
+
+            LoggingService logService = LoggingService.GetInstance;
+            Boolean actual = logService.Log(103, LogUserOperation.Create, "Test Log - LoggingService Log()", LogLevel.Info, LogCategory.View, actualDate);
+
+            Assert.Equal(expected, actual);
 
         }
 
+        // Have to access database to check
         public void LoggingService_CreateShouldSendLogToDAO()
         {
+            LoggingManager logManager = LoggingManager.GetInstance;
+            // Log created
+            Boolean actual = logManager.Info(104, LogUserOperation.Create, "Test Log - LoggingService Create()", LogLevel.Info, LogCategory.View, actualDate);
 
-        }
+            // Access db
 
-        public void LogDAO_storeLogShouldStoreLogInDatabase()
-        {
+            // Get 
 
         }
     }

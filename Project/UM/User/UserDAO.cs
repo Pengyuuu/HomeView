@@ -4,7 +4,7 @@ using System.Data;
 
 namespace UM.User
 {
-    class UserDAO
+    public class UserDAO
     {
         // SQL connection strings
         private static string connectionString;
