@@ -38,5 +38,28 @@ namespace Logging.Logging
             }
             return true;
         }
+
+        public bool getLog(int id)
+        {
+            SqlConnection conn = new SqlConnection(dbConn);
+            SqlCommand command = new SqlCommand("GetLog", conn);
+            try
+            {
+                conn.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                conn.Close();
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
     }
 }

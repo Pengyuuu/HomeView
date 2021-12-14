@@ -140,7 +140,7 @@ namespace UM.User {
 			return m;
 		}
 
-
+		/*
 		public String BulkOperationCreateUsers(string file)
         {
 			// if user is not admin, returns unauthorized access
@@ -178,6 +178,7 @@ namespace UM.User {
 			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 			return m;
         }
+		*/
 
 		public String BulkOperationModifyUsers(string file)
         {

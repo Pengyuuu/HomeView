@@ -38,6 +38,7 @@ namespace UM.User
 
 		}
 
+		/*
 		public User(string csvLine)
 		{
 			string[] delimiter = csvLine(',');
@@ -54,6 +55,7 @@ namespace UM.User
 			role = (Role) (Convert.ToInt16(delimiter[6]));
 
 		}
+		*/
 
 		public void updateUser(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
         {
