@@ -72,7 +72,7 @@ namespace UM.User {
         {
 			if (!this.verified)
 			{
-				return "Unauthorized access.";
+				return null;
 			}
 
 			if (!umService.UMServiceCheckUser(id))
@@ -82,7 +82,7 @@ namespace UM.User {
 			
 			if (this.umService.UMServiceGetUser(id) == null)
             {
-				return "Unable to get user record."
+				return null;
             }
 
 			User m = this.umService.UMServiceGetUser(id);
@@ -174,6 +174,7 @@ namespace UM.User {
         }
 		*/
 
+		/*
 		public String BulkOperationModifyUsers(string file)
         {
 
@@ -212,5 +213,6 @@ namespace UM.User {
 			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 			return m;
         }
+		*/
 	}
 }

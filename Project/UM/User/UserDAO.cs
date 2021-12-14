@@ -7,16 +7,14 @@ namespace UM.User
 
     public class UserDAO
     {
-        // SQL connection strings
-        private static string connectionString;
 
         public UserDAO()
         {
-            //connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Data\\Database\\Homeview.mdf;Integrated Security=True";
-            connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\Homeview.mdf;Integrated Security=True";
+           
         }
 
         // gets user
+        /*
         public String getUser(int id)
         {
             string result = "";
@@ -70,9 +68,10 @@ namespace UM.User
             }
 
             return result;
-        }            
+        }    
+        */
 
-        /* Checks if user is in database*/
+        /* Checks if user is in database*/ /*
         public Boolean checkUser(int id)
         {
             Boolean result = false;
@@ -113,13 +112,13 @@ namespace UM.User
 
             return result;
         }            
-        
+        */
         /* Creates a new user record in system */
         public Boolean createUser(User u)
         {
             Boolean success = true;
             
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
             try
@@ -165,10 +164,11 @@ namespace UM.User
 		 * 4 = Enable
 		 * Returns true if successful, false if unsuccessful
 		 */
+        /*
         public Boolean modifyUser(User u, int mode, User userMod)
         {
             Boolean success = true;
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
      
             // Update user record information
             if (mode == 1)
@@ -283,6 +283,7 @@ namespace UM.User
             }
 
             return success;
-        }
+        } */
     }
+        
 }

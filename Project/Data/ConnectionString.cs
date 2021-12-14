@@ -3,10 +3,10 @@ using System.IO;
 
 namespace Data
 {
-    class ConnectionString
+    public class ConnectionString
     {
         static string connStr;
-        static string getConnectionString()
+        public static string getConnectionString()
         {
             if (String.IsNullOrEmpty(connStr))
             {
