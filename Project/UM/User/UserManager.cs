@@ -10,6 +10,20 @@ namespace UM.User {
 		private UMService umService;
 		private Boolean verified = false;
 
+		/* Singleton
+		private static UserManager instance = null;
+
+		public static UserManager GetInstance
+        {
+            get
+            {
+				if (GetInstance == null)
+                {
+					instance = new UserManager();
+                }
+            }
+        }*/
+
 		public UserManager(string adminInput, string pw)
 		{
 			umService = new UMService();
