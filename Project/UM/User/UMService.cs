@@ -30,6 +30,20 @@ namespace UM.User
 
 		}
 
+		public Boolean UMServiceCheckUser(int id)
+		{
+			
+			return userdao.checkUser(id);
+
+		}
+
+		public String UMServiceGetUser(int id)
+		{
+			
+			return userdao.getUser(id);
+
+		}
+
 	}
 
 }

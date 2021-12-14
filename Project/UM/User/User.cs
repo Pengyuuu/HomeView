@@ -55,6 +55,33 @@ namespace UM.User
 
 		}
 
+		public void updateUser(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
+        {
+			this.firstName = fName;
+			this.lastName = lName;
+			this.email = email_address;
+			this.password = pw;
+			this.dob = birth;
+			this.dispName = dName;
+			this.role = r;
+        }
+
+		public void updateUser(string csvLine)
+        {
+			this.firstName = fName;
+			this.lastName = lName;
+			this.email = email_address;
+			this.password = pw;
+			this.dob = birth;
+			this.dispName = dName;
+			this.role = r;
+        }
+
+		public User getUser(int id)
+        {
+
+        }
+
 		/* Gets a user's id number */
 		public int getid()
         {
