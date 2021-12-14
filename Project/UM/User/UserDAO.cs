@@ -15,6 +15,103 @@ namespace UM.User
             connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\Homeview.mdf;Integrated Security=True";
         }
 
+        public String getUser(int id)
+        {
+            string result = "";
+            try
+             {   // connects to sql
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("GetUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    SqlDataReader read = command.ExecuteReader();
+
+                    //command.ExecuteNonQuery();
+             
+                    if (read.HasRows)
+                    {
+                        while (read.Read())
+                        {
+                            string uid = read.GetInt32(0) + ",";
+                            string first = read.GetString(1) + ",";
+                            string last = read.GetString(2) + ",";
+                            string email = read.GetString(3) + ",";
+                            string pw = read.GetString(4) + ",";
+                            string dob = read.GetString(5) + ",";
+                            string dname = read.GetString(6) + ",";
+                            string regd = read.GetString(7) + ",";
+                            string status = read.GetString(8) + ",";
+                            string role = read.GetString(9);
+                            
+
+                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                        }
+                    }
+                    else
+                    {
+                        result = "No record found.";
+                    }
+                    read.Close();
+                    
+            }
+            catch (SqlException e)
+            {
+                // unable to enable user record
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+                result = "Unable to get user id: " + id;
+            }
+
+            finally
+            {
+                // closes sql connection
+                connection.Close();
+            }
+
+            return result;
+        }            
+
+        /* Checks if user is in database*/
+        public Boolean checkUser(int id)
+        {
+            Boolean result = false;
+            try
+             {   // connects to sql
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("GetUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    SqlDataReader read = command.ExecuteReader();
+
+                    //command.ExecuteNonQuery();
+             
+                    if (read.HasRows)
+                    {
+                        success = true;
+                    }
+
+                    else
+                    {
+                        result = false;
+                    }
+                    read.Close();
+                    
+            }
+            catch (SqlException e)
+            {
+                // unable to enable user record
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+                result = false;
+            }
+
+            finally
+            {
+                // closes sql connection
+                connection.Close();
+            }
+
+            return result;
+        }            
+        
         /* Creates a new user record in system */
         public Boolean createUser(User u)
         {
