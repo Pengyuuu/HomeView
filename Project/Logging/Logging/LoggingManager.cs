@@ -1,5 +1,4 @@
 ﻿using System;
-using Unite.HomeView.Logging;
 
 namespace Logging.Logging
 {
@@ -20,6 +19,7 @@ namespace Logging.Logging
                 return instance;
             }
         }
+
 
         // Manager communicates with Service layer through this method
         public bool Info(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)

@@ -1,7 +1,6 @@
-﻿using Logging.Logging;
-using System;
+﻿using System;
 
-namespace Unite.HomeView.Logging
+namespace Logging.Logging
 {
     class LoggingService : ILogService
     {
