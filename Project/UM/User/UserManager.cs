@@ -8,10 +8,12 @@ namespace UM.User {
 		private String sysadmin = "TeamUnite";
 		private String sysadminpw = "Testing";
 		private UMService umService;
+		private Boolean verified = false;
 
-		public UserManager()
+		public UserManager(string adminInput, string pw)
 		{
 			umService = new UMService();
+			verified = verifyAdmin(adminInput, pw);
 		}
 
 		/* Verifies if actor is system administrator 
@@ -68,17 +70,15 @@ namespace UM.User {
 		/* Creates a new user record in system 
 		 * Returns success or unsuccessful message
 		 */
-		public String UserManagerCreateUser(string adminInput, string pw, User u)
+		public String UserManagerCreateUser(User u)
 		{
-			// verifies user is system admin
-			Boolean adminCheck = verifyAdmin(adminInput, pw);
-			Boolean newuserCheck = checkNewUser(u);
-
 			// if user is not admin, returns unauthorized access
-			if (!adminCheck)
+			if (!this.verified)
 			{
 				return "Unauthorized access.";
 			}
+
+			Boolean newuserCheck = checkNewUser(u);			
 
 			//  if new user has incorrect inputs
 			if (!newuserCheck)
@@ -98,13 +98,10 @@ namespace UM.User {
 		 * 4 = Enable
 		 * Returns a success or unsuccessful message
 		 */
-		public String UserManagerModifyUser(string adminInput, string pw, User u, int mode, User userMod)
+		public String UserManagerModifyUser(User u, int mode, User userMod)
 		{
-			// verifies user is system admin
-			Boolean adminCheck = verifyAdmin(adminInput, pw);
-
 			// if user is not admin, returns unauthorized access
-			if (!adminCheck)
+			if (!this.verified)
 			{
 				return "Unauthorized access.";
 			}
@@ -117,37 +114,79 @@ namespace UM.User {
 
 		public String BulkOperationCreateUsers(string file)
         {
-			string m = "";
-			// verifies user is system admin
-			Boolean adminCheck = verifyAdmin(adminInput, pw);
-			//Boolean newuserCheck = checkNewUser(u);
-
 			// if user is not admin, returns unauthorized access
-			if (!adminCheck)
+			if (!this.verified)
 			{
 				return "Unauthorized access.";
 			}
-			
+
 			List<User> users = file.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
 			
-			//  if new user has incorrect inputs
-			foreach(User u in users) {
-				if (!checkNewUser(u))
-				{
-					return "Invalid inputs for new user.";
-				}
-            }
-			
-			foreach(User u in users) {
-				m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
-            }
+			string m = "";
+			int insertedUsers = 0;
+			int failedInsert = 0;
 
+			foreach(User u in users)
+            {
+				string m = UserManagerCreateUser(u);
+				if (m == "Unauthorized access.")
+                {
+					return "Unauthorized access.";
+                }
+				else if (m == "Invalid inputs for new user.")
+                {
+					return ("Invalid inputs for new user id: " + u.getid());
+                }
+				else if (m == "Account creation unsuccessful. Account already exists in system.")
+                {
+					failedInsert++;
+                }
+				else if (m == "User account record creation successful.")
+                {
+					insertedUsers++;
+                }
+            }
+			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 			return m;
         }
 
 		public String BulkOperationModifyUsers(string file)
         {
-			return "";
+
+			// if user is not admin, returns unauthorized access
+			if (!this.verified)
+			{
+				return "Unauthorized access.";
+			}
+
+			List<User> users = file.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
+			
+			string m = "";
+			int insertedUsers = 0;
+			int failedInsert = 0;
+
+			foreach(User u in users)
+            {
+				string m = UserManagerCreateUser(u);
+				if (m == "Unauthorized access.")
+                {
+					return "Unauthorized access.";
+                }
+				else if (m == "Invalid inputs for new user.")
+                {
+					return ("Invalid inputs for new user id: " + u.getid());
+                }
+				else if (m == "Account creation unsuccessful. Account already exists in system.")
+                {
+					failedInsert++;
+                }
+				else if (m == "User account record creation successful.")
+                {
+					insertedUsers++;
+                }
+            }
+			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
+			return m;
         }
 	}
 }
