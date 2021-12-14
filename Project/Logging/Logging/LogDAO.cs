@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Logging.Logging
 {
-    class LogDAO
+    public class LogDAO
     {
         private static string dbConn;
         public LogDAO()
