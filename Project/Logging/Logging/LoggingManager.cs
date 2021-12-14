@@ -27,10 +27,10 @@ namespace Logging.Logging
 
         private LoggingManager()
         {
-
+           
         }
         // Method to create log 
-        public void Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
+        public bool Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
         {
             log.Id = id;
             log.UserOperation = userop;
@@ -38,6 +38,7 @@ namespace Logging.Logging
             log.Level = level;
             log.Category = category;
             log.Timestamp = timestamp;
+            return true;
         }
 
         // Manager communicates with Service layer through this method

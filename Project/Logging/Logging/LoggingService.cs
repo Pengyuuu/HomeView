@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,14 +31,8 @@ namespace Unite.HomeView.Logging
             }
         }
 
-        // Constructor for logging service
-        private LoggingService()
-        {
-            // Probably set up database connections in here
-        }
-
         // Method to create log 
-        public void Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
+        public bool Log(int id, string userop, string desc, LogLevel level, LogCategory category, DateTime timestamp)
         {
             log.Id = id;
             log.UserOperation = userop;
@@ -45,6 +40,7 @@ namespace Unite.HomeView.Logging
             log.Level = level;
             log.Category = category;
             log.Timestamp = timestamp;
+            return true;
         }
 
         // This method should send the log to the data access object

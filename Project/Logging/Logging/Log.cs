@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Unite.HomeView.Logging
 {
-    class Log
+    public class Log
     {
         // Number identifier for the log
         public int Id { get; set; }
