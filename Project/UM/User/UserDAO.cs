@@ -7,20 +7,19 @@ namespace UM.User
 
     public class UserDAO
     {   
-        // SQL connection strings
-        private static string connectionString;
+        
 
         public UserDAO()
         {
-            //connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Data\\Database\\Homeview.mdf;Integrated Security=True";
-            connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\Homeview.mdf;Integrated Security=True";
+
         }
 
         // gets user
         public String getUser(int id)
         {
             string result = "";
-            SqlConnection connection = new SqlConnection(connectionString);
+           
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
             {   // connects to sql
@@ -78,7 +77,7 @@ namespace UM.User
         public Boolean checkUser(int id)
         {
             Boolean result = false;
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
             {   // connects to sql
@@ -172,7 +171,7 @@ namespace UM.User
         public Boolean modifyUser(int id, int mode, User userMod)
         {
             Boolean success = true;
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
      
             // Update user record information
             if (mode == 1)
