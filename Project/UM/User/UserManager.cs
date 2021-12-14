@@ -112,5 +112,15 @@ namespace UM.User {
 			string m = this.umService.UMServiceModifyUser(u, mode, userMod) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			return m;
 		}
+
+		public String BulkOperationCreateUsers()
+        {
+			return "";
+        }
+
+		public String BulkOperationModifyUsers()
+        {
+			return "";
+        }
 	}
 }
