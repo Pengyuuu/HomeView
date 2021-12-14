@@ -114,7 +114,7 @@ namespace UM.User {
 			return m;
 		}
 
-
+		/*
 		public String BulkOperationCreateUsers(string file)
         {
 			string m = "";
@@ -144,6 +144,7 @@ namespace UM.User {
 
 			return m;
         }
+		*/
 
 		public String BulkOperationModifyUsers(string file)
         {

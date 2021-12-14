@@ -11,7 +11,8 @@ namespace UM.User
 
         public UserDAO()
         {
-            connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Data\\Database\\Homeview.mdf;Integrated Security=True";
+            //connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Data\\Database\\Homeview.mdf;Integrated Security=True";
+            connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\Homeview.mdf;Integrated Security=True";
         }
 
         /* Creates a new user record in system */
