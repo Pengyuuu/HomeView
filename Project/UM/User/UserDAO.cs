@@ -6,12 +6,12 @@ namespace UM.User
 {
     class UserDAO
     {
-        // SQL connection string
+        // SQL connection strings
         private static string connectionString;
 
         public UserDAO()
         {
-            connectionString = "";
+            connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Data\\Database\\Homeview.mdf;Integrated Security=True";
         }
 
         /* Creates a new user record in system */
