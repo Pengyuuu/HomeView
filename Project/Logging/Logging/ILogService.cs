@@ -4,6 +4,6 @@ namespace Unite.HomeView.Contracts
 {
     public interface ILogService
     {
-        void Log(string description);
+        bool Log(int id, string userop, string description, LogLevel level, string timeStamp);
     }
 }
