@@ -117,27 +117,32 @@ namespace UM.User {
 
 		public String BulkOperationCreateUsers(string file)
         {
+			string m = "";
 			// verifies user is system admin
 			Boolean adminCheck = verifyAdmin(adminInput, pw);
-			Boolean newuserCheck = checkNewUser(u);
+			//Boolean newuserCheck = checkNewUser(u);
 
 			// if user is not admin, returns unauthorized access
 			if (!adminCheck)
 			{
 				return "Unauthorized access.";
 			}
+			
 			List<User> users = file.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
-			foreach(User u: users) {
-
-            }
+			
 			//  if new user has incorrect inputs
-			if (!newuserCheck)
-			{
-				return "Invalid inputs for new user.";
-			}
+			foreach(User u in users) {
+				if (!checkNewUser(u))
+				{
+					return "Invalid inputs for new user.";
+				}
+            }
 			
-			
-			return "";
+			foreach(User u in users) {
+				m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+            }
+
+			return m;
         }
 
 		public String BulkOperationModifyUsers(string file)
