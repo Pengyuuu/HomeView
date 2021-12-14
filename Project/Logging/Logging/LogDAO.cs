@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using Unite.HomeView.Logging;
 
 namespace Logging.Logging
 {
