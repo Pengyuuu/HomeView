@@ -8,57 +8,9 @@ namespace UMTests
 {
     public class UserTests
     {
-        //12 characters, 1 uppercase, 1 nonalpha numeric
-        private static System.DateTime actualDate = new DateTime(2011, 6, 10);
-        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
-        
-        string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        string path = (System.IO.Path.GetDirectoryName(executable));
-        path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Testing\\BulkOpCreateUsers.csv"));
-        
-        [Fact]
-        public void User_UserUpdateUserShouldUpdateUserGivenArguments()
-        {
-            Boolean expected = true;
-            Boolean actual = false;
-
-            DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", 0, Role.User);
-
-            Role test = Role.Admin;
-            DateTime newDate = new DateTime(2000, 2, 2);
-            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);
-
-            if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
-                && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getstatus() == 0
-                && testUser.getrole() == Role.Admin)
-
-                Assert.Equal(expected, actual);
-
-        }
-
-        [Fact]
-        public void User_UserUpdateUserShouldUpdateUserGivenUser()
-        {
-            Boolean expected = true;
-            Boolean actual = false;
-
-            DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", 0, Role.User);
-
-            DateTime newDate = new DateTime(2000, 2, 2);
-            User updatedUser = new User("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);
-            testUser.updateUser(updatedUser);
-
-            if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
-                && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getrole() == Role.Admin)
-            {
-                actual = true;
-            }
-
-            Assert.Equal(expected, actual);
-
-        }
+         
+        static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Testing\\BulkOpCreateUsers.csv"));
 
         // Not sure how this will run when tested
         // Requires user input into console to verify if Admin
@@ -83,6 +35,8 @@ namespace UMTests
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
+            DateTime actualDate = new DateTime(2011, 6, 10);
+            User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
             Boolean actual = userManager.checkNewUser(actualUser);
@@ -93,6 +47,7 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
         {
+            DateTime actualDate = new DateTime(2011, 6, 10);
             User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank", 0, Role.User);
             string expected = "User account record creation successful.";
             string adminInput = "TeamUnite";
