@@ -3,36 +3,46 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using Logging.Logging;
+using System.Text;
+using System.IO;
 
 namespace Archiving.Archiving
 {
     class ArchivingDAO
     {
-        private static string dbConn;
+        private static ArchivingDAO instance;
+
+        public static ArchivingDAO GetInstance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ArchivingDAO();
+                }
+
+                return instance;
+            }
+        }
         public ArchivingDAO()
         {
-            dbConn = "";
+            
         }
-        public bool archive()
+
+        public bool send(List<string> oldLogs)
         {
-            SqlConnection conn = new SqlConnection(dbConn);
-            SqlCommand command = new SqlCommand("ArchiveLog", conn);
-            try
+
+            var csv = new StringBuilder();
+
+            // Iterate through the list of old logs and append it line by line to the csv variable
+            for (int i = 0; i < oldLogs.Count; i++)
             {
-                conn.Open();
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@timeStamp", SqlDbType.DateTime).Value = DateTime.UtcNow;
-                command.ExecuteNonQuery();
+                csv.AppendLine(oldLogs[i].ToString());
             }
-            catch (SqlException e)
-            {
-                conn.Close();
-                return false;
-            }
-            finally
-            {
-                conn.Close();
-            }
+
+            // Writes the archived logs and exports as a csv file
+            //File.WriteAllText(filePath, csv.ToString());
+
             return true;
         }
     }
