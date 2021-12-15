@@ -1,6 +1,7 @@
 using Xunit;
 using System;
 using UM.User;
+using System.IO;
 
 
 namespace UMTests
@@ -11,6 +12,9 @@ namespace UMTests
         private static System.DateTime actualDate = new DateTime(2011, 6, 10);
         private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
         
+        string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        string path = (System.IO.Path.GetDirectoryName(executable));
+        path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Testing\\BulkOpCreateUsers.csv"));
         
         [Fact]
         public void User_UserUpdateUserShouldUpdateUserGivenArguments()
@@ -199,7 +203,7 @@ namespace UMTests
         public void UserManager_BulkOpsCreateUsers()
         {
 
-            string filepath = @".csv";
+            string filepath = path;
             int insertedUsers = 10;
             int failedInsert = 0;
             string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
