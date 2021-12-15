@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -8,6 +9,7 @@ namespace Archive
     {
         private static Archiving instance = null;
         private static string dbConn;
+        private List<string> log = new List<string>();
 
         public Archiving()
         {
@@ -29,11 +31,11 @@ namespace Archive
             }
         }
 
-        public DataRow oldLog()
+        public List<string> oldLog()
         {
             SqlConnection conn = new SqlConnection(dbConn);
             SqlCommand command = new SqlCommand("GetOldLog", conn);
-
+            string result = "";
             try
             {   // connects to sql
                 conn.Open();
@@ -46,7 +48,10 @@ namespace Archive
                 {
                     while (read.Read())
                     {
-
+                        result = read.GetInt32(0).ToString() + " " + read.GetString(1).ToString() + " " +
+                                read.GetString(2).ToString() + " " + read.GetString(3).ToString() + " " +
+                                read.GetString(4).ToString();
+                        log.Add(result);
                     }
                 }
                 else
@@ -66,10 +71,10 @@ namespace Archive
             finally
             {
                 // closes sql connection
-                connection.Close();
+                conn.Close();
             }
 
-            return result;
+            return log;
         }
     }
 }
