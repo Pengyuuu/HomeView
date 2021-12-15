@@ -30,6 +30,122 @@ namespace UM.User
 
         }
 
+        // Gets all users in db
+        public String getAllUsers()
+        {
+            string result = "";
+           
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
+
+            try
+            {   // connects to sql
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("GetAllUsers", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader read = command.ExecuteReader();
+
+                    //command.ExecuteNonQuery();
+             
+                    if (read.HasRows)
+                    {
+                        while (read.Read())
+                        {
+                            string uid = read.GetInt32(0) + ",";
+                            string first = read.GetString(1) + ",";
+                            string last = read.GetString(2) + ",";
+                            string email = read.GetString(3) + ",";
+                            string pw = read.GetString(4) + ",";
+                            string dob = read.GetString(5) + ",";
+                            string dname = read.GetString(6) + ",";
+                            string regd = read.GetString(7) + ",";
+                            string status = read.GetString(8) + ",";
+                            string role = read.GetString(9);
+                            
+
+                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                        }
+                    }
+                    else
+                    {
+                        result = "No records found.";
+                    }
+                    read.Close();
+                    
+            }
+            catch (SqlException e)
+            {
+                // unable to enable user record
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+                result = "Unable to get all records";
+            }
+
+            finally
+            {
+                // closes sql connection
+                connection.Close();
+            }
+
+            return result;
+        }
+        
+        // Gets all users in db
+        public String exportAllUsers()
+        {
+            string result = "";
+           
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
+
+            try
+            {   // connects to sql
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("GetAllUsers", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader read = command.ExecuteReader();
+
+                    //command.ExecuteNonQuery();
+             
+                    if (read.HasRows)
+                    {
+                        while (read.Read())
+                        {
+                            string uid = read.GetInt32(0) + ",";
+                            string first = read.GetString(1) + ",";
+                            string last = read.GetString(2) + ",";
+                            string email = read.GetString(3) + ",";
+                            string pw = read.GetString(4) + ",";
+                            string dob = read.GetString(5) + ",";
+                            string dname = read.GetString(6) + ",";
+                            string regd = read.GetString(7) + ",";
+                            string status = read.GetString(8) + ",";
+                            string role = read.GetString(9);
+                            
+
+                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                        }
+                    }
+                    else
+                    {
+                        result = "No records found.";
+                    }
+                    read.Close();
+                    
+            }
+            catch (SqlException e)
+            {
+                // unable to enable user record
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+                result = "Unable to get all records";
+            }
+
+            finally
+            {
+                // closes sql connection
+                connection.Close();
+            }
+
+            return result;
+        }
+
         // gets user
         public String getUser(int id)
         {
