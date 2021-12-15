@@ -48,20 +48,28 @@ namespace UM.User
 
 		public Boolean UMServiceCheckUser(int id)
 		{
-			
 			return userdao.checkUser(id);
-
 		}
 		 
 		public User UMServiceGetUser(int id)
 		{
 			User fetchedUser = new User();
 			fetchedUser = fetchedUser.getUser(userdao.getUser(id));
+			return fetchedUser;
+		}
 
-			return userdao.getUser(id);
+		public String UMServiceGetAllUsers()
+		{
+			return userdao.getAllUsers();
+		}
+
+		public Boolean UMServiceExportAllUsers(string filepath)
+		{
+
+			return userdao.exportAllUsers(filepath);
 
 		}
-		
+
 
 
 	}
