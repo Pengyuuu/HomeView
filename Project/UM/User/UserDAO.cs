@@ -323,7 +323,6 @@ namespace UM.User
                     command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = userMod.getpw();
                     command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.getdob();
                     command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
-                    command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = userMod.getreg();
                     command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = userMod.getstatus();
                     command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)userMod.getrole());
 
