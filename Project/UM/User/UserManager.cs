@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
+
 /* User Authentication and Authorization Manager */
 namespace UM.User {
 	public class UserManager
@@ -24,6 +25,9 @@ namespace UM.User {
 		 */
 		public Boolean verifyAdmin(string adminInput, string pw)
 		{
+			LoggingManager
+			Log checkAdmin = new Log(7357, LogUserOperation.Create, "Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
+
 			// checks if input matches system admin info
 			Boolean check1 = adminInput == this.sysadmin;	
 			Boolean check2 = pw == this.sysadminpw;
