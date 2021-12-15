@@ -225,7 +225,7 @@ namespace UMTests
 
             User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -244,7 +244,7 @@ namespace UMTests
 
             User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -263,7 +263,7 @@ namespace UMTests
 
             User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -282,7 +282,7 @@ namespace UMTests
 
             User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
