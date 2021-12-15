@@ -162,7 +162,7 @@ namespace UM.User {
 			// if user is not admin, returns unauthorized access
 			if (!this.verified)
 			{
-				userlog = new(LogUserOperation.Update, "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
 				return "Unauthorized access.";
 			}
@@ -209,7 +209,7 @@ namespace UM.User {
 			// if user is not admin, returns unauthorized access
 			if (!this.verified)
 			{
-				userlog = new(LogUserOperation.Update, "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
 				return "Unauthorized access.";
 			}
@@ -248,7 +248,7 @@ namespace UM.User {
 			// if user is not admin, returns unauthorized access
 			if (!this.verified)
 			{
-				userlog = new(LogUserOperation.Update, "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				userlog = new( "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
 				return "Unauthorized access.";
 			}
@@ -295,7 +295,7 @@ namespace UM.User {
 			// if user is not admin, returns unauthorized access
 			if (!this.verified)
 			{
-				userlog = new(LogUserOperation.Update, "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
 				return "Unauthorized access.";
 			}
