@@ -44,8 +44,14 @@ namespace Logging.Logging
             log.timeStamp = timeStamp;
 
             // Call a logging service function to send in the log file
-            logService.Create(log);
-            return true;
+            if (logService.Create(log))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -42,10 +42,17 @@ namespace Logging.Logging
         }
 
         // This method should send the log to the data access object
-        public void Create(Log logFile)
+        public bool Create(Log logFile)
         {
             LogDAO dAccess = new LogDAO();
-            dAccess.storeLog(logFile);
+            if (dAccess.storeLog(logFile))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
