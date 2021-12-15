@@ -12,10 +12,10 @@ namespace Testing.LoggingTests
 
     {
 
-        private static Log testLog = new(7357, LogUserOperation.Create, "Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
+        private static Log testLog = new("Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
 
         [Fact]
-        public void LoggingManager_logDataShouldCreateLoggingTableEntry()
+        public void LoggingManager_getLogShouldReturnLogFromTable()
         {
             // arrange
             Log actual;
@@ -23,15 +23,22 @@ namespace Testing.LoggingTests
             //act
             LoggingManager logManager = new LoggingManager();
             logManager.logData(testLog);
-            actual = logManager.getLog(testLog.Id);
+            actual = logManager.getLog(1);
 
             //assert
-            Assert.Equal(testLog.Id, actual.Id);
-            Assert.Equal(testLog.UserOperation, actual.UserOperation);
-            Assert.Equal(testLog.Description, actual.Description);
-            Assert.Equal(testLog.Level, actual.Level);
-            Assert.Equal(testLog.Category, actual.Category);
-            Assert.Equal(testLog.timeStamp, actual.timeStamp);
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void LoggingManager_logDataShouldCreateLoggingTableEntry()
+        {
+            bool expected = true;
+
+            LoggingManager lm = new();
+            bool actual = lm.logData(testLog);
+
+            Assert.Equal(expected, actual);
+
         }
 
     }

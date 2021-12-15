@@ -67,7 +67,6 @@ namespace Archive
             {
                 // unable to enable user record
                 Console.WriteLine("Error Generated. Details: " + e.ToString());
-                result = "Unable to get user id: " + id;
             }
 
             finally

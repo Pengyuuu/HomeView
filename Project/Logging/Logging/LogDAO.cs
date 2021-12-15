@@ -13,13 +13,11 @@ namespace Logging.Logging
         public bool storeLog(Log log )
         {
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
-            SqlCommand command = new SqlCommand("StoreLog", conn);
+            SqlCommand command = new SqlCommand("StoreLogs", conn);
             try
             {
                 conn.Open();
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@ID", SqlDbType.Int).Value = log.Id;
-                command.Parameters.Add("@userOperation", SqlDbType.NVarChar).Value = log.UserOperation;
                 command.Parameters.Add("@Description", SqlDbType.NVarChar).Value = log.Description;
                 command.Parameters.Add("@logLevel", SqlDbType.NVarChar).Value = log.Level;
                 command.Parameters.Add("@logCategory", SqlDbType.NVarChar).Value = log.Category;
@@ -40,10 +38,9 @@ namespace Logging.Logging
 
         public Log getLog(int id)
         {
-            Log log = new Log();
+            Log log = null;
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("GetLog", conn);
-            LogUserOperation userOp;
             LogLevel logLev;
             LogCategory logCat;
             try
@@ -57,11 +54,8 @@ namespace Logging.Logging
                 {
                     while(read.Read())
                     {
+                        log = new();
                         log.Id = read.GetInt32(0);
-                        if(Enum.TryParse(read.GetString(1), out userOp))
-                        {
-                            log.UserOperation = userOp;
-                        }
                         log.Description = read.GetString(2);
                         if (Enum.TryParse(read.GetString(3), out logLev))
                         {
