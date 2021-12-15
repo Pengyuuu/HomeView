@@ -15,7 +15,7 @@ namespace UM.User {
 
 		public UserManager(string adminInput, string pw)
 		{
-			umService = new UMService();
+			umService = new UMService(this);
 			verified = verifyAdmin(adminInput, pw);
 		}
 

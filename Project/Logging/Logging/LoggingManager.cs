@@ -53,5 +53,28 @@ namespace Logging.Logging
                 return false;
             }
         }
+
+        public bool logData(Log log)
+        {
+            LoggingService logService = new LoggingService();
+
+            if (logService.Create(log))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Log getLog(int id)
+        {
+            LoggingService logService = new LoggingService();
+
+            Log retrievedLog = logService.getLog(id);
+
+            return retrievedLog;
+        }
     }
 }

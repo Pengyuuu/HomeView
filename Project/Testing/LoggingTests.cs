@@ -11,7 +11,7 @@ namespace Testing.LoggingTests
     public class LoggingTests
 
     {
-        private static System.DateTime actualDate = new DateTime(2020, 8, 11);
+
         private static Log testLog = new(7357, LogUserOperation.Create, "Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
 
         [Fact]
@@ -23,7 +23,7 @@ namespace Testing.LoggingTests
             //act
             LoggingManager logManager = new LoggingManager();
             logManager.logData(testLog);
-            actual = logManager.getLog();
+            actual = logManager.getLog(testLog.Id);
 
             //assert
             Assert.Equal(testLog.Id, actual.Id);
@@ -33,8 +33,6 @@ namespace Testing.LoggingTests
             Assert.Equal(testLog.Category, actual.Category);
             Assert.Equal(testLog.timeStamp, actual.timeStamp);
         }
-
-        public void LoggingManager_
 
     }
 }

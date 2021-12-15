@@ -46,8 +46,39 @@ namespace UM.User
 
 		}
 
-		
 		public User(string csvLine)
+		{
+			string[] delimiter = csvLine.Split(',');
+			firstName = delimiter[0];
+			lastName = delimiter[1];
+			email = delimiter[2];
+			password = delimiter[3];
+			dob = Convert.ToDateTime(delimiter[5]);
+			dispName = delimiter[4];
+			regDate = DateTime.UtcNow;
+			status = Convert.ToInt16(delimiter[6]);
+			role = (Role) (Convert.ToInt16(delimiter[7]));
+
+		}
+
+		public User(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, DateTime reg, int s, Role r)
+		{
+			
+			userId = id;
+			firstName = fName;
+			lastName = lName;
+			email = email_address;
+			password = pw;
+			dob = birth;
+			dispName = dName;
+			regDate = reg;
+			status = s;		// all users default to enabled account
+			role = r;
+
+		}
+
+
+		public User readUser(string csvLine)
 		{
 			string[] delimiter = csvLine.Split(',');
 			userId = Convert.ToInt32(delimiter[0]);
@@ -55,12 +86,12 @@ namespace UM.User
 			lastName = delimiter[2];
 			email = delimiter[3];
 			password = delimiter[4];
-			dispName = delimiter[5];
-			dob = Convert.ToDateTime(delimiter[6]);
-			regDate = DateTime.UtcNow;
-			status = 1;
-			role = (Role) (Convert.ToInt16(delimiter[7]));
-
+			dob = Convert.ToDateTime(delimiter[5]);
+			dispName = delimiter[6];
+			regDate = Convert.ToDateTime(delimiter[7]);
+			status = (Convert.ToInt16(delimiter[8]));
+			role = (Role) (Convert.ToInt16(delimiter[9]));
+			return new User(userId,firstName,lastName,email,password,dob,dispName,regDate,status,role);
 		}
 		
 		// updates user

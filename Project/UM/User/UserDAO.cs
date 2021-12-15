@@ -10,24 +10,7 @@ namespace UM.User
     public class UserDAO
     {   
         
-
-        /* Singleton
-		private static UserManager instance = null;
-
-		public static UserManager GetInstance
-        {
-            get
-            {
-				if (GetInstance == null)
-                {
-					instance = new UserManager();
-                }
-            }
-        }*/
-        
-        
-        
-        public UserDAO()
+        public UserDAO(UMService service)
         {
 
         }
