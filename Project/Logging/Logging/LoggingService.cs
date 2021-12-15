@@ -5,7 +5,7 @@ namespace Logging.Logging
     public class LoggingService : ILogService
     {
         // Creates a log object
-        private Log log;
+        //private Log log;
 
 
         // A logging service has not been initialized yet, so set to null

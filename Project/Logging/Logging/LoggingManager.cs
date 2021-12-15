@@ -5,8 +5,8 @@ namespace Logging.Logging
     public class LoggingManager
     {
 
-        public Log log;
-        /*
+        /*public Log log;
+        
         private static LoggingManager instance = null;
         public static LoggingManager GetInstance
         {
@@ -31,9 +31,8 @@ namespace Logging.Logging
         // Manager communicates with Service layer through this method
         public bool Info(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
-            
             // Create new logging service here
-            LoggingService logService = LoggingService.GetInstance;
+            LoggingService logService = new LoggingService();
 
             Log log = new Log();
 
