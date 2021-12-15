@@ -6,10 +6,9 @@ namespace Logging.Logging
 {
     public class LogDAO
     {
-        private static string dbConn;
-        public LogDAO()
+        public LogDAO(LoggingService logService)
         {
-            dbConn = "";
+            
         }
         public bool storeLog(Log log )
         {
@@ -39,27 +38,53 @@ namespace Logging.Logging
             return true;
         }
 
-        public bool getLog(int id)
+        public Log getLog(int id)
         {
+            Log log = new Log();
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("GetLog", conn);
+            LogUserOperation userOp;
+            LogLevel logLev;
+            LogCategory logCat;
             try
             {
                 conn.Open();
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
-                command.ExecuteNonQuery();
+                SqlDataReader read = command.ExecuteReader();
+
+                if(read.HasRows)
+                {
+                    while(read.Read())
+                    {
+                        log.Id = read.GetInt32(0);
+                        if(Enum.TryParse(read.GetString(1), out userOp))
+                        {
+                            log.UserOperation = userOp;
+                        }
+                        log.Description = read.GetString(2);
+                        if (Enum.TryParse(read.GetString(3), out logLev))
+                        {
+                            log.Level = logLev;
+                        }
+                        if (Enum.TryParse(read.GetString(4), out logCat))
+                        {
+                            log.Category = logCat;
+                        }
+                        log.timeStamp = read.GetDateTime(5);
+                    }
+                }
             }
             catch (SqlException e)
             {
                 conn.Close();
-                return false;
+                return null;
             }
             finally
             {
                 conn.Close();
             }
-            return true;
+            return log;
         }
     }
 }

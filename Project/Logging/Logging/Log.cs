@@ -32,5 +32,10 @@ namespace Logging.Logging
             this.timeStamp = timeStamp;
 
         }
+        public Log()
+        {
+
+        }
+
     }
 }
