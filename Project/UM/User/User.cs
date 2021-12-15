@@ -41,7 +41,7 @@ namespace UM.User
 			dispName = dName;
 			dob = birth;
 			regDate = DateTime.UtcNow;
-			status = 1;
+			status = 1;		// all users default to enabled account
 			role = r;
 
 		}

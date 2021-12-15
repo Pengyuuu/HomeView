@@ -19,10 +19,10 @@ namespace UMTests
             Boolean actual = false;
 
             DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", Role.User);
+            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob",  Role.User);
 
             DateTime newDate = new DateTime(2000, 2, 2);
-            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", Role.Admin);
+            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);  // changes status to disable
 
             if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
                 && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getrole() == Role.Admin)
@@ -233,12 +233,13 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 1, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 1, modifyUser);
 
             Assert.Equal(expected, actual);
 
         }
 
+        [Fact]
         public void UserManager_ModifyUserMode2ModifyShouldBeSuccessful()
         {
 
@@ -251,12 +252,13 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 2, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 2, modifyUser);
 
             Assert.Equal(expected, actual);
 
         }
 
+        [Fact]
         public void UserManager_ModifyUserMode3ModifyShouldBeSuccessful()
         {
 
@@ -269,12 +271,13 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 3, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 3, modifyUser);
 
             Assert.Equal(expected, actual);
 
         }
 
+        [Fact]
         public void UserManager_ModifyUserMode4ModifyShouldBeSuccessful()
         {
 
@@ -287,7 +290,82 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 4, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 4, modifyUser);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_BulkOpsCreateUsers()
+        {
+
+            string filepath = @".csv";
+            int insertedUsers = 10;
+            int failedInsert = 0;
+            string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.BulkOperationModifyUsers(filepath);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_BulkOpsModifyUsers()
+        {
+
+            string filepath = @".csv";
+            int successMods = 10;
+            int failedMods = 0;
+            string expected = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.BulkOperationModifyUsers(filepath);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_exportAllUsers()
+        {
+            string filepath = @".csv";
+
+            string expected = "User data successfully exported to.csv file in: " + filepath;
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.UserManagerExportAllUsers(filepath);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_getAllUsers()   // needs all users inside first to get expected
+        {
+
+            string expected = "";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.UserManagerGetAllUsers();
 
             Assert.Equal(expected, actual);
 
