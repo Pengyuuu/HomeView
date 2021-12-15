@@ -9,12 +9,10 @@ namespace Archive
     public class Archiving
     {
         private static Archiving instance = null;
-        private static string dbConn;
         private List<string> log = new List<string>();
 
         public Archiving()
         {
-            dbConn = "";
         }
 
         // Singleton design pattern, makes sure there's only one archiving
@@ -34,7 +32,7 @@ namespace Archive
 
         public bool oldLog()
         {
-            SqlConnection conn = new SqlConnection(dbConn);
+            SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("GetOldLog", conn);
             string result = "";
             try
@@ -51,7 +49,7 @@ namespace Archive
                         // reads each log, appends each column into a single string, and adds it to the list
                         result = read.GetInt32(0).ToString() + " " + read.GetString(1).ToString() + " " +
                                 read.GetString(2).ToString() + " " + read.GetString(3).ToString() + " " +
-                                read.GetString(4).ToString();
+                                read.GetString(4).ToString() + read.GetString(5).ToString(); 
                         log.Add(result);
                     }
                 }
@@ -67,7 +65,9 @@ namespace Archive
             }
             catch (SqlException e)
             {
+                // unable to enable user record
                 Console.WriteLine("Error Generated. Details: " + e.ToString());
+                result = "Unable to get user id: " + id;
             }
 
             finally
