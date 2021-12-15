@@ -11,52 +11,30 @@ namespace Testing.LoggingTests
     public class LoggingTests
 
     {
-        //Logging.Logging.LogUserOperation = Logging.Logging.LogUserOperation Create
         private static System.DateTime actualDate = new DateTime(2020, 8, 11);
+        private static Log testLog = new(7357, LogUserOperation.Create, "Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
 
         [Fact]
-        public void LoggingManager_InfoShouldCreateLoggingServiceAndSendLogFile()
+        public void LoggingManager_logDataShouldCreateLoggingTableEntry()
         {
-            Boolean expected = true;
+            // arrange
+            Log actual;
 
+            //act
             LoggingManager logManager = new LoggingManager();
-            Boolean actual = logManager.Info(102, LogUserOperation.Create, "Test Log - LoggingManager Info()", LogLevel.Info, LogCategory.View, actualDate);
+            logManager.logData(testLog);
+            actual = logManager.getLog();
 
-            Assert.Equal(expected, actual);
+            //assert
+            Assert.Equal(testLog.Id, actual.Id);
+            Assert.Equal(testLog.UserOperation, actual.UserOperation);
+            Assert.Equal(testLog.Description, actual.Description);
+            Assert.Equal(testLog.Level, actual.Level);
+            Assert.Equal(testLog.Category, actual.Category);
+            Assert.Equal(testLog.timeStamp, actual.timeStamp);
         }
 
-        // Tests LogDAO.storeLog() too 
-        // manager.info -> service.create -> logdao.storelog
-        [Fact]
-        public void LoggingService_LogShouldCreateLog()
-        {
-            Boolean expected = true;
+        public void LoggingManager_
 
-            LoggingService logService = LoggingService.GetInstance;
-            Boolean actual = logService.Log(103, LogUserOperation.Create, "Test Log - LoggingService Log()", LogLevel.Info, LogCategory.View, actualDate);
-
-            Assert.Equal(expected, actual);
-
-        }
-
-        // Have to access database to check
-        // Tests LogDAO.getLog() too
-        [Fact]
-        public void LoggingService_CreateShouldSendLogToDAO()
-        {
-            Boolean expected = true;
-
-            LoggingManager logManager = new LoggingManager();
-            // Log created
-            logManager.Info(104, LogUserOperation.Create, "Test Log - LoggingService Create()", LogLevel.Info, LogCategory.View, actualDate);
-
-            // Access db
-            LogDAO dAccess = new LogDAO();
-            // Check if log 104 exists
-            Boolean actual = dAccess.getLog(104);
-
-            Assert.Equal(expected, actual);
-
-        }
     }
 }
