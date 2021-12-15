@@ -226,7 +226,7 @@ namespace UM.User
              
                     if (!read.HasRows)
                     {
-                        result = true;
+                        result = false;
                     }
                     read.Close();
                     
