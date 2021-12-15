@@ -31,11 +31,9 @@ namespace Logging.Logging
         // Manager communicates with Service layer through this method
         public bool Info(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
-            Console.WriteLine("IIIIIIIASDFASDIIIIIIII");
+            
             // Create new logging service here
             LoggingService logService = LoggingService.GetInstance;
-
-            Console.WriteLine(logService + "test");
 
             Log log = new Log();
 

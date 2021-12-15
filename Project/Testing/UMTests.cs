@@ -10,8 +10,8 @@ namespace UMTests
         //12 characters, 1 uppercase, 1 nonalpha numeric
         private static System.DateTime actualDate = new DateTime(2011, 6, 10);
         private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", Role.User);
-        
-        
+
+
         [Fact]
         public void User_UserUpdateUserShouldUpdateUserGivenArguments()
         {
@@ -19,7 +19,7 @@ namespace UMTests
             Boolean actual = false;
 
             DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob",  Role.User);
+            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", Role.User);
 
             Role test = Role.Admin;
             DateTime newDate = new DateTime(2000, 2, 2);
@@ -28,6 +28,9 @@ namespace UMTests
             if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
                 && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getstatus() == 0
                 && testUser.getrole() == Role.Admin)
+            {
+                actual = true;
+            }
 
                 Assert.Equal(expected, actual);
 
@@ -145,17 +148,6 @@ namespace UMTests
             Assert.Equal(expected.ToString(), actual.getreg().ToString());
         }
 
-        public void UserDAO_CreateUserShouldCreateUserAndSaveToDatabase()
-        {
-
-        }
-
-        // Probably add separate test for each modify mode later
-        public void UserDAO_ModifyUserShouldModifyUserAndSaveToDatabase()
-        {
-
-        }
-
         // Not sure how this will run when tested
         // Requires user input into console to verify if Admin
         [Fact]
@@ -213,7 +205,7 @@ namespace UMTests
             User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
-            String actual = userManager.UserManagerCreateUser(testUser);
+            string actual = userManager.UserManagerCreateUser(testUser);
 
             Assert.Equal(expected, actual);
         }
@@ -224,7 +216,7 @@ namespace UMTests
         {
 
             User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
-
+            // UserManager, getID to get user in DB and then modify
             string expected = "User account record creation successful.";
 
             string adminInput = "TeamUnite";
@@ -232,7 +224,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 1, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 1, modifyUser);
 
             Assert.Equal(expected, actual);
 
