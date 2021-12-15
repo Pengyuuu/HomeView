@@ -11,14 +11,13 @@ namespace Logging.Logging
 
 
         // Manager communicates with Service layer through this method
-        public bool logData(LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public bool logData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
             // Create new logging service here
             LoggingService logService = new LoggingService();
 
             Log log = new Log();
 
-            log.UserOperation = userOp;
             log.Description = desc;
             log.Level = level;
             log.Category = category;

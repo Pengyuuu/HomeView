@@ -11,7 +11,7 @@ namespace Archiving.Archiving
     class ArchivingDAO
     {
         private static ArchivingDAO instance;
-        private static string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data");
+        private static string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.csv");
 
         public static ArchivingDAO GetInstance
         {

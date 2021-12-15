@@ -12,7 +12,7 @@ namespace Testing.LoggingTests
 
     {
 
-        private static Log testLog = new(LogUserOperation.Create, "Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
+        private static Log testLog = new("Test log", LogLevel.Info, LogCategory.Data, new DateTime(2021, 12, 15));
 
         [Fact]
         public void LoggingManager_getLogShouldReturnLogFromTable()

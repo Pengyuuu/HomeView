@@ -7,9 +7,6 @@ namespace Logging.Logging
         // Number identifier for the log
         public int Id { get; set; }
 
-        // Title of user performing operation
-        public LogUserOperation UserOperation { get; set; }
-
         // Description of operation
         public string Description { get; set; }
 
@@ -22,9 +19,8 @@ namespace Logging.Logging
         // Timestamp operation was performed
         public DateTime timeStamp { get; set; }
 
-        public Log(LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public Log(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
-            this.UserOperation = userOp;
             this.Description = desc;
             this.Level = level;
             this.Category = category;
