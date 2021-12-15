@@ -19,7 +19,7 @@ namespace Testing.LoggingTests
         {
             Boolean expected = true;
 
-            LoggingManager logManager = LoggingManager.GetInstance;
+            LoggingManager logManager = new LoggingManager();
             Boolean actual = logManager.Info(102, LogUserOperation.Create, "Test Log - LoggingManager Info()", LogLevel.Info, LogCategory.View, actualDate);
 
             Assert.Equal(expected, actual);
@@ -46,7 +46,7 @@ namespace Testing.LoggingTests
         {
             Boolean expected = true;
 
-            LoggingManager logManager = LoggingManager.GetInstance;
+            LoggingManager logManager = new LoggingManager();
             // Log created
             logManager.Info(104, LogUserOperation.Create, "Test Log - LoggingService Create()", LogLevel.Info, LogCategory.View, actualDate);
 

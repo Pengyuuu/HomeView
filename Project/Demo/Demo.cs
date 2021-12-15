@@ -15,7 +15,9 @@ namespace Demo
             UserManager um = new UserManager("TeamUnite", "Testing");
             um.UserManagerCreateUser(u);
 
-            
+            DateTime actualDate = new DateTime(2020, 8, 11);
+            LoggingManager logManager = new LoggingManager();
+            Boolean actual = logManager.Info(102, LogUserOperation.Create, "Test Log - LoggingManager Info()", LogLevel.Info, LogCategory.View, actualDate);
         }
     }
 }

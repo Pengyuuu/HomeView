@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{21066D0E-A36F-48A3-83D2-C536A8925B90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "Logging\Logging.csproj", "{DC2D21AE-7FB6-4F4E-BF05-B8213D4FA329}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA35DDBF-F87F-4785-8845-8969FF1819F7} = {CA35DDBF-F87F-4785-8845-8969FF1819F7}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{3357278B-ACDF-4C76-9ADC-A7C1F3E8DC5F}"
 EndProject

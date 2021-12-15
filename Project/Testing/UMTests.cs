@@ -21,16 +21,15 @@ namespace UMTests
             DateTime testDate = new DateTime(2021, 1, 1);
             User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob",  Role.User);
 
+            Role test = Role.Admin;
             DateTime newDate = new DateTime(2000, 2, 2);
-            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);  // changes status to disable
+            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);
 
             if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
-                && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getrole() == Role.Admin)
-            {
-                actual = true;
-            }
+                && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getstatus() == 0
+                && testUser.getrole() == Role.Admin)
 
-            Assert.Equal(expected, actual);
+                Assert.Equal(expected, actual);
 
         }
 

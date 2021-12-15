@@ -6,6 +6,8 @@ namespace Logging.Logging
     {
         // Creates a log object
         private Log log;
+
+
         // A logging service has not been initialized yet, so set to null
         private static LoggingService instance = null;
 
@@ -19,7 +21,7 @@ namespace Logging.Logging
                 {
                     instance = new LoggingService();
                 }
-
+                Console.WriteLine(instance);
                 return instance;
             }
         }
@@ -27,6 +29,8 @@ namespace Logging.Logging
         // Method to create log 
         public bool Log(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
+            Log log = new Log();
+
             log.Id = id;
             log.UserOperation = userOp;
             log.Description = desc;
