@@ -61,6 +61,21 @@ namespace UM.User
 
 		}
 
+		public User(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, DateTime reg, int s, Role r)
+		{
+			
+			userId = id;
+			firstName = fName;
+			lastName = lName;
+			email = email_address;
+			password = pw;
+			dob = birth;
+			dispName = dName;
+			regDate = reg;
+			status = s;		// all users default to enabled account
+			role = r;
+
+		}
 
 
 		public User readUser(string csvLine)
@@ -71,12 +86,12 @@ namespace UM.User
 			lastName = delimiter[2];
 			email = delimiter[3];
 			password = delimiter[4];
-			dob = Convert.ToDateTime(delimiter[6]);
-			dispName = delimiter[5];
+			dob = Convert.ToDateTime(delimiter[5]);
+			dispName = delimiter[6];
 			regDate = Convert.ToDateTime(delimiter[7]);
-			status = (Convert.ToInt16(delimiter[8]);
+			status = (Convert.ToInt16(delimiter[8]));
 			role = (Role) (Convert.ToInt16(delimiter[9]));
-
+			return new User(userId,firstName,lastName,email,password,dob,dispName,regDate,status,role);
 		}
 		
 		// updates user
