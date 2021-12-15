@@ -82,7 +82,7 @@ namespace UM.User {
 
 		// Gets user
 		
-		public String UserManagerGetUser(int id)
+		public String UserManagerGetUser(string email)
         {
 			Log userlog = new();
 			LoggingManager logm = new LoggingManager();
@@ -94,7 +94,7 @@ namespace UM.User {
 				return "Unauthorized access";
 			}
 
-			if (!umService.UMServiceCheckUser(id))
+			if (!umService.UMServiceCheckUser(email))
             {
 				userlog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
@@ -105,7 +105,7 @@ namespace UM.User {
 			userlog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logm.logData(userlog);
 
-			User m = this.umService.UMServiceGetUser(id);
+			User m = this.umService.UMServiceGetUser(email);
 
 			return m.toString();
 

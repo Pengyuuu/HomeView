@@ -132,7 +132,7 @@ namespace UM.User
         }
 
         // gets user
-        public String getUser(int id)
+        public String getUser(string email)
         {
             string result = "";
            
@@ -143,7 +143,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("GetUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
                     SqlDataReader read = command.ExecuteReader();
 
                     //command.ExecuteNonQuery();
@@ -155,7 +155,6 @@ namespace UM.User
                             string uid = read.GetInt32(0) + ",";
                             string first = read.GetString(1) + ",";
                             string last = read.GetString(2) + ",";
-                            string email = read.GetString(3) + ",";
                             string pw = read.GetString(4) + ",";
                             string dob = read.GetString(5) + ",";
                             string dname = read.GetString(6) + ",";
@@ -177,7 +176,7 @@ namespace UM.User
             catch (SqlException e)
             {
                 // unable to enable user record
-                result = "Unable to get user id: " + id;
+                result = "Unable to get user: " + email;
             }
 
             finally
@@ -190,7 +189,7 @@ namespace UM.User
         }            
 
         /* Checks if user is in database*/
-        public Boolean checkUser(int id)
+        public Boolean checkUser(string email)
         {
             Boolean result = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
@@ -200,7 +199,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("GetUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
                     SqlDataReader read = command.ExecuteReader();
 
                     //command.ExecuteNonQuery();
@@ -276,7 +275,7 @@ namespace UM.User
 		 * 4 = Enable
 		 * Returns true if successful, false if unsuccessful*/
 		 
-        public Boolean modifyUser(int id, int mode, User userMod)
+        public Boolean modifyUser(string email, int mode, User userMod)
         {
             Boolean success = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
@@ -292,7 +291,6 @@ namespace UM.User
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.getfirst();
                     command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.getlast();
                     command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = userMod.getemail();
@@ -325,7 +323,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("DeleteUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
                     command.ExecuteNonQuery();
                 }
                 catch (SqlException e)
@@ -349,7 +347,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("DisableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
                     command.ExecuteNonQuery();
                 }
                 catch (SqlException e)
@@ -372,7 +370,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("EnableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
+                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
                     command.ExecuteNonQuery();
                 }
                 catch (SqlException e)

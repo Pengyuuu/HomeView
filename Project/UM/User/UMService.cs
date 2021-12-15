@@ -24,21 +24,21 @@ namespace UM.User
 		/* Calls UM DAO to modify user, given User to modify, mode (delete, update, disable, enable), and user modifications
 		 * Returns True is successful, false if unsuccessful
 		 */
-		public Boolean UMServiceModifyUser(int id, int mode, User userMod)
+		public Boolean UMServiceModifyUser(string email, int mode, User userMod)
 		{
-			return userdao.modifyUser(id, mode, userMod);
+			return userdao.modifyUser(email, mode, userMod);
 
 		}
 
-		public Boolean UMServiceCheckUser(int id)
+		public Boolean UMServiceCheckUser(string email)
 		{
-			return userdao.checkUser(id);
+			return userdao.checkUser(email);
 		}
 		 
-		public User UMServiceGetUser(int id)
+		public User UMServiceGetUser(string email)
 		{
 			User fetchedUser = new User();
-			fetchedUser = fetchedUser.getUser(userdao.getUser(id));
+			fetchedUser = fetchedUser.getUser(userdao.getUser(email));
 			return fetchedUser;
 		}
 

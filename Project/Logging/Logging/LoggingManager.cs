@@ -49,7 +49,7 @@ namespace Logging.Logging
         }
 
         public Log getLog(int id)
-        {
+       {
             LoggingService logService = new LoggingService();
 
             Log retrievedLog = logService.getLog(id);
