@@ -10,10 +10,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{3357278B-ACDF-4C76-9ADC-A7C1F3E8DC5F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Archiving", "Archiving\Archiving.csproj", "{0821B09F-1B96-4868-BA65-B3EAEBC4A6EC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC2D21AE-7FB6-4F4E-BF05-B8213D4FA329} = {DC2D21AE-7FB6-4F4E-BF05-B8213D4FA329}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{CA35DDBF-F87F-4785-8845-8969FF1819F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UM", "UM\UM.csproj", "{00FC2C47-883D-4C54-AD4B-D136FB56A151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UM", "UM\UM.csproj", "{00FC2C47-883D-4C54-AD4B-D136FB56A151}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

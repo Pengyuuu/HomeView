@@ -1,4 +1,4 @@
-﻿namespace Archiving.Archiving
+﻿namespace Archive
 {
     public class ArchivingManager
     {
