@@ -7,7 +7,7 @@ namespace Logging.Logging
         // Creates a log object
         private Log log;
         // A logging service has not been initialized yet, so set to null
-        private static LoggingService instance = null;
+        /* private static LoggingService instance = null;
 
         // Singleton design pattern, makes sure there's only one logging service
         public static LoggingService GetInstance
@@ -22,6 +22,11 @@ namespace Logging.Logging
 
                 return instance;
             }
+        }
+        */
+        public LoggingService()
+        {
+
         }
 
         // Method to create log 
