@@ -46,8 +46,24 @@ namespace UM.User
 
 		}
 
-		
 		public User(string csvLine)
+		{
+			string[] delimiter = csvLine.Split(',');
+			firstName = delimiter[0];
+			lastName = delimiter[1];
+			email = delimiter[2];
+			password = delimiter[3];
+			dob = Convert.ToDateTime(delimiter[5]);
+			dispName = delimiter[4];
+			regDate = DateTime.UtcNow;
+			status = Convert.ToInt16(delimiter[6]);
+			role = (Role) (Convert.ToInt16(delimiter[7]));
+
+		}
+
+
+
+		public User readUser(string csvLine)
 		{
 			string[] delimiter = csvLine.Split(',');
 			userId = Convert.ToInt32(delimiter[0]);
@@ -55,11 +71,11 @@ namespace UM.User
 			lastName = delimiter[2];
 			email = delimiter[3];
 			password = delimiter[4];
-			dispName = delimiter[5];
 			dob = Convert.ToDateTime(delimiter[6]);
-			regDate = DateTime.UtcNow;
-			status = 1;
-			role = (Role) (Convert.ToInt16(delimiter[7]));
+			dispName = delimiter[5];
+			regDate = Convert.ToDateTime(delimiter[7]);
+			status = (Convert.ToInt16(delimiter[8]);
+			role = (Role) (Convert.ToInt16(delimiter[9]));
 
 		}
 		
