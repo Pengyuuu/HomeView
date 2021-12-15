@@ -1,4 +1,6 @@
-﻿namespace Archiving.Archiving
+﻿using System.Collections.Generic;
+
+namespace Archiving.Archiving
 {
     public class ArchivingService
     {
@@ -17,6 +19,16 @@
 
                 return instance;
             }
+        }
+
+        public bool sendLogs(List<string> oldLogs)
+        {
+            // Create archiving DAO and send it the logs
+            ArchivingDAO archive = ArchivingDAO.GetInstance;
+
+            archive.send(oldLogs);
+
+            return true;
         }
     }
 }

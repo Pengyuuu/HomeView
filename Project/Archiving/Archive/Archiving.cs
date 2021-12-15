@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Archiving.Archiving;
 
 namespace Archive
 {
@@ -31,7 +32,7 @@ namespace Archive
             }
         }
 
-        public List<string> oldLog()
+        public bool oldLog()
         {
             SqlConnection conn = new SqlConnection(dbConn);
             SqlCommand command = new SqlCommand("GetOldLog", conn);
@@ -43,11 +44,11 @@ namespace Archive
                 command.Parameters.AddWithValue("@timeStamp", SqlDbType.DateTime).Value = DateTime.UtcNow;
                 SqlDataReader read = command.ExecuteReader();
 
-                //command.ExecuteNonQuery();
                 if (read.HasRows)
                 {
                     while (read.Read())
                     {
+                        // reads each log, appends each column into a single string, and adds it to the list
                         result = read.GetInt32(0).ToString() + " " + read.GetString(1).ToString() + " " +
                                 read.GetString(2).ToString() + " " + read.GetString(3).ToString() + " " +
                                 read.GetString(4).ToString();
@@ -56,16 +57,17 @@ namespace Archive
                 }
                 else
                 {
+                    // No log fits the criteria for archiving
                     result = "No record found.";
                 }
+
+                // Close SQLReader
                 read.Close();
 
             }
             catch (SqlException e)
             {
-                // unable to enable user record
                 Console.WriteLine("Error Generated. Details: " + e.ToString());
-                result = "Unable to get user id: " + id;
             }
 
             finally
@@ -74,7 +76,12 @@ namespace Archive
                 conn.Close();
             }
 
-            return log;
+            // Create archiving manager and send it the logs
+            ArchivingManager archiveManager = ArchivingManager.GetInstance;
+
+            archiveManager.compress(log);
+
+            return true;
         }
     }
 }
