@@ -110,6 +110,11 @@ namespace UM.User
 			return setUser;
         }
 
+		/* Gets a user's first name */
+		public int getid()
+		{
+			return this.userId;
+		}
 
 		/* Gets a user's first name */
 		public string getfirst()
@@ -212,6 +217,17 @@ namespace UM.User
 		{
 			this.role = n.role;
 		}
+
+		
+		public String toString()
+        {
+            if (this == null)
+            {
+                return "User not found.";
+            }
+
+            return this.userId + ", " + this.firstName+", "+ this.lastName + ", " + this.email + ", " + this.password + ", " + this.dob + ", " + this.dispName + ", " + this.regDate + ", " + this.status + ", " + this.role;
+        }
 
 	}
 }

@@ -91,10 +91,10 @@ namespace UM.User
         }
         
         // Gets all users in db
-        public void exportAllUsers(string filepath)
+        public Boolean exportAllUsers(string filepath)
         {
             string result = "";
-           
+            Boolean success = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
@@ -127,7 +127,7 @@ namespace UM.User
                     }
                     else
                     {
-                        result = "No records found.";
+                        success = false;
                     }
                     read.Close();
                     
@@ -136,7 +136,7 @@ namespace UM.User
             {
                 // unable to enable user record
                 Console.WriteLine("Error Generated. Details: " + e.ToString());
-                result = "Unable to get all records";
+                success = false;
             }
 
             finally
@@ -146,7 +146,7 @@ namespace UM.User
             }
             
             File.WriteAllText(filepath, result);
- 
+            return success;
         }
 
         // gets user
