@@ -211,7 +211,7 @@ namespace UM.User
         /* Checks if user is in database*/
         public Boolean checkUser(int id)
         {
-            Boolean result = false;
+            Boolean result = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
@@ -224,14 +224,9 @@ namespace UM.User
 
                     //command.ExecuteNonQuery();
              
-                    if (read.HasRows)
+                    if (!read.HasRows)
                     {
                         result = true;
-                    }
-
-                    else
-                    {
-                        result = false;
                     }
                     read.Close();
                     
