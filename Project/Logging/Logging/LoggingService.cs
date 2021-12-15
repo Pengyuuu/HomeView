@@ -29,7 +29,7 @@ namespace Logging.Logging
         // This method should send the log to the data access object
         public bool Create(Log logFile)
         {
-            LogDAO dAccess = new LogDAO();
+            LogDAO dAccess = new LogDAO(this);
             if (dAccess.storeLog(logFile))
             {
                 return true;
@@ -38,6 +38,15 @@ namespace Logging.Logging
             {
                 return false;
             }
+        }
+
+        public Log getLog(int id)
+        {
+            LogDAO dAccess = new LogDAO(this);
+
+            Log retrievedLog = dAccess.getLog(id);
+
+            return retrievedLog;
         }
     }
 }
