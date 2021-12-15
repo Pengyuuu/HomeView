@@ -64,7 +64,7 @@ namespace UM.User
 		}
 		
 		// updates user
-		public void updateUser(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
+		public void updateUser(string fName, string lName, string email_address, string pw, DateTime birth, string dName, int s, Role r)
         {
 			this.firstName = fName;
 			this.lastName = lName;
@@ -72,6 +72,7 @@ namespace UM.User
 			this.password = pw;
 			this.dob = birth;
 			this.dispName = dName;
+			this.status = s;
 			this.role = r;
         }
 
@@ -84,6 +85,7 @@ namespace UM.User
 			this.password = u.password;
 			this.dob = u.dob;
 			this.dispName = u.dispName;
+			this.status = u.status;
 			this.role = u.role;
         }
 
@@ -94,9 +96,8 @@ namespace UM.User
 			this.lastName = delimiter[2];
 			this.email = delimiter[3];
 			this.password = delimiter[4];
-			this.dispName = delimiter[5];
 			this.dob = Convert.ToDateTime(delimiter[6]);
-			this.regDate = Convert.ToDateTime(delimiter[7]);
+			this.dispName = delimiter[5];
 			this.status = Convert.ToInt16(delimiter[8]);
 			this.role = (Role) (Convert.ToInt16(delimiter[9]));
         }

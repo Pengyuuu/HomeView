@@ -7,6 +7,22 @@ namespace UM.User
 		// User DAO
 		private UserDAO userdao;
 
+		/*
+		// Singleton
+		private static UserManager instance = null;
+
+		public static UMService GetInstance
+        {
+            get
+            {
+				if (GetInstance == null)
+                {
+					instance = new UMService();
+                }
+            }
+        }*/
+
+
 		public UMService()
 		{
 			userdao = new UserDAO();
@@ -36,7 +52,6 @@ namespace UM.User
 			return userdao.checkUser(id);
 
 		}
-		/*
 		 
 		public User UMServiceGetUser(int id)
 		{
@@ -46,7 +61,7 @@ namespace UM.User
 			return userdao.getUser(id);
 
 		}
-		*/
+		
 
 
 	}

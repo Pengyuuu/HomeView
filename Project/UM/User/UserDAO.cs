@@ -9,6 +9,22 @@ namespace UM.User
     {   
         
 
+        /* Singleton
+		private static UserManager instance = null;
+
+		public static UserManager GetInstance
+        {
+            get
+            {
+				if (GetInstance == null)
+                {
+					instance = new UserManager();
+                }
+            }
+        }*/
+        
+        
+        
         public UserDAO()
         {
 
