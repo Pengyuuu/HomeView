@@ -12,9 +12,8 @@ namespace UMTests
         private static System.DateTime actualDate = new DateTime(2011, 6, 10);
         private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
         
-        string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        string path = (System.IO.Path.GetDirectoryName(executable));
-        path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Testing\\BulkOpCreateUsers.csv"));
+        private static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        private static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Testing\\BulkOpCreateUsers.csv"));
         
         [Fact]
         public void User_UserUpdateUserShouldUpdateUserGivenArguments()
