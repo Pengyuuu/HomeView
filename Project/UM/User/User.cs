@@ -30,7 +30,7 @@ namespace UM.User
 			this.dispName = "";
         }
 		
-		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
+		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, int s, Role r)
 		{
 			
 			
@@ -41,7 +41,7 @@ namespace UM.User
 			dispName = dName;
 			dob = birth;
 			regDate = DateTime.UtcNow;
-			status = 1;		// all users default to enabled account
+			status = s;		// all users default to enabled account
 			role = r;
 
 		}

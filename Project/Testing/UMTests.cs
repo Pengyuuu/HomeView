@@ -223,7 +223,7 @@ namespace UMTests
         public void UserManager_ModifyUserMode1ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             string expected = "User account record creation successful.";
 
@@ -242,7 +242,7 @@ namespace UMTests
         public void UserManager_ModifyUserMode2ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             string expected = "User account record creation successful.";
 
@@ -261,7 +261,7 @@ namespace UMTests
         public void UserManager_ModifyUserMode3ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             string expected = "User account record creation successful.";
 
@@ -280,7 +280,7 @@ namespace UMTests
         public void UserManager_ModifyUserMode4ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             string expected = "User account record creation successful.";
 
