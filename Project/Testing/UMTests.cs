@@ -232,7 +232,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 1, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 1, modifyUser);
 
             Assert.Equal(expected, actual);
 

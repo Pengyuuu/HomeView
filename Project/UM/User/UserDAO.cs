@@ -274,7 +274,7 @@ namespace UM.User
                 command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob();
                 command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = u.getdisp();
                 command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
-                command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = u.getstatus();
+                command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = u.getstatus();
                 command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)u.getrole());
 
                 command.ExecuteNonQuery();
@@ -323,7 +323,7 @@ namespace UM.User
                     command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = userMod.getpw();
                     command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.getdob();
                     command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
-                    command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = userMod.getstatus();
+                    command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = userMod.getstatus();
                     command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)userMod.getrole());
 
                     command.ExecuteNonQuery();
