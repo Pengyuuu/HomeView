@@ -129,7 +129,7 @@ namespace UM.User {
 
 		}
 
-		public String UserManagerExportAllUsers(string filepath)
+		public String UserManagerExportAllUsers()
 		{
 			Log userlog = new();
 			LoggingManager logm = new LoggingManager();
@@ -140,7 +140,7 @@ namespace UM.User {
 				return "Unauthorized access";
 			}
 
-			if (!this.umService.UMServiceExportAllUsers(filepath)) {
+			if (!this.umService.UMServiceExportAllUsers()) {
 				userlog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
 				return "Unable to export all users.";
@@ -148,7 +148,7 @@ namespace UM.User {
 
 			userlog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
 			logm.logData(userlog);
-			return "User data successfully exported to .csv file in: " + filepath;
+			return "User data successfully exported to .csv file" ;
 
 		}
 

@@ -60,7 +60,6 @@ namespace UM.User
             catch (SqlException e)
             {
                 // unable to enable user record
-                Console.WriteLine("Error Generated. Details: " + e.ToString());
                 result = "Unable to get all records";
             }
 
@@ -74,8 +73,9 @@ namespace UM.User
         }
         
         // Gets all users in db
-        public Boolean exportAllUsers(string filepath)
+        public Boolean exportAllUsers()
         {
+            string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
             string result = "";
             Boolean success = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
@@ -118,7 +118,6 @@ namespace UM.User
             catch (SqlException e)
             {
                 // unable to enable user record
-                Console.WriteLine("Error Generated. Details: " + e.ToString());
                 success = false;
             }
 
@@ -128,7 +127,7 @@ namespace UM.User
                 connection.Close();
             }
             
-            File.WriteAllText(filepath, result);
+            File.WriteAllText(filePath, result);
             return success;
         }
 
@@ -178,7 +177,6 @@ namespace UM.User
             catch (SqlException e)
             {
                 // unable to enable user record
-                Console.WriteLine("Error Generated. Details: " + e.ToString());
                 result = "Unable to get user id: " + id;
             }
 
@@ -217,7 +215,6 @@ namespace UM.User
             catch (SqlException e)
             {
                 // unable to enable user record
-                Console.WriteLine("Error Generated. Details: " + e.ToString());
                 result = false;
             }
 
@@ -256,12 +253,10 @@ namespace UM.User
                 command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)u.getrole());
 
                 command.ExecuteNonQuery();
-                Console.WriteLine("User record inserted successfully");
             }
             catch (SqlException e)
             {
                 // Unable to insert new user record
-                Console.WriteLine("Error Generated. Details: " + e.ToString());
                 success = false;
             }
             finally
@@ -308,12 +303,10 @@ namespace UM.User
                     command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)userMod.getrole());
 
                     command.ExecuteNonQuery();
-                    Console.WriteLine("User record updated successfully");
                 }
                 catch (SqlException e)
                 {
                     // unable to update user record
-                    Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
@@ -334,12 +327,10 @@ namespace UM.User
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.ExecuteNonQuery();
-                    Console.WriteLine("User record removed successfully");
                 }
                 catch (SqlException e)
                 {
                     // unable to delete user record
-                    Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
@@ -360,12 +351,10 @@ namespace UM.User
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.ExecuteNonQuery();
-                    Console.WriteLine("User record disabled successfully");
                 }
                 catch (SqlException e)
                 {
                     // unable to disable user record
-                    Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally
@@ -385,12 +374,10 @@ namespace UM.User
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.ExecuteNonQuery();
-                    Console.WriteLine("User record enabled successfully");
                 }
                 catch (SqlException e)
                 {
                     // unable to enable user record
-                    Console.WriteLine("Error Generated. Details: " + e.ToString());
                     success = false;
                 }
                 finally

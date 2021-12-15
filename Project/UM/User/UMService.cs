@@ -47,10 +47,10 @@ namespace UM.User
 			return userdao.getAllUsers();
 		}
 
-		public Boolean UMServiceExportAllUsers(string filepath)
+		public Boolean UMServiceExportAllUsers()
 		{
 
-			return userdao.exportAllUsers(filepath);
+			return userdao.exportAllUsers();
 
 		}
 

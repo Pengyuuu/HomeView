@@ -42,7 +42,7 @@ namespace Archiving.Archiving
             }
 
             // Writes the archived logs and exports as a csv file
-            //File.WriteAllText(filePath, csv.ToString());
+            File.WriteAllText(filePath, csv.ToString());
 
             return true;
         }
