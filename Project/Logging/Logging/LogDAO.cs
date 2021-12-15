@@ -56,16 +56,16 @@ namespace Logging.Logging
                     {
                         log = new();
                         log.Id = read.GetInt32(0);
-                        log.Description = read.GetString(2);
-                        if (Enum.TryParse(read.GetString(3), out logLev))
+                        log.Description = read.GetString(1);
+                        if (Enum.TryParse(read.GetString(2), out logLev))
                         {
                             log.Level = logLev;
                         }
-                        if (Enum.TryParse(read.GetString(4), out logCat))
+                        if (Enum.TryParse(read.GetString(3), out logCat))
                         {
                             log.Category = logCat;
                         }
-                        log.timeStamp = read.GetDateTime(5);
+                        log.timeStamp = read.GetDateTime(4);
                     }
                 }
             }
