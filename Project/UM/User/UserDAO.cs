@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
+
 
 namespace UM.User
 {
@@ -8,26 +10,126 @@ namespace UM.User
     public class UserDAO
     {   
         
-
-        /* Singleton
-		private static UserManager instance = null;
-
-		public static UserManager GetInstance
+        public UserDAO(UMService service)
         {
-            get
-            {
-				if (GetInstance == null)
-                {
-					instance = new UserManager();
-                }
+
+        }
+
+        // Gets all users in db
+        public String getAllUsers()
+        {
+            string result = "";
+           
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
+
+            try
+            {   // connects to sql
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("GetAllUsers", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader read = command.ExecuteReader();
+
+                    //command.ExecuteNonQuery();
+             
+                    if (read.HasRows)
+                    {
+                        while (read.Read())
+                        {
+                            string uid = read.GetInt32(0) + ",";
+                            string first = read.GetString(1) + ",";
+                            string last = read.GetString(2) + ",";
+                            string email = read.GetString(3) + ",";
+                            string pw = read.GetString(4) + ",";
+                            string dob = read.GetString(5) + ",";
+                            string dname = read.GetString(6) + ",";
+                            string regd = read.GetString(7) + ",";
+                            string status = read.GetString(8) + ",";
+                            string role = read.GetString(9);
+                            
+
+                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                        }
+                    }
+                    else
+                    {
+                        result = "No records found.";
+                    }
+                    read.Close();
+                    
             }
-        }*/
-        
-        
-        
-        public UserDAO()
-        {
+            catch (SqlException e)
+            {
+                // unable to enable user record
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+                result = "Unable to get all records";
+            }
 
+            finally
+            {
+                // closes sql connection
+                connection.Close();
+            }
+
+            return result;
+        }
+        
+        // Gets all users in db
+        public Boolean exportAllUsers(string filepath)
+        {
+            string result = "";
+            Boolean success = true;
+            SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
+
+            try
+            {   // connects to sql
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("GetAllUsers", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader read = command.ExecuteReader();
+
+                    //command.ExecuteNonQuery();
+             
+                    if (read.HasRows)
+                    {
+                        while (read.Read())
+                        {
+                            string uid = read.GetInt32(0) + ",";
+                            string first = read.GetString(1) + ",";
+                            string last = read.GetString(2) + ",";
+                            string email = read.GetString(3) + ",";
+                            string pw = read.GetString(4) + ",";
+                            string dob = read.GetString(5) + ",";
+                            string dname = read.GetString(6) + ",";
+                            string regd = read.GetString(7) + ",";
+                            string status = read.GetString(8) + ",";
+                            string role = read.GetString(9);
+                            
+                            
+                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                        }
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                    read.Close();
+                    
+            }
+            catch (SqlException e)
+            {
+                // unable to enable user record
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+                success = false;
+            }
+
+            finally
+            {
+                // closes sql connection
+                connection.Close();
+            }
+            
+            File.WriteAllText(filepath, result);
+            return success;
         }
 
         // gets user
@@ -92,7 +194,7 @@ namespace UM.User
         /* Checks if user is in database*/
         public Boolean checkUser(int id)
         {
-            Boolean result = false;
+            Boolean result = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
@@ -105,12 +207,7 @@ namespace UM.User
 
                     //command.ExecuteNonQuery();
              
-                    if (read.HasRows)
-                    {
-                        result = true;
-                    }
-
-                    else
+                    if (!read.HasRows)
                     {
                         result = false;
                     }
@@ -155,7 +252,7 @@ namespace UM.User
                 command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob();
                 command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = u.getdisp();
                 command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
-                command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = u.getstatus();
+                command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = u.getstatus();
                 command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)u.getrole());
 
                 command.ExecuteNonQuery();
@@ -196,7 +293,10 @@ namespace UM.User
                 {
                     // opens sql connection
                     connection.Open();
+
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.getfirst();
                     command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.getlast();
@@ -204,8 +304,7 @@ namespace UM.User
                     command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = userMod.getpw();
                     command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.getdob();
                     command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
-                    command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = userMod.getreg();
-                    command.Parameters.AddWithValue("@status", SqlDbType.Bit).Value = userMod.getstatus();
+                    command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = userMod.getstatus();
                     command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)userMod.getrole());
 
                     command.ExecuteNonQuery();

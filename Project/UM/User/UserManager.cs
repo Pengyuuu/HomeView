@@ -15,7 +15,7 @@ namespace UM.User {
 
 		public UserManager(string adminInput, string pw)
 		{
-			umService = new UMService();
+			umService = new UMService(this);
 			verified = verifyAdmin(adminInput, pw);
 		}
 
@@ -72,27 +72,49 @@ namespace UM.User {
 
 		// Gets user
 		
-		public User UserManagerGetUser(int id)
+		public String UserManagerGetUser(int id)
         {
 			if (!this.verified)
 			{
-				return null;
+				return "Unauthorized access";
 			}
 
 			if (!umService.UMServiceCheckUser(id))
             {
-				return null;
-            }
-			
-			if (this.umService.UMServiceGetUser(id) == null)
-            {
-				return null;
+				return "User does not exist";
             }
 
 			User m = this.umService.UMServiceGetUser(id);
-			return m;
+
+			return m.toString();
 
         }
+
+		public String UserManagerGetAllUsers()
+		{
+			if (!this.verified)
+			{
+				return "Unauthorized access";
+			}
+
+			return this.umService.UMServiceGetAllUsers();
+
+		}
+
+		public String UserManagerExportAllUsers(string filepath)
+		{
+			if (!this.verified)
+			{
+				return "Unauthorized access";
+			}
+
+			if (!this.umService.UMServiceExportAllUsers(filepath)) {
+				return "Unable to export all users.";
+            }
+
+			return "User data successfully exported to .csv file in: " + filepath;
+
+		}
 
 		/* Creates a new user record in system 
 		 * Returns success or unsuccessful message

@@ -9,7 +9,7 @@ namespace UMTests
     {
         //12 characters, 1 uppercase, 1 nonalpha numeric
         private static System.DateTime actualDate = new DateTime(2011, 6, 10);
-        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", Role.User);
+        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
         
         
         [Fact]
@@ -19,18 +19,17 @@ namespace UMTests
             Boolean actual = false;
 
             DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", Role.User);
+            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", 0, Role.User);
 
+            Role test = Role.Admin;
             DateTime newDate = new DateTime(2000, 2, 2);
-            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", Role.Admin);
+            testUser.updateUser("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);
 
             if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
-                && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getrole() == Role.Admin)
-            {
-                actual = true;
-            }
+                && testUser.getpw() == "Updatepassword!!" && testUser.getdob() == newDate && testUser.getdisp() == "SmallBob" && testUser.getstatus() == 0
+                && testUser.getrole() == Role.Admin)
 
-            Assert.Equal(expected, actual);
+                Assert.Equal(expected, actual);
 
         }
 
@@ -41,10 +40,10 @@ namespace UMTests
             Boolean actual = false;
 
             DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", Role.User);
+            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", 0, Role.User);
 
             DateTime newDate = new DateTime(2000, 2, 2);
-            User updatedUser = new User("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", Role.Admin);
+            User updatedUser = new User("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);
             testUser.updateUser(updatedUser);
 
             if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
@@ -54,106 +53,6 @@ namespace UMTests
             }
 
             Assert.Equal(expected, actual);
-
-        }
-
-        [Fact]
-        public void User_GetFirstShouldReturnFirstName()
-        {
-            // Arrange
-            String expected = "John";
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected, actual.getfirst());
-
-        }
-
-        [Fact]
-        public void User_GetLastShouldReturnLastName()
-        {
-            // Arrange
-            String expected = "Smith";
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected, actual.getlast());
-        }
-
-        [Fact]
-        public void User_GetEmailShouldReturnEmail()
-        {
-            // Arrange
-            String expected = "JohnSmith@gmail.com";
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected, actual.getemail());
-        }
-
-        [Fact]
-        public void User_GetPWShouldReturnPassword()
-        {
-            // Arrange
-            String expected = "Password1234!";
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected, actual.getpw());
-        }
-
-
-        // Compares DateTime to the dot, need to compare just day
-        [Fact]
-        public void User_GetDOBShouldReturnDateOfBirth()
-        {
-            // Arrange
-            System.DateTime expected = new DateTime(2011, 6, 10);
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected.ToString(), actual.getdob().ToString());
-        }
-
-        [Fact]
-        public void User_GetDispShouldReturnDisplayName()
-        {
-            // Arrange
-            String expected = "JSmith";
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected, actual.getdisp());
-        }
-
-        // May or may not work... 
-        // Maybe access database to get reg time to verify.
-        [Fact]
-        public void User_GetRegShouldReturnRegistrationDate()
-        {
-            // Arrange
-            System.DateTime expected = DateTime.UtcNow;
-
-            User actual = actualUser;
-
-            // Assert
-            Assert.Equal(expected.ToString(), actual.getreg().ToString());
-        }
-
-        public void UserDAO_CreateUserShouldCreateUserAndSaveToDatabase()
-        {
-
-        }
-
-        // Probably add separate test for each modify mode later
-        public void UserDAO_ModifyUserShouldModifyUserAndSaveToDatabase()
-        {
 
         }
 
@@ -190,7 +89,7 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank", Role.User);
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank", 0, Role.User);
             string expected = "User account record creation successful.";
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -211,7 +110,7 @@ namespace UMTests
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
-            User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
             String actual = userManager.UserManagerCreateUser(testUser);
@@ -224,70 +123,148 @@ namespace UMTests
         public void UserManager_ModifyUserMode1ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 1, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 1, modifyUser);
 
             Assert.Equal(expected, actual);
 
         }
 
+        [Fact]
         public void UserManager_ModifyUserMode2ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 2, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 2, modifyUser);
 
             Assert.Equal(expected, actual);
 
         }
 
+        [Fact]
         public void UserManager_ModifyUserMode3ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 3, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 3, modifyUser);
 
             Assert.Equal(expected, actual);
 
         }
 
+        [Fact]
         public void UserManager_ModifyUserMode4ModifyShouldBeSuccessful()
         {
 
-            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User modifyUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string expected = "User account record creation successful.";
+            string expected = "User account modification successful.";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid, 4, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 4, modifyUser);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_BulkOpsCreateUsers()
+        {
+
+            string filepath = @".csv";
+            int insertedUsers = 10;
+            int failedInsert = 0;
+            string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.BulkOperationModifyUsers(filepath);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_BulkOpsModifyUsers()
+        {
+
+            string filepath = @".csv";
+            int successMods = 10;
+            int failedMods = 0;
+            string expected = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.BulkOperationModifyUsers(filepath);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_exportAllUsers()
+        {
+            string filepath = @".csv";
+
+            string expected = "User data successfully exported to.csv file in: " + filepath;
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.UserManagerExportAllUsers(filepath);
+
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_getAllUsers()   // needs all users inside first to get expected
+        {
+
+            string expected = "";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            string actual = userManager.UserManagerGetAllUsers();
 
             Assert.Equal(expected, actual);
 

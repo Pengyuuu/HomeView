@@ -7,25 +7,9 @@ namespace UM.User
 		// User DAO
 		private UserDAO userdao;
 
-		/*
-		// Singleton
-		private static UserManager instance = null;
-
-		public static UMService GetInstance
-        {
-            get
-            {
-				if (GetInstance == null)
-                {
-					instance = new UMService();
-                }
-            }
-        }*/
-
-
-		public UMService()
+		public UMService(UserManager manager)
 		{
-			userdao = new UserDAO();
+			userdao = new UserDAO(this);
 		}
 
 		/* Calls UM DAO to create user given new user
@@ -48,20 +32,28 @@ namespace UM.User
 
 		public Boolean UMServiceCheckUser(int id)
 		{
-			
 			return userdao.checkUser(id);
-
 		}
 		 
 		public User UMServiceGetUser(int id)
 		{
 			User fetchedUser = new User();
 			fetchedUser = fetchedUser.getUser(userdao.getUser(id));
+			return fetchedUser;
+		}
 
-			return userdao.getUser(id);
+		public String UMServiceGetAllUsers()
+		{
+			return userdao.getAllUsers();
+		}
+
+		public Boolean UMServiceExportAllUsers(string filepath)
+		{
+
+			return userdao.exportAllUsers(filepath);
 
 		}
-		
+
 
 
 	}

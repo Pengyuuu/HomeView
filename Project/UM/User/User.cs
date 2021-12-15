@@ -13,7 +13,7 @@ namespace UM.User
 		private DateTime dob;			// user's date of birth
 		private string dispName;		// user's display name
 		private DateTime regDate;		// user's registration date and time
-		private int status;				// user's status (enabled or disabled)
+		private int status;				// user's status (enabled = 1 or disabled = 0)
 		private Role role;				// user's Role (admin (not system admin), or user)
 		
 
@@ -30,7 +30,7 @@ namespace UM.User
 			this.dispName = "";
         }
 		
-		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, Role r)
+		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, int s, Role r)
 		{
 			
 			
@@ -41,13 +41,44 @@ namespace UM.User
 			dispName = dName;
 			dob = birth;
 			regDate = DateTime.UtcNow;
-			status = 1;
+			status = s;		// all users default to enabled account
 			role = r;
 
 		}
 
-		
 		public User(string csvLine)
+		{
+			string[] delimiter = csvLine.Split(',');
+			firstName = delimiter[0];
+			lastName = delimiter[1];
+			email = delimiter[2];
+			password = delimiter[3];
+			dob = Convert.ToDateTime(delimiter[5]);
+			dispName = delimiter[4];
+			regDate = DateTime.UtcNow;
+			status = Convert.ToInt16(delimiter[6]);
+			role = (Role) (Convert.ToInt16(delimiter[7]));
+
+		}
+
+		public User(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, DateTime reg, int s, Role r)
+		{
+			
+			userId = id;
+			firstName = fName;
+			lastName = lName;
+			email = email_address;
+			password = pw;
+			dob = birth;
+			dispName = dName;
+			regDate = reg;
+			status = s;		// all users default to enabled account
+			role = r;
+
+		}
+
+
+		public User readUser(string csvLine)
 		{
 			string[] delimiter = csvLine.Split(',');
 			userId = Convert.ToInt32(delimiter[0]);
@@ -55,12 +86,12 @@ namespace UM.User
 			lastName = delimiter[2];
 			email = delimiter[3];
 			password = delimiter[4];
-			dispName = delimiter[5];
-			dob = Convert.ToDateTime(delimiter[6]);
-			regDate = DateTime.UtcNow;
-			status = 1;
-			role = (Role) (Convert.ToInt16(delimiter[7]));
-
+			dob = Convert.ToDateTime(delimiter[5]);
+			dispName = delimiter[6];
+			regDate = Convert.ToDateTime(delimiter[7]);
+			status = (Convert.ToInt16(delimiter[8]));
+			role = (Role) (Convert.ToInt16(delimiter[9]));
+			return new User(userId,firstName,lastName,email,password,dob,dispName,regDate,status,role);
 		}
 		
 		// updates user
@@ -110,6 +141,11 @@ namespace UM.User
 			return setUser;
         }
 
+		/* Gets a user's first name */
+		public int getid()
+		{
+			return this.userId;
+		}
 
 		/* Gets a user's first name */
 		public string getfirst()
@@ -212,6 +248,17 @@ namespace UM.User
 		{
 			this.role = n.role;
 		}
+
+		
+		public String toString()
+        {
+            if (this == null)
+            {
+                return "User not found.";
+            }
+
+            return this.userId + ", " + this.firstName+", "+ this.lastName + ", " + this.email + ", " + this.password + ", " + this.dob + ", " + this.dispName + ", " + this.regDate + ", " + this.status + ", " + this.role;
+        }
 
 	}
 }
