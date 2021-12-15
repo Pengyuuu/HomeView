@@ -9,7 +9,7 @@ namespace UMTests
     {
         //12 characters, 1 uppercase, 1 nonalpha numeric
         private static System.DateTime actualDate = new DateTime(2011, 6, 10);
-        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", Role.User);
+        private User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
         
         
         [Fact]
@@ -19,7 +19,7 @@ namespace UMTests
             Boolean actual = false;
 
             DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob",  Role.User);
+            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", 0, Role.User);
 
             Role test = Role.Admin;
             DateTime newDate = new DateTime(2000, 2, 2);
@@ -40,10 +40,10 @@ namespace UMTests
             Boolean actual = false;
 
             DateTime testDate = new DateTime(2021, 1, 1);
-            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", Role.User);
+            User testUser = new User("Bob", "Bob", "Bobbob@gmail.com", "Password123456!", testDate, dName: "BigBob", 0, Role.User);
 
             DateTime newDate = new DateTime(2000, 2, 2);
-            User updatedUser = new User("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", Role.Admin);
+            User updatedUser = new User("NotBob", "BobNot", "NotBobbob@gmail.com", "Updatepassword!!", newDate, dName: "SmallBob", 0, Role.Admin);
             testUser.updateUser(updatedUser);
 
             if (testUser.getfirst() == "NotBob" && testUser.getlast() == "BobNot" && testUser.getemail() == "NotBobbob@gmail.com"
@@ -189,7 +189,7 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldDisplayUserCreationSuccess()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank", Role.User);
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", actualDate, dName: "PropaneHank", 0, Role.User);
             string expected = "User account record creation successful.";
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -210,7 +210,7 @@ namespace UMTests
             string adminInput = "TeamUnite";
             string pw = "Testing";
 
-            User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", Role.User);
+            User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
             String actual = userManager.UserManagerCreateUser(testUser);
@@ -251,7 +251,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 2, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 2, modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -270,7 +270,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 3, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 3, modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -289,7 +289,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(modifyUser.getid(), 4, modifyUser);
+            string actual = userManager.UserManagerModifyUser(1, 4, modifyUser);
 
             Assert.Equal(expected, actual);
 
