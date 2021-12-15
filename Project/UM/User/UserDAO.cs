@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
+
 
 namespace UM.User
 {
@@ -89,7 +91,7 @@ namespace UM.User
         }
         
         // Gets all users in db
-        public String exportAllUsers()
+        public void exportAllUsers(string filepath)
         {
             string result = "";
            
@@ -119,7 +121,7 @@ namespace UM.User
                             string status = read.GetString(8) + ",";
                             string role = read.GetString(9);
                             
-
+                            
                             result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
                         }
                     }
@@ -142,8 +144,9 @@ namespace UM.User
                 // closes sql connection
                 connection.Close();
             }
-
-            return result;
+            
+            File.WriteAllText(filepath, result);
+ 
         }
 
         // gets user
