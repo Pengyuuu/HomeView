@@ -13,7 +13,7 @@ namespace Logging.Logging
         }
         public bool storeLog(Log log )
         {
-            SqlConnection conn = new SqlConnection(dbConn);
+            SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("StoreLog", conn);
             try
             {
@@ -41,7 +41,7 @@ namespace Logging.Logging
 
         public bool getLog(int id)
         {
-            SqlConnection conn = new SqlConnection(dbConn);
+            SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("GetLog", conn);
             try
             {
