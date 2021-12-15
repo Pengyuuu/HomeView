@@ -12,7 +12,7 @@ namespace Logging.Logging
         private static LoggingService instance = null;
 
         // Singleton design pattern, makes sure there's only one logging service
-        public static LoggingService GetInstance
+        private static LoggingService GetInstance
         {
 
             get
@@ -24,21 +24,6 @@ namespace Logging.Logging
                 Console.WriteLine(instance);
                 return instance;
             }
-        }
-
-
-        // Method to create log 
-        public bool Log(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
-        {
-            Log log = new Log();
-
-            log.Id = id;
-            log.UserOperation = userOp;
-            log.Description = desc;
-            log.Level = level;
-            log.Category = category;
-            log.timeStamp = timeStamp;
-            return true;
         }
 
         // This method should send the log to the data access object

@@ -29,7 +29,7 @@ namespace Logging.Logging
 
 
         // Manager communicates with Service layer through this method
-        public bool Info(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public bool logData(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
             // Create new logging service here
             LoggingService logService = new LoggingService();
