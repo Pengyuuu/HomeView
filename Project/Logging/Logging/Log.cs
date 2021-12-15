@@ -21,5 +21,21 @@ namespace Logging.Logging
 
         // Timestamp operation was performed
         public DateTime timeStamp { get; set; }
+
+        public Log(int id, LogUserOperation userOp, string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        {
+            this.Id = id;
+            this.UserOperation = userOp;
+            this.Description = desc;
+            this.Level = level;
+            this.Category = category;
+            this.timeStamp = timeStamp;
+
+        }
+        public Log()
+        {
+
+        }
+
     }
 }
