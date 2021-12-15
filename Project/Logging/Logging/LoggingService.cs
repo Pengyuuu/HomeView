@@ -39,7 +39,7 @@ namespace Logging.Logging
         // This method should send the log to the data access object
         public void Create(Log logFile)
         {
-            LogDAO dAccess = new LogDAO();
+            LogDAO dAccess = new LogDAO(this);
             dAccess.storeLog(logFile);
         }
     }
