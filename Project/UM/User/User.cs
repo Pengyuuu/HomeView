@@ -13,7 +13,7 @@ namespace UM.User
 		private DateTime dob;			// user's date of birth
 		private string dispName;		// user's display name
 		private DateTime regDate;		// user's registration date and time
-		private int status;				// user's status (enabled or disabled)
+		private int status;				// user's status (enabled = 1 or disabled = 0)
 		private Role role;				// user's Role (admin (not system admin), or user)
 		
 
