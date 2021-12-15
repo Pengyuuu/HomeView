@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 /* User Authentication and Authorization Manager */
 namespace UM.User {
@@ -10,19 +12,6 @@ namespace UM.User {
 		private UMService umService;
 		private Boolean verified = false;
 
-		/* Singleton
-		private static UserManager instance = null;
-
-		public static UserManager GetInstance
-        {
-            get
-            {
-				if (GetInstance == null)
-                {
-					instance = new UserManager();
-                }
-            }
-        }*/
 
 		public UserManager(string adminInput, string pw)
 		{
@@ -82,7 +71,7 @@ namespace UM.User {
 		}
 
 		// Gets user
-		/*
+		
 		public User UserManagerGetUser(int id)
         {
 			if (!this.verified)
@@ -103,7 +92,7 @@ namespace UM.User {
 			User m = this.umService.UMServiceGetUser(id);
 			return m;
 
-        }*/
+        }
 
 		/* Creates a new user record in system 
 		 * Returns success or unsuccessful message
@@ -154,7 +143,7 @@ namespace UM.User {
 			return m;
 		}
 
-		/*
+		
 		public String BulkOperationCreateUsers(string file)
         {
 			// if user is not admin, returns unauthorized access
@@ -163,7 +152,7 @@ namespace UM.User {
 				return "Unauthorized access.";
 			}
 
-			List<User> users = file.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
+			List <User> users = File.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
 			
 			string m = "";
 			int insertedUsers = 0;
@@ -171,14 +160,14 @@ namespace UM.User {
 
 			foreach(User u in users)
             {
-				string m = UserManagerCreateUser(u);
+				m = UserManagerCreateUser(u);
 				if (m == "Unauthorized access.")
                 {
 					return "Unauthorized access.";
                 }
 				else if (m == "Invalid inputs for new user.")
                 {
-					return ("Invalid inputs for new user id: " + u.getid());
+					return ("Invalid inputs for new user email: " + u.getemail());
                 }
 				else if (m == "Account creation unsuccessful. Account already exists in system.")
                 {
@@ -192,9 +181,7 @@ namespace UM.User {
 			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 			return m;
         }
-		*/
-
-		/*
+		
 		public String BulkOperationModifyUsers(string file)
         {
 
@@ -204,26 +191,33 @@ namespace UM.User {
 				return "Unauthorized access.";
 			}
 
-			List<String> mods = file.ReadAllLines(file).Skip(1).ToList();
+			List <String> mods = File.ReadAllLines(file).Skip(1).ToList();
 			
 			string m = "";
 			int successMods = 0;
 			int failedMods = 0;
 
-			foreach(String m in mods)
+			foreach(String csvLine in mods)
             {
 				
-				string[] delimiter = csvLine(',');
-				int id = delimiter[0];
-				int mode = delimiter[1];
+				string[] delimiter = csvLine.Split(',');
+				int id = Convert.ToInt32(delimiter[0]);
+				int mode = Convert.ToInt32(delimiter[1]);
 
 				User userMod = new User();
+				string mfirstName = delimiter[3];
+				string mlastName = delimiter[4];
+				string memail = delimiter[5];
+				string mpassword = delimiter[6];
+				DateTime mdob = Convert.ToDateTime(delimiter[7]);
+				string mdispName = delimiter[8];
+				int mstatus = Convert.ToInt16(delimiter[10]);
+				Role mr = (Role) (Convert.ToInt16(delimiter[11]));
 
-				Role r = (Role) (Convert.ToInt16(delimiter[9]));
-				userMod.updateUser(delimiter[2], delimiter[3], delimiter[4], delimiter[5], delimiter[6], Convert.ToDateTime(delimiter[7]), Convert.ToDateTime(delimiter[8]), Convert.ToInt16(delimiter[9]);
+				userMod.updateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 
 
-				string m = UserManagerModifyUser(id, mode, userMod);
+				m = UserManagerModifyUser(id, mode, userMod);
 
 				if (m == "Unauthorized access.")
                 {
@@ -231,7 +225,7 @@ namespace UM.User {
                 }
 				else if (m == "Invalid inputs for new user.")
                 {
-					return ("Invalid inputs for new user id: " + u.getid());
+					return ("Invalid inputs for new user id: " + id);
                 }
 				else if (m == "Account creation unsuccessful. Account already exists in system.")
                 {
@@ -245,6 +239,6 @@ namespace UM.User {
 			m = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
 			return m;
         }
-		*/
+		
 	}
 }
