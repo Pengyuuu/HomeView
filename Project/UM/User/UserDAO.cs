@@ -315,9 +315,10 @@ namespace UM.User
                 {
                     // opens sql connection
                     connection.Open();
-                    command.CommandType = CommandType.StoredProcedure;
 
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = id;
                     command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.getfirst();
                     command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.getlast();
