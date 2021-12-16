@@ -181,16 +181,8 @@ namespace UM.User {
 			logm.logData(userlog);
 			// Calls service layer to create the new user
 			string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
-			if (!this.umService.UMServiceCreateUser(u))
-            {
-				userlog = new("Failed to create user", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-				logm.logData(userlog);
-			}
-			else
-            {
-				userlog = new("Inserted user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-				logm.logData(userlog);
-			}
+			userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+			logm.logData(userlog);
 
 			return m;
 		}
@@ -202,7 +194,7 @@ namespace UM.User {
 		 * 4 = Enable
 		 * Returns a success or unsuccessful message
 		 */
-		public String UserManagerModifyUser(int id, int mode, User userMod)
+		public String UserManagerModifyUser(string email, int mode, User userMod)
 		{
 			Log userlog = new();
 			LoggingManager logm = new LoggingManager();
@@ -214,7 +206,7 @@ namespace UM.User {
 				return "Unauthorized access.";
 			}
 
-			if (!this.umService.UMServiceCheckUser(id))
+			if (!this.umService.UMServiceCheckUser(email))
             {
 				userlog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logm.logData(userlog);
@@ -224,9 +216,9 @@ namespace UM.User {
 			userlog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logm.logData(userlog);
 			// calls service layer to modify user
-			string m = this.umService.UMServiceModifyUser(id, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
+			string m = this.umService.UMServiceModifyUser(email, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
 
-			if (!this.umService.UMServiceModifyUser(id, mode, userMod))
+			if (!this.umService.UMServiceModifyUser(email, mode, userMod))
 			{
 				userlog = new("Failed to modify user", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
 				logm.logData(userlog);
@@ -326,7 +318,7 @@ namespace UM.User {
 				userMod.updateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 
 
-				m = UserManagerModifyUser(id, mode, userMod);
+				m = UserManagerModifyUser(memail, mode, userMod);
 
 				if (m == "Invalid inputs for new user.")
                 {

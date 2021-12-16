@@ -92,7 +92,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(1, 1, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 1, modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -111,7 +111,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(1, 2, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 2, modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -130,7 +130,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(1, 3, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 3, modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -149,7 +149,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.UserManagerModifyUser(1, 4, modifyUser);
+            string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 4, modifyUser);
 
             Assert.Equal(expected, actual);
 
