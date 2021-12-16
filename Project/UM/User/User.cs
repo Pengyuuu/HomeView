@@ -53,8 +53,8 @@ namespace UM.User
 			lastName = delimiter[1];
 			email = delimiter[2];
 			password = delimiter[3];
-			dob = Convert.ToDateTime(delimiter[5]);
-			dispName = delimiter[4];
+			dob = Convert.ToDateTime(delimiter[4]);
+			dispName = delimiter[5];
 			regDate = DateTime.UtcNow;
 			status = Convert.ToInt16(delimiter[6]);
 			role = (Role) (Convert.ToInt16(delimiter[7]));

@@ -33,6 +33,7 @@ namespace UM.User
              
                     if (read.HasRows)
                     {
+                    Role role;
                         while (read.Read())
                         {
                             string uid = read.GetInt32(0) + ",";
@@ -40,14 +41,14 @@ namespace UM.User
                             string last = read.GetString(2) + ",";
                             string email = read.GetString(3) + ",";
                             string pw = read.GetString(4) + ",";
-                            string dob = read.GetString(5) + ",";
+                            string dob = read.GetDateTime(5) + ",";
                             string dname = read.GetString(6) + ",";
-                            string regd = read.GetString(7) + ",";
-                            string status = read.GetString(8) + ",";
-                            string role = read.GetString(9);
-                            
+                            string regd = read.GetDateTime(7) + ",";
+                            string status = read.GetBoolean(8) + ",";
+                            string roleStr = read.GetInt32(9).ToString();
 
-                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+
+                            result += uid+first+last+email+pw+dob+dname+regd+status+roleStr + '\n';
                         }
                     }
                     else
@@ -98,11 +99,11 @@ namespace UM.User
                             string last = read.GetString(2) + ",";
                             string email = read.GetString(3) + ",";
                             string pw = read.GetString(4) + ",";
-                            string dob = read.GetString(5) + ",";
+                            string dob = read.GetDateTime(5) + ",";
                             string dname = read.GetString(6) + ",";
-                            string regd = read.GetString(7) + ",";
-                            string status = read.GetString(8) + ",";
-                            string role = read.GetString(9);
+                            string regd = read.GetDateTime(7) + ",";
+                            string status = read.GetBoolean(8) + ",";
+                            string role = read.GetInt32(9).ToString();
                             
                             
                             result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';

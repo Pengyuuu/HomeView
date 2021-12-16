@@ -170,7 +170,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.BulkOperationModifyUsers(filepath);
+            string actual = userManager.BulkOperationCreateUsers(filepath);
 
             Assert.Equal(expected, actual);
 
@@ -199,9 +199,8 @@ namespace UMTests
         [Fact]
         public void UserManager_exportAllUsers()
         {
-            string filepath = @".csv";
 
-            string expected = "User data successfully exported to.csv file in: " + filepath;
+            string expected = "User data successfully exported to .csv file";
 
             string adminInput = "TeamUnite";
             string pw = "Testing";
@@ -227,7 +226,7 @@ namespace UMTests
 
             string actual = userManager.UserManagerGetAllUsers();
 
-            Assert.Equal(expected, actual);
+            Assert.True(!String.IsNullOrEmpty(actual));
 
         }
 

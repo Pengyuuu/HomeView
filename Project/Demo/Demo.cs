@@ -11,6 +11,10 @@ namespace Demo
         {
             Console.WriteLine("HomeView Milestone 3 Demo\n\n");
 
+            UserManager um = new UserManager("TeamUnite", "Testing");
+
+            Console.WriteLine(um.UserManagerGetAllUsers());
+
         }
     }
 }
