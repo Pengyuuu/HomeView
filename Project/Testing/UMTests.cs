@@ -161,7 +161,7 @@ namespace UMTests
         {
 
             string filepath = path;
-            int insertedUsers = 10000;
+            int insertedUsers = 1000;
             int failedInsert = 0;
             string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 
