@@ -161,7 +161,7 @@ namespace UMTests
         {
 
             string filepath = path;
-            int insertedUsers = 10;
+            int insertedUsers = 10000;
             int failedInsert = 0;
             string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 
@@ -171,26 +171,6 @@ namespace UMTests
             UserManager userManager = new UserManager(adminInput, pw);
 
             string actual = userManager.BulkOperationCreateUsers(filepath);
-
-            Assert.Equal(expected, actual);
-
-        }
-
-        [Fact]
-        public void UserManager_BulkOpsModifyUsers()
-        {
-
-            string filepath = @".csv";
-            int successMods = 10;
-            int failedMods = 0;
-            string expected = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
-
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
-
-            string actual = userManager.BulkOperationModifyUsers(filepath);
 
             Assert.Equal(expected, actual);
 

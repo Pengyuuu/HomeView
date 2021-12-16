@@ -48,7 +48,7 @@ namespace UM.User
 
 		public User(string csvLine)
 		{
-			string[] delimiter = csvLine.Split(',');
+			string[] delimiter = csvLine.Split('|');
 			firstName = delimiter[0];
 			lastName = delimiter[1];
 			email = delimiter[2];
