@@ -217,17 +217,8 @@ namespace UM.User {
 			logm.logData(userlog);
 			// calls service layer to modify user
 			string m = this.umService.UMServiceModifyUser(email, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
-
-			if (!this.umService.UMServiceModifyUser(email, mode, userMod))
-			{
-				userlog = new("Failed to modify user", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-				logm.logData(userlog);
-			}
-			else
-			{
-				userlog = new("Account modification unsuccessful.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-				logm.logData(userlog);
-			}
+			userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+			logm.logData(userlog);
 
 			return m;
 		}

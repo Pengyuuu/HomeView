@@ -298,6 +298,7 @@ namespace UM.User
                     command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.getdob();
                     command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
                     command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = userMod.getstatus();
+                    command.Parameters.AddWithValue("@regDate", SqlDbType.Int).Value = userMod.getreg();
                     command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)userMod.getrole());
 
                     command.ExecuteNonQuery();

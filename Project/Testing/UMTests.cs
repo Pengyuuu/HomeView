@@ -54,6 +54,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
+            // delete user first in case it already exists
             userManager.UserManagerModifyUser(newUser.getemail(), 2, null);
             String actual = userManager.UserManagerCreateUser(newUser);
 
@@ -91,7 +92,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-
+            userManager.UserManagerCreateUser(modifyUser);
             string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 1, modifyUser);
 
             Assert.Equal(expected, actual);
@@ -129,7 +130,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-
+            userManager.UserManagerCreateUser(modifyUser);
             string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 3, modifyUser);
 
             Assert.Equal(expected, actual);
@@ -148,7 +149,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-
+            userManager.UserManagerCreateUser(modifyUser);
             string actual = userManager.UserManagerModifyUser(modifyUser.getemail(), 4, modifyUser);
 
             Assert.Equal(expected, actual);
