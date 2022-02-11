@@ -26,7 +26,7 @@ namespace Logging.Logging
         {
             LogDAO dAccess = new LogDAO(this);
 
-            if (dAccess.storeLog(logFile))
+            if (dAccess.StoreLog(logFile))
             {
                 return true;
             }
@@ -39,7 +39,7 @@ namespace Logging.Logging
         public Log GetLog(int id)
         {
             LogDAO dao = new(this);
-            Log log = dao.getLog(id);
+            Log log = dao.GetLog(id);
             return log;
         }
     }

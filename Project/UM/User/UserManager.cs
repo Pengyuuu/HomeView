@@ -28,7 +28,7 @@ namespace UM.User {
 		{
 			Log checkAdminlog = new ("verifying admin", LogLevel.Info, LogCategory.View, DateTime.Now);
 			LoggingManager logm = new LoggingManager();
-			logm.logData(checkAdminlog);
+			logm.LogData(checkAdminlog);
 
 			// checks if input matches system admin info
 			Boolean check1 = adminInput == this.sysadmin;	
@@ -43,7 +43,7 @@ namespace UM.User {
 		{
 			Log userlog = new("checking user in database", LogLevel.Info, LogCategory.Data, DateTime.Now);
 			LoggingManager logm = new LoggingManager();
-			logm.logData(userlog);
+			logm.LogData(userlog);
 
 			//  makes sure new user's email is valid (contains @.com)
 			string email = u.getemail();
@@ -89,7 +89,7 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 
 				return "Unauthorized access";
 			}
@@ -97,13 +97,13 @@ namespace UM.User {
 			if (!umService.UMServiceCheckUser(email))
             {
 				userlog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 
 				return "User does not exist";
             }
 
 			userlog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 
 			User m = this.umService.UMServiceGetUser(email);
 
@@ -119,12 +119,12 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unauthorized access";
 			}
 
 			userlog = new("Fetching all users.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 			return this.umService.UMServiceGetAllUsers();
 
 		}
@@ -136,18 +136,18 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unauthorized access";
 			}
 
 			if (!this.umService.UMServiceExportAllUsers()) {
 				userlog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unable to export all users.";
             }
 
 			userlog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 			return "User data successfully exported to .csv file" ;
 
 		}
@@ -163,7 +163,7 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unauthorized access.";
 			}
 
@@ -173,16 +173,16 @@ namespace UM.User {
 			if (!newuserCheck)
 			{
 				userlog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Invalid inputs for new user.";
 			}
 
 			userlog = new("Inserting user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 			// Calls service layer to create the new user
 			string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
 			userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 
 			return m;
 		}
@@ -202,23 +202,23 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unauthorized access.";
 			}
 
 			if (!this.umService.UMServiceCheckUser(email))
             {
 				userlog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "User does not exist.";
             }
 
 			userlog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 			// calls service layer to modify user
 			string m = this.umService.UMServiceModifyUser(email, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
 			userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 
 			return m;
 		}
@@ -232,11 +232,11 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new( "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unauthorized access.";
 			}
 			userlog = new("Starting bulk operation to create users", LogLevel.Info, LogCategory.Data, DateTime.Now);
-			logm.logData(userlog);
+			logm.LogData(userlog);
 
 			List <User> users = File.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
 			
@@ -251,19 +251,19 @@ namespace UM.User {
 				if (m == "Invalid inputs for new user.")
                 {
 					userlog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
-					logm.logData(userlog);
+					logm.LogData(userlog);
 					return ("Invalid inputs for new user " + u.getemail());
                 }
 				else if (m == "Account creation unsuccessful. Account already exists in system.")
                 {
 					userlog = new("Account for new user already exists", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-					logm.logData(userlog);
+					logm.LogData(userlog);
 					failedInsert++;
                 }
 				else if (m == "User account record creation successful.")
                 {
 					userlog = new("User account creation successful", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-					logm.logData(userlog);
+					logm.LogData(userlog);
 					insertedUsers++;
                 }
             }
@@ -279,7 +279,7 @@ namespace UM.User {
 			if (!this.verified)
 			{
 				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.logData(userlog);
+				logm.LogData(userlog);
 				return "Unauthorized access.";
 			}
 
@@ -314,19 +314,19 @@ namespace UM.User {
 				if (m == "Invalid inputs for new user.")
                 {
 					userlog = new("Invalid inputs for new user. ", LogLevel.Error, LogCategory.Data, DateTime.Now);
-					logm.logData(userlog);
+					logm.LogData(userlog);
 					return ("Invalid inputs for new user id: " + id);
                 }
 				else if (m == "Account modification unsuccessful.")
                 {
 					userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-					logm.logData(userlog);
+					logm.LogData(userlog);
 					failedMods++;
                 }
 				else if (m == "User account record modification successful.")
                 {
 					userlog = new(m, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-					logm.logData(userlog);
+					logm.LogData(userlog);
 					successMods++;
                 }
             }

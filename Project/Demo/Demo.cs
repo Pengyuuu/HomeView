@@ -16,9 +16,14 @@ namespace Demo
 
             User userTest = new User("Christian", "Lam", "ctlam@csulb.edu", "password", new DateTime(2000,01,01), "ctlam", 1, Role.User);
 
+            Log test = new Log("test", LogLevel.Info, LogCategory.View, DateTime.UtcNow);
+
+            logManager.LogData("test 2", LogLevel.Info, LogCategory.View, DateTime.UtcNow);
+            logManager.LogData(test);
+
             //userManage.UserManagerCreateUser(userTest);
 
-            Console.WriteLine(userManage.UserManagerGetAllUsers());
+            //Console.WriteLine(userManage.UserManagerGetAllUsers());
         }
     }
 }
