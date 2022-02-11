@@ -36,7 +36,7 @@ namespace Logging.Logging
             }
         }
 
-        public Log getLog(int id)
+        public Log GetLog(int id)
         {
             LogDAO dao = new(this);
             Log log = dao.getLog(id);

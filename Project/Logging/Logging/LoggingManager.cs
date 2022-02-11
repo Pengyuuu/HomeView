@@ -11,7 +11,7 @@ namespace Logging.Logging
 
 
         // Manager communicates with Service layer through this method
-        public bool logData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public bool LogData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
             // Create new logging service here
             LoggingService logService = new LoggingService();
@@ -34,7 +34,7 @@ namespace Logging.Logging
             }
         }
 
-        public bool logData(Log log)
+        public bool LogData(Log log)
         {
             LoggingService logService = new LoggingService();
 
@@ -48,7 +48,7 @@ namespace Logging.Logging
             }
         }
 
-        public Log getLog(int id)
+        public Log GetLog(int id)
        {
             LoggingService logService = new LoggingService();
 

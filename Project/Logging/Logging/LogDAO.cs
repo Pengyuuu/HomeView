@@ -10,7 +10,7 @@ namespace Logging.Logging
         {
             
         }
-        public bool storeLog(Log log )
+        public bool StoreLog(Log log )
         {
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("StoreLogs", conn);
@@ -36,7 +36,7 @@ namespace Logging.Logging
             return true;
         }
 
-        public Log getLog(int id)
+        public Log GetLog(int id)
         {
             Log log = null;
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
