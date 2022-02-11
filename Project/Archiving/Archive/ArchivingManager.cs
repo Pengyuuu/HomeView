@@ -4,7 +4,7 @@ namespace Archiving.Archiving
 {
     public class ArchivingManager
     {
-        private static ArchivingManager instance = null;
+        private static ArchivingManager _instance = null;
 
         // Singleton design pattern, makes sure there's only one archiving
         public static ArchivingManager GetInstance
@@ -12,21 +12,21 @@ namespace Archiving.Archiving
 
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new ArchivingManager();
+                    _instance = new ArchivingManager();
                 }
 
-                return instance;
+                return _instance;
             }
         }
 
-        public bool compress(List<string> oldLogs)
+        public bool Compress(List<string> oldLogs)
         {
             // Create archiving service and send it the logs
             ArchivingService archiveService = ArchivingService.GetInstance;
 
-            archiveService.sendLogs(oldLogs);
+            archiveService.SendLogs(oldLogs);
 
             return true;
         }

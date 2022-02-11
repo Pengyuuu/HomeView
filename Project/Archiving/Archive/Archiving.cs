@@ -8,8 +8,8 @@ namespace Archive
 {
     public class Archiving
     {
-        private static Archiving instance = null;
-        private List<string> log = new List<string>();
+        private static Archiving _instance = null;
+        private List<string> _log = new List<string>();
 
         public Archiving()
         {
@@ -21,16 +21,16 @@ namespace Archive
 
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new Archiving();
+                    _instance = new Archiving();
                 }
 
-                return instance;
+                return _instance;
             }
         }
 
-        public bool oldLog()
+        public bool ArchiveLog()
         {
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("GetOldLog", conn);
@@ -50,7 +50,7 @@ namespace Archive
                         result = read.GetInt32(0).ToString() + " " + read.GetString(1).ToString() + " " +
                                 read.GetString(2).ToString() + " " + read.GetString(3).ToString() + " " +
                                 read.GetString(4).ToString() + read.GetString(5).ToString(); 
-                        log.Add(result);
+                        _log.Add(result);
                     }
                 }
                 else
@@ -78,7 +78,7 @@ namespace Archive
             // Create archiving manager and send it the logs
             ArchivingManager archiveManager = ArchivingManager.GetInstance;
 
-            archiveManager.compress(log);
+            archiveManager.Compress(_log);
 
             return true;
         }

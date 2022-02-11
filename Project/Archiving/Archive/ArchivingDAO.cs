@@ -10,19 +10,19 @@ namespace Archiving.Archiving
 {
     class ArchivingDAO
     {
-        private static ArchivingDAO instance;
-        private static string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.csv");
+        private static ArchivingDAO _instance;
+        private static string _filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.csv");
 
         public static ArchivingDAO GetInstance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new ArchivingDAO();
+                    _instance = new ArchivingDAO();
                 }
 
-                return instance;
+                return _instance;
             }
         }
         public ArchivingDAO()
@@ -30,7 +30,7 @@ namespace Archiving.Archiving
             
         }
 
-        public bool send(List<string> oldLogs)
+        public bool Send(List<string> oldLogs)
         {
 
             var csv = new StringBuilder();
@@ -42,7 +42,7 @@ namespace Archiving.Archiving
             }
 
             // Writes the archived logs and exports as a csv file
-            File.WriteAllText(filePath, csv.ToString());
+            File.WriteAllText(_filePath, csv.ToString());
 
             return true;
         }

@@ -4,7 +4,7 @@ namespace Archiving.Archiving
 {
     public class ArchivingService
     {
-        private static ArchivingService instance = null;
+        private static ArchivingService _instance = null;
 
         // Singleton design pattern, makes sure there's only one archiving
         public static ArchivingService GetInstance
@@ -12,21 +12,21 @@ namespace Archiving.Archiving
 
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new ArchivingService();
+                    _instance = new ArchivingService();
                 }
 
-                return instance;
+                return _instance;
             }
         }
 
-        public bool sendLogs(List<string> oldLogs)
+        public bool SendLogs(List<string> oldLogs)
         {
             // Create archiving DAO and send it the logs
             ArchivingDAO archive = ArchivingDAO.GetInstance;
 
-            archive.send(oldLogs);
+            archive.Send(oldLogs);
 
             return true;
         }
