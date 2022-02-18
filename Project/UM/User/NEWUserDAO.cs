@@ -6,9 +6,9 @@ using System.IO;
 
 namespace UM.User
 {
-    public class UserDAO
-    {   
-        public UserDAO(UMService service)
+    public class NEWUserDAO
+    {
+        public NEWUserDAO(UMService service)
         {
         }
 
@@ -16,44 +16,44 @@ namespace UM.User
         public String GetAllUsers()
         {
             string result = "";
-           
+
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
             {   // connects to sql
-                    connection.Open();
-                    SqlCommand command = new SqlCommand("GetAllUsers", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader read = command.ExecuteReader();
+                connection.Open();
+                SqlCommand command = new SqlCommand("GetAllUsers", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader read = command.ExecuteReader();
 
-                    //command.ExecuteNonQuery();
-             
-                    if (read.HasRows)
-                    {
+                //command.ExecuteNonQuery();
+
+                if (read.HasRows)
+                {
                     Role _userRole;
-                        while (read.Read())
-                        {
-                            string uid = read.GetInt32(0) + ",";
-                            string first = read.GetString(1) + ",";
-                            string last = read.GetString(2) + ",";
-                            string userEmail = read.GetString(3) + ",";
-                            string userPass = read.GetString(4) + ",";
-                            string dob = read.GetDateTime(5) + ",";
-                            string dname = read.GetString(6) + ",";
-                            string regd = read.GetDateTime(7) + ",";
-                            string _userStatus = read.GetBoolean(8) + ",";
-                            string roleStr = read.GetInt32(9).ToString();
-
-
-                            result += uid+first+last+userEmail+userPass+dob+dname+regd+_userStatus+roleStr + '\n';
-                        }
-                    }
-                    else
+                    while (read.Read())
                     {
-                        result = "No records found.";
+                        string uid = read.GetInt32(0) + ",";
+                        string first = read.GetString(1) + ",";
+                        string last = read.GetString(2) + ",";
+                        string userEmail = read.GetString(3) + ",";
+                        string userPass = read.GetString(4) + ",";
+                        string dob = read.GetDateTime(5) + ",";
+                        string dname = read.GetString(6) + ",";
+                        string regd = read.GetDateTime(7) + ",";
+                        string _userStatus = read.GetBoolean(8) + ",";
+                        string roleStr = read.GetInt32(9).ToString();
+
+
+                        result += uid + first + last + userEmail + userPass + dob + dname + regd + _userStatus + roleStr + '\n';
                     }
-                    read.Close();
-                    
+                }
+                else
+                {
+                    result = "No records found.";
+                }
+                read.Close();
+
             }
             catch (SqlException e)
             {
@@ -69,7 +69,7 @@ namespace UM.User
 
             return result;
         }
-        
+
         // Gets all users in db
         public Boolean ExportAllUsers()
         {
@@ -80,38 +80,38 @@ namespace UM.User
 
             try
             {   // connects to sql
-                    connection.Open();
-                    SqlCommand command = new SqlCommand("GetAllUsers", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader read = command.ExecuteReader();
+                connection.Open();
+                SqlCommand command = new SqlCommand("GetAllUsers", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader read = command.ExecuteReader();
 
-                    //command.ExecuteNonQuery();
-             
-                    if (read.HasRows)
+                //command.ExecuteNonQuery();
+
+                if (read.HasRows)
+                {
+                    while (read.Read())
                     {
-                        while (read.Read())
-                        {
-                            string uid = read.GetInt32(0) + ",";
-                            string first = read.GetString(1) + ",";
-                            string last = read.GetString(2) + ",";
-                            string userEmail = read.GetString(3) + ",";
-                            string userPass = read.GetString(4) + ",";
-                            string dob = read.GetDateTime(5) + ",";
-                            string dname = read.GetString(6) + ",";
-                            string regd = read.GetDateTime(7) + ",";
-                            string _userStatus = read.GetBoolean(8) + ",";
-                            string _userRole = read.GetInt32(9).ToString();
-                            
-                            
-                            result += uid+first+last+userEmail+userPass+dob+dname+regd+_userStatus+_userRole + '\n';
-                        }
+                        string uid = read.GetInt32(0) + ",";
+                        string first = read.GetString(1) + ",";
+                        string last = read.GetString(2) + ",";
+                        string userEmail = read.GetString(3) + ",";
+                        string userPass = read.GetString(4) + ",";
+                        string dob = read.GetDateTime(5) + ",";
+                        string dname = read.GetString(6) + ",";
+                        string regd = read.GetDateTime(7) + ",";
+                        string _userStatus = read.GetBoolean(8) + ",";
+                        string _userRole = read.GetInt32(9).ToString();
+
+
+                        result += uid + first + last + userEmail + userPass + dob + dname + regd + _userStatus + _userRole + '\n';
                     }
-                    else
-                    {
-                        success = false;
-                    }
-                    read.Close();
-                    
+                }
+                else
+                {
+                    success = false;
+                }
+                read.Close();
+
             }
             catch (SqlException e)
             {
@@ -124,7 +124,7 @@ namespace UM.User
                 // closes sql connection
                 connection.Close();
             }
-            
+
             File.WriteAllText(filePath, result);
             return success;
         }
@@ -133,43 +133,43 @@ namespace UM.User
         public String GetUser(string userEmail)
         {
             string result = "";
-           
+
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             try
             {   // connects to sql
-                    connection.Open();
-                    SqlCommand command = new SqlCommand("GetUser", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
-                    SqlDataReader read = command.ExecuteReader();
+                connection.Open();
+                SqlCommand command = new SqlCommand("GetUser", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
+                SqlDataReader read = command.ExecuteReader();
 
-                    //command.ExecuteNonQuery();
-             
-                    if (read.HasRows)
-                    {
-                        while (read.Read())
-                        {
-                            string uid = read.GetInt32(0) + ",";
-                            string first = read.GetString(1) + ",";
-                            string last = read.GetString(2) + ",";
-                            string userPass = read.GetString(4) + ",";
-                            string dob = read.GetString(5) + ",";
-                            string dname = read.GetString(6) + ",";
-                            string regd = read.GetString(7) + ",";
-                            string _userStatus = read.GetString(8) + ",";
-                            string _userRole = read.GetString(9);
-                            
+                //command.ExecuteNonQuery();
 
-                            result += uid+first+last+userEmail+userPass+dob+dname+regd+_userStatus+_userRole + '\n';
-                        }
-                    }
-                    else
+                if (read.HasRows)
+                {
+                    while (read.Read())
                     {
-                        result = "No record found.";
+                        string uid = read.GetInt32(0) + ",";
+                        string first = read.GetString(1) + ",";
+                        string last = read.GetString(2) + ",";
+                        string userPass = read.GetString(4) + ",";
+                        string dob = read.GetString(5) + ",";
+                        string dname = read.GetString(6) + ",";
+                        string regd = read.GetString(7) + ",";
+                        string _userStatus = read.GetString(8) + ",";
+                        string _userRole = read.GetString(9);
+
+
+                        result += uid + first + last + userEmail + userPass + dob + dname + regd + _userStatus + _userRole + '\n';
                     }
-                    read.Close();
-                    
+                }
+                else
+                {
+                    result = "No record found.";
+                }
+                read.Close();
+
             }
             catch (SqlException e)
             {
@@ -184,7 +184,7 @@ namespace UM.User
             }
 
             return result;
-        }            
+        }
 
         /* Checks if user is in database*/
         public Boolean IsUser(string userEmail)
@@ -194,20 +194,20 @@ namespace UM.User
 
             try
             {   // connects to sql
-                    connection.Open();
-                    SqlCommand command = new SqlCommand("GetUser", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
-                    SqlDataReader read = command.ExecuteReader();
+                connection.Open();
+                SqlCommand command = new SqlCommand("GetUser", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
+                SqlDataReader read = command.ExecuteReader();
 
-                    //command.ExecuteNonQuery();
-             
-                    if (!read.HasRows)
-                    {
-                        result = false;
-                    }
-                    read.Close();
-                    
+                //command.ExecuteNonQuery();
+
+                if (!read.HasRows)
+                {
+                    result = false;
+                }
+                read.Close();
+
             }
             catch (SqlException e)
             {
@@ -222,13 +222,13 @@ namespace UM.User
             }
 
             return result;
-        }            
-        
+        }
+
         /* Creates a new user record in system */
         public Boolean CreateUser(User u)
         {
             Boolean success = true;
-            
+
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
 
             SqlCommand command = new SqlCommand("InsertUser", connection);
@@ -272,12 +272,12 @@ namespace UM.User
 		 * 3 = Disable
 		 * 4 = Enable
 		 * Returns true if successful, false if unsuccessful*/
-		 
+
         public Boolean ModifyUser(string userEmail, int mode, User userMod)
         {
             Boolean success = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
-     
+
             // Update user record information
             if (mode == 1)
             {
@@ -387,4 +387,4 @@ namespace UM.User
             return success;
         }
     }
-} 
+}
