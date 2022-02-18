@@ -6,17 +6,14 @@ using System.IO;
 
 namespace UM.User
 {
-
     public class UserDAO
     {   
-        
         public UserDAO(UMService service)
         {
-
         }
 
         // Gets all users in db
-        public String getAllUsers()
+        public String GetAllUsers()
         {
             string result = "";
            
@@ -33,22 +30,22 @@ namespace UM.User
              
                     if (read.HasRows)
                     {
-                    Role role;
+                    Role _userRole;
                         while (read.Read())
                         {
                             string uid = read.GetInt32(0) + ",";
                             string first = read.GetString(1) + ",";
                             string last = read.GetString(2) + ",";
-                            string email = read.GetString(3) + ",";
-                            string pw = read.GetString(4) + ",";
+                            string userEmail = read.GetString(3) + ",";
+                            string userPass = read.GetString(4) + ",";
                             string dob = read.GetDateTime(5) + ",";
                             string dname = read.GetString(6) + ",";
                             string regd = read.GetDateTime(7) + ",";
-                            string status = read.GetBoolean(8) + ",";
+                            string _userStatus = read.GetBoolean(8) + ",";
                             string roleStr = read.GetInt32(9).ToString();
 
 
-                            result += uid+first+last+email+pw+dob+dname+regd+status+roleStr + '\n';
+                            result += uid+first+last+userEmail+userPass+dob+dname+regd+_userStatus+roleStr + '\n';
                         }
                     }
                     else
@@ -74,7 +71,7 @@ namespace UM.User
         }
         
         // Gets all users in db
-        public Boolean exportAllUsers()
+        public Boolean ExportAllUsers()
         {
             string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
             string result = "";
@@ -97,16 +94,16 @@ namespace UM.User
                             string uid = read.GetInt32(0) + ",";
                             string first = read.GetString(1) + ",";
                             string last = read.GetString(2) + ",";
-                            string email = read.GetString(3) + ",";
-                            string pw = read.GetString(4) + ",";
+                            string userEmail = read.GetString(3) + ",";
+                            string userPass = read.GetString(4) + ",";
                             string dob = read.GetDateTime(5) + ",";
                             string dname = read.GetString(6) + ",";
                             string regd = read.GetDateTime(7) + ",";
-                            string status = read.GetBoolean(8) + ",";
-                            string role = read.GetInt32(9).ToString();
+                            string _userStatus = read.GetBoolean(8) + ",";
+                            string _userRole = read.GetInt32(9).ToString();
                             
                             
-                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                            result += uid+first+last+userEmail+userPass+dob+dname+regd+_userStatus+_userRole + '\n';
                         }
                     }
                     else
@@ -133,7 +130,7 @@ namespace UM.User
         }
 
         // gets user
-        public String getUser(string email)
+        public String GetUser(string userEmail)
         {
             string result = "";
            
@@ -144,7 +141,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("GetUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
+                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
                     SqlDataReader read = command.ExecuteReader();
 
                     //command.ExecuteNonQuery();
@@ -156,15 +153,15 @@ namespace UM.User
                             string uid = read.GetInt32(0) + ",";
                             string first = read.GetString(1) + ",";
                             string last = read.GetString(2) + ",";
-                            string pw = read.GetString(4) + ",";
+                            string userPass = read.GetString(4) + ",";
                             string dob = read.GetString(5) + ",";
                             string dname = read.GetString(6) + ",";
                             string regd = read.GetString(7) + ",";
-                            string status = read.GetString(8) + ",";
-                            string role = read.GetString(9);
+                            string _userStatus = read.GetString(8) + ",";
+                            string _userRole = read.GetString(9);
                             
 
-                            result += uid+first+last+email+pw+dob+dname+regd+status+role + '\n';
+                            result += uid+first+last+userEmail+userPass+dob+dname+regd+_userStatus+_userRole + '\n';
                         }
                     }
                     else
@@ -177,7 +174,7 @@ namespace UM.User
             catch (SqlException e)
             {
                 // unable to enable user record
-                result = "Unable to get user: " + email;
+                result = "Unable to get user: " + userEmail;
             }
 
             finally
@@ -190,7 +187,7 @@ namespace UM.User
         }            
 
         /* Checks if user is in database*/
-        public Boolean checkUser(string email)
+        public Boolean IsUser(string userEmail)
         {
             Boolean result = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
@@ -200,7 +197,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("GetUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
+                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
                     SqlDataReader read = command.ExecuteReader();
 
                     //command.ExecuteNonQuery();
@@ -228,7 +225,7 @@ namespace UM.User
         }            
         
         /* Creates a new user record in system */
-        public Boolean createUser(User u)
+        public Boolean CreateUser(User u)
         {
             Boolean success = true;
             
@@ -242,15 +239,15 @@ namespace UM.User
                 // Insert New User Record Stored Procedure
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = u.getfirst();
-                command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = u.getlast();
-                command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = u.getemail();
-                command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = u.getpw();
-                command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.getdob();
-                command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = u.getdisp();
-                command.Parameters.AddWithValue("@regDate", SqlDbType.DateTime).Value = u.getreg();
-                command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = u.getstatus();
-                command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)u.getrole());
+                command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = u.FirstName;
+                command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = u.LastName;
+                command.Parameters.AddWithValue("@userEmail", SqlDbType.NVarChar).Value = u.UserEmail;
+                command.Parameters.AddWithValue("@userPass", SqlDbType.NVarChar).Value = u.UserPassword;
+                command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = u.UserDob;
+                command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = u.DispName;
+                command.Parameters.AddWithValue("@_regDate", SqlDbType.DateTime).Value = u.RegDate;
+                command.Parameters.AddWithValue("@_userStatus", SqlDbType.Int).Value = u.UserStatus;
+                command.Parameters.AddWithValue("@_userRole", SqlDbType.Int).Value = ((int)u.UserRole);
 
                 command.ExecuteNonQuery();
             }
@@ -276,7 +273,7 @@ namespace UM.User
 		 * 4 = Enable
 		 * Returns true if successful, false if unsuccessful*/
 		 
-        public Boolean modifyUser(string email, int mode, User userMod)
+        public Boolean ModifyUser(string userEmail, int mode, User userMod)
         {
             Boolean success = true;
             SqlConnection connection = new SqlConnection(Data.ConnectionString.getConnectionString());
@@ -292,15 +289,15 @@ namespace UM.User
                     SqlCommand command = new SqlCommand("UpdateUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.getfirst();
-                    command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.getlast();
-                    command.Parameters.AddWithValue("@email", SqlDbType.NVarChar).Value = userMod.getemail();
-                    command.Parameters.AddWithValue("@pw", SqlDbType.NVarChar).Value = userMod.getpw();
-                    command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.getdob();
-                    command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.getdisp();
-                    command.Parameters.AddWithValue("@status", SqlDbType.Int).Value = userMod.getstatus();
-                    command.Parameters.AddWithValue("@regDate", SqlDbType.Int).Value = userMod.getreg();
-                    command.Parameters.AddWithValue("@role", SqlDbType.Int).Value = ((int)userMod.getrole());
+                    command.Parameters.AddWithValue("@firstN", SqlDbType.NVarChar).Value = userMod.FirstName;
+                    command.Parameters.AddWithValue("@lastN", SqlDbType.NVarChar).Value = userMod.LastName;
+                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NVarChar).Value = userMod.UserEmail;
+                    command.Parameters.AddWithValue("@userPass", SqlDbType.NVarChar).Value = userMod.UserPassword;
+                    command.Parameters.AddWithValue("@dob", SqlDbType.DateTime).Value = userMod.UserDob;
+                    command.Parameters.AddWithValue("@dispN", SqlDbType.NVarChar).Value = userMod.DispName;
+                    command.Parameters.AddWithValue("@_userStatus", SqlDbType.Int).Value = userMod.UserStatus;
+                    command.Parameters.AddWithValue("@_regDate", SqlDbType.Int).Value = userMod.RegDate;
+                    command.Parameters.AddWithValue("@_userRole", SqlDbType.Int).Value = ((int)userMod.UserRole);
 
                     command.ExecuteNonQuery();
                 }
@@ -325,7 +322,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("DeleteUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
+                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
                     command.ExecuteNonQuery();
                 }
                 catch (SqlException e)
@@ -349,7 +346,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("DisableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
+                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
                     command.ExecuteNonQuery();
                 }
                 catch (SqlException e)
@@ -372,7 +369,7 @@ namespace UM.User
                     connection.Open();
                     SqlCommand command = new SqlCommand("EnableUser", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@email", SqlDbType.NChar).Value = email;
+                    command.Parameters.AddWithValue("@userEmail", SqlDbType.NChar).Value = userEmail;
                     command.ExecuteNonQuery();
                 }
                 catch (SqlException e)

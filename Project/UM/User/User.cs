@@ -5,260 +5,214 @@ namespace UM.User
 	public class User
 	{
 		
-		private int userId;				// user's id number
-		private string firstName;		// user's first name
-		private string lastName;		// user's last name
-		private string email;			// user's email
-		private string password;		// user's password
-		private DateTime dob;			// user's date of birth
-		private string dispName;		// user's display name
-		private DateTime regDate;		// user's registration date and time
-		private int status;				// user's status (enabled = 1 or disabled = 0)
-		private Role role;				// user's Role (admin (not system admin), or user)
+		private int _userId;				// user's id number
+		private string _firstName;		// user's first name
+		private string _lastName;		// user's last name
+		private string _userEmail;			// user's userEmail
+		private string _userPassword;		// user's password
+		private DateTime _userDob;			// user's date of birth
+		private string _dispName;		// user's display name
+		private DateTime _regDate;		// user's registration date and time
+		private int _userStatus;				// user's _userStatus (enabled = 1 or disabled = 0)
+		private Role _userRole;				// user's Role (admin (not system admin), or user)
 		
+		public int UserId
+        {
+			get { return _userId; }
+			set { _userId = value; }
+        }
+		
+		public string FirstName
+        {
+			get { return _firstName; }		
+			set { _firstName = value; }
+        }
+
+		public string LastName
+        {
+			get { return _lastName; }
+			set { _lastName = value; }
+        }
+
+		public string UserEmail
+        {
+			get { return _userEmail; }
+			set { _userEmail = value; }
+        }
+
+		public string UserPassword
+        {
+			get { return _userPassword; }
+			set { _userPassword = value; }
+        }
+
+		public DateTime UserDob
+        {
+			get { return _userDob; }
+			set { _userDob = value; }
+        }
+
+		public string DispName
+        {
+			get { return _dispName; }
+			set { _dispName = value; }
+        }
+
+		public DateTime RegDate
+        {
+			get { return _regDate; }
+        }
+
+		public int UserStatus
+        {
+			get { return _userStatus; }
+			set { _userStatus = value; }
+        }
+		
+		public Role UserRole
+        {
+			get { return _userRole; }
+			set { _userRole = value; }
+        }
 
 		/** User Constructor
-		 * Creates a new User given first name, last name, email address, password, date of birth, display name, and Role
+		 * Creates a new User given first name, last name, userEmail address, password, 
+		 * date of birth, display name, and Role
 		 * Returns: User
 		 */
 		public User()
         {
-			this.firstName = "";
-			this.lastName = "";
-			this.email = "";
-			this.password = "";
-			this.dispName = "";
+			this._firstName = "";
+			this._lastName = "";
+			this._userEmail = "";
+			this._userPassword = "";
+			this._dispName = "";
         }
 		
-		public User(string fName, string lName, string email_address, string pw, DateTime birth, string dName, int s, Role r)
+		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
+			string dName, int userStatus, Role userRole)
 		{
-			
-			
-			firstName = fName;
-			lastName = lName;
-			email = email_address;
-			password = pw;
-			dispName = dName;
-			dob = birth;
-			regDate = DateTime.UtcNow;
-			status = s;		// all users default to enabled account
-			role = r;
+
+
+			_firstName = fName;
+			_lastName = lName;
+			_userEmail = emailAddr;
+			_userPassword = userPassword;
+			_dispName = dName;
+			_userDob = userDob;
+			_regDate = DateTime.UtcNow;
+			_userStatus = userStatus;		// all users default to enabled account
+			_userRole = userRole;
 
 		}
 
 		public User(string csvLine)
 		{
 			string[] delimiter = csvLine.Split('|');
-			firstName = delimiter[0];
-			lastName = delimiter[1];
-			email = delimiter[2];
-			password = delimiter[3];
-			dob = Convert.ToDateTime(delimiter[4]);
-			dispName = delimiter[5];
-			regDate = DateTime.UtcNow;
-			status = Convert.ToInt16(delimiter[6]);
-			role = (Role) (Convert.ToInt16(delimiter[7]));
+			_firstName = delimiter[0];
+			_lastName = delimiter[1];
+			_userEmail = delimiter[2];
+			_userPassword = delimiter[3];
+			_userDob = Convert.ToDateTime(delimiter[4]);
+			_dispName = delimiter[5];
+			_regDate = DateTime.UtcNow;
+			_userStatus = Convert.ToInt16(delimiter[6]);
+			_userRole = (Role) (Convert.ToInt16(delimiter[7]));
 
 		}
 
-		public User(int id, string fName, string lName, string email_address, string pw, DateTime birth, string dName, DateTime reg, int s, Role r)
+		public User(int id, string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
+			string dName, DateTime reg, int userStatus, Role userRole)
 		{
-			
-			userId = id;
-			firstName = fName;
-			lastName = lName;
-			email = email_address;
-			password = pw;
-			dob = birth;
-			dispName = dName;
-			regDate = reg;
-			status = s;		// all users default to enabled account
-			role = r;
+
+			_userId = id;
+			_firstName = fName;
+			_lastName = lName;
+			_userEmail = emailAddr;
+			_userPassword = userPassword;
+			_userDob = userDob;
+			_dispName = dName;
+			_regDate = reg;
+			_userStatus = userStatus;		// all users default to enabled account
+			_userRole = userRole;
 
 		}
 
 
-		public User readUser(string csvLine)
+		public User ReadUser(string csvLine)
 		{
 			string[] delimiter = csvLine.Split(',');
-			userId = Convert.ToInt32(delimiter[0]);
-			firstName = delimiter[1];
-			lastName = delimiter[2];
-			email = delimiter[3];
-			password = delimiter[4];
-			dob = Convert.ToDateTime(delimiter[5]);
-			dispName = delimiter[6];
-			regDate = Convert.ToDateTime(delimiter[7]);
-			status = (Convert.ToInt16(delimiter[8]));
-			role = (Role) (Convert.ToInt16(delimiter[9]));
-			return new User(userId,firstName,lastName,email,password,dob,dispName,regDate,status,role);
+			_userId = Convert.ToInt32(delimiter[0]);
+			_firstName = delimiter[1];
+			_lastName = delimiter[2];
+			_userEmail = delimiter[3];
+			_userPassword = delimiter[4];
+			_userDob = Convert.ToDateTime(delimiter[5]);
+			_dispName = delimiter[6];
+			_regDate = Convert.ToDateTime(delimiter[7]);
+			_userStatus = (Convert.ToInt16(delimiter[8]));
+			_userRole = (Role) (Convert.ToInt16(delimiter[9]));
+			return new User(_userId, _firstName, _lastName, _userEmail, _userPassword, _userDob, _dispName, 
+				_regDate,_userStatus,_userRole);
 		}
 		
 		// updates user
-		public void updateUser(string fName, string lName, string email_address, string pw, DateTime birth, string dName, int s, Role r)
+		public void UpdateUser(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
+			string dName, int userStatus, Role userRole)
         {
-			this.firstName = fName;
-			this.lastName = lName;
-			this.email = email_address;
-			this.password = pw;
-			this.dob = birth;
-			this.dispName = dName;
-			this.status = s;
-			this.role = r;
+			this._firstName = fName;
+			this._lastName = lName;
+			this._userEmail = emailAddr;
+			this._userPassword = userPassword;
+			this._userDob = userDob;
+			this._dispName = dName;
+			this._userStatus = userStatus;
+			this._userRole = userRole;
         }
 
 		// updates user to modded user
-		public void updateUser(User u)
+		public void UpdateUser(User u)
         {
-			this.firstName = u.firstName;
-			this.lastName = u.lastName;
-			this.email = u.email;
-			this.password = u.password;
-			this.dob = u.dob;
-			this.dispName = u.dispName;
-			this.status = u.status;
-			this.role = u.role;
+			this._firstName = u._firstName;
+			this._lastName = u._lastName;
+			this._userEmail = u._userEmail;
+			this._userPassword = u._userPassword;
+			this._userDob = u._userDob;
+			this._dispName = u._dispName;
+			this._userStatus = u._userStatus;
+			this._userRole = u._userRole;
         }
 
-		public void updateUser(string csvLine)
+		public void UpdateUser(string csvLine)
         {
 			string[] delimiter = csvLine.Split(',');
-			this.firstName = delimiter[1];
-			this.lastName = delimiter[2];
-			this.email = delimiter[3];
-			this.password = delimiter[4];
-			this.dob = Convert.ToDateTime(delimiter[6]);
-			this.dispName = delimiter[5];
-			this.status = Convert.ToInt16(delimiter[8]);
-			this.role = (Role) (Convert.ToInt16(delimiter[9]));
+			this._firstName = delimiter[1];
+			this._lastName = delimiter[2];
+			this._userEmail = delimiter[3];
+			this._userPassword = delimiter[4];
+			this._userDob = Convert.ToDateTime(delimiter[6]);
+			this._dispName = delimiter[5];
+			this._userStatus = Convert.ToInt16(delimiter[8]);
+			this._userRole = (Role) (Convert.ToInt16(delimiter[9]));
         }
 
-
-		public User getUser(string result)
+		public User GetUser(string result)
         {
 			User setUser = new User();
-			setUser.updateUser(result);
+			setUser.UpdateUser(result);
 			return setUser;
         }
-
-		/* Gets a user's first name */
-		public int getid()
-		{
-			return this.userId;
-		}
-
-		/* Gets a user's first name */
-		public string getfirst()
-		{
-			return this.firstName;
-		}
-
-		/* sets a user's first name */
-		public void setfirst(User n)
-		{
-			this.firstName = n.firstName;
-		}
-
-		/* Gets a user's last name */
-		public string getlast()
-		{
-			return this.lastName;
-		}
-
-		/* sets a user's last name */
-		public void setLast(User n)
-		{
-			this.lastName = n.lastName;
-		}
-
-		/* Gets a user's email */
-		public string getemail()
-		{
-			return this.email;
-		}
-
-		/* sets a user's email */
-		public void setEmail(User n)
-		{
-			this.email = n.email;
-		}
-
-		/* Gets a user's password */
-		public string getpw()
-		{
-			return this.password;
-		}
-
-		/* sets a user's password */
-		public void setpw(User n)
-		{
-			this.password = n.password;
-		}
-
-		/* Gets user's date of birth */
-		public DateTime getdob()
-		{
-			return this.dob;
-		}
-
-		/* sets a user's dob */
-		public void setbirth(User n)
-		{
-			this.dob = n.dob;
-		}
-
-		/* Gets a user's display name */
-		public string getdisp()
-		{
-			return this.dispName;
-		}
-
-		/* sets a user's display name */
-		public void setdisp(User n)
-		{
-			this.dispName = n.dispName;
-		}
-
-		/* Gets a user's registration date and time */
-		public DateTime getreg()
-		{
-			return this.regDate;
-		}
-
-		/* Gets a usr's status (enabled or disabled) */
-		public int getstatus()
-        {
-			return this.status;
-        }
-
-		/* sets a user's status */
-		public void setstatus(User n)
-		{
-			this.status = n.status;
-		}
-		
-		/* Gets a user's role (System admin, admin, or user) */
-		public Role getrole()
-        {
-			return this.role;
-        }
-
-		/* sets a user's first name */
-		public void setRole(User n)
-		{
-			this.role = n.role;
-		}
-
-		
-		public String toString()
+				
+		override
+		public String ToString()
         {
             if (this == null)
             {
                 return "User not found.";
             }
-
-            return this.userId + ", " + this.firstName+", "+ this.lastName + ", " + this.email + ", " + this.password + ", " + this.dob + ", " + this.dispName + ", " + this.regDate + ", " + this.status + ", " + this.role;
+            return this._userId + ", " + this._firstName + ", "+ this._lastName + ", " + this._userEmail 
+				+ ", " + this._userPassword + ", " + this._userDob + ", " + this._dispName + ", " 
+				+ this._regDate + ", " + this._userStatus + ", " + this._userRole;
         }
-
 	}
 }

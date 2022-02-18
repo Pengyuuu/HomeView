@@ -9,182 +9,181 @@ using Logging.Logging;
 namespace UM.User {
 	public class UserManager
 	{
-		private String sysadmin = "TeamUnite";
-		private String sysadminpw = "Testing";
-		private UMService umService;
-		private Boolean verified = false;
+		private String SYS_ADMIN = "TeamUnite";
+		private String SYS_PASS = "Testing";
+		private UMService _umService;
+		private Boolean _isVerified = false;
 
 
-		public UserManager(string adminInput, string pw)
+		public UserManager(string adminInput, string passInput)
 		{
-			umService = new UMService(this);
-			verified = verifyAdmin(adminInput, pw);
+			_umService = new UMService(this);
+			_isVerified = IsVerifiedAdmin(adminInput, passInput);
 		}
 
 		/* Verifies if actor is system administrator 
 		 * Returns: true if matches, false if doesn't match
 		 */
-		public Boolean verifyAdmin(string adminInput, string pw)
+		public Boolean IsVerifiedAdmin(string adminInput, string passInput)
 		{
-			Log checkAdminlog = new ("verifying admin", LogLevel.Info, LogCategory.View, DateTime.Now);
-			LoggingManager logm = new LoggingManager();
-			logm.LogData(checkAdminlog);
+			Log adminLog = new ("verifying admin", LogLevel.Info, LogCategory.View, DateTime.Now);
+			LoggingManager logManager = new LoggingManager();
+			logManager.LogData(adminLog);
 
 			// checks if input matches system admin info
-			Boolean check1 = adminInput == this.sysadmin;	
-			Boolean check2 = pw == this.sysadminpw;
-			return check1 == check2;
-
+			Boolean isAdminUser = adminInput == this.SYS_ADMIN;	
+			Boolean isPass = passInput == this.SYS_PASS;
+			return isAdminUser == isPass;
 		}
 
 		/* Ensures that New user has entered correct fields 
-		 *	Checks for valid email address, valid password */
-		public Boolean checkNewUser(User u)
+		 *	Checks for valid userEmail address, valid password */
+		public Boolean IsNewUser(User u)
 		{
-			Log userlog = new("checking user in database", LogLevel.Info, LogCategory.Data, DateTime.Now);
-			LoggingManager logm = new LoggingManager();
-			logm.LogData(userlog);
+			Log userLog = new("checking user in database", LogLevel.Info, LogCategory.Data, DateTime.Now);
+			LoggingManager logManager = new LoggingManager();
+			logManager.LogData(userLog);
 
-			//  makes sure new user's email is valid (contains @.com)
-			string email = u.getemail();
-			Boolean emailCheck = (email.Contains("@") == email.Contains(".com"));
+			//  makes sure new user's userEmail is valid (contains @.com)
+			string userEmail = u.UserEmail;
+			Boolean isValidEmail = (userEmail.Contains("@") == userEmail.Contains(".com"));
 
 			// makes sure new user's password is valid (contains minimum of 12 characters, at least 1 capital letter, at least 1 non-alphanumeric character
-			string pw = u.getpw();
-			int pwMinLength = 12;
+			string userPass = u.UserPassword;
+			int passMinLength = 12;
 			Boolean containsUpper = false;
 			Boolean containsNonAlpha = false;
-			Boolean lengthCheck = false;
+			Boolean hasLength = false;
 
 			// ensures password meets length requirement
-			if (pw.Length >= pwMinLength)
+			if (userPass.Length >= passMinLength)
 			{
-				lengthCheck = true;
+				hasLength = true;
 			}
 
 			// ensures pasword meets capital and non-alphanumeric requirement
-			for (int i = 0; i < pw.Length; i++)
+			for (int i = 0; i < userPass.Length; i++)
 			{
-				if (Char.IsUpper(pw[i]))
+				if (Char.IsUpper(userPass[i]))
 				{
 					containsUpper = true;
 				}
 
-				if (!Char.IsLetterOrDigit(pw[i]))
+				if (!Char.IsLetterOrDigit(userPass[i]))
 				{
 					containsNonAlpha = true;
 				}
 			}
 
-			return (emailCheck == containsUpper == containsNonAlpha == lengthCheck);
+			return (isValidEmail == containsUpper == containsNonAlpha == hasLength);
 
 		}
 
 		// Gets user
 		
-		public String UserManagerGetUser(string email)
+		public String GetUser(string userEmail)
         {
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
-			if (!this.verified)
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
+			if (!this._isVerified)
 			{
-				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 
 				return "Unauthorized access";
 			}
 
-			if (!umService.UMServiceCheckUser(email))
+			if (!_umService.IsUser(userEmail))
             {
-				userlog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 
 				return "User does not exist";
             }
 
-			userlog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.LogData(userlog);
+			userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
 
-			User m = this.umService.UMServiceGetUser(email);
+			User fetchedUser = this._umService.UMServiceGetUser(userEmail);
 
-			return m.toString();
+			return fetchedUser.ToString();
 
         }
 
-		public String UserManagerGetAllUsers()
+		public String GetAllUsers()
 		{
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
 
-			if (!this.verified)
+			if (!this._isVerified)
 			{
-				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unauthorized access";
 			}
 
-			userlog = new("Fetching all users.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.LogData(userlog);
-			return this.umService.UMServiceGetAllUsers();
+			userLog = new("Fetching all users.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
+			return this._umService.GetAllUsers();
 
 		}
 
-		public String UserManagerExportAllUsers()
+		public String ExportAllUsers()
 		{
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
-			if (!this.verified)
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
+			if (!this._isVerified)
 			{
-				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unauthorized access";
 			}
 
-			if (!this.umService.UMServiceExportAllUsers()) {
-				userlog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+			if (!this._umService.ExportAllUsers()) {
+				userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unable to export all users.";
             }
 
-			userlog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-			logm.LogData(userlog);
-			return "User data successfully exported to .csv file" ;
+			userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
+			logManager.LogData(userLog);
+			return "User data successfully exported to .csv file";
 
 		}
 
 		/* Creates a new user record in system 
 		 * Returns success or unsuccessful message
 		 */
-		public String UserManagerCreateUser(User u)
+		public String CreateUser(User u)
 		{
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
 			// if user is not admin, returns unauthorized access
-			if (!this.verified)
+			if (!this._isVerified)
 			{
-				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unauthorized access.";
 			}
 
-			Boolean newuserCheck = checkNewUser(u);			
+			Boolean isNewUser = IsNewUser(u);			
 
 			//  if new user has incorrect inputs
-			if (!newuserCheck)
+			if (!isNewUser)
 			{
-				userlog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Invalid inputs for new user.";
 			}
 
-			userlog = new("Inserting user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.LogData(userlog);
+			userLog = new("Inserting user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
 			// Calls service layer to create the new user
-			string m = this.umService.UMServiceCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
-			userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logm.LogData(userlog);
+			string sysMessage = this._umService.CanCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
+			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
 
-			return m;
+			return sysMessage;
 		}
 
 		/* Modifies a user record in the system 
@@ -194,98 +193,99 @@ namespace UM.User {
 		 * 4 = Enable
 		 * Returns a success or unsuccessful message
 		 */
-		public String UserManagerModifyUser(string email, int mode, User userMod)
+		public String ModifyUser(string userEmail, int mode, User userMod)
 		{
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
 			// if user is not admin, returns unauthorized access
-			if (!this.verified)
+			if (!this._isVerified)
 			{
-				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unauthorized access.";
 			}
 
-			if (!this.umService.UMServiceCheckUser(email))
+			if (!this._umService.IsUser(userEmail))
             {
-				userlog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "User does not exist.";
             }
 
-			userlog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logm.LogData(userlog);
+			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
 			// calls service layer to modify user
-			string m = this.umService.UMServiceModifyUser(email, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
-			userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logm.LogData(userlog);
+			string sysMessage = this._umService.CanModifyUser(userEmail, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
+			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
 
-			return m;
+			return sysMessage;
 		}
 
-		
-		public String BulkOperationCreateUsers(string file)
+		// Bulk Operation
+		public String CreateUsers(string file)
         {
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
 			// if user is not admin, returns unauthorized access
-			if (!this.verified)
+			if (!this._isVerified)
 			{
-				userlog = new( "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new( "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unauthorized access.";
 			}
-			userlog = new("Starting bulk operation to create users", LogLevel.Info, LogCategory.Data, DateTime.Now);
-			logm.LogData(userlog);
+			userLog = new("Starting bulk operation to create users", LogLevel.Info, LogCategory.Data, DateTime.Now);
+			logManager.LogData(userLog);
 
 			List <User> users = File.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
 			
-			string m = "";
+			string sysMessage = "";
 			int insertedUsers = 0;
 			int failedInsert = 0;
 
 			foreach(User u in users)
             {
-				m = UserManagerCreateUser(u);
+				sysMessage = CreateUser(u);
 				
-				if (m == "Invalid inputs for new user.")
+				if (sysMessage == "Invalid inputs for new user.")
                 {
-					userlog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
-					logm.LogData(userlog);
-					return ("Invalid inputs for new user " + u.getemail());
+					userLog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
+					logManager.LogData(userLog);
+					return ("Invalid inputs for new user " + u.UserEmail);
                 }
-				else if (m == "Account creation unsuccessful. Account already exists in system.")
+				else if (sysMessage == "Account creation unsuccessful. Account already exists in system.")
                 {
-					userlog = new("Account for new user already exists", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-					logm.LogData(userlog);
+					userLog = new("Account for new user already exists", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+					logManager.LogData(userLog);
 					failedInsert++;
                 }
-				else if (m == "User account record creation successful.")
+				else if (sysMessage == "User account record creation successful.")
                 {
-					userlog = new("User account creation successful", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-					logm.LogData(userlog);
+					userLog = new("User account creation successful", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+					logManager.LogData(userLog);
 					insertedUsers++;
                 }
             }
-			m = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
-			return m;
+			sysMessage = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
+			return sysMessage;
         }
-		
-		public String BulkOperationModifyUsers(string file)
+
+		// Bulk operation
+		public String ModifyUsers(string file)
         {
-			Log userlog = new();
-			LoggingManager logm = new LoggingManager();
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
 			// if user is not admin, returns unauthorized access
-			if (!this.verified)
+			if (!this._isVerified)
 			{
-				userlog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logm.LogData(userlog);
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
 				return "Unauthorized access.";
 			}
 
 			List <String> mods = File.ReadAllLines(file).Skip(1).ToList();
 			
-			string m = "";
+			string sysMessage = "";
 			int successMods = 0;
 			int failedMods = 0;
 
@@ -306,32 +306,32 @@ namespace UM.User {
 				int mstatus = Convert.ToInt16(delimiter[10]);
 				Role mr = (Role) (Convert.ToInt16(delimiter[11]));
 
-				userMod.updateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
+				userMod.UpdateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 
 
-				m = UserManagerModifyUser(memail, mode, userMod);
+				sysMessage = ModifyUser(memail, mode, userMod);
 
-				if (m == "Invalid inputs for new user.")
+				if (sysMessage == "Invalid inputs for new user.")
                 {
-					userlog = new("Invalid inputs for new user. ", LogLevel.Error, LogCategory.Data, DateTime.Now);
-					logm.LogData(userlog);
+					userLog = new("Invalid inputs for new user. ", LogLevel.Error, LogCategory.Data, DateTime.Now);
+					logManager.LogData(userLog);
 					return ("Invalid inputs for new user id: " + id);
                 }
-				else if (m == "Account modification unsuccessful.")
+				else if (sysMessage == "Account modification unsuccessful.")
                 {
-					userlog = new(m, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-					logm.LogData(userlog);
+					userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+					logManager.LogData(userLog);
 					failedMods++;
                 }
-				else if (m == "User account record modification successful.")
+				else if (sysMessage == "User account record modification successful.")
                 {
-					userlog = new(m, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-					logm.LogData(userlog);
+					userLog = new(sysMessage, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+					logManager.LogData(userLog);
 					successMods++;
                 }
             }
-			m = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
-			return m;
+			sysMessage = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
+			return sysMessage;
         }
 		
 	}

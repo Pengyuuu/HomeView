@@ -5,53 +5,51 @@ namespace UM.User
 	public class UMService
 	{
 		// User DAO
-		private UserDAO userdao;
+		private UserDAO _userDao;
 
 		public UMService(UserManager manager)
 		{
-			userdao = new UserDAO(this);
+			_userDao = new UserDAO(this);
 		}
 
 		/* Calls UM DAO to create user given new user
 		 * Returns True is successful, false if unsuccessful
 		 */
-		public Boolean UMServiceCreateUser(User u)
+		public Boolean CanCreateUser(User userSelected)
 		{
-			return userdao.createUser(u);
+			return _userDao.CreateUser(userSelected);
 
 		}
 
 		/* Calls UM DAO to modify user, given User to modify, mode (delete, update, disable, enable), and user modifications
 		 * Returns True is successful, false if unsuccessful
 		 */
-		public Boolean UMServiceModifyUser(string email, int mode, User userMod)
+		public Boolean CanModifyUser(string userEmail, int mode, User userMod)
 		{
-			return userdao.modifyUser(email, mode, userMod);
+			return _userDao.ModifyUser(userEmail, mode, userMod);
 
 		}
 
-		public Boolean UMServiceCheckUser(string email)
+		public Boolean IsUser(string userEmail)
 		{
-			return userdao.checkUser(email);
+			return _userDao.IsUser(userEmail);
 		}
 		 
-		public User UMServiceGetUser(string email)
+		public User UMServiceGetUser(string userEmail)
 		{
 			User fetchedUser = new User();
-			fetchedUser = fetchedUser.getUser(userdao.getUser(email));
+			fetchedUser = fetchedUser.GetUser(_userDao.GetUser(userEmail));
 			return fetchedUser;
 		}
 
-		public String UMServiceGetAllUsers()
+		public String GetAllUsers()
 		{
-			return userdao.getAllUsers();
+			return _userDao.GetAllUsers();
 		}
 
-		public Boolean UMServiceExportAllUsers()
+		public Boolean ExportAllUsers()
 		{
-
-			return userdao.exportAllUsers();
-
+			return _userDao.ExportAllUsers();
 		}
 
 
