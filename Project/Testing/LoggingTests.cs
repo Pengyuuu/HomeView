@@ -22,8 +22,8 @@ namespace Testing.LoggingTests
 
             //act
             LoggingManager logManager = new LoggingManager();
-            logManager.logData(testLog);
-            actual = logManager.getLog(1);
+            logManager.LogData(testLog);
+            actual = logManager.GetLog(1);
 
             //assert
             Assert.NotNull(actual);
@@ -35,7 +35,7 @@ namespace Testing.LoggingTests
             bool expected = true;
 
             LoggingManager lm = new();
-            bool actual = lm.logData(testLog);
+            bool actual = lm.LogData(testLog);
 
             Assert.Equal(expected, actual);
 

@@ -2,30 +2,29 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Archiving.Archiving;
 
-namespace Archive
+namespace Archiving.Archive
 {
-    public class Archiving
+    public class Archived
     {
-        private static Archiving _instance = null;
+        private static Archived _instance = null;
         private List<string> _log = new List<string>();
 
        
-        public Archiving()
+        public Archived()
         {
         }
         
 
         // Singleton design pattern, makes sure there's only one archiving
-        public static Archiving GetInstance
+        public static Archived GetInstance
         {
 
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new Archiving();
+                    _instance = new Archived();
                 }
 
                 return _instance;
@@ -51,7 +50,7 @@ namespace Archive
                         // reads each log, appends each column into a single string, and adds it to the list
                         result = read.GetInt32(0).ToString() + " " + read.GetString(1).ToString() + " " +
                                 read.GetString(2).ToString() + " " + read.GetString(3).ToString() + " " +
-                                read.GetString(4).ToString() + read.GetString(5).ToString(); 
+                                read.GetString(4).ToString() + read.GetDateTime(5).ToString(); 
                         _log.Add(result);
                     }
                 }

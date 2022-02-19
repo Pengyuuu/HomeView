@@ -6,7 +6,7 @@ using Logging.Logging;
 using System.Text;
 using System.IO;
 
-namespace Archiving.Archiving
+namespace Archiving.Archive
 {
     class ArchivingDAO
     {
