@@ -48,9 +48,9 @@ namespace Archiving.Archive
                     while (read.Read())
                     {
                         // reads each log, appends each column into a single string, and adds it to the list
-                        result = read.GetInt32(0).ToString() + " " + read.GetString(1).ToString() + " " +
-                                read.GetString(2).ToString() + " " + read.GetString(3).ToString() + " " +
-                                read.GetString(4).ToString() + read.GetDateTime(5).ToString(); 
+                        result = read.GetInt32(0).ToString() + "," + read.GetString(1).ToString() + "," +
+                                read.GetString(2).ToString() + "," + read.GetString(3).ToString() + "," +
+                                read.GetDateTime(4).ToString(); 
                         _log.Add(result);
                     }
                 }
