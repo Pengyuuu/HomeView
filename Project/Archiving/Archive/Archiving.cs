@@ -11,9 +11,11 @@ namespace Archive
         private static Archiving _instance = null;
         private List<string> _log = new List<string>();
 
+       
         public Archiving()
         {
         }
+        
 
         // Singleton design pattern, makes sure there's only one archiving
         public static Archiving GetInstance
@@ -65,7 +67,6 @@ namespace Archive
             }
             catch (SqlException e)
             {
-                // unable to enable user record
                 Console.WriteLine("Error Generated. Details: " + e.ToString());
             }
 
