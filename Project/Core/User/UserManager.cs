@@ -39,7 +39,7 @@ namespace Core.User
 
 		/* Ensures that New user has entered correct fields 
 		 *	Checks for valid userEmail address, valid password */
-		public Boolean IsNewUser(User u)
+		public Boolean IsValidUser(User u)
 		{
 			Log userLog = new("checking user in database", LogLevel.Info, LogCategory.Data, DateTime.Now);
 			LoggingManager logManager = new();
@@ -275,56 +275,84 @@ namespace Core.User
 				return "Unauthorized access.";
 			}
 
-			List <String> mods = File.ReadAllLines(file).Skip(1).ToList();
-			
+			List <String> mods = File.ReadAllLines(file).Skip(1).ToList();			
 			string sysMessage = "";
 			int successMods = 0;
 			int failedMods = 0;
 
 			foreach(String csvLine in mods)
-            {
-				
+            {				
 				string[] delimiter = csvLine.Split(',');
-				int id = Convert.ToInt32(delimiter[0]);
-				int mode = Convert.ToInt32(delimiter[1]);
-
 				User userMod = new User();
-				string mfirstName = delimiter[3];
-				string mlastName = delimiter[4];
-				string memail = delimiter[5];
-				string mpassword = delimiter[6];
-				DateTime mdob = Convert.ToDateTime(delimiter[7]);
-				string mdispName = delimiter[8];
-				int mstatus = Convert.ToInt16(delimiter[10]);
-				Role mr = (Role) (Convert.ToInt16(delimiter[11]));
+				string mfirstName = delimiter[0];
+				string mlastName = delimiter[1];
+				string memail = delimiter[2];
+				string mpassword = delimiter[3];
+				DateTime mdob = Convert.ToDateTime(delimiter[4]);
+				string mdispName = delimiter[5];
+				int mstatus = Convert.ToInt16(delimiter[6]);
+				Role mr = (Role) (Convert.ToInt16(delimiter[7]));
 
 				userMod.UpdateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 
-
-				sysMessage = ModifyUser(userMod);
-
-				if (sysMessage == "Invalid inputs for new user.")
+				// Makes sure valid parameters
+				if (IsValidUser(userMod))
+				{
+					// Creating a new user if not in database
+					if (!this._umService.IsUser(userMod))
+					{
+						sysMessage = CreateUser(userMod);
+						if (sysMessage == "User account creation successful.")
+						{
+							successMods++;
+						}
+						else
+						{
+							failedMods++;
+						}
+					}
+					// Modifying or Deleting User
+					else
+					{
+						// checks user in DB, if exact same fields then delete occurs
+						var checkUserDB = this._umService.GetUser(userMod);
+						if (checkUserDB.ToString() == userMod.ToString())
+						{
+							sysMessage = DeleteUser(userMod);
+							if (sysMessage == "User account deletion successful.")
+							{
+								successMods++;
+							}
+							else
+							{
+								failedMods++;
+							}
+						}
+						else
+						{
+							// User's fields were modified
+							sysMessage = ModifyUser(userMod);
+							if (sysMessage == "User account modification successful.")
+							{
+								successMods++;
+							}
+							else
+							{
+								failedMods++;
+							}
+						}
+					}
+				}
+				else
                 {
-					userLog = new("Invalid inputs for new user. ", LogLevel.Error, LogCategory.Data, DateTime.Now);
-					logManager.LogData(userLog);
-					return ("Invalid inputs for new user id: " + id);
-                }
-				else if (sysMessage == "Account modification unsuccessful.")
-                {
-					userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-					logManager.LogData(userLog);
+					sysMessage = "Invalid inputs for user id: " + memail;				
 					failedMods++;
-                }
-				else if (sysMessage == "User account record modification successful.")
-                {
-					userLog = new(sysMessage, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-					logManager.LogData(userLog);
-					successMods++;
-                }
+				}
+				userLog = new(sysMessage, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				logManager.LogData(userLog);								
             }
 			sysMessage = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
 			return sysMessage;
-        }
-		
+        }		
 	}
 }

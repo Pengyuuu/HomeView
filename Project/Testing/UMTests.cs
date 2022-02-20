@@ -39,7 +39,7 @@ namespace UMTests
             User actualUser = new User("John", "Smith", "JohnSmith@gmail.com", "Password1234!", actualDate, dName: "JSmith", 0, Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
-            Boolean actual = userManager.IsNewUser(actualUser);
+            Boolean actual = userManager.IsValidUser(actualUser);
 
             Assert.Equal(expected, actual);
         }
