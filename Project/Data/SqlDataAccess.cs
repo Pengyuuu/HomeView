@@ -16,13 +16,13 @@ namespace Data
 		{
 		}
 
-		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters, string connStr)
+		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters)
 		{
 			using IDbConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
 			return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 		}
 
-		public async Task SaveData<T>(string storedProcedure, T parameters, string connStr)
+		public async Task SaveData<T>(string storedProcedure, T parameters)
 		{
 			using IDbConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
 			await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
