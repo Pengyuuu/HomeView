@@ -17,8 +17,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\UM\Core.csproj" />
-  </ItemGroup>
-
 </Project>
