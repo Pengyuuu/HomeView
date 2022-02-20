@@ -80,7 +80,6 @@ namespace UM.User {
 		}
 
 		// Gets user
-		
 		public String GetUser(string userEmail)
         {
 			Log userLog = new();
@@ -151,46 +150,12 @@ namespace UM.User {
 
 		}
 
-		/* Creates a new user record in system 
-		 * Returns success or unsuccessful message
-		 */
-		public String CreateUser(User u)
-		{
-			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
-			// if user is not admin, returns unauthorized access
-			if (!this._isVerified)
-			{
-				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "Unauthorized access.";
-			}
-
-			Boolean isNewUser = IsNewUser(u);			
-
-			//  if new user has incorrect inputs
-			if (!isNewUser)
-			{
-				userLog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
-				logManager.LogData(userLog);
-				return "Invalid inputs for new user.";
-			}
-
-			userLog = new("Inserting user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
-			// Calls service layer to create the new user
-			string sysMessage = this._umService.CanCreateUser(u) == true ? "User account record creation successful." : "Account creation unsuccessful. Account already exists in system. ";
-			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
-
-			return sysMessage;
-		}
-
 		/* Modifies a user record in the system 
 		 * 1 = Update information
 		 * 2 = Delete account
 		 * 3 = Disable
 		 * 4 = Enable
+		 * 5 = Create
 		 * Returns a success or unsuccessful message
 		 */
 		public String ModifyUser(string userEmail, int mode, User userMod)
@@ -222,55 +187,15 @@ namespace UM.User {
 			return sysMessage;
 		}
 
-		// Bulk Operation
-		public String CreateUsers(string file)
-        {
-			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
-			// if user is not admin, returns unauthorized access
-			if (!this._isVerified)
-			{
-				userLog = new( "Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "Unauthorized access.";
-			}
-			userLog = new("Starting bulk operation to create users", LogLevel.Info, LogCategory.Data, DateTime.Now);
-			logManager.LogData(userLog);
-
-			List <User> users = File.ReadAllLines(file).Skip(1).Select(u => new User(u)).ToList();
-			
-			string sysMessage = "";
-			int insertedUsers = 0;
-			int failedInsert = 0;
-
-			foreach(User u in users)
-            {
-				sysMessage = CreateUser(u);
-				
-				if (sysMessage == "Invalid inputs for new user.")
-                {
-					userLog = new("Invalid inputs for new user", LogLevel.Error, LogCategory.Data, DateTime.Now);
-					logManager.LogData(userLog);
-					return ("Invalid inputs for new user " + u.UserEmail);
-                }
-				else if (sysMessage == "Account creation unsuccessful. Account already exists in system.")
-                {
-					userLog = new("Account for new user already exists", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-					logManager.LogData(userLog);
-					failedInsert++;
-                }
-				else if (sysMessage == "User account record creation successful.")
-                {
-					userLog = new("User account creation successful", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-					logManager.LogData(userLog);
-					insertedUsers++;
-                }
-            }
-			sysMessage = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
-			return sysMessage;
-        }
-
 		// Bulk operation
+		/* Modifies a user record in the system 
+		 * 1 = Update information
+		 * 2 = Delete account
+		 * 3 = Disable
+		 * 4 = Enable
+		 * 5 = Create
+		 * Returns a success or unsuccessful message
+		 */
 		public String ModifyUsers(string file)
         {
 			Log userLog = new();
