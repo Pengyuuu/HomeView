@@ -51,13 +51,13 @@ namespace Core.User
 
 			// makes sure new user's password is valid (contains minimum of 12 characters, at least 1 capital letter, at least 1 non-alphanumeric character
 			string userPass = u.UserPassword;
-			int passMinLength = 12;
+			int PASS_MIN_LENGTH = 12;
 			Boolean containsUpper = false;
 			Boolean containsNonAlpha = false;
 			Boolean hasLength = false;
 
 			// ensures password meets length requirement
-			if (userPass.Length >= passMinLength)
+			if (userPass.Length >= PASS_MIN_LENGTH)
 			{
 				hasLength = true;
 			}
