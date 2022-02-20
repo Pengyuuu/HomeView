@@ -1,6 +1,6 @@
 using Xunit;
 using System;
-using User;
+using Core.User;
 using System.IO;
 
 
@@ -55,8 +55,8 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
             // delete user first in case it already exists
-            userManager.ModifyUser(newUser.UserEmail, 2, null);
-            String actual = userManager.ModifyUser(newUser.UserEmail, 5, newUser);
+            userManager.DeleteUser(newUser);
+            String actual = userManager.CreateUser(newUser);
 
             Assert.Equal(expected, actual);
 
@@ -74,7 +74,7 @@ namespace UMTests
             User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
-            String actual = userManager.ModifyUser(testUser.UserEmail, 5,testUser);
+            String actual = userManager.ModifyUser(testUser);
 
             Assert.Equal(expected, actual);
         }
@@ -92,8 +92,8 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-            userManager.ModifyUser(modifyUser.UserEmail, 1, modifyUser);
-            string actual = userManager.ModifyUser(modifyUser.UserEmail, 1, modifyUser);
+            userManager.ModifyUser(modifyUser);
+            string actual = userManager.ModifyUser(modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -112,7 +112,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.ModifyUser(modifyUser.UserEmail, 2, modifyUser);
+            string actual = userManager.ModifyUser(modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -130,8 +130,8 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-            userManager.ModifyUser(modifyUser.UserEmail, 3, modifyUser);
-            string actual = userManager.ModifyUser(modifyUser.UserEmail, 3, modifyUser);
+            userManager.ModifyUser(modifyUser);
+            string actual = userManager.ModifyUser(modifyUser);
 
             Assert.Equal(expected, actual);
 
@@ -149,8 +149,8 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-            userManager.ModifyUser(modifyUser.UserEmail, 4, modifyUser);
-            string actual = userManager.ModifyUser(modifyUser.UserEmail, 4, modifyUser);
+            userManager.ModifyUser(modifyUser);
+            string actual = userManager.ModifyUser(modifyUser);
 
             Assert.Equal(expected, actual);
 

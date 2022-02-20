@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Data;
 
 
-namespace User
+namespace Core.User
 {
     public class UserDAO
 {

@@ -6,11 +6,12 @@ using Logging;
 
 
 /* User Authentication and Authorization Manager */
-namespace User {
+namespace Core.User
+{
 	public class UserManager
 	{
-		private String SYS_ADMIN = "TeamUnite";
-		private String SYS_PASS = "Testing";
+		private readonly String SYS_ADMIN = "TeamUnite";
+		private readonly String SYS_PASS = "Testing";
 		private UMService _umService;
 		private Boolean _isVerified = false;
 
@@ -27,7 +28,7 @@ namespace User {
 		public Boolean IsVerifiedAdmin(string adminInput, string passInput)
 		{
 			Log adminLog = new ("verifying admin", LogLevel.Info, LogCategory.View, DateTime.Now);
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 			logManager.LogData(adminLog);
 
 			// checks if input matches system admin info
@@ -41,7 +42,7 @@ namespace User {
 		public Boolean IsNewUser(User u)
 		{
 			Log userLog = new("checking user in database", LogLevel.Info, LogCategory.Data, DateTime.Now);
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 			logManager.LogData(userLog);
 
 			//  makes sure new user's userEmail is valid (contains @.com)
@@ -83,7 +84,7 @@ namespace User {
 		public String GetUser(User user)
         {
 			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 			if (!this._isVerified)
 			{
 				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
@@ -112,7 +113,7 @@ namespace User {
 		public String GetAllUsers()
 		{
 			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 
 			if (!this._isVerified)
 			{
@@ -134,7 +135,7 @@ namespace User {
 		{
 
 			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 			if (!this._isVerified)
 			{
 				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
@@ -150,6 +151,16 @@ namespace User {
 				return "Unable to export all users.";
             }
 
+			try
+            {
+
+            }
+			catch (Exception e)
+            {
+				return "Unable to export all users.";
+
+			}
+
 			userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
 			logManager.LogData(userLog);
 			return "User data successfully exported to .csv file";
@@ -159,7 +170,7 @@ namespace User {
 		public String CreateUser(User userMod)
 		{
 			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 			// if user is not admin, returns unauthorized access
 			if (!this._isVerified)
 			{
@@ -191,7 +202,7 @@ namespace User {
 		public String ModifyUser(User userMod)
 		{
 			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
+			LoggingManager logManager = new();
 			// if user is not admin, returns unauthorized access
 			if (!this._isVerified)
 			{
