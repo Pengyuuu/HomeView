@@ -1,10 +1,14 @@
-﻿using Dapper;
+﻿/*using Dapper;
 using System;
 using System.Data;
-using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace UM.User;
+
+
+
+namespace UM.User
 {
     public class UserDAO
 {
@@ -47,3 +51,4 @@ namespace UM.User;
     }
 }
 }
+*/
