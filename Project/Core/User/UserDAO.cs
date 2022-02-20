@@ -26,12 +26,15 @@ namespace User
 
     public Task CreateUser(User user)
     {
-        return _db.SaveData("dbo.InsertUser", new { user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, ((int)user.UserRole) });
+        int userR = (int)user.UserRole;
+        return _db.SaveData("dbo.InsertUser", new { user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, userR });
     }
 
     public Task UpdateUser(User user)
     {
-        return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, ((int)user.UserRole) });
+            int userR = (int)user.UserRole;
+
+            return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, userR });
     }
 
     public Task ReadUser(User user)
