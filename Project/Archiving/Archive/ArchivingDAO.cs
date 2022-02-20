@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Logging.Logging;
 using System.Text;
 using System.IO;
+using System.IO.Compression;
 
 namespace Archiving.Archive
 {
@@ -12,6 +13,7 @@ namespace Archiving.Archive
     {
         private static ArchivingDAO _instance;
         private static string _filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.csv");
+        private static string _zipPath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.zip");
 
         public static ArchivingDAO GetInstance
         {
@@ -57,6 +59,8 @@ namespace Archiving.Archive
             { 
                 File.WriteAllText(_filePath, csv.ToString()); 
             }
+
+            ZipFile.CreateFromDirectory(_filePath, _zipPath);
 
             return true;
         }
