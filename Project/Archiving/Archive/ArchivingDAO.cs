@@ -30,6 +30,11 @@ namespace Archiving.Archive
             
         }
 
+        /**
+         * Writes all 30-day old logs into the csv file
+         * @param oldLogs - a list of all logs that are 30-days old
+         * @return true if successfully writes old logs to csv file
+         */
         public bool Send(List<string> oldLogs)
         {
 
@@ -41,8 +46,12 @@ namespace Archiving.Archive
                 csv.AppendLine(oldLogs[i].ToString());
             }
 
+            // If csv file already exists, just append the logs
+            if (File.Exists(_filePath)) { File.AppendAllText(_filePath, csv.ToString()); }
+
+            else { File.WriteAllText(_filePath, csv.ToString()); }
             // Writes the archived logs and exports as a csv file
-            File.WriteAllText(_filePath, csv.ToString());
+            //File.WriteAllText(_filePath, csv.ToString());
 
             return true;
         }
