@@ -56,7 +56,7 @@ namespace UMTests
             UserManager userManager = new UserManager(adminInput, pw);
             // delete user first in case it already exists
             userManager.ModifyUser(newUser.UserEmail, 2, null);
-            String actual = userManager.CreateUser(newUser);
+            String actual = userManager.ModifyUser(newUser.UserEmail, 5, newUser);
 
             Assert.Equal(expected, actual);
 
@@ -74,7 +74,7 @@ namespace UMTests
             User testUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
             UserManager userManager = new UserManager(adminInput, pw);
-            String actual = userManager.CreateUser(testUser);
+            String actual = userManager.ModifyUser(testUser.UserEmail, 5,testUser);
 
             Assert.Equal(expected, actual);
         }
@@ -92,7 +92,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-            userManager.CreateUser(modifyUser);
+            userManager.ModifyUser(modifyUser.UserEmail, 1, modifyUser);
             string actual = userManager.ModifyUser(modifyUser.UserEmail, 1, modifyUser);
 
             Assert.Equal(expected, actual);
@@ -130,7 +130,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-            userManager.CreateUser(modifyUser);
+            userManager.ModifyUser(modifyUser.UserEmail, 3, modifyUser);
             string actual = userManager.ModifyUser(modifyUser.UserEmail, 3, modifyUser);
 
             Assert.Equal(expected, actual);
@@ -149,7 +149,7 @@ namespace UMTests
             string pw = "Testing";
 
             UserManager userManager = new UserManager(adminInput, pw);
-            userManager.CreateUser(modifyUser);
+            userManager.ModifyUser(modifyUser.UserEmail, 4, modifyUser);
             string actual = userManager.ModifyUser(modifyUser.UserEmail, 4, modifyUser);
 
             Assert.Equal(expected, actual);
@@ -157,7 +157,7 @@ namespace UMTests
         }
 
         [Fact]
-        public void UserManager_BulkOpsCreateUsers()
+        public void UserManager_BulkOpsModifyUsers()
         {
 
             string filepath = path;
@@ -170,7 +170,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.CreateUsers(filepath);
+            string actual = userManager.ModifyUsers(filepath);
 
             Assert.Equal(expected, actual);
 
