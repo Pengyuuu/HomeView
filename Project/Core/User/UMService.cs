@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UM.User 
+namespace User 
 {
 	public class UMService
 	{

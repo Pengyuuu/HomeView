@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.Logging
+namespace Logging
 {
     public class LoggingService
     {

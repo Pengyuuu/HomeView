@@ -1,6 +1,6 @@
 using Xunit;
 using System;
-using UM.User;
+using User;
 using System.IO;
 
 

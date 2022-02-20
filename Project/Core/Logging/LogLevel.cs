@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logging.Logging
+namespace Logging
 {
     public enum LogLevel
     {

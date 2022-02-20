@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Data.SqlDataAccess;
 
 
-namespace UM.User
+namespace User
 {
     public class UserDAO
 {
