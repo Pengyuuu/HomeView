@@ -31,6 +31,10 @@ namespace Archive
             }
         }
 
+        /**
+         * Grabs 30-day old logs and puts them into a list to be archived
+         * @returns true once logs have been archived
+         */
         public bool ArchiveLog()
         {
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
