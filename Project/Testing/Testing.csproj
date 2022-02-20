@@ -18,9 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Archiving\Archiving.csproj" />
-    <ProjectReference Include="..\Logging\Logging.csproj" />
-    <ProjectReference Include="..\UM\UM.csproj" />
+    <ProjectReference Include="..\UM\Core.csproj" />
   </ItemGroup>
 
 </Project>
