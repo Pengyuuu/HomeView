@@ -46,12 +46,17 @@ namespace Archiving.Archive
                 csv.AppendLine(oldLogs[i].ToString());
             }
 
-            // If csv file already exists, just append the logs
-            if (File.Exists(_filePath)) { File.AppendAllText(_filePath, csv.ToString()); }
+            // If csv file already exists, append the logs to the file
+            if (File.Exists(_filePath)) 
+            { 
+                File.AppendAllText(_filePath, csv.ToString()); 
+            }
 
-            else { File.WriteAllText(_filePath, csv.ToString()); }
             // Writes the archived logs and exports as a csv file
-            //File.WriteAllText(_filePath, csv.ToString());
+            else 
+            { 
+                File.WriteAllText(_filePath, csv.ToString()); 
+            }
 
             return true;
         }
