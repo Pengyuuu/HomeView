@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace User
+namespace Core.User
 {
 	public class User
 	{

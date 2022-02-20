@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace User 
+namespace Core.User
 {
 	public class UMService
 	{
