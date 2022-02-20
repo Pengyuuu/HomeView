@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "UM\Core.csproj", "{00FC2C47-883D-4C54-AD4B-D136FB56A151}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homeview", "Registration\Homeview.csproj", "{47C1DD35-FE0F-48BC-94FE-82894BA81C8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeView", "Registration\Homeview.csproj", "{47C1DD35-FE0F-48BC-94FE-82894BA81C8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
