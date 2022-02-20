@@ -51,7 +51,9 @@ namespace Archiving.Archive
             // If csv file already exists, append the logs to the file
             if (File.Exists(_filePath)) 
             { 
-                File.AppendAllText(_filePath, csv.ToString()); 
+                File.AppendAllText(_filePath, csv.ToString());
+
+                ZipFile.CreateFromDirectory(_filePath, _zipPath);
             }
 
             // Writes the archived logs and exports as a csv file
@@ -59,8 +61,6 @@ namespace Archiving.Archive
             { 
                 File.WriteAllText(_filePath, csv.ToString()); 
             }
-
-            ZipFile.CreateFromDirectory(_filePath, _zipPath);
 
             return true;
         }
