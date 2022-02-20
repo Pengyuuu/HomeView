@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Logging.Logging;
 
-namespace Testing.LoggingTests
+namespace LoggingTests
 {
     public class LoggingTests
 
