@@ -299,6 +299,7 @@ namespace Core.User
 					// Creating a new user if not in database
 					if (!this._umService.IsUser(userMod))
 					{
+						userMod = new User(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 						sysMessage = CreateUser(userMod);
 						if (sysMessage == "User account creation successful.")
 						{

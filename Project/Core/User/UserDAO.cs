@@ -34,7 +34,7 @@ namespace Core.User
     {
             int userR = (int)user.UserRole;
 
-            return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, userR });
+            return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.UserStatus, userR });
     }
 
     public Task<IEnumerable<User>> ReadUser(User user)
