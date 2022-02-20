@@ -133,7 +133,6 @@ namespace Core.User
 		// Write to CSV File
 		public String ExportAllUsers()
 		{
-
 			Log userLog = new();
 			LoggingManager logManager = new();
 			if (!this._isVerified)
@@ -144,27 +143,26 @@ namespace Core.User
 			}
 
 			var userList = this._umService.GetAllUsers();
+			string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
 
 			if (userList == null) {
 				userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logManager.LogData(userLog);
 				return "Unable to export all users.";
-            }
+            }			
 
 			try
-            {
-
-            }
+			{
+				File.WriteAllText(filePath, userList.ToString());
+			}
 			catch (Exception e)
-            {
+			{
 				return "Unable to export all users.";
-
 			}
 
 			userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
 			logManager.LogData(userLog);
 			return "User data successfully exported to .csv file";
-
 		}
 
 		public String CreateUser(User userMod)
