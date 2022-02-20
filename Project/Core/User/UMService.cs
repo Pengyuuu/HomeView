@@ -39,7 +39,7 @@ namespace Core.User
 		public Boolean HasDeleteUser(User userMod)
 		{
 			var result = _userDao.DeleteUser(userMod);
-			return result == null ? false : true;
+			return result == false ? false : true;
 		}
 
 		public Boolean IsUser(User user)
