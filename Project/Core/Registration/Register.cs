@@ -8,5 +8,22 @@ namespace Core.Registration
 {
     class Register
     {
+        public Register()
+        {
+        }
+
+        public bool IsPasswordValid(string passPhrase)
+        {
+            if (passPhrase.Length >= 8)
+            {
+                for (int i = 0; i < passPhrase.Length; i++)
+                {
+                    foreach (char c in passPhrase)
+                    {
+                        if ((c >= 'a' && c <= 'x') || (c >= 'A' &&))
+                    }
+                }
+            }
+        }
     }
 }
