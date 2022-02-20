@@ -2,11 +2,11 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using Logging.Logging;
+using Logging;
 
 
 /* User Authentication and Authorization Manager */
-namespace UM.User {
+namespace User {
 	public class UserManager
 	{
 		private String SYS_ADMIN = "TeamUnite";

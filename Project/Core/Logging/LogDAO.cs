@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Logging.Logging
+namespace Logging
 {
     public class LogDAO
     {
