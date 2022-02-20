@@ -155,10 +155,9 @@ namespace User {
 		 * 2 = Delete account
 		 * 3 = Disable
 		 * 4 = Enable
-		 * 5 = Create
 		 * Returns a success or unsuccessful message
 		 */
-		public String ModifyUser(string userEmail, int mode, User userMod)
+		public String ModifyUser(string userEmail, User userMod)
 		{
 			Log userLog = new();
 			LoggingManager logManager = new LoggingManager();
@@ -180,7 +179,7 @@ namespace User {
 			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 			// calls service layer to modify user
-			string sysMessage = this._umService.CanModifyUser(userEmail, mode, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
+			string sysMessage = this._umService.CanModifyUser(userEmail, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
 			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 
