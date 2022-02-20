@@ -37,21 +37,46 @@ namespace User
             return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, userR });
     }
 
-    public Task ReadUser(User user)
+    public Task<IEnumerable<User>> ReadUser(User user)
     {
-        var results = _db.LoadData<User, dynamic>("dbo.GetUser", new { email = user.UserEmail });
+            Task<IEnumerable<User>> results;
+            try
+            {
+                results = _db.LoadData<User, dynamic>("dbo.GetUser", new { email = user.UserEmail });
+            }
+            catch (Exception e)
+            {
+                results = null;
+            }
             return results;
     }
 
     public Task<IEnumerable<User>> ReadUser()
     {
-        var result = _db.LoadData<User, dynamic>("dbo.GetAllUsers", "");
-            return result;
-    }
+            
+            Task<IEnumerable<User>> results;
+            try
+            {
+                results = _db.LoadData<User, dynamic>("dbo.GetAllUsers", "");
+            }
+            catch (Exception e)
+            {
+                results = null;
+            }
+            return results;
+        }
 
-    public Task DeleteUser(User user)
+    public Boolean DeleteUser(User user)
     {
-        return _db.SaveData("dbo.DeleteUser", user.UserEmail);
-    }
+            try
+            {
+                var result = _db.SaveData("dbo.DeleteUser", user.UserEmail);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
 }
 }

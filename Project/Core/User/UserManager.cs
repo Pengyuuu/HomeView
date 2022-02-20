@@ -80,7 +80,7 @@ namespace User {
 		}
 
 		// Gets user
-		public String GetUser(string userEmail)
+		public String GetUser(User user)
         {
 			Log userLog = new();
 			LoggingManager logManager = new LoggingManager();
@@ -92,7 +92,7 @@ namespace User {
 				return "Unauthorized access";
 			}
 
-			if (!_umService.IsUser(userEmail))
+			if (!_umService.IsUser(user))
             {
 				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logManager.LogData(userLog);
@@ -103,7 +103,7 @@ namespace User {
 			userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 
-			User fetchedUser = this._umService.UMServiceGetUser(userEmail);
+			var fetchedUser = this._umService.GetUser(user);
 
 			return fetchedUser.ToString();
 
@@ -123,12 +123,16 @@ namespace User {
 
 			userLog = new("Fetching all users.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
-			return this._umService.GetAllUsers();
+
+			var result = this._umService.GetAllUsers();			
+			return result.ToString();
 
 		}
 
+		// Write to CSV File
 		public String ExportAllUsers()
 		{
+
 			Log userLog = new();
 			LoggingManager logManager = new LoggingManager();
 			if (!this._isVerified)
@@ -138,7 +142,9 @@ namespace User {
 				return "Unauthorized access";
 			}
 
-			if (!this._umService.ExportAllUsers()) {
+			var userList = this._umService.GetAllUsers();
+
+			if (userList == null) {
 				userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logManager.LogData(userLog);
 				return "Unable to export all users.";
@@ -150,14 +156,7 @@ namespace User {
 
 		}
 
-		/* Modifies a user record in the system 
-		 * 1 = Update information
-		 * 2 = Delete account
-		 * 3 = Disable
-		 * 4 = Enable
-		 * Returns a success or unsuccessful message
-		 */
-		public String ModifyUser(string userEmail, User userMod)
+		public String CreateUser(User userMod)
 		{
 			Log userLog = new();
 			LoggingManager logManager = new LoggingManager();
@@ -169,7 +168,39 @@ namespace User {
 				return "Unauthorized access.";
 			}
 
-			if (!this._umService.IsUser(userEmail))
+			if (this._umService.IsUser(userMod))
+			{
+				userLog = new("User already exists", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
+				return "User already exists";
+			}
+
+			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
+			// calls service layer to modify user
+			string sysMessage = this._umService.HasCreateUser(userMod) == true ? "User account creation successful." : "Account creation unsuccessful.";
+			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
+
+			return sysMessage;
+		}
+
+		/* Modifies a user record in the system 
+		 * Returns a success or unsuccessful message
+		 */
+		public String ModifyUser(User userMod)
+		{
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
+			// if user is not admin, returns unauthorized access
+			if (!this._isVerified)
+			{
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
+				return "Unauthorized access.";
+			}
+
+			if (!this._umService.IsUser(userMod))
             {
 				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logManager.LogData(userLog);
@@ -179,7 +210,36 @@ namespace User {
 			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 			// calls service layer to modify user
-			string sysMessage = this._umService.CanModifyUser(userEmail, userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
+			string sysMessage = this._umService.HasModifyUser(userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
+			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
+
+			return sysMessage;
+		}
+
+		public String DeleteUser(User userMod)
+		{
+			Log userLog = new();
+			LoggingManager logManager = new LoggingManager();
+			// if user is not admin, returns unauthorized access
+			if (!this._isVerified)
+			{
+				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
+				return "Unauthorized access.";
+			}
+
+			if (!this._umService.IsUser(userMod))
+			{
+				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
+				logManager.LogData(userLog);
+				return "User does not exist.";
+			}
+
+			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			logManager.LogData(userLog);
+			// calls service layer to modify user
+			string sysMessage = this._umService.HasDeleteUser(userMod) == true ? "User account deletion successful." : "Account deletion unsuccessful.";
 			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 
@@ -188,14 +248,11 @@ namespace User {
 
 		// Bulk operation
 		/* Modifies a user record in the system 
-		 * 1 = Update information
-		 * 2 = Delete account
-		 * 3 = Disable
-		 * 4 = Enable
-		 * 5 = Create
+		 * if not found, then create
+		 * what to do if want to delete?
 		 * Returns a success or unsuccessful message
 		 */
-		public String ModifyUsers(string file)
+		public String DoBulkOp(string file)
         {
 			Log userLog = new();
 			LoggingManager logManager = new LoggingManager();
@@ -233,7 +290,7 @@ namespace User {
 				userMod.UpdateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 
 
-				sysMessage = ModifyUser(memail, mode, userMod);
+				sysMessage = ModifyUser(userMod);
 
 				if (sysMessage == "Invalid inputs for new user.")
                 {

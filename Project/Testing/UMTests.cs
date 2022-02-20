@@ -170,7 +170,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager(adminInput, pw);
 
-            string actual = userManager.ModifyUsers(filepath);
+            string actual = userManager.DoBulkOp(filepath);
 
             Assert.Equal(expected, actual);
 

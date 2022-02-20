@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace User 
 {
@@ -15,45 +17,48 @@ namespace User
 		/* Calls UM DAO to create user given new user
 		 * Returns True is successful, false if unsuccessful
 		 */
-		public Boolean CanCreateUser(User userSelected)
+		public Boolean HasCreateUser(User userSelected)
 		{
-			return _userDao.CreateUser(userSelected);
+			var result = _userDao.ReadUser(userSelected);
+			return result == null ? false : true;
+			
 
 		}
 
 		/* Calls UM DAO to modify user, given User to modify, mode (delete, update, disable, enable), and user modifications
 		 * Returns True is successful, false if unsuccessful
 		 */
-		public Boolean CanModifyUser(string userEmail, int mode, User userMod)
+		public Boolean HasModifyUser(User userMod)
 		{
-			return _userDao.ModifyUser(userEmail, mode, userMod);
+			var result = _userDao.UpdateUser(userMod);
+			return result == null ? false : true;
+
 
 		}
 
-		public Boolean IsUser(string userEmail)
+		public Boolean HasDeleteUser(User userMod)
 		{
-			return _userDao.IsUser(userEmail);
-		}
-		 
-		public User UMServiceGetUser(string userEmail)
-		{
-			User fetchedUser = new User();
-			fetchedUser = fetchedUser.GetUser(_userDao.GetUser(userEmail));
-			return fetchedUser;
+			var result = _userDao.DeleteUser(userMod);
+			return result == null ? false : true;
 		}
 
-		public String GetAllUsers()
+		public Boolean IsUser(User user)
 		{
-			return _userDao.GetAllUsers();
+			var result = _userDao.ReadUser(user);
+			return result == null ? false : true;
+
 		}
 
-		public Boolean ExportAllUsers()
+		public Task<IEnumerable<User>> GetUser(User user)
 		{
-			return _userDao.ExportAllUsers();
+			return _userDao.ReadUser(user);
 		}
 
-
-
+		public Task<IEnumerable<User>> GetAllUsers()
+		{
+			var results = _userDao.ReadUser();
+			return results == null ? null : results;
+		}
 	}
 
 }
