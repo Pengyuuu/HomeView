@@ -280,7 +280,7 @@ namespace Core.User
 
 			foreach(String csvLine in mods)
             {				
-				string[] delimiter = csvLine.Split(',');
+				string[] delimiter = csvLine.Split('|');
 				User userMod = new User();
 				string mfirstName = delimiter[0];
 				string mlastName = delimiter[1];
