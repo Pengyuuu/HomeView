@@ -40,7 +40,6 @@ namespace HomeView.Controllers
                     ViewData["yr"] = yr;
                     ViewData["disp"] = regModel._dispName;
                     regModel._userDob = new DateTime(yr, month, day);
-                    UserManager UM = new UserManager();
 
                     return View("Index");
                 }        
