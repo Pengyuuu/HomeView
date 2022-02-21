@@ -20,9 +20,14 @@ namespace Core.User
 			_userDAO = new UserDAO(new Data.SqlDataAccess());
 		}
 
-		public Task CreateUser(User user)
+		public bool CreateUser(User user)
 		{
-			return _userDAO.CreateUser(user);
+			if (GetUser(user.UserEmail) == user)
+            {
+				return false;
+            }
+			_userDAO.CreateUser(user);
+			return true;
 		}
 
 		// Gets user
