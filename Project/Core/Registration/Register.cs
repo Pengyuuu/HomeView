@@ -7,7 +7,7 @@ using Core.User;
 
 namespace Core.Registration
 {
-    class Register
+    public class Register
     {
         public Register()
         {
