@@ -18,14 +18,13 @@ namespace Core.User
 
         public Task CreateUser(User user)
         {
-            int userR = (int)user.Role;
-            return _db.SaveData("dbo.InsertUser", new { user.FirstName, user.LastName, user.Email, user.Password, user.Dob, user.DispName, user.RegDate, user.Status, userR });
+            return _db.SaveData("dbo.InsertUser", new {firstN = user.FirstName, lastN = user.LastName, email = user.Email, pw = user.Password, dob = user.Dob, dispN = user.DispName, regDate = user.RegDate, status = user.Status, role = user.Role });
         }
 
         public Task UpdateUser(User user)
         {
             int userR = (int)user.Role;
-            return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.Email, user.Password, user.Dob, user.DispName, user.Status, userR });
+            return _db.SaveData("dbo.UpdateUser", user);
         }
 
         public async Task<User?> ReadUser(string email)
@@ -41,7 +40,7 @@ namespace Core.User
 
         public Task DeleteUser(string email)
         {
-            return _db.SaveData("dbo.DeleteUser", email);
+            return _db.SaveData("dbo.DeleteUser", new {email = email});
         }
     }
 }

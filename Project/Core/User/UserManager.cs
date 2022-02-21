@@ -20,12 +20,13 @@ namespace Core.User
 
 		public bool CreateUser(User user)
 		{
-			if (GetUser(user.Email) == user)
+			if (GetUser(user.Email) is null)
             {
-				return false;
+				_userDAO.CreateUser(user);
+				return true;
             }
-			_userDAO.CreateUser(user);
-			return true;
+			return false;
+
 		}
 
 		// Gets user

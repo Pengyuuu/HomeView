@@ -214,5 +214,14 @@ namespace Core.User
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
 				+ this._regDate + ", " + this._status + ", " + this._role;
         }
+
+		public bool Equals(User u)
+        {
+			if (this.Email == u.Email)
+            {
+				return true;
+            }
+			return false;
+        }
 	}
 }

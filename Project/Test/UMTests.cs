@@ -11,7 +11,7 @@ namespace UMTests
     {
          
         static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Testing\\BulkOpCreateUsers.csv"));
+        static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Test\\UMBulkOp.csv"));
 
 
 
@@ -64,6 +64,16 @@ namespace UMTests
             string actual = userManager.DoBulkOp(filepath);
 
             Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void UserManager_Demo()
+        {
+
+            UserManager userManager = new UserManager();
+
+            userManager.CreateUser(new User("firsasdft", "last", "emai23423l@me.com", "pwajsh23@#4", DateTime.Now, "supername", 1, Role.User));
 
         }
 
@@ -127,10 +137,12 @@ namespace UMTests
         {
             bool expected = false;
 
-            User nonExistingUser = new User(null);
+            User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin", 0, Role.User);
 
             UserManager userManager = new UserManager();
 
+            // delete twice just in case
+            userManager.DeleteUser(nonExistingUser.Email);
             bool actual = userManager.DeleteUser(nonExistingUser.Email);
 
             Assert.Equal(expected, actual);
