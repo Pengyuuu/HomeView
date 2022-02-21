@@ -63,6 +63,13 @@ namespace Core.Registration
             return (inputEmail.Contains("@") == inputEmail.Contains(".com"));
         }
 
+        /* Registers User by sending email to user's account
+         *   User registers with a valid email and valid passphrase. A system message
+         *   displays “Email confirmation pending”. The user receives a confirmation
+         *   email within 15 seconds upon invocation of system message. The user 
+         *   completes email confirmation within 24 hours. User is notified of username. 
+         *   A system message displays “Account created successfully” 
+        */
         public bool RegisterUser(string userEmail, string userPass)
         {
 
