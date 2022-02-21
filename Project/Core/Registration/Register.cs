@@ -55,9 +55,10 @@ namespace Core.Registration
          *   completes email confirmation within 24 hours. User is notified of username. 
          *   A system message displays “Account created successfully” 
         */
+        /*
         public bool RegisterUser(string userEmail, string userPass)
         {
 
-        }
+        }*/
     }
 }
