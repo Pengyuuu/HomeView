@@ -39,7 +39,6 @@ namespace HomeView.Controllers
                     ViewData["day"] = day;
                     ViewData["yr"] = yr;
                     ViewData["disp"] = regModel._dispName;
-                    ViewData["hasNewsletter"] = regModel._hasNewsletter;
                     regModel._userDob = new DateTime(yr, month, day);
                     UserManager UM = new UserManager();
 
