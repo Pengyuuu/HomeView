@@ -19,11 +19,8 @@ namespace UMTests
         public void UserManager_CreateUserShouldCreateNewUser()
         {
             User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank", 0, Role.User);
-            
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
 
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             // delete user first in case it already exists
             userManager.DeleteUser(newUser.UserEmail);
@@ -46,10 +43,7 @@ namespace UMTests
 
             User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             bool actual = userManager.CreateUser(existingUser);
 
@@ -65,10 +59,7 @@ namespace UMTests
             int failedInsert = 0;
             string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             string actual = userManager.DoBulkOp(filepath);
 
@@ -82,10 +73,7 @@ namespace UMTests
 
             string expected = "User data successfully exported to .csv file";
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             string actual = userManager.ExportAllUsers();
 
@@ -96,10 +84,8 @@ namespace UMTests
         [Fact]
         public void UserManager_GetAllUsers()   // needs all users inside first to get expected
         {
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
 
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             List<User> actual = userManager.GetAllUsers();
 
@@ -112,10 +98,7 @@ namespace UMTests
 
             string expected = "Hill";
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             User actual = userManager.GetUser("HankHill@yahoo.com");
 
@@ -130,10 +113,7 @@ namespace UMTests
 
             User newUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin", 0, Role.User);
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             userManager.CreateUser(newUser);
 
@@ -149,10 +129,7 @@ namespace UMTests
 
             User nonExistingUser = new User(null);
 
-            string adminInput = "TeamUnite";
-            string pw = "Testing";
-
-            UserManager userManager = new UserManager(adminInput, pw);
+            UserManager userManager = new UserManager();
 
             bool actual = userManager.DeleteUser(nonExistingUser.UserEmail);
 
