@@ -21,7 +21,7 @@ namespace HomeView.Models
         */
         public Boolean RegisterUser(string userEmail, string userPass)
         {
-
+            return false;
         }
     }
 
