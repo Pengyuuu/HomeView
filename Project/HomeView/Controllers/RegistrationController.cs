@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeView.Models;
+using Core.User;
 
 namespace HomeView.Controllers
 {
@@ -19,6 +20,7 @@ namespace HomeView.Controllers
             return View();
         }
 
+        // Post: Home/User Sign Up
         [HttpPost]
         public IActionResult SignUp(RegistrationModel regModel)
         {
@@ -29,6 +31,7 @@ namespace HomeView.Controllers
                     ViewData["email"] = regModel._userEmail;
                     ViewData["pw"] = regModel._userPass;
                     ViewData["hasNewsletter"] = regModel._hasNewsletter;
+                    UserManager UM = new UserManager();
 
                     return View("Index");
                 }        

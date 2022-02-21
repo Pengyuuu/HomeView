@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Logging;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Data;
 
 namespace Core.User
 {
@@ -14,7 +12,7 @@ namespace Core.User
 		private LoggingManager _loggingManager;
 		private UserDAO _userDAO;
 
-		public UserManager(string adminInput, string passInput)
+		public UserManager()
 		{
 			_loggingManager = new LoggingManager();
 			_userDAO = new UserDAO(new Data.SqlDataAccess());
