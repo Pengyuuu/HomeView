@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Data;
 
-
-/* User Authentication and Authorization Manager */
 namespace Core.User
 {
 	public class UserManager
@@ -22,68 +20,85 @@ namespace Core.User
 			_userDAO = new UserDAO(new Data.SqlDataAccess());
 		}
 
+		public Task CreateUser(User user)
+		{
+			return _userDAO.CreateUser(user);
+		}
 
 		// Gets user
 		public User GetUser(string email)
         {
-			User u =(User)_userDAO.ReadUser(email).Result.First();	
+			User u =(User)_userDAO.ReadUser(email).Result;	
 			Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			_loggingManager.LogData(userLog);
 			return u;
         }
 
-		// Get all users (Return as string or list?)
-		public IEnumerable<User> GetAllUsers()
+		public List<User> GetAllUsers()
 		{
-			IEnumerable<User> u = _userDAO.ReadUser().Result;
-			Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			_loggingManager.LogData(userLog);
-			return u;
+			try
+            {
+				IEnumerable<User> u = _userDAO.ReadAllUsers().Result;
+				Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				_loggingManager.LogData(userLog);
+				return u.ToList();
+			}
+			catch (Exception ex)
+            {
+				Log userLog = new("GetAllUsers failed " + ex.Message, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				_loggingManager.LogData(userLog);
+			}
+			return new List<User>();
 		}
 
-		public bool DeleteUser(User user)
+		public bool DeleteUser(string email)
         {
-			bool result = _userDAO.DeleteUser(user);
-
-			if (result)
+			User user = GetUser(email);
+			if (user is not null)
             {
+				_userDAO.DeleteUser(email);
 				Log userLogTrue = new("User: " + user.UserEmail + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 				_loggingManager.LogData(userLogTrue);
-				return result;
+				return true;
             }
-
-			Log userLogFalse = new("User: " + user.UserEmail + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			_loggingManager.LogData(userLogFalse);
-			return result;
+			else
+            {
+				Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+				_loggingManager.LogData(userLogFalse);
+				return false;
+			}
         }
 
-		// What should we return here
 		public User ModifyUser(User user)
         {
-			Task t = _userDAO.UpdateUser(user);
-			Log userLog = new("User updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			_loggingManager.LogData(userLog);
+			User curUser = GetUser(user.UserEmail);
+			if (user is not null)
+			{
+				Task t = _userDAO.UpdateUser(user);
+				Log userLog = new("User: " + user.UserEmail + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				_loggingManager.LogData(userLog);
+				return GetUser(user.UserEmail);
+			}
+			else
+			{
+				CreateUser(user);
+				Log userLog = new("User: " + user.UserEmail + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				_loggingManager.LogData(userLog);
+				return user;
+			}
 
 		}
 
 		// Write to CSV File
 		public String ExportAllUsers()
 		{
-			Log userLog = new();
-			LoggingManager logManager = new();
-			if (!this._isVerified)
-			{
-				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "Unauthorized access";
-			}
-
-			var userList = this._userDAO.ReadUser();
+			var userList = _userDAO.ReadAllUsers();
 			string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
+			Log userLog;
 
 			if (userList == null) {
 				userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
+				_loggingManager.LogData(userLog);
 				return "Unable to export all users.";
             }			
 
@@ -97,12 +112,9 @@ namespace Core.User
 			}
 
 			userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-			logManager.LogData(userLog);
+			_loggingManager.LogData(userLog);
 			return "User data successfully exported to .csv file";
 		}
-
-
-
 
 
 		// Bulk operation
@@ -114,14 +126,7 @@ namespace Core.User
 		public String DoBulkOp(string file)
         {
 			Log userLog = new();
-			LoggingManager logManager = new LoggingManager();
-			// if user is not admin, returns unauthorized access
-			if (!this._isVerified)
-			{
-				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "Unauthorized access.";
-			}
+
 
 			List <String> mods = File.ReadAllLines(file).Skip(1).ToList();			
 			string sysMessage = "";

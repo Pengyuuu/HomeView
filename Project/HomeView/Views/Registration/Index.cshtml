@@ -1,7 +1,7 @@
 ﻿<style>
     p{
         padding-top:2em;
-        padding-bottom:10em;
+        padding-bottom:2em;
     }
 </style>
 
@@ -24,6 +24,6 @@
 </div>
 
 <div class="text-center">
-    <a class="signup" align="center">Sign Up</a>
-    <a class="login" align="center">Login</a>
+    <input type="button" value="Sign Up" onclick="location.href='@Url.Action("SignUp", "Registration")'" />
+    <button type="button" class="btn-default ">Login</button>
 </div>
