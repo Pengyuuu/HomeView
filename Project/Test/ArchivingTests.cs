@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 
-namespace Testing
+namespace ArchivingTesting
 {
     public class ArchivingTests
     {

@@ -210,6 +210,23 @@ namespace UMTests
 
         }
 
+        [Fact]
+        public void UserManager_getUser()   // needs all users inside first to get expected
+        {
+
+            string expected = "Hill";
+
+            string adminInput = "TeamUnite";
+            string pw = "Testing";
+
+            UserManager userManager = new UserManager(adminInput, pw);
+
+            User actual = userManager.GetUser("HankHill@yahoo.com");
+
+            Assert.True(expected == actual.LastName);
+
+        }
+
         /*
         // Need to remove UMService User Test after, else test may fail
         [Fact]

@@ -20,7 +20,7 @@ namespace Logging
                 return instance;
             }
         }
-
+        /*
         // This method should send the log to the data access object
         public bool Create(Log logFile)
         {
@@ -34,13 +34,13 @@ namespace Logging
             {
                 return false;
             }
-        }
-
+        }*/
+        /*
         public Log GetLog(int id)
         {
             LogDAO dao = new(this);
             Log log = dao.GetLog(id);
             return log;
-        }
+        }*/
     }
 }

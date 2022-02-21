@@ -10,7 +10,7 @@ namespace Logging
     public class LogDAO
     {
         private readonly SqlDataAccess _db;
-        public LogDAO(LoggingService logService)
+        public LogDAO()
         {
         }
 
