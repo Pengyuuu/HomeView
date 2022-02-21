@@ -36,6 +36,7 @@ namespace Core.User
     public Task<IEnumerable<User>> ReadUser(string email)
     {
             Task<IEnumerable<User>> results;
+        
             try
             {
                 results = _db.LoadData<User, dynamic>("dbo.GetUser", new { email = email});

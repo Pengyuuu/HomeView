@@ -10,33 +10,16 @@ namespace Core.User
 {
 	public class UserManager
 	{
-		private readonly String SYS_ADMIN = "TeamUnite";
-		private readonly String SYS_PASS = "Testing";
-		private Boolean _isVerified = false;
 		private LoggingManager _loggingManager;
 		private UserDAO _userDAO;
 
 		public UserManager(string adminInput, string passInput)
 		{
-			_isVerified = IsVerifiedAdmin(adminInput, passInput);
 			_loggingManager = new LoggingManager();
 			_userDAO = new UserDAO(new Data.SqlDataAccess());
 		}
 
-		/* Verifies if actor is system administrator 
-		 * Returns: true if matches, false if doesn't match
-		 */
-		public Boolean IsVerifiedAdmin(string adminInput, string passInput)
-		{
-			Log adminLog = new ("verifying admin", LogLevel.Info, LogCategory.View, DateTime.Now);
-			LoggingManager logManager = new();
-			logManager.LogData(adminLog);
 
-			// checks if input matches system admin info
-			Boolean isAdminUser = adminInput == this.SYS_ADMIN;	
-			Boolean isPass = passInput == this.SYS_PASS;
-			return isAdminUser == isPass;
-		}
 
 		/* Ensures that New user has entered correct fields 
 		 *	Checks for valid userEmail address, valid password */
@@ -94,13 +77,6 @@ namespace Core.User
 		{
 			Log userLog = new();
 			LoggingManager logManager = new();
-
-			if (!this._isVerified)
-			{
-				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "Unauthorized access";
-			}
 
 			userLog = new("Fetching all users.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
