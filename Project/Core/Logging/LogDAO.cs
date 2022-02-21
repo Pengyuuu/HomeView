@@ -1,17 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
+using Data;
 
 namespace Logging
 {
     public class LogDAO
     {
+        private readonly SqlDataAccess _db;
         public LogDAO(LoggingService logService)
         {
-            
         }
-        public bool StoreLog(Log log )
+
+        public LogDAO(SqlDataAccess db)
         {
+            _db = db;
+        }
+        public Task StoreLog(Log log)
+        {
+            return _db.SaveData("dbo.StoreLogs", new { log.Description, log.Level, log.Category, log.timeStamp });
+            /*
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("StoreLogs", conn);
             try
@@ -34,10 +44,24 @@ namespace Logging
                 conn.Close();
             }
             return true;
+            */
         }
 
-        public Log GetLog(int id)
+        public Task<IEnumerable<Log>> GetLog(int id)
         {
+            Task<IEnumerable<Log>> results;
+
+            try
+            {
+                results = _db.LoadData<Log, dynamic>("dbo.GetLog", new { Id = id });
+            }
+            catch (Exception e)
+            {
+                results = null;
+            }
+
+            return results;
+            /*
             Log log = null;
             SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
             SqlCommand command = new SqlCommand("GetLog", conn);
@@ -79,6 +103,38 @@ namespace Logging
                 conn.Close();
             }
             return log;
+            */
+        }
+
+        public Task<IEnumerable<Log>> GetOldLogs()
+        {
+            Task<IEnumerable<Log>> results;
+
+            try
+            {
+                results = _db.LoadData<Log, dynamic>("dbo.GetOldLogs", "");
+            }
+            catch (Exception e)
+            {
+                results = null;
+            }
+
+            return results;
+        }
+        public Task<IEnumerable<Log>> GetLogs(DateTime time)
+        {
+            Task<IEnumerable<Log>> results;
+
+            try
+            {
+                results = _db.LoadData<Log, dynamic>("dbo.GetLogsTime", new { timeStamp = time });
+            }
+            catch (Exception e)
+            {
+                results = null;
+            }
+
+            return results;
         }
     }
 }
