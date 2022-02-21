@@ -23,13 +23,13 @@ namespace UMTests
             UserManager userManager = new UserManager();
 
             // delete user first in case it already exists
-            userManager.DeleteUser(newUser.UserEmail);
+            userManager.DeleteUser(newUser.Email);
 
             userManager.CreateUser(newUser);
 
-            String actual = userManager.GetUser(newUser.UserEmail).UserEmail;
+            String actual = userManager.GetUser(newUser.Email).Email;
 
-            String expected = newUser.UserEmail;
+            String expected = newUser.Email;
 
             Assert.Equal(expected, actual);
 
@@ -117,7 +117,7 @@ namespace UMTests
 
             userManager.CreateUser(newUser);
 
-            bool actual = userManager.DeleteUser(newUser.UserEmail);
+            bool actual = userManager.DeleteUser(newUser.Email);
 
             Assert.Equal(expected, actual);
         }
@@ -131,7 +131,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager();
 
-            bool actual = userManager.DeleteUser(nonExistingUser.UserEmail);
+            bool actual = userManager.DeleteUser(nonExistingUser.Email);
 
             Assert.Equal(expected, actual);
 

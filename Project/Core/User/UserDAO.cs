@@ -18,14 +18,14 @@ namespace Core.User
 
         public Task CreateUser(User user)
         {
-            int userR = (int)user.UserRole;
-            return _db.SaveData("dbo.InsertUser", new { user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.RegDate, user.UserStatus, userR });
+            int userR = (int)user.Role;
+            return _db.SaveData("dbo.InsertUser", new { user.FirstName, user.LastName, user.Email, user.Password, user.Dob, user.DispName, user.RegDate, user.Status, userR });
         }
 
         public Task UpdateUser(User user)
         {
-            int userR = (int)user.UserRole;
-            return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.UserStatus, userR });
+            int userR = (int)user.Role;
+            return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.Email, user.Password, user.Dob, user.DispName, user.Status, userR });
         }
 
         public async Task<User?> ReadUser(string email)

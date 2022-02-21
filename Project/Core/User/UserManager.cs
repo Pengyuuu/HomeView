@@ -20,7 +20,7 @@ namespace Core.User
 
 		public bool CreateUser(User user)
 		{
-			if (GetUser(user.UserEmail) == user)
+			if (GetUser(user.Email) == user)
             {
 				return false;
             }
@@ -60,7 +60,7 @@ namespace Core.User
 			if (user is not null)
             {
 				_userDAO.DeleteUser(email);
-				Log userLogTrue = new("User: " + user.UserEmail + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 				_loggingManager.LogData(userLogTrue);
 				return true;
             }
@@ -74,18 +74,18 @@ namespace Core.User
 
 		public User ModifyUser(User user)
         {
-			User curUser = GetUser(user.UserEmail);
+			User curUser = GetUser(user.Email);
 			if (user is not null)
 			{
 				Task t = _userDAO.UpdateUser(user);
-				Log userLog = new("User: " + user.UserEmail + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				Log userLog = new("User: " + user.Email + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 				_loggingManager.LogData(userLog);
-				return GetUser(user.UserEmail);
+				return GetUser(user.Email);
 			}
 			else
 			{
 				CreateUser(user);
-				Log userLog = new("User: " + user.UserEmail + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+				Log userLog = new("User: " + user.Email + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 				_loggingManager.LogData(userLog);
 				return user;
 			}
