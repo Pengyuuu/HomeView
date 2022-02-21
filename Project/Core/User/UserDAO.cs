@@ -15,10 +15,6 @@ namespace Core.User
 
     private readonly SqlDataAccess _db;
 
-    public UserDAO(UMService service)
-    {
-    }
-
     public UserDAO(SqlDataAccess db)
     {
         _db = db;
@@ -37,12 +33,12 @@ namespace Core.User
             return _db.SaveData("dbo.UpdateUser", new { firstN = user.FirstName, user.LastName, user.UserEmail, user.UserPassword, user.UserDob, user.DispName, user.UserStatus, userR });
     }
 
-    public Task<IEnumerable<User>> ReadUser(User user)
+    public Task<IEnumerable<User>> ReadUser(string email)
     {
             Task<IEnumerable<User>> results;
             try
             {
-                results = _db.LoadData<User, dynamic>("dbo.GetUser", new { email = user.UserEmail });
+                results = _db.LoadData<User, dynamic>("dbo.GetUser", new { email = email});
             }
             catch (Exception e)
             {

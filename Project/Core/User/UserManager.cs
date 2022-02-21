@@ -12,14 +12,15 @@ namespace Core.User
 	{
 		private readonly String SYS_ADMIN = "TeamUnite";
 		private readonly String SYS_PASS = "Testing";
-		private UMService _umService;
 		private Boolean _isVerified = false;
-
+		private LoggingManager _loggingManager;
+		private UserDAO _userDAO;
 
 		public UserManager(string adminInput, string passInput)
 		{
-			_umService = new UMService(this);
 			_isVerified = IsVerifiedAdmin(adminInput, passInput);
+			_loggingManager = new LoggingManager();
+			_userDAO = new UserDAO(new Data.SqlDataAccess());
 		}
 
 		/* Verifies if actor is system administrator 
@@ -81,33 +82,12 @@ namespace Core.User
 		}
 
 		// Gets user
-		public String GetUser(User user)
+		public User GetUser(string email)
         {
-			Log userLog = new();
-			LoggingManager logManager = new();
-			if (!this._isVerified)
-			{
-				userLog = new("Unauthorized admin access.", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-
-				return "Unauthorized access";
-			}
-
-			if (!_umService.IsUser(user))
-            {
-				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-
-				return "User does not exist";
-            }
-
-			userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
-
-			var fetchedUser = this._umService.GetUser(user);
-
-			return fetchedUser.ToString();
-
+			User u =(User)_userDAO.ReadUser(email).Result.First();	
+			Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			_loggingManager.LogData(userLog);
+			return u;
         }
 
 		public String GetAllUsers()
@@ -125,7 +105,7 @@ namespace Core.User
 			userLog = new("Fetching all users.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 
-			var result = this._umService.GetAllUsers();			
+			var result = this._userDAO.ReadUser();			
 			return result.ToString();
 
 		}
@@ -142,7 +122,7 @@ namespace Core.User
 				return "Unauthorized access";
 			}
 
-			var userList = this._umService.GetAllUsers();
+			var userList = this._userDAO.ReadUser();
 			string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
 
 			if (userList == null) {
@@ -177,7 +157,7 @@ namespace Core.User
 				return "Unauthorized access.";
 			}
 
-			if (this._umService.IsUser(userMod))
+			if (this._userDAO.ReadUser(userMod.UserEmail) is null);
 			{
 				userLog = new("User already exists", LogLevel.Error, LogCategory.View, DateTime.Now);
 				logManager.LogData(userLog);
@@ -187,11 +167,8 @@ namespace Core.User
 			userLog = new("Creating user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 			// calls service layer to modify user
-			string sysMessage = this._umService.HasCreateUser(userMod) == true ? "User account creation successful." : "Account creation unsuccessful.";
-			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
 
-			return sysMessage;
+			return "not implemented";
 		}
 
 		/* Modifies a user record in the system 
@@ -209,21 +186,11 @@ namespace Core.User
 				return "Unauthorized access.";
 			}
 
-			if (!this._umService.IsUser(userMod))
-            {
-				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "User does not exist.";
-            }
-
 			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 			// calls service layer to modify user
-			string sysMessage = this._umService.HasModifyUser(userMod) == true ? "User account modification successful." : "Account modification unsuccessful.";
-			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
 
-			return sysMessage;
+			return "not impl";
 		}
 
 		public String DeleteUser(User userMod)
@@ -238,21 +205,7 @@ namespace Core.User
 				return "Unauthorized access.";
 			}
 
-			if (!this._umService.IsUser(userMod))
-			{
-				userLog = new("User does not exist", LogLevel.Error, LogCategory.View, DateTime.Now);
-				logManager.LogData(userLog);
-				return "User does not exist.";
-			}
-
-			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
-			// calls service layer to modify user
-			string sysMessage = this._umService.HasDeleteUser(userMod) == true ? "User account deletion successful." : "Account deletion unsuccessful.";
-			userLog = new(sysMessage, LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-			logManager.LogData(userLog);
-
-			return sysMessage;
+			return "na";
 		}
 
 		// Bulk operation
@@ -294,61 +247,7 @@ namespace Core.User
 				userMod.UpdateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
 
 				// Makes sure valid parameters
-				if (IsValidUser(userMod))
-				{
-					// Creating a new user if not in database
-					if (!this._umService.IsUser(userMod))
-					{
-						userMod = new User(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
-						sysMessage = CreateUser(userMod);
-						if (sysMessage == "User account creation successful.")
-						{
-							successMods++;
-						}
-						else
-						{
-							failedMods++;
-						}
-					}
-					// Modifying or Deleting User
-					else
-					{
-						// checks user in DB, if exact same fields then delete occurs
-						var checkUserDB = this._umService.GetUser(userMod);
-						if (checkUserDB.ToString() == userMod.ToString())
-						{
-							sysMessage = DeleteUser(userMod);
-							if (sysMessage == "User account deletion successful.")
-							{
-								successMods++;
-							}
-							else
-							{
-								failedMods++;
-							}
-						}
-						else
-						{
-							// User's fields were modified
-							sysMessage = ModifyUser(userMod);
-							if (sysMessage == "User account modification successful.")
-							{
-								successMods++;
-							}
-							else
-							{
-								failedMods++;
-							}
-						}
-					}
-				}
-				else
-                {
-					sysMessage = "Invalid inputs for user id: " + memail;				
-					failedMods++;
-				}
-				userLog = new(sysMessage, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-				logManager.LogData(userLog);								
+											
             }
 			sysMessage = "Successfully modified " + successMods + ".\n Failed to insert: " + failedMods + ".\n";
 			return sysMessage;

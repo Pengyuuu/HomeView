@@ -57,7 +57,7 @@ namespace Core.Registration
         */
         public bool RegisterUser(string userEmail, string userPass)
         {
-
+            return false;
         }
     }
 }
