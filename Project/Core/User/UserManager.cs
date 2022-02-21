@@ -184,7 +184,7 @@ namespace Core.User
 				return "User already exists";
 			}
 
-			userLog = new("Modifying user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			userLog = new("Creating user", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
 			logManager.LogData(userLog);
 			// calls service layer to modify user
 			string sysMessage = this._umService.HasCreateUser(userMod) == true ? "User account creation successful." : "Account creation unsuccessful.";
