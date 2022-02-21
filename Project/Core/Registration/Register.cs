@@ -13,21 +13,6 @@ namespace Core.Registration
         {
         }
 
-        /*
-        public bool IsPasswordValid(string passPhrase)
-        {
-            if (passPhrase.Length >= 8)
-            {
-                for (int i = 0; i < passPhrase.Length; i++)
-                {
-                    foreach (char c in passPhrase)
-                    {
-                        if ((c >= 'a' && c <= 'x') || (c >= 'A' &&))
-                    }
-                }
-            }
-        }
-        */
         public bool IsPassWordValid(string passPhrase)
         {
             // makes sure new user's password is valid (contains minimum of 12 characters, at least 1 capital letter, at least 1 non-alphanumeric character           
