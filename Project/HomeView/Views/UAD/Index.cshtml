@@ -4,15 +4,14 @@
 <style>
     h2 {
         text-align: center;
-        padding-top: 1em;
+        
         padding-bottom: 1em;
-        font-size: 30px;
+        font-size: 28px;
     }
 
     h1 {
         text-align: center;
         padding-top: 1em;
-        padding-bottom: 1em;
         font-size: 40px;
     }
 
@@ -23,7 +22,20 @@
         font-size: 16px;
     }
 
+    .column {
+        float: left;
+        width: 50%;
+    }
 
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }  
+    br {
+        padding-bottom:1em;
+    }
 
 
 </style>
@@ -35,27 +47,34 @@
 <div class="container">
     <h2>Usage Analysis Dashboard</h2>
 
-    <div class="chart-wrap">
-        <h3 class="title">Top 5 Most Visited View of All Time Bar</h3>
-        <p> No data observed yet.</p>
+    <div class="row">
+        <div class="column">
 
-        <h3 class="title">Top 5 Most Visited View of All Time Bar</h3>
-        <p> No data observed yet.</p>
-        <h3 class="title">Top 5 Average Duration Per View of All Time</h3>
-        <p> No data observed yet.</p>
-        <h3 class="title">The number of logins per day within the span of 3 months</h3>
-        <p> No data observed yet.</p>
-        <h3 class="title">The number of registrations per day within the span of 3 month</h3>
-        <p> No data observed yet.</p>
-        <h3 class="title">The number of logins per day within the span of 3 months</h3>
-        <p> No data observed yet.</p>
-        <h3 class="title">Most Clicked Show</h3>
-        <p> No data observed yet.</p><h3 class="title">The number of logins per day within the span of 3 months</h3>
-        <p> No data observed yet.</p>
-        <h3 class="title">Most Clicked Movie</h3>
-        <p> No data observed yet.</p>
+            <h3 class="title">Top 5 Most Visited View of All Time Bar</h3>
+            <p> No data observed yet.</p>
+            <br />
+            <h3 class="title">Top 5 Average Duration Per View of All Time</h3>
+            <p> No data observed yet.</p>
+            <br />
+
+            <h3 class="title">The number of logins per day within the span of 3 months</h3>
+            <p> No data observed yet.</p>
+        </div>
+        <div class="column">
+
+            <h3 class="title">The number of registrations per day within the span of 3 month</h3>
+            <p> No data observed yet.</p>
+            <br />
+
+            <h3 class="title">Most Clicked Show</h3>
+            <p> No data observed yet.</p>
+            <br />
+            <h3 class="title">Most Clicked Movie</h3>
+            <p> No data observed yet.</p>
+        </div>
 
     </div>
+</div>
 
 
     <div>
