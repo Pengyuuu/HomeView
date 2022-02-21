@@ -24,26 +24,22 @@ namespace HomeView.Controllers
         {
             try
             {
-                string confPass = "";
-                ViewData["email"] = regModel._userEmail;
-                ViewData["pw"] = regModel._userPass;
-                ViewData["confPass"] = confPass;
-                ViewData["hasNewsletter"] = regModel._hasNewsletter;
-
-                if (regModel._userPass == confPass)
+                if (ModelState.IsValid)
                 {
+                    ViewData["email"] = regModel._userEmail;
+                    ViewData["pw"] = regModel._userPass;
+                    ViewData["hasNewsletter"] = regModel._hasNewsletter;
 
-
-                    return View("");
-                }
+                    return View("Index");
+                }        
                 else
                 {
-                    return View("");
-                }               
+                    return View("InvalidInput");
+                }
             }
             catch
             {
-                return View("");
+                return View("InvalidInput");
             }
         }
      
