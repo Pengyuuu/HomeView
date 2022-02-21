@@ -6,7 +6,7 @@
 <style>
     h2 {
         text-align: left;
-        padding-top: 1em;
+        padding-top: 5em;
         padding-bottom: 1em;
         font-size: 18px;
     }
@@ -17,6 +17,20 @@
         padding-bottom: 1em;
         font-size: 18px;
     }
+    .column {
+        float: left;
+        width: 10%;
+        margin-left:15px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+
 </style>
 
 <div class="text-center">
@@ -30,6 +44,21 @@
 <div class="container">
     <h2>Sign Up</h2>
     <form>
+
+        <div class="form-group row">
+            <div class="col-xs-4">
+                <label for="firstN">First Name:</label>
+                <input type="text" class="form-control" id="firstN" name="firstN">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-xs-4">
+                <label for="lastN">Last Name:</label>
+                <input type="text" class="form-control" id="lastN" name="lastN">
+            </div>
+        </div>
+
         <div class="form-group row">
             <div class="col-xs-4">
                 <label for="email">Email:</label>
@@ -51,6 +80,115 @@
                 <input type="password" class="form-control" id="confPass" name="confPass">
             </div>
         </div>
+        <p>Date of Birth:</p>
+        <div class="row">
+            <div class="column">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="mo">Month:</label>
+                        <select class="form-control" id="mo" name="mo">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="day">Day:</label>
+                        <select class="form-control" id="day" name="day">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                            <option>25</option>
+                            <option>26</option>
+                            <option>27</option>
+                            <option>28</option>
+                            <option>29</option>
+                            <option>30</option>
+                            <option>31</option>
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="yr">Year:</label>
+                        <select class="form-control" id="yr" name="yr">
+                            <option>1979</option>
+                            <option>1980</option>
+                            <option>1981</option>
+                            <option>1982</option>
+                            <option>1983</option>
+                            <option>1984</option>
+                            <option>1985</option>
+                            <option>1986</option>
+                            <option>1987</option>
+                            <option>1988</option>
+                            <option>1989</option>
+                            <option>1990</option>
+                            <option>1991</option>
+                            <option>1992</option>
+                            <option>1993</option>
+                            <option>1994</option>
+                            <option>1995</option>
+                            <option>1996</option>
+                            <option>1997</option>
+                            <option>1998</option>
+                            <option>1999</option>
+                            <option>2001</option>
+                            <option>2002</option>
+                            <option>2003</option>
+                            <option>2004</option>
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="form-group row">
+            <div class="col-xs-4">
+                <label for="disp">Username</label>
+                <input type="text" class="form-control" id="disp" name="disp">
+            </div>
+        </div>
+
         <div class="checkbox">
             <label><input type="checkbox" value="" name="hasNewsletter">  Subscribe to HomeView newsletters</label>
         </div>

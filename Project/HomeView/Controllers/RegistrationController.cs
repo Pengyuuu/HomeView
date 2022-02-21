@@ -28,9 +28,19 @@ namespace HomeView.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    int month = 0;
+                    int day = 0;
+                    int yr = 0;
+                    ViewData["firstN"] = regModel._firstName;
+                    ViewData["lastN"] = regModel._lastName;
                     ViewData["email"] = regModel._userEmail;
                     ViewData["pw"] = regModel._userPass;
+                    ViewData["mo"] = month;
+                    ViewData["day"] = day;
+                    ViewData["yr"] = yr;
+                    ViewData["disp"] = regModel._dispName;
                     ViewData["hasNewsletter"] = regModel._hasNewsletter;
+                    regModel._userDob = new DateTime(yr, month, day);
                     UserManager UM = new UserManager();
 
                     return View("Index");
