@@ -36,7 +36,7 @@ namespace Core.User
 
         public Task<IEnumerable<User>> ReadAllUsers()
         {
-            return _db.LoadData<User, dynamic>("dbo.GetAllUsers", "");
+            return _db.LoadData<User, dynamic>("dbo.GetAllUsers", new { });
         }
 
         public Task DeleteUser(string email)
