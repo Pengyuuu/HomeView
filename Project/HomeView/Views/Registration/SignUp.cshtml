@@ -38,7 +38,7 @@
     <!--<h1 class="display-4">HomeView</h1>-->
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("SignUp", "Registration", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
