@@ -1,8 +1,4 @@
-﻿using Dapper;
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Data;
