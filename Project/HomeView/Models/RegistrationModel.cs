@@ -15,6 +15,10 @@ namespace HomeView.Models
         public DateTime _userDob { get; set; }
         public string _dispName { get; set; }
 
+        public int _uMonth { get; set; }
+        public int _uDay { get; set; }
+        public int _uYear { get; set; }
+
 
         /* Registers User by sending email to user's account
          *   User registers with a valid email and valid passphrase. A system message

@@ -13,6 +13,7 @@ namespace HomeView.Controllers
     {
         public IActionResult Index()
         {
+            RegistrationModel obj = new RegistrationModel();
             return View();
 
         }
