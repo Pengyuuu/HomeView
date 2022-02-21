@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HomeView.Models;
 using Core.User;
+using HomeView.Controllers;
 
 namespace HomeView.Controllers
 {
@@ -13,6 +14,7 @@ namespace HomeView.Controllers
         public IActionResult Index()
         {
             return View();
+
         }
 
         public IActionResult SignUp()
