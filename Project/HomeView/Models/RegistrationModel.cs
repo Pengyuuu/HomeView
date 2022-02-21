@@ -14,7 +14,6 @@ namespace HomeView.Models
         public string _userPass { get; set; }
         public DateTime _userDob { get; set; }
         public string _dispName { get; set; }
-        public Boolean _hasNewsletter { get; set; }
 
 
         /* Registers User by sending email to user's account
@@ -24,9 +23,13 @@ namespace HomeView.Models
          *   completes email confirmation within 24 hours. User is notified of username. 
          *   A system message displays “Account created successfully” 
         */
-        public Boolean RegisterUser(string userEmail, string userPass)
+        public Boolean RegisterUser()
         {
-            return false;
+            Role DEFAULT_ROLE = Role.User;
+            int DEFAULT_STATUS = 1;
+            UserManager userManager = new UserManager();
+            User registerUser = new User(this._firstName, this._lastName, this._userEmail, this._userPass, this._userDob, this._dispName, DEFAULT_STATUS, DEFAULT_ROLE);
+            return userManager.CreateUser(registerUser);
         }
     }
 
