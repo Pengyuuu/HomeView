@@ -121,6 +121,12 @@ namespace Logging
 
             return results;
         }
+
+        public Task DeleteOldLogs()
+        {
+            return _db.LoadData<Log, dynamic>("dbo.RemoveOldLogs", "");
+        }
+
         public Task<IEnumerable<Log>> GetLogs(DateTime time)
         {
             Task<IEnumerable<Log>> results;
