@@ -19,6 +19,7 @@ namespace HomeView.Controllers
             return View();
         }
 
+        // Post: Home/User Sign Up
         [HttpPost]
         public IActionResult SignUp(RegistrationModel regModel)
         {
