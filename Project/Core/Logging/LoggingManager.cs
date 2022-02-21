@@ -1,39 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Logging
 {
     public class LoggingManager
     {
+        private LogDAO _logDAO;
+
         public LoggingManager()
         {
-
+            _logDAO = new LogDAO(new Data.SqlDataAccess());
         }
 
 
         // Manager communicates with Service layer through this method
-        public bool LogData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public Task LogData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
-            throw new NotImplementedException();
+            Log log = new Log(desc, level, category, timeStamp);
+
+            // Call a logging service function to send in the log file
+            return _logDAO.StoreLog(log);
         }
 
-        public bool LogData(Log log)
+        public Task LogData(Log log)
         {
-            /*LoggingService logService = new LoggingService();
-
-            if (logService.Create(log))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }*/
-            return false;
+            return _logDAO.StoreLog(log);
         }
 
-        public Log GetLog(int id)
+        public Task<IEnumerable<Log>> GetLog(int id)
        {
-            throw new NotImplementedException();
+            return _logDAO.GetLog(id);
         }
     }
 }
