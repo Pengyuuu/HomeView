@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeView.Models;
 
 namespace HomeView.Controllers
 {
@@ -17,5 +18,34 @@ namespace HomeView.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult SignUp(RegistrationModel regModel)
+        {
+            try
+            {
+                string confPass = "";
+                ViewData["email"] = regModel._userEmail;
+                ViewData["pw"] = regModel._userPass;
+                ViewData["confPass"] = confPass;
+                ViewData["hasNewsletter"] = regModel._hasNewsletter;
+
+                if (regModel._userPass == confPass)
+                {
+
+
+                    return View("");
+                }
+                else
+                {
+                    return View("");
+                }               
+            }
+            catch
+            {
+                return View("");
+            }
+        }
+     
     }
 }
