@@ -12,12 +12,6 @@
         padding: 3px;
     }
 
-    h1 {
-        text-align: left;
-        padding-top: 3em;
-        font-size: 30px;
-    }
-
     h4 {
         text-align: left;
         padding-top: 1em;
@@ -28,56 +22,54 @@
 </style>
 
 
-<h1>HomeView</h1>
-
 <h4>Registration</h4>
-        <form asp-action="SignUp">
-            <div class="row">
-                <div class="column">
+    <form asp-action="SignUp">
+        <div class="row">
+            <div class="column">
 
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="_firstName" class="control-label">First Name:</label>
-                        <input asp-for="_firstName" class="form-control" />
-                        <span asp-validation-for="_firstName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="_lastName" class="control-label">Last Name:</label>
-                        <input asp-for="_lastName" class="form-control" />
-                        <span asp-validation-for="_lastName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="_userEmail" class="control-label">Email:</label>
-                        <input asp-for="_userEmail" class="form-control" />
-                        <span asp-validation-for="_userEmail" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="column-gap">
-                </div>
-                <div class="column">
-
-                    <div class="form-group">
-                        <label asp-for="_userPass" class="control-label">Password:</label>
-                        <input asp-for="_userPass" class="form-control" />
-                        <span asp-validation-for="_userPass" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="_userDob" class="control-label">Date of Birth:</label>
-                        <input asp-for="_userDob" class="form-control" />
-                        <span asp-validation-for="_userDob" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="_dispName" class="control-label">Username:</label>
-                        <input asp-for="_dispName" class="form-control" />
-                        <span asp-validation-for="_dispName" class="text-danger"></span>
-                    </div>
-
-                </div>
-             </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-primary" onclick="location.href='@Url.Action("SignUp", "Registration", Model)'" />
+                    <label asp-for="_firstName" class="control-label">First Name:</label>
+                    <input asp-for="_firstName" class="form-control" />
+                    <span asp-validation-for="_firstName" class="text-danger"></span>
                 </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="_lastName" class="control-label">Last Name:</label>
+                    <input asp-for="_lastName" class="form-control" />
+                    <span asp-validation-for="_lastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="_userEmail" class="control-label">Email:</label>
+                    <input asp-for="_userEmail" class="form-control" />
+                    <span asp-validation-for="_userEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="column-gap">
+            </div>
+            <div class="column">
+
+                <div class="form-group">
+                    <label asp-for="_userPass" class="control-label">Password:</label>
+                    <input asp-for="_userPass" class="form-control" />
+                    <span asp-validation-for="_userPass" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="_userDob" class="control-label">Date of Birth:</label>
+                    <input asp-for="_userDob" class="form-control" />
+                    <!--<span asp-validation-for="_userDob" class="text-danger"></span>-->
+                </div>
+                <div class="form-group">
+                    <label asp-for="_dispName" class="control-label">Username:</label>
+                    <input asp-for="_dispName" class="form-control" />
+                    <span asp-validation-for="_dispName" class="text-danger"></span>
+                </div>
+                    
+            </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" onclick="location.href='@Url.Action("SignUp", "Registration", Model)'" />
+            </div>
+    </form>
 
 
 <div>

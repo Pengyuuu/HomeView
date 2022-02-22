@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HomeView.Models;
 using Core.User;
+using System.Net.Mail;
+using System.Net;
 
 namespace HomeView.Controllers
 {
@@ -13,8 +15,6 @@ namespace HomeView.Controllers
             return View();
         }
 
-        // Post: Home/User Sign Up
-        [HttpPost]
         public ActionResult SignUp(RegistrationModel regModel)
         {
             try
@@ -31,7 +31,7 @@ namespace HomeView.Controllers
                         regModel._userDob,
                         regModel._dispName,
                         1, Role.User));
-                    return View();
+                    return View("EmailSent");
                 }        
                 else
                 {
@@ -43,6 +43,8 @@ namespace HomeView.Controllers
                 return View("InvalidInput");
             }
         }
-     
+
+        
+
     }
 }
