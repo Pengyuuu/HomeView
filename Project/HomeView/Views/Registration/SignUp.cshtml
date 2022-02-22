@@ -1,220 +1,73 @@
-﻿@model HomeView.Models.RegistrationModel;
+﻿@model HomeView.Models.RegistrationModel
+
 @{
-    ViewBag.Title = "SignUp";
+    ViewData["Title"] = "SignUp";
 }
 
-<style>
-    h2 {
-        text-align: left;
-        padding-top: 5em;
-        padding-bottom: 1em;
-        font-size: 18px;
-    }
+<h1>SignUp</h1>
 
-    h1 {
-        text-align: left;
-        padding-top: 1em;
-        padding-bottom: 1em;
-        font-size: 18px;
-    }
-    .column {
-        float: left;
-        width: 10%;
-        margin-left:15px;
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-
-</style>
-
-
-<div class="text-center">
-    <!--<h1 class="display-4">HomeView</h1>-->
+<h4>RegistrationModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SignUp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="_firstName" class="control-label"></label>
+                <input asp-for="_firstName" class="form-control" />
+                <span asp-validation-for="_firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_lastName" class="control-label"></label>
+                <input asp-for="_lastName" class="form-control" />
+                <span asp-validation-for="_lastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_userEmail" class="control-label"></label>
+                <input asp-for="_userEmail" class="form-control" />
+                <span asp-validation-for="_userEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_userPass" class="control-label"></label>
+                <input asp-for="_userPass" class="form-control" />
+                <span asp-validation-for="_userPass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_userDob" class="control-label"></label>
+                <input asp-for="_userDob" class="form-control" />
+                <span asp-validation-for="_userDob" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
+                <label asp-for="_dispName" class="control-label"></label>
+                <input asp-for="_dispName" class="form-control" />
+                <span asp-validation-for="_dispName" class="text-danger"></span>
+            </div><!--
+            <div class="form-group">
+                <label asp-for="_uMonth" class="control-label"></label>
+                <input asp-for="_uMonth" class="form-control" />
+                <span asp-validation-for="_uMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_uDay" class="control-label"></label>
+                <input asp-for="_uDay" class="form-control" />
+                <span asp-validation-for="_uDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_uYear" class="control-label"></label>
+                <input asp-for="_uYear" class="form-control" />
+                <span asp-validation-for="_uYear" class="text-danger"></span>
+            </div> -->
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" onclick="location.href='@Url.Action("SignUp", "Registration", Model)'"/>
+            </div>
+        </form>
+    </div>
 </div>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="container">
-    <h2>Sign Up</h2>
-    <form>
-        <div class="form-group row">
-            @Html.ValidationSummary()
-            <div class="col-xs-4">
-                <label for="firstN">First Name:</label>
-                <input type="text" class="form-control" id="firstN" name="firstN">
-                @Html.Label("First Name:")
-                @Html.TextBox("firstN")
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-xs-4">
-                <label for="lastN">Last Name:</label>
-                <input type="text" class="form-control" id="lastN" name="lastN">
-                @Html.Label("Last Name:")
-                @Html.TextBox("lastN")
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-xs-4">
-                <label for="email">Email:</label>
-                <input type="text" class="form-control" id="email" name="email">
-                @Html.Label("Email:")
-                @Html.TextBox("email")
-
-            </div>
-
-        </div>
-        <div class="form-group row">
-            <div class="col-xs-4">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" name="pw">
-                @Html.Label("Password:")
-                @Html.TextBox("pw")
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-xs-4">
-                <label for="confPass">Confirm Password:</label>
-                <input type="password" class="form-control" id="confPass" name="confPass">
-                @Html.Label("Password:")
-                @Html.TextBox("pw")
-            </div>
-        </div>
-        <p>Date of Birth:</p>
-        <div class="row">
-            <div class="column">
-                <div class="form-group row">
-                    <div class="col-xs-4">
-                        <label for="mo">Month:</label>
-                        <select class="form-control" id="mo" name="mo">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                        </select>
-                        <br>
-                    </div>
-                    @Html.DropDownListFor(m => m._uMonth, Enumerable.Range(1, 12).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
-
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-group row">
-                    <div class="col-xs-4">
-                        <label for="day">Day:</label>
-                        <select class="form-control" id="day" name="day">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                            <option>13</option>
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
-                            <option>18</option>
-                            <option>19</option>
-                            <option>20</option>
-                            <option>21</option>
-                            <option>22</option>
-                            <option>23</option>
-                            <option>24</option>
-                            <option>25</option>
-                            <option>26</option>
-                            <option>27</option>
-                            <option>28</option>
-                            <option>29</option>
-                            <option>30</option>
-                            <option>31</option>
-                        </select>
-                        <br>
-                    </div>
-                    @Html.DropDownListFor(m => m._uDay, Enumerable.Range(1, 31).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
-
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-group row">
-                    <div class="col-xs-4">
-                        <label for="yr">Year:</label>
-                        <select class="form-control" id="yr" name="yr">
-                            <option>1979</option>
-                            <option>1980</option>
-                            <option>1981</option>
-                            <option>1982</option>
-                            <option>1983</option>
-                            <option>1984</option>
-                            <option>1985</option>
-                            <option>1986</option>
-                            <option>1987</option>
-                            <option>1988</option>
-                            <option>1989</option>
-                            <option>1990</option>
-                            <option>1991</option>
-                            <option>1992</option>
-                            <option>1993</option>
-                            <option>1994</option>
-                            <option>1995</option>
-                            <option>1996</option>
-                            <option>1997</option>
-                            <option>1998</option>
-                            <option>1999</option>
-                            <option>2001</option>
-                            <option>2002</option>
-                            <option>2003</option>
-                            <option>2004</option>
-                        </select>
-                        <br>
-                    </div>
-                </div>
-                @Html.DropDownListFor(m => m._uYear, Enumerable.Range(1, 12).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
-
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-xs-4">
-                <label for="disp">Username</label>
-                <input type="text" class="form-control" id="disp" name="disp">
-                @Html.Label("Username:")
-                @Html.TextBox("disp")
-            </div>
-        </div>
-        <input type="submit" value="Submit">
-
-    </form>
-</div>
-}
 
 <div>
-    @Html.ActionLink("Back to Home Page", "Index", "Home")
-
+    <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

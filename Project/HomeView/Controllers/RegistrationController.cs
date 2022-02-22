@@ -11,9 +11,9 @@ namespace HomeView.Controllers
 {
     public class RegistrationController : Controller
     {
+        private UserManager UserManager;
         public IActionResult Index()
         {
-            RegistrationModel obj = new RegistrationModel();
             return View();
 
         }
@@ -25,26 +25,23 @@ namespace HomeView.Controllers
 
         // Post: Home/User Sign Up
         [HttpPost]
-        public IActionResult SignUp(RegistrationModel regModel)
+        public ActionResult SignUp(RegistrationModel regModel)
         {
             try
             {
+                UserManager = new UserManager();
                 if (ModelState.IsValid)
                 {
-                    int month = 0;
-                    int day = 0;
-                    int yr = 0;
-                    ViewData["firstN"] = regModel._firstName;
-                    ViewData["lastN"] = regModel._lastName;
-                    ViewData["email"] = regModel._userEmail;
-                    ViewData["pw"] = regModel._userPass;
-                    ViewData["mo"] = month;
-                    ViewData["day"] = day;
-                    ViewData["yr"] = yr;
-                    ViewData["disp"] = regModel._dispName;
-                    regModel._userDob = new DateTime(yr, month, day);
-
-                    return View("Index");
+                    
+                    UserManager.CreateUser(new Core.User.User(
+                        regModel._firstName, 
+                        regModel._lastName,
+                        regModel._userEmail,
+                        regModel._userPass,
+                        regModel._userDob,
+                        regModel._dispName,
+                        1, Role.User));
+                    return View();
                 }        
                 else
                 {
