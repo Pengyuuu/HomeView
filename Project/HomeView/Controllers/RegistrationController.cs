@@ -1,24 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HomeView.Models;
 using Core.User;
-using HomeView.Controllers;
 
 namespace HomeView.Controllers
 {
     public class RegistrationController : Controller
     {
         private UserManager UserManager;
+
         public IActionResult Index()
-        {
-            return View();
-
-        }
-
-        public IActionResult SignUp()
         {
             return View();
         }
@@ -33,7 +23,7 @@ namespace HomeView.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    UserManager.CreateUser(new Core.User.User(
+                    UserManager.CreateUser(new User(
                         regModel._firstName, 
                         regModel._lastName,
                         regModel._userEmail,

@@ -20,31 +20,8 @@ namespace Logging
         }
         public Task StoreLog(Log log)
         {
-            return _db.SaveData("dbo.StoreLogs", new { log.Description, log.Level, log.Category, log.timeStamp });
-            /*
-            SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
-            SqlCommand command = new SqlCommand("StoreLogs", conn);
-            try
-            {
-                conn.Open();
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@Description", SqlDbType.NVarChar).Value = log.Description;
-                command.Parameters.Add("@logLevel", SqlDbType.NVarChar).Value = log.Level;
-                command.Parameters.Add("@logCategory", SqlDbType.NVarChar).Value = log.Category;
-                command.Parameters.Add("@timeStamp", SqlDbType.DateTime).Value = log.timeStamp;
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException e)
-            {
-                conn.Close();
-                return false;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return true;
-            */
+            return _db.SaveData("dbo.StoreLogs", new { description = log.Description, logLevel = log.Level, logCategory = log.Category, timeStamp = log.timeStamp });
+            
         }
 
         public Task<IEnumerable<Log>> GetLog(int id)

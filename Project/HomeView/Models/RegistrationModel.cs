@@ -15,26 +15,6 @@ namespace HomeView.Models
         public DateTime _userDob { get; set; }
         public string _dispName { get; set; }
 
-        public int _uMonth { get; set; }
-        public int _uDay { get; set; }
-        public int _uYear { get; set; }
-
-
-        /* Registers User by sending email to user's account
-         *   User registers with a valid email and valid passphrase. A system message
-         *   displays “Email confirmation pending”. The user receives a confirmation
-         *   email within 15 seconds upon invocation of system message. The user 
-         *   completes email confirmation within 24 hours. User is notified of username. 
-         *   A system message displays “Account created successfully” 
-        */
-        public Boolean RegisterUser()
-        {
-            Role DEFAULT_ROLE = Role.User;
-            int DEFAULT_STATUS = 1;
-            UserManager userManager = new UserManager();
-            User registerUser = new User(this._firstName, this._lastName, this._userEmail, this._userPass, this._userDob, this._dispName, DEFAULT_STATUS, DEFAULT_ROLE);
-            return userManager.CreateUser(registerUser);
-        }
     }
 
 
