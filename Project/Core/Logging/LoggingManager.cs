@@ -28,9 +28,11 @@ namespace Logging
             return _logDAO.StoreLog(log);
         }
 
-        public Task<IEnumerable<Log>> GetLog(int id)
+        public Log GetLog(int id)
        {
-            return _logDAO.GetLog(id);
+            Log l = (Log) _logDAO.GetLog(id).Result;
+            return l;
+
         }
     }
 }
