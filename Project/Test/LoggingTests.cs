@@ -12,18 +12,18 @@ namespace LoggingTests
 
     {
 
-        private static Log testLog = new("New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
+        private Log testLog = new("6:40 New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
 
         [Fact]
         public void LoggingManager_getLogShouldReturnLogFromTable()
         {
             // arrange
-            Log actual;
+            Log actual = testLog;
 
             //act
             LoggingManager logManager = new LoggingManager();
             logManager.LogData(testLog);
-            actual = (Log) logManager.GetLog(1).Result;
+            actual = (Log) logManager.GetLog(384);
 
             //assert
             Assert.NotNull(actual);
