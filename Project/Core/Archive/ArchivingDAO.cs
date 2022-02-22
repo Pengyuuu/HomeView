@@ -11,8 +11,8 @@ namespace Archive
     class ArchivingDAO
     {
         private static ArchivingDAO _instance;
-        private static string _filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.csv");
-        private static string _zipPath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.zip");
+        private string _filePath;
+        private string _zipPath;
 
         public static ArchivingDAO GetInstance
         {
@@ -28,7 +28,8 @@ namespace Archive
         }
         public ArchivingDAO()
         {
-            
+            _filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.csv");
+            _zipPath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Archives.zip");
         }
 
         /**
@@ -38,7 +39,6 @@ namespace Archive
          */
         public bool Send(List<string> oldLogs)
         {
-
             var csv = new StringBuilder();
 
             // Iterate through the list of old logs and append it line by line to the csv variable
@@ -49,16 +49,26 @@ namespace Archive
 
             // If csv file already exists, append the logs to the file
             if (File.Exists(_filePath)) 
-            { 
+            {
                 File.AppendAllText(_filePath, csv.ToString());
 
-                ZipFile.CreateFromDirectory(_filePath, _zipPath);
+                using (var zipArchive = ZipFile.Open(_zipPath, ZipArchiveMode.Update))
+                {
+                        var fileInfo = new FileInfo(_filePath);
+                        zipArchive.CreateEntryFromFile(fileInfo.FullName, fileInfo.Name);
+                }
+
+                //ZipFile.CreateFromDirectory(_filePath, _zipPath);
             }
 
             // Writes the archived logs and exports as a csv file
             else 
             { 
-                File.WriteAllText(_filePath, csv.ToString()); 
+                File.WriteAllText(_filePath, csv.ToString());
+                using (var archive = ZipFile.Open(_zipPath, ZipArchiveMode.Create))
+                {
+                    archive.CreateEntryFromFile(_filePath, Path.GetFileName(_filePath));
+                }
             }
 
             return true;

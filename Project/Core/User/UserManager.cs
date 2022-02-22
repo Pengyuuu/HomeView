@@ -150,7 +150,7 @@ namespace Core.User
 				int mstatus = Convert.ToInt16(delimiter[6]);
 				Role mr = (Role) (Convert.ToInt16(delimiter[7]));
 
-				userMod.UpdateUser(mfirstName, mlastName, memail, mpassword, mdob, mdispName, mstatus, mr);
+
 
 				// Makes sure valid parameters
 											
