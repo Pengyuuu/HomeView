@@ -1,12 +1,11 @@
 ﻿@model HomeView.Models.RegistrationModel
 
 @{
-    ViewData["Title"] = "SignUp";
+    ViewData["Title"] = "Index";
 }
 
 <h1>SignUp</h1>
 
-<h4>RegistrationModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -41,22 +40,7 @@
                 <label asp-for="_dispName" class="control-label"></label>
                 <input asp-for="_dispName" class="form-control" />
                 <span asp-validation-for="_dispName" class="text-danger"></span>
-            </div><!--
-            <div class="form-group">
-                <label asp-for="_uMonth" class="control-label"></label>
-                <input asp-for="_uMonth" class="form-control" />
-                <span asp-validation-for="_uMonth" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="_uDay" class="control-label"></label>
-                <input asp-for="_uDay" class="form-control" />
-                <span asp-validation-for="_uDay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="_uYear" class="control-label"></label>
-                <input asp-for="_uYear" class="form-control" />
-                <span asp-validation-for="_uYear" class="text-danger"></span>
-            </div> -->
             <div class="form-group">
                 <input type="submit" value="Submit" class="btn btn-primary" onclick="location.href='@Url.Action("SignUp", "Registration", Model)'"/>
             </div>
@@ -65,7 +49,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index">Back to Home</a>
 </div>
 
 @section Scripts {
