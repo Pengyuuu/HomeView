@@ -35,12 +35,12 @@ namespace HomeView.Controllers
                 }        
                 else
                 {
-                    return View("InvalidInput");
+                    return View("Index");
                 }
             }
             catch
             {
-                return View("InvalidInput");
+                return View("Index");
             }
         }
 
