@@ -12,7 +12,7 @@ namespace LoggingTests
 
     {
 
-        private Log testLog = new("6:40 New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
+        private Log testLog = new("5:40 New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
 
         [Fact]
         public void LoggingManager_getLogShouldReturnLogFromTable()
@@ -34,14 +34,38 @@ namespace LoggingTests
         {
             bool expected = true;
 
+            bool want = true;
+
             LoggingManager lm = new LoggingManager();
+
             lm.LogData(testLog);
 
-            // (actual
-            //sert.Equal(expected, actual);
+            var retrievedLog = lm.GetLog(testLog.timeStamp).Result;
+
+            var result = testLog.timeStamp;
+
+            foreach (var log in retrievedLog)
+            {
+                if (log.timeStamp != result)
+                {
+                    want = false;
+                    break;
+                }
+            }
+
+            Assert.Equal(expected, want);
         }
 
-        //[Fact]
-        //public void LoggingDAO_
+        [Fact]
+        public void LoggingDAO_DeleteOldLogsShouldDeleteMonthOldLogs()
+        {
+            LoggingManager lm = new LoggingManager();
+
+            bool expected = true;
+
+            bool actual = lm.DeleteOldLog();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
