@@ -49,7 +49,7 @@ namespace Logging
 
         public Task DeleteOldLogs()
         {
-            return _db.SaveData("dbo.RemoveOldLogs", new { timeStamp = DateTime.UtcNow });
+            return _db.SaveData("dbo.RemoveOldLogs", new { });
         }
 
         public Task<IEnumerable<Log>> GetLogs(DateTime time)
