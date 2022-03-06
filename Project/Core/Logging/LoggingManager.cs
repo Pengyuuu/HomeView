@@ -30,9 +30,7 @@ namespace Logging
 
         public Log GetLog(int id)
        {
-            Log l = (Log) _logDAO.GetLog(id).Result;
-            return l;
-
+            return (Log) _logDAO.GetLog(id).Result;
         }
 
         public Task<IEnumerable<Log>> GetLog(DateTime timeStamp) => _logDAO.GetLogs(timeStamp);
