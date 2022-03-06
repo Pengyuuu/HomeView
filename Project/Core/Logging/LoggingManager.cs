@@ -39,6 +39,11 @@ namespace Logging
 
         public bool DeleteOldLog()
         {
+
+            _logDAO.DeleteOldLogs();
+
+            return true;
+            /*
             if (_logDAO.DeleteOldLogs() is not null)
             {
 
@@ -47,7 +52,7 @@ namespace Logging
             else
             {
                 return false;
-            }
+            }*/
         }
     }
 }
