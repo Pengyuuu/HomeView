@@ -79,5 +79,10 @@ body {
     height: 1024px;
     background-image: url(../../../css/images/homeview.png);
     background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.text-HomeView {
+    color: white;
 }
 
