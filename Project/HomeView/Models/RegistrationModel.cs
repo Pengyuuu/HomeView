@@ -30,6 +30,7 @@ namespace HomeView.Models
 
         [Required(ErrorMessage = "Date Of Birth is required. ")]
         [DataType(DataType.Date)]
+        [ValidBirth(ErrorMessage = "You must be at least 13 years or older to create an account.")]
         public DateTime _userDob { get; set; }
 
         [Required(ErrorMessage = "Display name is required. ")]
