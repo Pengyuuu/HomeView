@@ -33,8 +33,8 @@ namespace HomeView.Models
         public DateTime _userDob { get; set; }
 
         [Required(ErrorMessage = "Display name is required. ")]
-
-        [StringLength(20, ErrorMessage="Display name must be at least 10 characters long. ", MinimumLength = 10)]
+        [StringLength(20, ErrorMessage="Display name must be at least 5 characters long. ", MinimumLength = 5)]
+        [ValidNewDisplay(ErrorMessage = "Display name already in use.")]
         public string _dispName { get; set; }
 
     }

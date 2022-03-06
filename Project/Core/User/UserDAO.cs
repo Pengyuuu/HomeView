@@ -33,6 +33,12 @@ namespace Core.User
             return results.FirstOrDefault();
         }
 
+        public async Task<User?> DisplayReadUser(string display)
+        {
+            var results = await _db.LoadData<User, dynamic>("dbo.DisplayGetUser", new { dispName = display});
+            return results.FirstOrDefault();
+        }
+
         public Task<IEnumerable<User>> ReadAllUsers()
         {
             return _db.LoadData<User, dynamic>("dbo.GetAllUsers", new { });

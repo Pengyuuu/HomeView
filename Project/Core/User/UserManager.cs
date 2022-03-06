@@ -38,6 +38,14 @@ namespace Core.User
 			return u;
         }
 
+		public User DisplayGetUser(string display)
+        {
+			User u = (User)_userDAO.DisplayReadUser(display).Result;
+			Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+			_loggingManager.LogData(userLog);
+			return u;
+		}
+
 		public List<User> GetAllUsers()
 		{
 			try
