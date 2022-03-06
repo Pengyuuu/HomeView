@@ -13,11 +13,8 @@ namespace HomeView.Utilities
         {
             if (value != null)
             {
-                string newEmail = value.ToString();
-                //Console.WriteLine(newEmail);
+                string newEmail = value.ToString();   
                 UserManager userManager = new UserManager();
-                //string testUser = userManager.GetUser(newEmail).Email;
-                
                 if (userManager.GetUser(newEmail) == null)
                 {
                     return true;
