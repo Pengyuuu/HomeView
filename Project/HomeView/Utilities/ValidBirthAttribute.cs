@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace HomeView.Utilities
 {
-    public class ValidNewEmailAttribute : ValidationAttribute
+    public class ValidBirthAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
             if (value != null)
             {
-                string newEmail = value.ToString();   
-                UserManager userManager = new UserManager();
-                if (userManager.GetUser(newEmail) == null)
+                const int MINIMUM_AGE = 13;
+                DateTime presentTime = DateTime.Today;
+                DateTime userBirth = (DateTime) value;
+                int age = presentTime.Year - userBirth.Year;
+                if (age >= MINIMUM_AGE)
                 {
                     return true;
                 }
