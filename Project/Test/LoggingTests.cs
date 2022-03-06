@@ -32,9 +32,9 @@ namespace LoggingTests
         [Fact]
         public void LoggingManager_logDataShouldCreateLoggingTableEntry()
         {
-            Boolean expected = true;
+            bool expected = true;
 
-            Boolean want = true;
+            bool want = true;
 
             LoggingManager lm = new LoggingManager();
 
@@ -59,7 +59,13 @@ namespace LoggingTests
         [Fact]
         public void LoggingDAO_DeleteOldLogsShouldDeleteMonthOldLogs()
         {
+            LoggingManager lm = new LoggingManager();
 
+            bool expected = true;
+
+            bool actual = lm.DeleteOldLog();
+
+            Assert.Equal(expected, actual);
         }
     }
 }

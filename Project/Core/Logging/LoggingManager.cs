@@ -36,5 +36,18 @@ namespace Logging
         }
 
         public Task<IEnumerable<Log>> GetLog(DateTime timeStamp) => _logDAO.GetLogs(timeStamp);
+
+        public bool DeleteOldLog()
+        {
+            if (_logDAO.DeleteOldLogs() is not null)
+            {
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
