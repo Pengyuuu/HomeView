@@ -22,18 +22,13 @@ namespace Logging
         public Task StoreLog(Log log)
         {
             return _db.SaveData("dbo.StoreLogs", new { description = log.Description, logLevel = log.Level, logCategory = log.Category, timeStamp = log.timeStamp });
-            
         }
 
         public async Task<Log?> GetLog(int id)
         {
 
-            
-
             var results = await _db.LoadData<Log, dynamic>("dbo.GetLog", new { Id = id });
             return results.FirstOrDefault();
-
-
         }
 
         public Task<IEnumerable<Log>> GetOldLogs()

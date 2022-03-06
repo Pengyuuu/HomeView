@@ -34,5 +34,7 @@ namespace Logging
             return l;
 
         }
+
+        public Task<IEnumerable<Log>> GetLog(DateTime timeStamp) => _logDAO.GetLogs(timeStamp);
     }
 }
