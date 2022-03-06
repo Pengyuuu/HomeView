@@ -6,14 +6,15 @@
     <title>@ViewData["Title"] HomeView</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-</head>
 
+</head>
 <div class="text-center">
     <h1 class="display-4">HomeView</h1>
     <p>Uniting Streaming Services in One Site</p>
 </div>
 
-<body>
+<body class="background-Homeview text-HomeView">
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -30,4 +31,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>
