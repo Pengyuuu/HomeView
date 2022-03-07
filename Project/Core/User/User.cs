@@ -43,7 +43,7 @@ namespace Core.User
 		public string Password
         {
 			get { return _password; }
-			set { _password = value; }
+			set { _password = value.GetHashCode().ToString();}
         }
 
 		public DateTime Dob

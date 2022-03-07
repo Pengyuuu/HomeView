@@ -25,9 +25,9 @@ namespace HomeView.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
+
                     _userManager.CreateUser(new User(
-                        regModel._firstName, 
+                        regModel._firstName,
                         regModel._lastName,
                         regModel._userEmail,
                         regModel._userPass,
@@ -46,6 +46,7 @@ namespace HomeView.Controllers
                 return View("Index");
             }
         }
+        
 
         
 
