@@ -29,7 +29,7 @@ namespace HomeView.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    return View("LoggingIn");
+                    return View("../HomePage/Index");
                 }
                 else
                 {
