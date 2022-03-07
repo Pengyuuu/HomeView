@@ -8,8 +8,12 @@ namespace HomeView.Controllers
 {
     public class RegistrationController : Controller
     {
-        private UserManager UserManager;
+        private readonly IUserManager _userManager;
 
+        public RegistrationController(IUserManager userManager)
+        {
+            _userManager = userManager;
+        }
         public IActionResult Index()
         {
             return View();
@@ -19,11 +23,10 @@ namespace HomeView.Controllers
         {
             try
             {
-                UserManager = new UserManager();
                 if (ModelState.IsValid)
                 {
                     
-                    UserManager.CreateUser(new User(
+                    _userManager.CreateUser(new User(
                         regModel._firstName, 
                         regModel._lastName,
                         regModel._userEmail,

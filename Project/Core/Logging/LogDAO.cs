@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Data;
 using System.Linq;
 
-namespace Logging
+namespace Core.Logging
 {
     public class LogDAO
     {

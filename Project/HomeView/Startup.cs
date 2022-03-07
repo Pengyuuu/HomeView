@@ -24,6 +24,8 @@ namespace HomeView
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<Core.User.IUserManager, Core.User.UserManager>();
+            services.AddSingleton<Core.Logging.ILoggingManager, Core.Logging.LoggingManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
