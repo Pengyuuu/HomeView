@@ -98,7 +98,6 @@ namespace Core.User
 			_password = userPassword;
 			_dispName = dName;
 			_dob = userDob;
-			_regDate = DateTime.UtcNow;
 			_status = userStatus;		// all users default to enabled account
 			_role = userRole;
 

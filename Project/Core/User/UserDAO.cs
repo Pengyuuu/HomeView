@@ -18,35 +18,43 @@ namespace Core.User
 
         public Task CreateUser(User user)
         {
-            return _db.SaveData("dbo.InsertUser", new {firstN = user.FirstName, lastN = user.LastName, email = user.Email, pw = user.Password, dob = user.Dob, dispN = user.DispName, regDate = user.RegDate, status = user.Status, role = user.Role });
+            return _db.SaveData("dbo.Users_CreateUser", 
+                new {firstN = user.FirstName, 
+                    lastN = user.LastName, 
+                    email = user.Email, 
+                    pw = user.Password, 
+                    dob = user.Dob, 
+                    dispN = user.DispName, 
+                    status = user.Status, 
+                    role = user.Role });
         }
 
         public Task UpdateUser(User user)
         {
             int userR = (int)user.Role;
-            return _db.SaveData("dbo.UpdateUser", user);
+            return _db.SaveData("dbo.Users_UpdateUser", user);
         }
 
         public async Task<User?> ReadUser(string email)
         {
-            var results = await _db.LoadData<User, dynamic>("dbo.GetUser", new { email = email});
+            var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", new { email = email});
             return results.FirstOrDefault();
         }
 
         public async Task<User?> DisplayReadUser(string display)
         {
-            var results = await _db.LoadData<User, dynamic>("dbo.DisplayGetUser", new { dispName = display});
+            var results = await _db.LoadData<User, dynamic>("dbo.Users_DisplayGetUser", new { dispName = display});
             return results.FirstOrDefault();
         }
 
         public Task<IEnumerable<User>> ReadAllUsers()
         {
-            return _db.LoadData<User, dynamic>("dbo.GetAllUsers", new { });
+            return _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers", new { });
         }
 
         public Task DeleteUser(string email)
         {
-            return _db.SaveData("dbo.DeleteUser", new {email = email});
+            return _db.SaveData("dbo.Users_DeleteUser", new {email = email});
         }
     }
 }
