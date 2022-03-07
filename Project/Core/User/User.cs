@@ -13,7 +13,6 @@ namespace Core.User
 		private string _dispName;		// user's display name
 		private DateTime _regDate;		// user's registration date and time
 		private bool _status;			// user's _userStatus (enabled = 1 or disabled = 0)
-		private Role _role;				// user's Role (admin (not system admin), or user)
 		
 		public string FirstName
         {
@@ -60,12 +59,6 @@ namespace Core.User
         {
 			get { return _status; }
 			set { _status = value; }
-        }
-		
-		public Role Role
-        {
-			get { return _role; }
-			set { _role = value; }
         }
 
 		/** User Constructor
@@ -127,7 +120,7 @@ namespace Core.User
             }
             return this._firstName + ", "+ this._lastName + ", " + this._email 
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
-				+ this._regDate + ", " + this._status + ", " + this._role;
+				+ this._regDate + ", " + this._status;
         }
 
 		public bool Equals(User u)
