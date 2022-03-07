@@ -12,7 +12,8 @@ namespace Core.User
 		private DateTime _dob;			// user's date of birth
 		private string _dispName;		// user's display name
 		private DateTime _regDate;		// user's registration date and time
-		private bool _status;			// user's _userStatus (enabled = 1 or disabled = 0)
+		private bool _status;           // user's _userStatus (enabled = 1 or disabled = 0)
+		private Role _role;				// user's role (admin or user)
 		
 		public string FirstName
         {
@@ -61,6 +62,12 @@ namespace Core.User
 			set { _status = value; }
         }
 
+		public Role Role
+        {
+			get { return _role; }
+			set { _role = value; }
+        }
+
 		/** User Constructor
 		 * Creates a new User given first name, last name, userEmail address, password, 
 		 * date of birth, display name, and Role
@@ -73,6 +80,7 @@ namespace Core.User
 			this._email = "";
 			this._password = "";
 			this._dispName = "";
+			this._role = Role.User;
         }
 
 		public User(string emailAddr, string userPassword)
@@ -83,7 +91,7 @@ namespace Core.User
 
 		}
 
-		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
+		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob,
 			string dName, bool userStatus = false)
 		{
 			_firstName = fName;
@@ -93,6 +101,21 @@ namespace Core.User
 			_dispName = dName;
 			_dob = userDob;
 			_status = userStatus;
+			_role = Role.User;
+
+		}
+
+		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
+			string dName, Role userRole, bool userStatus = false)
+		{
+			_firstName = fName;
+			_lastName = lName;
+			_email = emailAddr;
+			_password = userPassword;
+			_dispName = dName;
+			_dob = userDob;
+			_status = userStatus;
+			_role = userRole;
 
 		}
 
@@ -106,8 +129,9 @@ namespace Core.User
 			_dob = Convert.ToDateTime(delimiter[5]);
 			_dispName = delimiter[6];
 			_regDate = Convert.ToDateTime(delimiter[7]);
+			_role = (Role)(Convert.ToInt16(delimiter[7]));
 			_status = bool.Parse(delimiter[8]);
-			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_status);
+			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _status);
 		}
 
 				
@@ -120,7 +144,7 @@ namespace Core.User
             }
             return this._firstName + ", "+ this._lastName + ", " + this._email 
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
-				+ this._regDate + ", " + this._status;
+				+ this._regDate + ", " + this._role + "," +  this._status;
         }
 
 		public bool Equals(User u)
