@@ -5,7 +5,6 @@ namespace Core.User
 	public class User
 	{
 		
-		private int _Id;				// user's id number
 		private string _firstName;		// user's first name
 		private string _lastName;		// user's last name
 		private string _email;			// user's userEmail
@@ -13,14 +12,7 @@ namespace Core.User
 		private DateTime _dob;			// user's date of birth
 		private string _dispName;		// user's display name
 		private DateTime _regDate;		// user's registration date and time
-		private int _status;			// user's _userStatus (enabled = 1 or disabled = 0)
-		private Role _role;				// user's Role (admin (not system admin), or user)
-		
-		public int Id
-        {
-			get { return _Id; }
-			set { _Id = value; }
-        }
+		private bool _status;			// user's _userStatus (enabled = 1 or disabled = 0)
 		
 		public string FirstName
         {
@@ -63,16 +55,10 @@ namespace Core.User
 			get { return _regDate; }
         }
 
-		public int Status
+		public bool Status
         {
 			get { return _status; }
 			set { _status = value; }
-        }
-		
-		public Role Role
-        {
-			get { return _role; }
-			set { _role = value; }
         }
 
 		/** User Constructor
@@ -88,9 +74,17 @@ namespace Core.User
 			this._password = "";
 			this._dispName = "";
         }
-		
+
+		public User(string emailAddr, string userPassword)
+		{			
+			_email = emailAddr;
+			_password = userPassword;
+			_role = Role.User;
+
+		}
+
 		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
-			string dName, int userStatus, Role userRole)
+			string dName, bool userStatus = false)
 		{
 			_firstName = fName;
 			_lastName = lName;
@@ -98,32 +92,13 @@ namespace Core.User
 			_password = userPassword;
 			_dispName = dName;
 			_dob = userDob;
-			_regDate = DateTime.UtcNow;
-			_status = userStatus;		// all users default to enabled account
-			_role = userRole;
+			_status = userStatus;
 
 		}
-
-		public User(string csvLine)
-		{
-			string[] delimiter = csvLine.Split('|');
-			_firstName = delimiter[0];
-			_lastName = delimiter[1];
-			_email = delimiter[2];
-			_password = delimiter[3];
-			_dob = Convert.ToDateTime(delimiter[4]);
-			_dispName = delimiter[5];
-			_regDate = DateTime.UtcNow;
-			_status = Convert.ToInt16(delimiter[6]);
-			_role = (Role) (Convert.ToInt16(delimiter[7]));
-
-		}
-
 
 		public User ReadUser(string csvLine)
 		{
 			string[] delimiter = csvLine.Split(',');
-			_Id = Convert.ToInt32(delimiter[0]);
 			_firstName = delimiter[1];
 			_lastName = delimiter[2];
 			_email = delimiter[3];
@@ -131,9 +106,8 @@ namespace Core.User
 			_dob = Convert.ToDateTime(delimiter[5]);
 			_dispName = delimiter[6];
 			_regDate = Convert.ToDateTime(delimiter[7]);
-			_status = (Convert.ToInt16(delimiter[8]));
-			_role = (Role) (Convert.ToInt16(delimiter[9]));
-			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_status,_role);
+			_status = bool.Parse(delimiter[8]);
+			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_status);
 		}
 
 				
@@ -144,9 +118,9 @@ namespace Core.User
             {
                 return "User not found.";
             }
-            return this._Id + ", " + this._firstName + ", "+ this._lastName + ", " + this._email 
+            return this._firstName + ", "+ this._lastName + ", " + this._email 
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
-				+ this._regDate + ", " + this._status + ", " + this._role;
+				+ this._regDate + ", " + this._status;
         }
 
 		public bool Equals(User u)

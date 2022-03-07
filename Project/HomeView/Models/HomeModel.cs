@@ -9,16 +9,12 @@ using HomeView.Utilities;
 namespace HomeView.Models
 {
     public class HomeModel : IValidatableObject
-    {
-        
+    {       
         [Required(ErrorMessage = "Email is required. ")]
         public string _userEmail { get; set; }
 
-        // Passwords must have a minimum of 12 characters with one capital letter and one non-alphanumeric character
-   
         [Required(ErrorMessage = "Password is required. ")]
         public string _userPass { get; set; }
-
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -27,13 +23,15 @@ namespace HomeView.Models
             var retrievedUser = userMan.GetUser(_userEmail);
             if ((retrievedUser == null) || (retrievedUser.Password != _userPass))
             {
-                yield return new ValidationResult("Invalid email/password.");
+                yield return new ValidationResult("Invalid username or password provided. <br> Retry again or contact system administrator");
             }
-                       
+            else
+            {
+                if (!retrievedUser.Status)
+                {
+                    yield return new ValidationResult("Email Confirmation Pending.");
+                }
+            }                     
         }
-
-  
     }
-
-
 }

@@ -15,8 +15,8 @@ namespace HomeView.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             
-        }
-  
+        }       
+
         public IActionResult Index()
         {
             return View();
@@ -29,7 +29,14 @@ namespace HomeView.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    return View("LoggingIn");
+                    var userManager = new UserManager();
+                    var userInfo = userManager.GetUser(homeM._userEmail);
+                    if (userInfo.Role == Role.Admin)
+                    {
+                        return View("../UAD/Index");
+                    }
+
+                    return View("../HomePage/Index");
                 }
                 else
                 {
