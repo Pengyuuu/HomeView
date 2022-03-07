@@ -25,7 +25,8 @@ namespace Core.User
                 email = user.Email,
                 password = user.Password,
                 dob = user.Dob,
-                dispName = user.DispName
+                dispName = user.DispName,
+                role = user.Role
             };
             return _db.SaveData("dbo.Users_CreateUser", p);
         }
@@ -40,7 +41,8 @@ namespace Core.User
                 password = user.Password,
                 dob = user.Dob,
                 dispName = user.DispName,
-                status = user.Status
+                status = user.Status,
+                role = user.Role
             };
             return _db.SaveData("dbo.Users_UpdateUser", p);
         }

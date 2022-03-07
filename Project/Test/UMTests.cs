@@ -18,7 +18,7 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldCreateNewUser()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank");
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank", Role.User);
 
             UserManager userManager = new UserManager();
 
