@@ -16,13 +16,14 @@ namespace HomeView.Controllers
         {
             
         }
-
+        
+        
         public IActionResult Index()
         {
             return View();
             
         }
-
+        
         public IActionResult LogIn(HomeModel homeM)
         {
             try
@@ -33,7 +34,7 @@ namespace HomeView.Controllers
                 }
                 else
                 {
-                    return View("Index");
+                    return View(homeM);
                 }
             }
             catch
