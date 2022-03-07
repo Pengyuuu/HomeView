@@ -1,8 +1,16 @@
-﻿
-@{
-    Layout = null;
-}
+﻿@model HomeView.Models.UserHomeModel
 
+@{
+    
+}
+<style>
+    li {
+        display: inline;
+    }
+    ul {
+        list-style-type: none;
+    }
+</style>
 <!DOCTYPE html>
 
 <html>
@@ -14,19 +22,21 @@
     <nav>
         <ul>
             <div class="items">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">TV Shows</a></li>
-                <li><a href="#">Movies</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">ActWiki</a></li>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">TV Shows</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">ActWiki</a></li>
             </div>
             <li class="search">
                 <input type="text" placeholder="Search" />
             </li>
             <li class="account">
-                <select name="Account">
-                    <option><a href="#">Log out</a></option>
-                </select>
+                <a href="javascript:void(0)" class="drp[btn">Account</a>
+                <div class="dropdown-content">
+                    <a href="#">Account</a>
+                    <a href="#">Log Out</a>
+                </div>
             </li>
         </ul>
     </nav>

@@ -32,8 +32,7 @@ namespace HomeView.Controllers
                         regModel._userEmail,
                         regModel._userPass,
                         regModel._userDob,
-                        regModel._dispName,
-                        1, Role.User));
+                        regModel._dispName));
                     return View("EmailSent");
                 }        
                 else

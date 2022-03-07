@@ -9,6 +9,7 @@ namespace HomeView.Controllers
 {
     public class UADController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

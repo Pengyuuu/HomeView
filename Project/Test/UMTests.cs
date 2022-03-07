@@ -18,7 +18,7 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldCreateNewUser()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank", 0, Role.User);
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank", Role.User);
 
             UserManager userManager = new UserManager();
 
@@ -41,7 +41,7 @@ namespace UMTests
         {
             bool expected = false;
 
-            User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace", 0, Role.User);
+            User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace");
 
             UserManager userManager = new UserManager();
 
@@ -73,7 +73,7 @@ namespace UMTests
 
             UserManager userManager = new UserManager();
 
-            userManager.CreateUser(new User("firsasdft", "last", "emai23423l@me.com", "pwajsh23@#4", DateTime.Now, "supername", 1, Role.User));
+            userManager.CreateUser(new User("firsasdft", "last", "emai23423l@me.com", "pwajsh23@#4", DateTime.Now, "supername"));
 
         }
 
@@ -121,7 +121,7 @@ namespace UMTests
         {
             bool expected = true;
 
-            User newUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin", 0, Role.User);
+            User newUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
 
             UserManager userManager = new UserManager();
 
@@ -137,7 +137,7 @@ namespace UMTests
         {
             bool expected = false;
 
-            User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin", 0, Role.User);
+            User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
 
             UserManager userManager = new UserManager();
 
