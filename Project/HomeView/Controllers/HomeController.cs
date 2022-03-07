@@ -6,35 +6,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HomeView.Models;
+using Core.User;
 
 namespace HomeView.Controllers
 {
     public class HomeController : Controller
     {
-
         public HomeController(ILogger<HomeController> logger)
         {
             
         }
-        
-        
+  
         public IActionResult Index()
         {
             return View();
             
         }
         
-        public IActionResult LogIn(HomeModel homeM)
+        public ActionResult LogIn(HomeModel homeM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    return View("LogInSuccess");
+                    return View("LoggingIn");
                 }
                 else
                 {
-                    return View(homeM);
+                    return View("Index");
                 }
             }
             catch
