@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logging
+namespace Core.Logging
 {
-    public class LoggingManager
+    public class LoggingManager : ILoggingManager
     {
         private LogDAO _logDAO;
 
@@ -29,8 +29,8 @@ namespace Logging
         }
 
         public Log GetLog(int id)
-       {
-            return (Log) _logDAO.GetLog(id).Result;
+        {
+            return (Log)_logDAO.GetLog(id).Result;
         }
 
         public Task<IEnumerable<Log>> GetLog(DateTime timeStamp) => _logDAO.GetLogs(timeStamp);

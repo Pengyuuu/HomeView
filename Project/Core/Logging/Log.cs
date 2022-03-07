@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging
+namespace Core.Logging
 {
     public class Log
     {
