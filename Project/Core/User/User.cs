@@ -79,7 +79,6 @@ namespace Core.User
 		{			
 			_email = emailAddr;
 			_password = userPassword;
-			_role = Role.User;
 
 		}
 

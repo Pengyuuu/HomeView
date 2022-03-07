@@ -31,10 +31,6 @@ namespace HomeView.Controllers
                 {
                     var userManager = new UserManager();
                     var userInfo = userManager.GetUser(homeM._userEmail);
-                    if (userInfo.Role == Role.Admin)
-                    {
-                        return View("../UAD/Index");
-                    }
 
                     return View("../HomePage/Index");
                 }
