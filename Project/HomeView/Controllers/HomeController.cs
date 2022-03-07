@@ -20,7 +20,30 @@ namespace HomeView.Controllers
         public IActionResult Index()
         {
             return View();
+            
         }
+
+        public IActionResult LogIn(HomeModel homeM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return View("LogInSuccess");
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
+            catch
+            {
+                return View("Index");
+            }
+
+        }
+
+
 
         public IActionResult Privacy()
         {
