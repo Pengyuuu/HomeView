@@ -26,14 +26,7 @@ namespace HomeView.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    _userManager.CreateUser(new User(
-                        regModel._firstName, 
-                        regModel._lastName,
-                        regModel._userEmail,
-                        regModel._userPass,
-                        regModel._userDob,
-                        regModel._dispName,
-                        1, Role.User));
+                    _userManager.CreateUser(new User(regModel._userEmail, regModel._userPass));
                     return View("EmailSent");
                 }        
                 else

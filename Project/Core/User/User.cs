@@ -81,7 +81,15 @@ namespace Core.User
 			this._password = "";
 			this._dispName = "";
         }
-		
+
+		public User(string emailAddr, string userPassword)
+		{			
+			_email = emailAddr;
+			_password = userPassword;
+			_role = Role.User;
+
+		}
+
 		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
 			string dName, bool userStatus = false)
 		{
