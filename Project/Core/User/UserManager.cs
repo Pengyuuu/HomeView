@@ -157,6 +157,7 @@ namespace Core.User
                 DateTime mdob = Convert.ToDateTime(delimiter[4]);
                 string mdispName = delimiter[5];
                 int mstatus = Convert.ToInt16(delimiter[6]);
+                Role mr = (Role)(Convert.ToInt16(delimiter[7]));
 
 
 

@@ -1,9 +1,16 @@
 ﻿@model HomeView.Models.UserHomeModel
 
 @{
-    Layout = null;
+    
 }
-
+<style>
+    li {
+        display: inline;
+    }
+    ul {
+        list-style-type: none;
+    }
+</style>
 <!DOCTYPE html>
 
 <html>
@@ -25,9 +32,11 @@
                 <input type="text" placeholder="Search" />
             </li>
             <li class="account">
-                <select name="Account">
-                    <option><a href="#">Log out</a></option>
-                </select>
+                <a href="javascript:void(0)" class="drp[btn">Account</a>
+                <div class="dropdown-content">
+                    <a href="#">Account</a>
+                    <a href="#">Log Out</a>
+                </div>
             </li>
         </ul>
     </nav>
