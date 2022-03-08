@@ -37,7 +37,7 @@ namespace Core.User
 		public string Password
         {
 			get { return _password; }
-			set { _password = value}
+			set { _password = value; }
         }
 
 		public DateTime Dob
