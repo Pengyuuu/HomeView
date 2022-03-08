@@ -23,7 +23,7 @@ namespace HomeView.Models
             var retrievedUser = userMan.GetUser(_userEmail);
             if ((retrievedUser == null) || (retrievedUser.Password != _userPass))
             {
-                yield return new ValidationResult("Invalid username or password provided. <br> Retry again or contact system administrator");
+                yield return new ValidationResult("Invalid username or password provided. Retry again or contact system administrator");
             }
             else
             {

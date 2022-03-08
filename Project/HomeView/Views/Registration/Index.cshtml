@@ -33,6 +33,11 @@
                 <input asp-for="_userEmail" class="form-control" />
                 <span asp-validation-for="_userEmail" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="_userDob" class="control-label">Date of Birth:</label>
+                <input asp-for="_userDob" class="form-control" />
+                <span asp-validation-for="_userDob" class="text-danger"></span>
+            </div>
         </div>
         <div class="column-gap">
         </div>
@@ -43,11 +48,7 @@
                 <input asp-for="_userPass" type="password" class="form-control" />
                 <span asp-validation-for="_userPass" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="_userDob" class="control-label">Date of Birth:</label>
-                <input asp-for="_userDob" class="form-control" />
-                <span asp-validation-for="_userDob" class="text-danger"></span>
-            </div>
+            
         </div>
     </div>
     <div class="form-group">
