@@ -37,7 +37,7 @@ namespace Core.User
 		public string Password
         {
 			get { return _password; }
-			set { _password = value.GetHashCode().ToString();}
+			set { _password = value}
         }
 
 		public DateTime Dob
@@ -92,7 +92,7 @@ namespace Core.User
 		public User(string emailAddr, string userPassword)
 		{			
 			_email = emailAddr;
-			_password = userPassword;
+			_password = userPassword.GetHashCode().ToString();
 
 		}
 
@@ -102,7 +102,7 @@ namespace Core.User
 			_firstName = fName;
 			_lastName = lName;
 			_email = emailAddr;
-			_password = userPassword;
+			_password = userPassword.GetHashCode().ToString();
 			_dispName = dName;
 			_dob = userDob;
 			_status = userStatus;
@@ -116,7 +116,7 @@ namespace Core.User
 			_firstName = fName;
 			_lastName = lName;
 			_email = emailAddr;
-			_password = userPassword;
+			_password = userPassword.GetHashCode().ToString();
 			_dispName = dName;
 			_dob = userDob;
 			_status = userStatus;
