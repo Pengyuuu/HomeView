@@ -60,9 +60,9 @@ namespace HomeView.Controllers
         {
             try
             {
-                var senderEmail = new MailAddress("homeviewcsulb@gmail.com", "Welovevong491");
+                var senderEmail = new MailAddress("homeviewcsulb@gmail.com", "Homeview");
                 var receiverEmail = new MailAddress(u.Email, "Receiver");
-                var password = "Your Email Password here";
+                var password = "homeviewRocks";
                 var sub = "Verify your homeview email!";
                 var body = "/Registration/ConfirmEmail/" + u.Email + u.Token;
                 var smtp = new SmtpClient
