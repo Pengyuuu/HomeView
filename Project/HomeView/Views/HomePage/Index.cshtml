@@ -6,9 +6,50 @@
 <style>
     li {
         display: inline;
+        text-decoration: none;
+        color: white;
+        float: left;
     }
     ul {
         list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    li a, .dropbtn {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    li a:hover, .dropdown:hover {
+        background-color: white;
+    }
+    .dropbtn:hover {
+        color: black;
+    }
+    li.dropdown {
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropbtn {
+
     }
 </style>
 <!DOCTYPE html>
@@ -32,7 +73,7 @@
                 <input type="text" placeholder="Search" />
             </li>
             <li class="account">
-                <a href="javascript:void(0)" class="drp[btn">Account</a>
+                <a class="dropbtn">Account</a>
                 <div class="dropdown-content">
                     <a href="#">Account</a>
                     <a href="#">Log Out</a>
