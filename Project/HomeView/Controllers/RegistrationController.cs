@@ -36,7 +36,14 @@ namespace HomeView.Controllers
                         null);
                     u.Token = Guid.NewGuid().ToString();
                     _userManager.CreateUser(u);
-                    return View("EmailSent");
+                    if (!SendConfirmationEmail(u))
+                    {
+                        return View("EmailSent");
+                    }
+                    else
+                    {
+                        return View("Index");
+                    }
                 }        
                 else
                 {
@@ -48,9 +55,52 @@ namespace HomeView.Controllers
                 return View("Index");
             }
         }
-        
 
-        
+        public bool SendConfirmationEmail(User u)
+        {
+            try
+            {
+                var senderEmail = new MailAddress("homeviewcsulb@gmail.com", "Welovevong491");
+                var receiverEmail = new MailAddress(u.Email, "Receiver");
+                var password = "Your Email Password here";
+                var sub = "Verify your homeview email!";
+                var body = "/Registration/ConfirmEmail/" + u.Email + u.Token;
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public ActionResult ConfrimEmail(string args)
+        {
+            try
+            {
+
+                return View();
+            }
+            catch
+            {
+                return View("Index");
+            }
+        }
 
     }
 }
