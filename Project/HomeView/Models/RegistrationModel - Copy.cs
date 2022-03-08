@@ -8,8 +8,15 @@ using HomeView.Utilities;
 
 namespace HomeView.Models
 {
-    public class RegistrationModel
+    public class RegistrationModelOLD
     {
+        [Required(ErrorMessage = "First name is required. ")]
+        public string _firstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required. ")]
+        public string _lastName { get; set; }
+
+
         [Required(ErrorMessage = "Email is required. ")]
         [EmailAddress(ErrorMessage = "Email must be a valid email address.")]
         [ValidNewEmail(ErrorMessage = "Email already in use.")]
@@ -25,6 +32,11 @@ namespace HomeView.Models
         [DataType(DataType.Date)]
         [ValidBirth(ErrorMessage = "You must be at least 13 years or older to create an account.")]
         public DateTime _userDob { get; set; }
+
+        [Required(ErrorMessage = "Display name is required. ")]
+        [StringLength(20, ErrorMessage = "Display name must be at least 5 characters long. ", MinimumLength = 5)]
+        [ValidNewDisplay(ErrorMessage = "Display name already in use.")]
+        public string _dispName { get; set; }
 
     }
 

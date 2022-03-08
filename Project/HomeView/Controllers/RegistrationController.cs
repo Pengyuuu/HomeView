@@ -3,6 +3,7 @@ using HomeView.Models;
 using Core.User;
 using System.Net.Mail;
 using System.Net;
+using System;
 
 namespace HomeView.Controllers
 {
@@ -25,14 +26,16 @@ namespace HomeView.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
-                    _userManager.CreateUser(new User(
-                        regModel._firstName,
-                        regModel._lastName,
+                    // create user and attach token
+                    User u = new User(
+                        null,
+                        null,
                         regModel._userEmail,
                         regModel._userPass,
                         regModel._userDob,
-                        regModel._dispName));
+                        null);
+                    u.Token = Guid.NewGuid().ToString();
+                    _userManager.CreateUser(u);
                     return View("EmailSent");
                 }        
                 else

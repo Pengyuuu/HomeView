@@ -1,4 +1,4 @@
-﻿@model HomeView.Models.RegistrationModel
+﻿@model HomeView.Models.RegistrationModelOLD
 
 @{
     ViewData["Title"] = "SignUp";
@@ -29,6 +29,16 @@
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="_firstName" class="control-label">First Name:</label>
+                <input asp-for="_firstName" class="form-control" />
+                <span asp-validation-for="_firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="_lastName" class="control-label">Last Name:</label>
+                <input asp-for="_lastName" class="form-control" />
+                <span asp-validation-for="_lastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="_userEmail" class="control-label">Email:</label>
                 <input asp-for="_userEmail" class="form-control" />
                 <span asp-validation-for="_userEmail" class="text-danger"></span>
@@ -48,6 +58,12 @@
                 <input asp-for="_userDob" class="form-control" />
                 <span asp-validation-for="_userDob" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="_dispName" class="control-label">Username:</label>
+                <input asp-for="_dispName" class="form-control" />
+                <span asp-validation-for="_dispName" class="text-danger"></span>
+            </div>
+
         </div>
     </div>
     <div class="form-group">

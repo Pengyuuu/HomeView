@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Data;
-
+using System;
 
 namespace Core.User
 {
@@ -25,8 +25,10 @@ namespace Core.User
                 email = user.Email,
                 password = user.Password,
                 dob = user.Dob,
-                dispName = user.DispName,
-                role = user.Role
+                dispName = user.Email,
+                role = (int) user.Role,
+                status = 0,
+                token = user.Token
             };
             return _db.SaveData("dbo.Users_CreateUser", p);
         }
@@ -42,7 +44,8 @@ namespace Core.User
                 dob = user.Dob,
                 dispName = user.DispName,
                 status = user.Status,
-                role = user.Role
+                role = (int) user.Role,
+                token = user.Token
             };
             return _db.SaveData("dbo.Users_UpdateUser", p);
         }

@@ -13,8 +13,9 @@ namespace Core.User
 		private string _dispName;		// user's display name
 		private DateTime _regDate;		// user's registration date and time
 		private bool _status;           // user's _userStatus (enabled = 1 or disabled = 0)
-		private Role _role;				// user's role (admin or user)
-		
+		private Role _role;             // user's role (admin or user)
+		private string _token;          // user's token for 2FA
+
 		public string FirstName
         {
 			get { return _firstName; }		
@@ -68,6 +69,11 @@ namespace Core.User
 			set { _role = value; }
         }
 
+		public string Token
+		{
+			get { return _token; }
+			set { _token = value; }
+		}
 		/** User Constructor
 		 * Creates a new User given first name, last name, userEmail address, password, 
 		 * date of birth, display name, and Role
