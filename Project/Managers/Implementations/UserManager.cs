@@ -41,6 +41,21 @@ namespace Managers.Implementations
 
         }
 
+        public bool CreateUser(User userCreate)
+        {
+            
+            if (GetUser(userCreate.Email) is null)
+            {
+                var isCreated = _userDAO.AsyncCreateUser(userCreate).Result;
+                if (isCreated)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
         // Gets user
         public User GetUser(string email)
         {

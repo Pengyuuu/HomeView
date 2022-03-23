@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Managers.Contracts;
 
 namespace Managers.Implementations
 {
     public class RegistrationManager : IRegistrationManager
     {
         private UserManager _userManager;
+        private 
 
         public RegistrationManager()
         {

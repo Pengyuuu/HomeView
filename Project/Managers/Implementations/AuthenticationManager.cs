@@ -10,6 +10,12 @@ namespace Managers.Implementations
     // scope: any user attempting to use the system
     internal class AuthenticationManager
     {
+        private UserManager _userManager;
+        public AuthenticationManager()
+        {
+            _userManager = new UserManager();
+        }
+
 
     }
 }
