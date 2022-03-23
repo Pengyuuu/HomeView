@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Core.User;
 
-namespace Core.User
+namespace Managers.Contracts
 {
     public interface IUserManager
     {

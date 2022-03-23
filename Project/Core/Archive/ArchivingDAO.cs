@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 using System.IO.Compression;
 
-namespace Archive
+namespace Core.Archive
 {
     class ArchivingDAO
     {

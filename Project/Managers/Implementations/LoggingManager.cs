@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Managers.Contracts;
+using Core.Logging;
 
-namespace Core.Logging
+
+namespace Managers.Implementations
 {
     public class LoggingManager : ILoggingManager
     {
