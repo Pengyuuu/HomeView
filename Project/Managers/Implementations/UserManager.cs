@@ -22,8 +22,13 @@ namespace Managers.Implementations
             _userDAO = new UserDAO(new Data.SqlDataAccess());
         }
 
-        public bool CreateUser(User user)
+        public bool CreateUser(string email, string birth, string pw)
         {
+            var user = new User();
+            user.Email = email; 
+            user.Dob = Convert.ToDateTime(birth); 
+            user.Password = pw;
+
             if (GetUser(user.Email) is null)
             {
                 var isCreated = _userDAO.AsyncCreateUser(user).Result;

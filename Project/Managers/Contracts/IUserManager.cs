@@ -5,7 +5,7 @@ namespace Managers.Contracts
 {
     public interface IUserManager
     {
-        bool CreateUser(User user);
+        bool CreateUser(string email, string birth, string pw);
         bool DeleteUser(string email);
         User DisplayGetUser(string display);
         string DoBulkOp(string file);

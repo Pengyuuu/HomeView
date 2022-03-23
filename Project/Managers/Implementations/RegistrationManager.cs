@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
-    public class RegistrationManager
+    public class RegistrationManager : IRegistrationManager
     {
         private UserManager _userManager;
 
@@ -23,53 +23,77 @@ namespace Managers.Implementations
                 if (email.Contains("@") && email.Contains(".com"))
                 {
                     // check if in db
-                    if (_userManager.GetUser(email))
+                    if (_userManager.GetUser(email) == null)
                     {
-
+                        return true;
                     }
                 }
-
-                return false;
             }
             return false;
         }
 
-        public bool ValidateFields(string email, string fname, string lname, string pw)
+        public bool ValidatePassword(string password)
         {
-            if (email != null && fname != null && lname != null && pw != null)
-            {
-                //  makes sure new user's email is valid (contains @.com)
-                if (email.Contains("@") == email.Contains(".com")) {
+            const int MIN_PASS_LENGTH = 12;
+            bool hasUpper = false;
+            bool hasSpecial = false;
 
-                    // makes sure new user's password is valid (contains minimum of 12 characters, at least 1 capital letter, at least 1 non-alphanumeric character
-                    int pwMinLength = 12;
-                    Boolean containsUpper = false;
+            if (password != null)
+            {
+                // not null, checks length
+                if (password.Length >= MIN_PASS_LENGTH)
+                {
+                    foreach (char character in password)
+                    {
+                        if (Char.IsUpper(character))
+                        {
+                            hasUpper = true;
+                        }
+                        else if ((!Char.IsLetterOrDigit(character)) && (character != ' '))
+                        {
+                            hasSpecial = true;
+                        }
+                    }
+                    return hasUpper == hasSpecial;
                 }
 
-                return false;
             }
             return false;
-
         }
 
-        public bool CreateUser(User user)
+        public bool ValidateBirth(string dob)
         {
-            if (GetUser(user.Email) is null)
+            DateTime birth = Convert.ToDateTime(dob);
+            const int MINIMUM_AGE = 13;
+
+            if (dob is not null)
             {
-                _userDAO.CreateUser(user);
-                return true;
+                DateTime presentTime = DateTime.Today;
+
+                int age = presentTime.Year - birth.Year;
+                if (age >= MINIMUM_AGE)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool ValidateFields(string email, string dob, string pw)
+        {
+            return ValidateEmail(email) == ValidatePassword(pw) == ValidateBirth(dob);
+        }
+
+        public bool CreateUser(string email, string dob, string pw)
+        {
+            bool isValid = ValidateFields(email, dob, pw);
+            if (isValid)
+            {
+                return _userManager.CreateUser(email, dob, pw);
+
             }
             return false;
 
-        }
-
-        // Gets user
-        public User GetUser(string email)
-        {
-            User u = (User)_userDAO.ReadUser(email).Result;
-            Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-            _loggingManager.LogData(userLog);
-            return u;
         }
     }
 }
