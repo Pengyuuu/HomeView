@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Logging;
 
-namespace Core.Logging
+namespace Managers.Contracts
 {
     public interface ILoggingManager
     {

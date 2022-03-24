@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Core.Archive;
+using Managers.Contracts;
 
-namespace Archive
+namespace Managers.Implementations
 {
-    public class ArchivingManager
+    public class ArchivingManager : IArchivingManager
     {
         private static ArchivingManager _instance = null;
 

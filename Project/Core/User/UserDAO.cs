@@ -16,9 +16,9 @@ namespace Core.User
             _db = db;
         }
 
-        public Task CreateUser(User user)
+        public async Task<bool> AsyncCreateUser(User user)
         {
-            var p = new
+            var person = new
             {
                 firstName = user.FirstName,
                 lastName = user.LastName,
@@ -30,12 +30,20 @@ namespace Core.User
                 status = 0,
                 token = user.Token
             };
-            return _db.SaveData("dbo.Users_CreateUser", p);
+            try
+            {
+                await _db.SaveData("dbo.Users_CreateUser", person);               
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
-        public Task UpdateUser(User user)
+        public async Task<bool> AsyncUpdateUser(User user)
         {
-            var p = new
+            var person = new
             {
                 firstName = user.FirstName,
                 lastName = user.LastName,
@@ -47,37 +55,75 @@ namespace Core.User
                 role = (int) user.Role,
                 token = user.Token
             };
-            return _db.SaveData("dbo.Users_UpdateUser", p);
+            try
+            {
+                await _db.SaveData("dbo.Users_UpdateUser", person);               
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
-        public async Task<User?> ReadUser(string email)
+        public async Task<User?> AsyncReadUser(string email)
         {
-            var p = new
+            var user = new
             {
                 email = email
             };
-            var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", p);
-            return results.FirstOrDefault();
+            try
+            {
+                var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);
+                return results.FirstOrDefault();
+
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public async Task<User?> DisplayReadUser(string display)
+        public async Task<User?> AsyncDisplayReadUser(string display)
         {
-            var results = await _db.LoadData<User, dynamic>("dbo.Users_DisplayGetUser", new { dispName = display});
-            return results.FirstOrDefault();
+            try
+            {
+                var results = await _db.LoadData<User, dynamic>("dbo.Users_DisplayGetUser", new { dispName = display });
+                return results.FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public Task<IEnumerable<User>> ReadAllUsers()
+        public async Task<IEnumerable<User>> AsyncReadAllUsers()
         {
-            return _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers", new { });
+            try
+            {
+                return await _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers", new { });
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public Task DeleteUser(string email)
+        public async Task<bool> AsyncDeleteUser(string email)
         {
-            var p = new
+            var user = new
             {
                 email = email
             };
-            return _db.SaveData("dbo.Users_DeleteUser", p);
+            try
+            {
+                await _db.SaveData("dbo.Users_DeleteUser", user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }           
         }
     }
 }

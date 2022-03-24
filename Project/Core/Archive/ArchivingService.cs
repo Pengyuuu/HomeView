@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Archive
+namespace Core.Archive
 {
     public class ArchivingService
     {
