@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Managers.Contracts;
+using Services.Contracts;
+
 
 namespace Managers.Implementations
 {
     public class RegistrationManager : IRegistrationManager
     {
-        private UserManager _userManager;
-        private 
+        private IUserManager _userManager;
+        private IRegistrationService _registrationService;
 
         public RegistrationManager()
         {
-            _userManager = new UserManager();
         }
 
         public bool ValidateEmail(string email)
@@ -88,13 +89,7 @@ namespace Managers.Implementations
 
         public bool CreateUser(string email, string dob, string pw)
         {
-            bool isValid = ValidateFields(email, dob, pw);
-            if (isValid)
-            {
-                return _userManager.CreateUser(email, dob, pw);
-
-            }
-            return false;
+            
 
         }
     }

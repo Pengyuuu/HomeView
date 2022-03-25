@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Managers.Contracts;
-using Core.User;
-using Core.Logging;
+using Services.Contracts;
+
 
 
 
@@ -14,7 +14,7 @@ namespace Managers.Implementations
     public class UserManager : IUserManager
     {
         private LoggingManager _loggingManager;
-        private UserDAO _userDAO;
+        private IUserService _userService;
 
         public UserManager()
         {
@@ -25,8 +25,8 @@ namespace Managers.Implementations
         public bool CreateUser(string email, string birth, string pw)
         {
             var user = new User();
-            user.Email = email; 
-            user.Dob = Convert.ToDateTime(birth); 
+            user.Email = email;
+            user.Dob = Convert.ToDateTime(birth);
             user.Password = pw;
 
             if (GetUser(user.Email) is null)
@@ -43,7 +43,7 @@ namespace Managers.Implementations
 
         public bool CreateUser(User userCreate)
         {
-            
+
             if (GetUser(userCreate.Email) is null)
             {
                 var isCreated = _userDAO.AsyncCreateUser(userCreate).Result;
@@ -112,10 +112,10 @@ namespace Managers.Implementations
                     _loggingManager.LogData(userLogTrue);
                     return true;
                 }
-            }                                  
+            }
             Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
             _loggingManager.LogData(userLogFalse);
-            return false;           
+            return false;
         }
 
         public User ModifyUser(User user)
@@ -170,7 +170,7 @@ namespace Managers.Implementations
             userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
             _loggingManager.LogData(userLog);
             return "Unable to export all users.";
-                      
+
         }
 
 
@@ -203,9 +203,10 @@ namespace Managers.Implementations
                 userMod.DispName = delimiter[6];
                 userMod.Status = Convert.ToBoolean(delimiter[7]);
                 userMod.Role = (Role)(Convert.ToInt16(delimiter[8]));
-                
-                
-                if (userMod is not null) {
+
+
+                if (userMod is not null)
+                {
 
                     try
                     {
@@ -227,7 +228,7 @@ namespace Managers.Implementations
                     {
                         failedMods++;
                     }
-                }                             
+                }
             }
             sysMessage = "Successfully modified " + successMods + ".\n Failed to modify: " + failedMods + ".\n";
             return sysMessage;

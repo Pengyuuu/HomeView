@@ -1,6 +1,9 @@
-﻿namespace Managers.Implementations
+﻿using Core.User;
+using System.Collections.Generic;
+
+namespace Services.Contracts
 {
-    public interface IUserManager
+    public interface IUserService
     {
         bool CreateUser(string email, string birth, string pw);
         bool CreateUser(User userCreate);
@@ -8,7 +11,7 @@
         User DisplayGetUser(string display);
         string DoBulkOp(string file);
         string ExportAllUsers();
-        System.Collections.Generic.List<User> GetAllUsers();
+        List<User> GetAllUsers();
         User GetUser(string email);
         User ModifyUser(User user);
     }

@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Managers.Contracts;
+using Services.Contracts;
 
 namespace Services.Implementations
 {
-    internal class RegistrationService
+    public class RegistrationService : IRegistrationService
     {
-        //private IRegistrationManager _registrationManager;
+        //private IUserManager _userManager;
 
-        public RegistrationService ()
+        public RegistrationService()
         {
-            
         }
 
         public bool CreateUser(string email, string dob, string pw)
         {
-            bool isValid = ValidateFields(email, dob, pw);
-            if (isValid)
+            bool isCreated = false;
+            try
             {
-                return _userManager.CreateUser(email, dob, pw);
-
+                //isCreated = _userManager.CreateUser(email, dob, pw);
             }
-            return false;
-
+            catch
+            {
+                return false;
+            }
+            return isCreated;
         }
     }
 }
