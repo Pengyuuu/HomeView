@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Managers.Contracts
+namespace Services.Contracts
 {
-    public interface ILoggingManager
+    public interface ILoggingService
     {
         bool DeleteOldLog();
         Task<IEnumerable<Log>> GetLog(DateTime timeStamp);

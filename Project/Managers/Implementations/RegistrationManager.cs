@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Managers.Contracts;
 using Services.Contracts;
+using Core.User;
 
 
 namespace Managers.Implementations
@@ -87,9 +88,17 @@ namespace Managers.Implementations
             return ValidateEmail(email) == ValidatePassword(pw) == ValidateBirth(dob);
         }
 
-        public bool CreateUser(string email, string dob, string pw)
+        public bool CreateUser(string email, string birth, string pw)
         {
-            
+            if (ValidateFields(email, birth, pw))
+            {
+                User userCreate = new User();
+                userCreate.Email = email;
+                userCreate.Dob = Convert.ToDateTime(birth);
+                userCreate.Password = pw;
+                return _registrationService.CreateUser(userCreate);
+            }
+            return false;
 
         }
     }

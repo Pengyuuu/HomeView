@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Services.Contracts;
+using Core.User;
 
 namespace Services.Implementations
 {
     public class RegistrationService : IRegistrationService
     {
-        //private IUserManager _userManager;
+        private IUserService _userService;
 
         public RegistrationService()
         {
         }
 
-        public bool CreateUser(string email, string dob, string pw)
+        public bool CreateUser(User userCreate)
         {
             bool isCreated = false;
             try
             {
-                //isCreated = _userManager.CreateUser(email, dob, pw);
+                isCreated = _userService.CreateUser(userCreate);
             }
             catch
             {

@@ -6,49 +6,32 @@ using System.Threading.Tasks;
 using Core.User;
 using Core.Logging;
 using System.IO;
+using Services.Contracts;
 
 namespace Services.Implementations
 {
     public class UserService : IUserService
     {
-        //private ILoggingManager _loggingManager;
+        private ILoggingService _loggingService;
         private UserDAO _userDAO;
 
         public UserService()
         {
         }
 
-        public bool CreateUser(string email, string birth, string pw)
-        {
-            var user = new User();
-            user.Email = email;
-            user.Dob = Convert.ToDateTime(birth);
-            user.Password = pw;
-
-            if (GetUser(user.Email) is null)
-            {
-                var isCreated = _userDAO.AsyncCreateUser(user).Result;
-                if (isCreated)
-                {
-                    return true;
-                }
-            }
-            return false;
-
-        }
-
         public bool CreateUser(User userCreate)
         {
-
-            if (GetUser(userCreate.Email) is null)
+            bool isCreated = false;
+            try
             {
-                var isCreated = _userDAO.AsyncCreateUser(userCreate).Result;
-                if (isCreated)
-                {
-                    return true;
-                }
+                isCreated = _userDAO.AsyncCreateUser(userCreate).Result;
+
             }
-            return false;
+            catch
+            {
+                return false;
+            }
+            return isCreated;
 
         }
 
@@ -59,7 +42,7 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingManager.LogData(userLog);
+                _loggingService.LogData(userLog);
             }
             return fetchedUser;
         }
@@ -70,7 +53,7 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingManager.LogData(userLog);
+                _loggingService.LogData(userLog);
             }
             return fetchedUser;
         }
@@ -84,14 +67,14 @@ namespace Services.Implementations
                 {
 
                     Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingManager.LogData(userLog);
+                    _loggingService.LogData(userLog);
                 }
                 return fetchedUsers.ToList();
             }
             catch (Exception ex)
             {
                 Log userLog = new("GetAllUsers failed " + ex.Message, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingManager.LogData(userLog);
+                _loggingService.LogData(userLog);
             }
             return null;
         }
@@ -105,12 +88,12 @@ namespace Services.Implementations
                 if (isDeleted)
                 {
                     Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingManager.LogData(userLogTrue);
+                    _loggingService.LogData(userLogTrue);
                     return true;
                 }
             }
             Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-            _loggingManager.LogData(userLogFalse);
+            _loggingService.LogData(userLogFalse);
             return false;
         }
 
@@ -123,7 +106,7 @@ namespace Services.Implementations
                 if (isUpdated)
                 {
                     Log userLogSuccess = new("User: " + user.Email + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingManager.LogData(userLogSuccess);
+                    _loggingService.LogData(userLogSuccess);
                     return GetUser(user.Email);
                 }
             }
@@ -131,11 +114,11 @@ namespace Services.Implementations
             {
                 CreateUser(user);
                 Log userLogCreate = new("User: " + user.Email + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingManager.LogData(userLogCreate);
+                _loggingService.LogData(userLogCreate);
                 return user;
             }
             Log userLogFail = new("User: " + user.Email + " was unable to be modified. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-            _loggingManager.LogData(userLogFail);
+            _loggingService.LogData(userLogFail);
             return null;
 
         }
@@ -159,12 +142,12 @@ namespace Services.Implementations
                 }
 
                 userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-                _loggingManager.LogData(userLog);
+                _loggingService.LogData(userLog);
                 return "User data successfully exported to .csv file";
             }
 
             userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-            _loggingManager.LogData(userLog);
+            _loggingService.LogData(userLog);
             return "Unable to export all users.";
 
         }

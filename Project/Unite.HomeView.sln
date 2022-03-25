@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Managers", "Managers\Managers.csproj", "{48141F03-723C-4C42-A3FF-56CE03D47738}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeView-API", "HomeView-API\HomeView-API.csproj", "{7F7A20F4-F956-452A-99EF-283CB03D37A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeView-API", "HomeView-API\HomeView-API.csproj", "{7F7A20F4-F956-452A-99EF-283CB03D37A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features", "Features\Features.csproj", "{9A272470-B22B-4F4D-9131-3B489A258C95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{7F7A20F4-F956-452A-99EF-283CB03D37A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F7A20F4-F956-452A-99EF-283CB03D37A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F7A20F4-F956-452A-99EF-283CB03D37A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A272470-B22B-4F4D-9131-3B489A258C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A272470-B22B-4F4D-9131-3B489A258C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A272470-B22B-4F4D-9131-3B489A258C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A272470-B22B-4F4D-9131-3B489A258C95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

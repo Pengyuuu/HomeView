@@ -5,7 +5,6 @@ namespace Services.Contracts
 {
     public interface IUserService
     {
-        bool CreateUser(string email, string birth, string pw);
         bool CreateUser(User userCreate);
         bool DeleteUser(string email);
         User DisplayGetUser(string display);

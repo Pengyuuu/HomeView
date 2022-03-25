@@ -1,7 +1,9 @@
-﻿namespace Services.Contracts
+﻿using Core.User;
+
+namespace Services.Contracts
 {
     public interface IRegistrationService
     {
-        bool CreateUser(string email, string dob, string pw);
+        bool CreateUser(User userCreate);
     }
 }
