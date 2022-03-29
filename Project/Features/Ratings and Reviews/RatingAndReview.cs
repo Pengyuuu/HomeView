@@ -11,29 +11,43 @@ namespace Features.Ratings_and_Reviews
               
         private int _rating;
         private string _review;
+        private string _title;
 
         // User's rating for a title
         public int Rating { get; set; }
 
         // User's review for a title
         public string Review { get; set; }
+        // The given title
+        public string Title { get; set; }
 
        
         public RatingAndReview()
         {
             this.Rating = 0;
             this.Review = "";
+            this.Title = "";
         }
-        public RatingAndReview(int userRating)
+        public RatingAndReview(string selectedTitle, int userRating)
         {
             this.Rating = userRating;
             this.Review = "";
+            this.Title = selectedTitle;
         }
 
-        public RatingAndReview(string userReview)
+        public RatingAndReview(string selectedTitle, string userReview)
         {
             this.Rating = 0;
             this.Review = userReview;
+            this.Title = selectedTitle;
         }
+
+        public RatingAndReview(string selectedTitle, int userRating, string userReview)
+        {
+            this.Rating = userRating;
+            this.Review = userReview;
+            this.Title = selectedTitle;
+        }
+
     }
 }

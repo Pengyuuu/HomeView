@@ -1,0 +1,52 @@
+title Registration
+participant User
+participant "Ratings and Review Controller" as rc
+participant "Ratings and Review Manager" as rm
+participant "Ratings and Review Service" as s
+participant "Ratings and Review Data Access Object" as dao
+database database
+
+User->rc: User selects a rating and optionally \nchooses to enter a review
+activate rc
+rc->rm: validateFields(int rating, string review,\n string titleSelected)
+activate rm
+rm->rm: validate fields 
+
+group Invalid Fields Error
+rm->rc: return false (Review length exceeds 2500 char)
+rc-> User: prompts user to enter valid fields
+end
+rm-> rc: return true (valid fields)
+
+rc->rm: SubmitReview(int rating, string review,\n string titleSelected)
+
+
+rm->s: RatingReviewService()
+activate s
+
+rm->s: SubmitReview(RatingReview object)
+
+s->dao: SubmitReview(RatingReview object)
+activate dao
+dao->dao: log database access
+dao->database: SubmitReview(RatingReview object) \n(inserts into database)
+activate database
+group Database Error
+database->dao: return false
+dao-> s: return false
+s->rm:return false
+rm-> rc: return false
+rc-> User: return "Unable to submit review/rating. \nDatabase error."
+end
+database->dao: return true
+deactivate database
+
+dao->dao:log database return time
+dao->s:return true
+deactivate dao
+s->rm:return true
+deactivate s
+rm->rc:return true
+deactivate rm
+rc->User:return "Rating/Review submitted."
+deactivate rc

@@ -43,5 +43,7 @@ dao->Registration Service:return true
 deactivate dao
 Registration Service->Registration Manager:return true
 deactivate Registration Service
-Registration Manager->User:return "Email sent for confirmation."
+Registration Manager->rc:return true
 deactivate Registration Manager
+rc->User:return "Email sent for confirmation."
+deactivate rc
