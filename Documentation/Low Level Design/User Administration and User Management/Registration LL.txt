@@ -1,0 +1,47 @@
+title Registration
+participant User
+participant "Registration Controller" as rc
+participant Registration Manager
+participant Registration Service
+participant "User Data Access Object" as dao
+database database
+
+User->rc: User enters email, birthday, password
+activate rc
+rc->Registration Manager: validateFields(string email,\nDateTime birthday, string password)
+activate Registration Manager
+Registration Manager->Registration Manager: validate fields 
+
+group Invalid Fields Error
+Registration Manager->rc: return false (invalid fields)
+rc-> User: prompts user to enter valid fields
+end
+Registration Manager-> rc: return true (valid fields)
+
+rc->Registration Manager: createUser(string email,\nDateTime birthday, string password)
+
+
+Registration Manager->Registration Service: UMService()
+activate Registration Service
+
+Registration Manager->Registration Service: createUser(User object)
+
+Registration Service->dao: createUser(User object)
+activate dao
+dao->dao: log database access
+dao->database: createUser(User object)
+activate database
+database->database:verify user
+database->dao: return true (user not already in database)
+dao->database: add new user into database
+database->dao:return true
+deactivate database
+
+dao->dao:log database return time
+dao->dao:log account creation date/time
+dao->Registration Service:return true
+deactivate dao
+Registration Service->Registration Manager:return true
+deactivate Registration Service
+Registration Manager->User:return "Email sent for confirmation."
+deactivate Registration Manager
