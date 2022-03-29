@@ -1,6 +1,7 @@
 using Xunit;
 using System;
 using Core.User;
+using Managers.Contracts;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace UMTests
          
         static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
         static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Test\\UMBulkOp.csv"));
-
+        IUserManager userManager;
 
 
         [Fact]
@@ -20,12 +21,11 @@ namespace UMTests
         {
             User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank", Role.User);
 
-            UserManager userManager = new UserManager();
 
             // delete user first in case it already exists
             userManager.DeleteUser(newUser.Email);
 
-            userManager.CreateUser(newUser);
+            userManager.CreateUser("HankHill@yahoo.com", "2011, 6, 10", "Password1234!" );
 
             String actual = userManager.GetUser(newUser.Email).Email;
 
@@ -43,9 +43,8 @@ namespace UMTests
 
             User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace");
 
-            UserManager userManager = new UserManager();
 
-            bool actual = userManager.CreateUser(existingUser);
+            bool actual = userManager.CreateUser("mWallace@pulp.com", "200-12-12", "iL0vem1@12345");
 
             Assert.Equal(expected, actual);
         }
@@ -59,7 +58,6 @@ namespace UMTests
             int failedInsert = 0;
             string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 
-            UserManager userManager = new UserManager();
 
             string actual = userManager.DoBulkOp(filepath);
 
@@ -71,9 +69,8 @@ namespace UMTests
         public void UserManager_Demo()
         {
 
-            UserManager userManager = new UserManager();
 
-            userManager.CreateUser(new User("firsasdft", "last", "emai23423l@me.com", "pwajsh23@#4", DateTime.Now, "supername"));
+            userManager.CreateUser("emai23423l@me.com","2020-03-09", "pwajsh23@#4");
 
         }
 
@@ -83,7 +80,6 @@ namespace UMTests
 
             string expected = "User data successfully exported to .csv file";
 
-            UserManager userManager = new UserManager();
 
             string actual = userManager.ExportAllUsers();
 
@@ -95,7 +91,6 @@ namespace UMTests
         public void UserManager_GetAllUsers()   // needs all users inside first to get expected
         {
 
-            UserManager userManager = new UserManager();
 
             List<User> actual = userManager.GetAllUsers();
 
@@ -108,7 +103,6 @@ namespace UMTests
 
             string expected = "Hill";
 
-            UserManager userManager = new UserManager();
 
             User actual = userManager.GetUser("HankHill@yahoo.com");
 
@@ -123,9 +117,8 @@ namespace UMTests
 
             User newUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
 
-            UserManager userManager = new UserManager();
 
-            userManager.CreateUser(newUser);
+            userManager.CreateUser("hLin@balls.com", "2000-12-12", "dogsRcool1234!");
 
             bool actual = userManager.DeleteUser(newUser.Email);
 
@@ -139,7 +132,6 @@ namespace UMTests
 
             User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
 
-            UserManager userManager = new UserManager();
 
             // delete twice just in case
             userManager.DeleteUser(nonExistingUser.Email);
