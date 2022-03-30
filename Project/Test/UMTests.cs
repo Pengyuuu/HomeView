@@ -5,6 +5,7 @@ using Managers.Contracts;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using Managers.Implementations;
 
 namespace UMTests
 {
@@ -13,7 +14,7 @@ namespace UMTests
          
         static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
         static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Test\\UMBulkOp.csv"));
-        IUserManager userManager;
+        IUserManager userManager = new UserManager();
 
 
         [Fact]
