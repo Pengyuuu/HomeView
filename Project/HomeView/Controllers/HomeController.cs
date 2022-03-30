@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HomeView.Models;
 using Core.User;
+using Managers.Contracts;
 
 namespace HomeView.Controllers
 {
@@ -29,7 +30,7 @@ namespace HomeView.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var userManager = new UserManager();
+                    IUserManager userManager = null;
                     var userInfo = userManager.GetUser(homeM._userEmail);
                     if (userInfo.Role == Role.Admin)
                     {

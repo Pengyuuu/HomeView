@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Logging;
+using Services.Contracts;
 
 namespace Services.Implementations
 {

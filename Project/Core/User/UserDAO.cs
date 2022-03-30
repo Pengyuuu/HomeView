@@ -11,6 +11,11 @@ namespace Core.User
 
         private readonly SqlDataAccess _db;
 
+        public UserDAO()
+        {
+            _db = new SqlDataAccess();
+        }
+
         public UserDAO(SqlDataAccess db)
         {
             _db = db;

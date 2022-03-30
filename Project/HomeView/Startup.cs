@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Managers.Contracts;
 
 namespace HomeView
 {
@@ -24,8 +25,8 @@ namespace HomeView
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<Core.User.IUserManager, Core.User.UserManager>();
-            services.AddSingleton<Core.Logging.ILoggingManager, Core.Logging.LoggingManager>();
+            services.AddSingleton<Managers.Contracts.IUserManager, Managers.Implementations.UserManager>();
+            services.AddSingleton<Managers.Contracts.ILoggingManager, Managers.Implementations.LoggingManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

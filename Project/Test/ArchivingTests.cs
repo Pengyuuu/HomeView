@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Archive;
+using Core.Archive;
+using Managers.Contracts;
+using Services.Contracts;
 
 
 namespace ArchivingTesting
@@ -15,8 +17,10 @@ namespace ArchivingTesting
         public void ArchivingManager_Send()
         {
             bool expected = true;
-            Archived test = new Archived();
-            bool actual = test.ArchiveLog();
+            //Archived test = new Archived();
+            //bool actual = test.ArchiveLog();
+            IArchivingService archivingService = null;
+            bool actual = archivingService.ArchiveLog();
             Assert.Equal(expected, actual);
         }
     }

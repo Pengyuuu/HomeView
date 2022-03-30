@@ -7,6 +7,7 @@ using Core.User;
 using Core.Logging;
 using System.IO;
 using Services.Contracts;
+using Services.Implementations;
 
 namespace Services.Implementations
 {
@@ -17,6 +18,8 @@ namespace Services.Implementations
 
         public UserService()
         {
+            _loggingService = new LoggingService();
+            _userDAO = new UserDAO();
         }
 
         public bool CreateUser(User userCreate)

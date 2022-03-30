@@ -8,7 +8,7 @@ using System.IO.Compression;
 
 namespace Core.Archive
 {
-    class ArchivingDAO
+    public class ArchivingDAO
     {
         private static ArchivingDAO _instance;
         private string _filePath;

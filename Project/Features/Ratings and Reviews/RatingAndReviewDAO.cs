@@ -93,7 +93,8 @@ namespace Features.Ratings_and_Reviews
         {
             var user = new
             {
-                email = email
+                deleteRatingReview.Username,
+                deleteRatingReview.Title
             };
             try
             {

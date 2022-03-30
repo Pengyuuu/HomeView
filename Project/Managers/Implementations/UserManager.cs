@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
+using Services.Implementations;
 
 
 
@@ -15,16 +16,18 @@ namespace Managers.Implementations
     public class UserManager : IUserManager
     {
         private IUserService _userService;
+        
 
         public UserManager()
         {
+            _userService = new UserService();
         }
 
-        public bool CreateUser(string email, string birth, string pw)
+        public bool CreateUser(string email, DateTime birth, string pw)
         {
             var user = new User();
             user.Email = email;
-            user.Dob = Convert.ToDateTime(birth);
+            user.Dob = birth;
             user.Password = pw;
 
             if (GetUser(user.Email) is null)

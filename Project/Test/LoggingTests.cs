@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Core.Logging;
+using Managers.Contracts;
 
 namespace LoggingTests
 {
@@ -13,6 +14,7 @@ namespace LoggingTests
     {
 
         private Log testLog = new("5:40 New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
+        private ILoggingManager logManager;
 
         [Fact]
         public void LoggingManager_getLogShouldReturnLogFromTable()
@@ -21,7 +23,6 @@ namespace LoggingTests
             Log actual = testLog;
 
             //act
-            LoggingManager logManager = new LoggingManager();
             logManager.LogData(testLog);
             actual = (Log) logManager.GetLog(384);
 
@@ -36,11 +37,10 @@ namespace LoggingTests
 
             bool want = true;
 
-            LoggingManager lm = new LoggingManager();
 
-            lm.LogData(testLog);
+            logManager.LogData(testLog);
 
-            var retrievedLog = lm.GetLog(testLog.timeStamp).Result;
+            var retrievedLog = logManager.GetLog(testLog.timeStamp).Result;
 
             var result = testLog.timeStamp;
 
@@ -59,11 +59,10 @@ namespace LoggingTests
         [Fact]
         public void LoggingDAO_DeleteOldLogsShouldDeleteMonthOldLogs()
         {
-            LoggingManager lm = new LoggingManager();
 
             bool expected = true;
 
-            bool actual = lm.DeleteOldLog();
+            bool actual = logManager.DeleteOldLog();
 
             Assert.Equal(expected, actual);
         }

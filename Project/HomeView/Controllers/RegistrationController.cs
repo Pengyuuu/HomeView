@@ -4,6 +4,7 @@ using Core.User;
 using System.Net.Mail;
 using System.Net;
 using System;
+using Managers.Contracts;
 
 namespace HomeView.Controllers
 {
@@ -35,7 +36,9 @@ namespace HomeView.Controllers
                         regModel._userDob,
                         null);
                     u.Token = Guid.NewGuid().ToString();
-                    _userManager.CreateUser(u);
+                    _userManager.CreateUser(regModel._userEmail,
+                        regModel._userDob,
+                        regModel._userPass);
                     if (!SendConfirmationEmail(u))
                     {
                         return View("EmailSent");

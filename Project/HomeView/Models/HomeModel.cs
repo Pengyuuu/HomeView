@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.User;
 using HomeView.Utilities;
+using Managers.Contracts;
 
 namespace HomeView.Models
 {
@@ -18,7 +19,7 @@ namespace HomeView.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            UserManager userMan = new UserManager();
+            IUserManager userMan = null;
             
             var retrievedUser = userMan.GetUser(_userEmail);
             if ((retrievedUser == null) || (retrievedUser.Password != _userPass))
