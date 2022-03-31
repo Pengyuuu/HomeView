@@ -27,8 +27,15 @@ namespace UMTests
             //userManager.DeleteUser(newUser.Email);
 
             bool isCreated = userManager.CreateUser("HankHill@yahoo.com", new DateTime(2011, 6, 10), "Password1234!" );
-
-            String actual = userManager.GetUser(newUser.Email).Email;
+            string actual = "";
+            try
+            {
+                actual = userManager.GetUser(newUser.Email).Email;
+            }
+            catch
+            {
+                actual = "null";
+            }
 
             String expected = newUser.Email;
 
@@ -90,7 +97,6 @@ namespace UMTests
         [Fact]
         public void UserManager_GetAllUsers()   // needs all users inside first to get expected
         {
-
 
             List<User> actual = userManager.GetAllUsers();
 
