@@ -27,7 +27,7 @@ namespace Data
 			{
 				//return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 
-				return await conn.QueryAsync<T>("Users_CreateUser ?firstName?,?lastName?,?email?,?password?,?dob?,?dispName?,?status?,?regDate?,?role?,?token?", parameters, commandType: CommandType.StoredProcedure);
+				return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 			}
 		}
 
