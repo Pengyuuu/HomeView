@@ -27,13 +27,7 @@ export default function Login() {
                             <Button className="w-100" type="submit" onclick={login()}>
                         Log In
                           </Button>
-                          <p id="error">
-                              Login error
-                          </p>
-
-                          <p id="success">
-                              Login success
-                          </p>
+                          
                     </Form>
                   </Card.Body>
             </Card>
@@ -48,6 +42,7 @@ export default function Login() {
 
 function login() {
     // call backend
+    /*
     var username = document.querySelector("input[type='username']").value;
     var password = document.querySelector("input[type='password']").value;
 
@@ -75,4 +70,5 @@ function login() {
 
         return false;
     }
+    */
 }

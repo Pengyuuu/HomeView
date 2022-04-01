@@ -46,7 +46,7 @@ export default function Register() {
 
 function register() {
     // call c# backend
-
+    /*
     var successMessage = document.getElementById("success");
     var errorMessage = document.getElementById("error");
 
@@ -85,4 +85,5 @@ function register() {
             $("#divResult").html("Something Wrong.");
         }
     });
+    */
 }
