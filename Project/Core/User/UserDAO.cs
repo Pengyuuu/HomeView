@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Data;
-using System;
-using Dapper;
+//using System;
 
 namespace Core.User
 {
@@ -24,7 +23,7 @@ namespace Core.User
 
         public async Task<bool> AsyncCreateUser(User user)
         {
-            /**
+            
             var person = new
             {
                 firstName = user.FirstName,
@@ -33,27 +32,14 @@ namespace Core.User
                 password = user.Password,
                 dob = user.Dob,
                 dispName = user.Email,
-                status = 0,                             
-                regDate = DateTime.Now,
+                status = 0,                                            
                 role = (int)user.Role,
                 token = user.Token
-            };**/
-            var p = new DynamicParameters();
-            p.Add("?firstName?", user.FirstName);
-            p.Add("?lastName?", user.LastName);
-            p.Add("?email?", user.Email);
-            p.Add("?password?", user.Password);
-            p.Add("?dob?", user.Dob);
-            p.Add("?dispName?", user.DispName);
-            p.Add("?status?", user.Status);
-            p.Add("?regDate?", user.RegDate);
-            p.Add("?role?", Convert.ToInt32(user.Role));
-            p.Add("?token?", "");
-
+            };
 
             try
             {
-                await _db.SaveData("Users_CreateUser", p);               
+                await _db.SaveData("dbo.CreateUser", person);               
             }
             catch
             {
@@ -78,7 +64,7 @@ namespace Core.User
             };
             try
             {
-                await _db.SaveData("Users_UpdateUser", person);               
+                await _db.SaveData("dbo.UpdateUser", person);               
             }
             catch
             {
@@ -95,7 +81,7 @@ namespace Core.User
             };
             try
             {
-                var results = await _db.LoadData<User, dynamic>("Users_Email_GetUser", user);
+                var results = await _db.LoadData<User, dynamic>("dbo.ReadUser", user);
                 return results.FirstOrDefault();
 
             }
@@ -109,7 +95,7 @@ namespace Core.User
         {
             try
             {
-                var results = await _db.LoadData<User, dynamic>("Users_DisplayName_GetUser", new { dispName = display });
+                var results = await _db.LoadData<User, dynamic>("dbo.DisplayGetUser", new { dispName = display });
                 return results.FirstOrDefault();
             }
             catch
@@ -122,7 +108,7 @@ namespace Core.User
         {
             try
             {
-                return await _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers ?", new { });
+                return await _db.LoadData<User, dynamic>("dbo.GetAllUsers", new { });
             }
             catch
             {
@@ -138,7 +124,7 @@ namespace Core.User
             };
             try
             {
-                await _db.SaveData("Users_DeleteUser", user);
+                await _db.SaveData("dbo.DeleteUser", user);
                 return true;
             }
             catch

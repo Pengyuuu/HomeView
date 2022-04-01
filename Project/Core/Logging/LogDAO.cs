@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+//using System.Data;
+//using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Data;
 using System.Linq;
@@ -37,7 +37,7 @@ namespace Core.Logging
 
             try
             {
-                results = _db.LoadData<Log, dynamic>("dbo.GetOldLogs", "");
+                results = _db.LoadData<Log, dynamic>("dbo.GetOldLog", "");
             }
             catch (Exception e)
             {
