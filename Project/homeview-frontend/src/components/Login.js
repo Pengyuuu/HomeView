@@ -8,39 +8,37 @@ export default function Login() {
     const passwordRef = useRef()
 
     return (
-      <div className='background-Homeview'>
-          <div className='card-center'>
-              <Card>
-                  <Card.Body>
-                    <h2 className="text-center mb-4"> Log In</h2>
-          
-                    <Form>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref = {emailRef} required></Form.Control>
-                          </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" ref = {passwordRef} required></Form.Control>
-                          </Form.Group>
-                          <br></br>
-                            <Button className="w-100" type="submit" onclick={login()}>
-                        Log In
-                          </Button>
-                          
-                    </Form>
-                  </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2 extraInfo">
-            Need an account? <Link to ="/register">Sign Up</Link>
-                  </div>
-          </div>
-    </div>
-  )
+        <div className='background-Homeview'>
+            <div className='card-center'>
+                <Card>
+                    <Card.Body>
+                        <h2 className="text-center mb-4"> Log In</h2>
+                        <Form>
+                            <Form.Group id="email">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" ref={emailRef} required></Form.Control>
+                            </Form.Group>
+                            <Form.Group id="password">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" ref={passwordRef} required></Form.Control>
+                            </Form.Group>
+                            <br></br>
+                            <Button className="w-100" type="submit" onclick={loginUser()}>
+                                Log In
+                            </Button>
+                        </Form>
+                    </Card.Body>
+                </Card>
+                <div className="w-100 text-center mt-2 extraInfo">
+                    Need an account? <Link to="/register">Sign Up</Link>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 
-function login() {
+function loginUser() {
     // call backend
     /*
     var username = document.querySelector("input[type='username']").value;
