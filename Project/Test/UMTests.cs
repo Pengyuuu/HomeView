@@ -20,24 +20,25 @@ namespace UMTests
         [Fact]
         public void UserManager_CreateUserShouldCreateNewUser()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank", Role.User);
-
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank");
+            string email = newUser.Email;
 
             // delete user first in case it already exists
-            //userManager.DeleteUser(newUser.Email);
+            bool isDeleted = userManager.DeleteUser(newUser.Email);
+
 
             bool isCreated = userManager.CreateUser("HankHill@yahoo.com", new DateTime(2011, 6, 10), "Password1234!" );
             string actual = "";
             try
             {
-                actual = userManager.GetUser(newUser.Email).Email;
+                User result = userManager.GetUser(newUser.Email);
+                actual = result.Email;
             }
             catch
             {
                 actual = "null";
             }
-
-            String expected = newUser.Email;
+            string expected = newUser.Email;
 
             Assert.Equal(expected, actual);
 
@@ -52,7 +53,7 @@ namespace UMTests
             User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace");
 
 
-            bool actual = userManager.CreateUser("mWallace@pulp.com", new DateTime(2000-12-12), "iL0vem1@12345");
+            bool actual = userManager.CreateUser("mWallace@pulp.com", new DateTime(2000,12,12), "iL0vem1@12345");
 
             Assert.Equal(expected, actual);
         }
@@ -77,7 +78,7 @@ namespace UMTests
         {
 
 
-            userManager.CreateUser("emai23423l@me.com",new DateTime(2020-03-09), "pwajsh23@#4");
+            userManager.CreateUser("emai23423l@me.com",new DateTime(2020,03,09), "pwajsh23@#4");
 
         }
 
@@ -103,7 +104,7 @@ namespace UMTests
             Assert.True(actual.Any());
         }
 
-        [Fact]
+        
         public void UserManager_GetUser()   // needs all users inside first to get expected
         {
 
@@ -124,7 +125,7 @@ namespace UMTests
             User newUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
 
 
-            userManager.CreateUser("hLin@balls.com", new DateTime(2000-12-12), "dogsRcool1234!");
+            bool isCreated = userManager.CreateUser("hLin@balls.com", new DateTime(2000,12,12), "dogsRcool1234!");
 
             bool actual = userManager.DeleteUser(newUser.Email);
 

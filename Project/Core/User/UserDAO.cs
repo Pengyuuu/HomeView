@@ -39,7 +39,7 @@ namespace Core.User
 
             try
             {
-                await _db.SaveData("dbo.CreateUser", person);               
+                await _db.SaveData("dbo.Users_CreateUser", person);               
             }
             catch
             {
@@ -64,7 +64,7 @@ namespace Core.User
             };
             try
             {
-                await _db.SaveData("dbo.UpdateUser", person);               
+                await _db.SaveData("dbo.Users_UpdateUser", person);               
             }
             catch
             {
@@ -81,7 +81,7 @@ namespace Core.User
             };
             try
             {
-                var results = await _db.LoadData<User, dynamic>("dbo.ReadUser", user);
+                var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);
                 return results.FirstOrDefault();
 
             }
@@ -95,7 +95,7 @@ namespace Core.User
         {
             try
             {
-                var results = await _db.LoadData<User, dynamic>("dbo.DisplayGetUser", new { dispName = display });
+                var results = await _db.LoadData<User, dynamic>("dbo.Users_DisplayGetUser", new { dispName = display });
                 return results.FirstOrDefault();
             }
             catch
@@ -108,7 +108,7 @@ namespace Core.User
         {
             try
             {
-                return await _db.LoadData<User, dynamic>("dbo.GetAllUsers", new { });
+                return await _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers", new { });
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace Core.User
             };
             try
             {
-                await _db.SaveData("dbo.DeleteUser", user);
+                await _db.SaveData("dbo.Users_DeleteUser", user);
                 return true;
             }
             catch
