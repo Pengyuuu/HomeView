@@ -12,7 +12,7 @@ namespace Features.Ratings_and_Reviews
         private int _rating;
         private string _review;
         private string _title;
-        private string _username;
+        private string _dispName;
 
         // User's rating for a title
         public int Rating { get; set; }
@@ -21,7 +21,7 @@ namespace Features.Ratings_and_Reviews
         public string Review { get; set; }
         // The given title
         public string Title { get; set; }
-        public string Username { get; set; }
+        public string DispName { get; set; }
 
        
         public RatingAndReview()
@@ -29,30 +29,30 @@ namespace Features.Ratings_and_Reviews
             this.Rating = 0;
             this.Review = "";
             this.Title = "";
-            this.Username = "";
+            this.DispName = "";
         }
-        public RatingAndReview(string userName, string selectedTitle, int userRating)
+        public RatingAndReview(string dispName, string selectedTitle, int userRating)
         {
             this.Rating = userRating;
             this.Review = "";
             this.Title = selectedTitle;
-            this.Username = userName;
+            this.DispName = dispName;
         }
 
-        public RatingAndReview(string userName, string selectedTitle, string userReview)
+        public RatingAndReview(string dispName, string selectedTitle, string userReview)
         {
             this.Rating = 0;
             this.Review = userReview;
             this.Title = selectedTitle;
-            this.Username = userName;
+            this.DispName = dispName;
         }
 
-        public RatingAndReview(string userName, string selectedTitle, int userRating, string userReview)
+        public RatingAndReview(string dispName, string selectedTitle, int userRating, string userReview)
         {
             this.Rating = userRating;
             this.Review = userReview;
             this.Title = selectedTitle;
-            this.Username = userName;
+            this.DispName = dispName;
         }
 
     }

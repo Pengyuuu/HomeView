@@ -45,13 +45,26 @@ namespace Managers.Implementations
 
         }
 
-        public bool SubmitReviewRating(string username, string titleSelected, int uRating, string uReview)
+        public bool SubmitReviewRating(string dispName, string titleSelected, int uRating, string uReview)
         {
             try
             {
 
-                RatingAndReview userReview = new RatingAndReview(username, titleSelected, uRating, uReview);
+                RatingAndReview userReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
                 return _ratingAndReviewService.CreateRatingReview(userReview);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteReviewRating(string dispName, string titleSelected)
+        {
+            try
+            {
+
+                return _ratingAndReviewService.DeleteRatingReview(dispName, titleSelected);
             }
             catch
             {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Features.Ratings_and_Reviews;
 using Services.Contracts;
+using Core.Logging;
 
 namespace Services.Implementations
 {
@@ -37,44 +38,55 @@ namespace Services.Implementations
         public bool UpdateRatingReview(RatingAndReview userRatingAndReview)
         {
 
-            bool isCreated = false;
+            bool isUpdated = false;
             try
             {
-                isCreated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
+                isUpdated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
             }
             catch
             {
                 return false;
             }
-            return isCreated;
+            return isUpdated;
 
         }
 
-        public RatingAndReview GetRatingReview(string userEmail)
+        public RatingAndReview GetRatingReview(string dispName, string titleSelected)
         {
+            RatingAndReview fetchRatingReview = new();
 
-            RatingAndReview fetchRatingReview = new RatingAndReview();
-
-            fetchRatingReview = _rrDAO.AsyncGetRatingReview(userEmail).Result;
+            fetchRatingReview = _rrDAO.AsyncGetUserTitleRatingsReviews(dispName, titleSelected).Result;
 
 
             return fetchRatingReview;
 
         }
 
-        public bool DeleteRatingReview(RatingAndReview userRatingAndReview)
+        public bool DeleteRatingReview(string dispName, string titleSelected)
         {
+            RatingAndReview userTitleReview = GetRatingReview(dispName, titleSelected);
+            bool isDeleted = false;
 
-            bool isCreated = false;
-            try
+            if (userTitleReview is not null)
             {
-                isCreated = _rrDAO.AsyncDeleteRatingReview(userRatingAndReview).Result;
+                try
+                {
+                    isDeleted = _rrDAO.AsyncDeleteRatingReview(dispName, titleSelected).Result;
+                    if (isDeleted)
+                    {
+                        Log reviewLogTrue = new("Review successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                        _loggingService.LogData(reviewLogTrue);
+                        return true;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            catch
-            {
-                return false;
-            }
-            return isCreated;
+            Log reviewLogFalse = new("Unsuccessful delete review.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+            _loggingService.LogData(reviewLogFalse);
+            return isDeleted;
 
         }
 

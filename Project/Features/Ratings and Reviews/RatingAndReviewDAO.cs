@@ -21,13 +21,15 @@ namespace Features.Ratings_and_Reviews
         {
             var ratingReview = new
             {
+                dispName = userRatingReview.DispName,
+                title = userRatingReview.Title,          
                 rate = userRatingReview.Rating,
                 review = userRatingReview.Review,
                
             };
             try
             {
-                await _db.SaveData("dbo.RatingAndReview_CreateRatingReview", userRatingReview);
+                await _db.SaveData("dbo.RatingReviews_CreateRatingReview", userRatingReview);
             }
             catch
             {
@@ -40,13 +42,15 @@ namespace Features.Ratings_and_Reviews
         {
             var newRatingReview = new
             {
-                newRate = userRatingReview.Rating,
-                newReview = userRatingReview.Review,
+                dispName = userRatingReview.DispName,
+                title = userRatingReview.Title,
+                rate = userRatingReview.Rating,
+                review = userRatingReview.Review,
 
             };
             try
             {
-                await _db.SaveData("dbo.RatingAndReview_UpdateRatingReview", newRatingReview);
+                await _db.SaveData("dbo.RatingReviews_UpdateRatingReview", newRatingReview);
             }
             catch
             {
@@ -55,18 +59,16 @@ namespace Features.Ratings_and_Reviews
             return true;
         }
 
-        // need to fix
-        public async Task<RatingAndReview?> AsyncGetRatingReview(string email)
+        public async Task<IEnumerable<RatingAndReview>> AsyncGetUsersRatingReviews(string inputDispName)
         {
-            var fetchRatingReview = new
+            var fetchUserReviews = new
             {
-                userEmail = email
+                dispName = inputDispName
 
             };
             try
             {
-                var results = await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingAndReview_GetRatingReview", fetchRatingReview);
-                return results.FirstOrDefault();
+                return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadUserRatingReview", fetchUserReviews);
 
             }
             catch
@@ -75,12 +77,17 @@ namespace Features.Ratings_and_Reviews
             }
         }
 
-        // need to fix
-        public async Task<IEnumerable<RatingAndReview>> AsyncGetAllRatingsReviews()
+        public async Task<IEnumerable<RatingAndReview>> AsyncGetTitlesRatingsReviews(string inputtedTitle)
         {
+
+            var fetchTitlesRatingReview = new
+            {
+                title = inputtedTitle
+
+            };
             try
             {
-                return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingAndReview_GetAllRatingReview", new { });
+                return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadTitleRatingReview", fetchTitlesRatingReview);
             }
             catch
             {
@@ -88,17 +95,36 @@ namespace Features.Ratings_and_Reviews
             }
         }
 
-        // need to fix
-        public async Task<bool> AsyncDeleteRatingReview(RatingAndReview deleteRatingReview)
+        public async Task<RatingAndReview?> AsyncGetUserTitleRatingsReviews(string inputName, string inputTitle)
         {
-            var user = new
+
+            var fetchUserTitleRatingReview = new
             {
-                deleteRatingReview.Username,
-                deleteRatingReview.Title
+                dispName = inputName,
+                title = inputTitle
+
             };
             try
             {
-                await _db.SaveData("dbo.RatingAndReview_CreateRatingReview", user);
+                var result =  await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadTitleRatingReview", fetchUserTitleRatingReview);
+                return result.FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> AsyncDeleteRatingReview(string inputName, string titleSelected)
+        {
+            var deleteReview = new
+            {
+                dispName = inputName,
+                title = titleSelected
+            };
+            try
+            {
+                await _db.SaveData("dbo.RatingReviews_DeleteRatingReview", deleteReview);
                 return true;
             }
             catch

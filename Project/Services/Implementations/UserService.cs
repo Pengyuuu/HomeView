@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Core.User;
 using Core.Logging;
 using System.IO;
 using Services.Contracts;
-using Services.Implementations;
 
 namespace Services.Implementations
 {
