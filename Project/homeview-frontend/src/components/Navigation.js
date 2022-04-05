@@ -5,8 +5,10 @@ import '../css/App.css'
 
 export class Navigation extends Component{
   render() {
-    return(
-        <div className='background-Homeview'>
+      return (
+        <div>
+              <div className='background-Homeview'></div>
+              <div className ='top'>
         <Navbar bg="dark" expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
@@ -28,7 +30,8 @@ export class Navigation extends Component{
             </NavLink>
             </Nav>
             </Navbar.Collapse>
-        </Navbar>
+                  </Navbar>
+                  </div>
         </div>
     )
   } 
