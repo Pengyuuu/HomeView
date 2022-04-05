@@ -10,7 +10,8 @@ export default function register() {
     return (
 
         <>
-            <div className='background-Homeview'>
+            <div>
+            <div className='background-Homeview'></div>
                 <div className='card-center'>
                     <Card>
                         <Card.Body>
