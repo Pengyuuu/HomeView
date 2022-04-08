@@ -19,7 +19,7 @@ namespace Managers.Implementations
 
         }
 
-        // Checks valid review fields (reviews are optional when making a rating; making a review requires a rating)
+        // Checks valid review fields
         public bool CheckReviewFields(string titleSelected, int uRating, string uReview)
         {
 

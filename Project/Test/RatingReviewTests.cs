@@ -14,10 +14,10 @@ namespace RatingReviewTests
     {
 
         private RatingAndReview testReview = new();
-        private  logManager;
+        private IR;
 
         [Fact]
-        public void LoggingManager_getLogShouldReturnLogFromTable()
+        public void RatingReviewManager_getReviewShouldReturnReviewFromTable()
         {
             // arrange
             Log actual = testLog;
@@ -31,7 +31,7 @@ namespace RatingReviewTests
         }
 
         [Fact]
-        public void LoggingManager_logDataShouldCreateLoggingTableEntry()
+        public void RatingReviewManager_SubmitReviewShouldCreateReviewTableEntry()
         {
             bool expected = true;
 
@@ -57,7 +57,7 @@ namespace RatingReviewTests
         }
 
         [Fact]
-        public void LoggingDAO_DeleteOldLogsShouldDeleteMonthOldLogs()
+        public void RatingReviewManager_DeleteReviewShouldDeleteReviewTableEntry()
         {
 
             bool expected = true;
