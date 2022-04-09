@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Managers.Contracts;
 using Services.Contracts;
 using Features.Ratings_and_Reviews;
+using Services.Implementations;
 
 namespace Managers.Implementations
 {
@@ -16,7 +17,7 @@ namespace Managers.Implementations
 
         public RatingAndReviewManager()
         {
-
+            this._ratingAndReviewService = new RatingAndReviewService();
         }
 
         // Checks valid review fields
@@ -71,5 +72,20 @@ namespace Managers.Implementations
                 return false;
             }
         }
+
+        public bool UpdateReviewRating(RatingAndReview updatedReview)
+        {
+            RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updatedReview.DispName, updatedReview.Title);
+            _ratingAndReviewService.GetRatingReview(updatedReview.DispName);
+
+        }
+
+        public bool ReadReviewRating(RatingAndReview updatedReview)
+        {
+            RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updatedReview.DispName, updatedReview.Title);
+            _ratingAndReviewService.GetRatingReview(updatedReview.DispName);
+
+        }
+
     }
 }
