@@ -50,22 +50,28 @@ namespace Managers.Implementations
         {
             try
             {
-
                 RatingAndReview userReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
-                return _ratingAndReviewService.CreateRatingReview(userReview);
+                bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
+                if (isValidReview)
+                {
+                    return _ratingAndReviewService.CreateRatingReview(userReview);
+                }
             }
             catch
             {
                 return false;
             }
+            return false;
         }
 
         public bool DeleteReviewRating(string dispName, string titleSelected)
         {
             try
             {
-
-                return _ratingAndReviewService.DeleteRatingReview(dispName, titleSelected);
+                RatingAndReview deleteReview = new RatingAndReview();
+                deleteReview.DispName = dispName;
+                deleteReview.Title = titleSelected;
+                return _ratingAndReviewService.DeleteRatingReview(deleteReview);
             }
             catch
             {
@@ -73,18 +79,41 @@ namespace Managers.Implementations
             }
         }
 
-        public bool UpdateReviewRating(RatingAndReview updatedReview)
+        public bool UpdateReviewRating(string dispName, string titleSelected, int uRating, string uReview)
         {
-            RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updatedReview.DispName, updatedReview.Title);
-            _ratingAndReviewService.GetRatingReview(updatedReview.DispName);
+            RatingAndReview updateReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
+            bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
+            RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updateReview).FirstOrDefault();
+            if (oldReview is not null && (isValidReview))
+            {
+                return _ratingAndReviewService.UpdateRatingReview(updateReview);
+            }
+
+            return false;
 
         }
 
-        public bool ReadReviewRating(RatingAndReview updatedReview)
+        public RatingAndReview GetSpecificReviewRating(string dispName, string selectedTitle)
         {
-            RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updatedReview.DispName, updatedReview.Title);
-            _ratingAndReviewService.GetRatingReview(updatedReview.DispName);
+            RatingAndReview specificReview = new RatingAndReview();
+            specificReview.DispName = dispName;
+            specificReview.Title = selectedTitle;
+            return _ratingAndReviewService.GetRatingReview(specificReview).FirstOrDefault();
+                  
+        }
 
+        public IEnumerable<RatingAndReview> GetTitleReviewRating(string selectedTitle)
+        {
+            RatingAndReview titleReviews = new RatingAndReview();
+            titleReviews.Title = selectedTitle;
+            return _ratingAndReviewService.GetRatingReview(titleReviews);
+        }
+
+        public IEnumerable<RatingAndReview> GetUserReviewRating(string dispName)
+        {
+            RatingAndReview userReviews = new RatingAndReview();
+            userReviews.DispName = dispName;
+            return _ratingAndReviewService.GetRatingReview(userReviews);
         }
 
     }

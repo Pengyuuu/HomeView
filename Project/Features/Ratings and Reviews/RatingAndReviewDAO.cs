@@ -59,68 +59,77 @@ namespace Features.Ratings_and_Reviews
             return true;
         }
 
-        public async Task<IEnumerable<RatingAndReview>> AsyncGetUsersRatingReviews(string inputDispName)
+
+        public async Task<IEnumerable<RatingAndReview>> AsyncGetRatingReviews(RatingAndReview fetchReview)
         {
-            var fetchUserReviews = new
+            // fetch a user's list of reviews
+            if ((fetchReview.DispName is not null) && (fetchReview.Title is null))
             {
-                dispName = inputDispName
+                var fetchUserReviews = new
+                {
+                    dispName = fetchReview.DispName
 
-            };
-            try
-            {
-                return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadUserRatingReview", fetchUserReviews);
+                };
+                try
+                {
+                    return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadUserRatingReview", fetchUserReviews);
 
+                }
+                catch
+                {
+                    return null;
+                }
             }
-            catch
+
+            // fetch a title's list of reviews
+            else if ((fetchReview.Title is not null) && (fetchReview.DispName is null))
+            {
+                var fetchTitlesRatingReview = new
+                {
+                    title = fetchReview.Title
+
+                };
+                try
+                {
+                    return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadTitleRatingReview", fetchTitlesRatingReview);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            // fetch a user's review for a specific title
+            else if ((fetchReview.Title is not null) && (fetchReview.DispName is not null))
+            {
+                var fetchUserTitleRatingReview = new
+                {
+                    dispName = fetchReview.DispName,
+                    title = fetchReview.Title
+
+                };
+                try
+                {
+                    return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadTitleRatingReview", fetchUserTitleRatingReview);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            else
             {
                 return null;
             }
         }
 
-        public async Task<IEnumerable<RatingAndReview>> AsyncGetTitlesRatingsReviews(string inputtedTitle)
-        {
-
-            var fetchTitlesRatingReview = new
-            {
-                title = inputtedTitle
-
-            };
-            try
-            {
-                return await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadTitleRatingReview", fetchTitlesRatingReview);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<RatingAndReview?> AsyncGetUserTitleRatingsReviews(string inputName, string inputTitle)
-        {
-
-            var fetchUserTitleRatingReview = new
-            {
-                dispName = inputName,
-                title = inputTitle
-
-            };
-            try
-            {
-                var result =  await _db.LoadData<RatingAndReview, dynamic>("dbo.RatingReviews_ReadTitleRatingReview", fetchUserTitleRatingReview);
-                return result.FirstOrDefault();
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public async Task<bool> AsyncDeleteRatingReview(string inputName, string titleSelected)
+        public async Task<bool> AsyncDeleteRatingReview(RatingAndReview selectedReview)
         {
             var deleteReview = new
             {
-                dispName = inputName,
-                title = titleSelected
+                dispName = selectedReview.DispName,
+                title = selectedReview.Title
             };
             try
             {

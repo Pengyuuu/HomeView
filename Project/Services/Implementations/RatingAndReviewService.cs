@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Features.Ratings_and_Reviews;
 using Services.Contracts;
 using Core.Logging;
@@ -26,9 +24,13 @@ namespace Services.Implementations
             try
             {
                 isCreated = _rrDAO.AsyncCreateRatingReview(userRatingAndReview).Result;
+                Log reviewLogTrue = new("Review successfully created to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogTrue);
             }
             catch
             {
+                Log reviewLogFalse = new("Cannot create review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogFalse);
                 return false;
             }
             return isCreated;
@@ -42,6 +44,7 @@ namespace Services.Implementations
             try
             {
                 isUpdated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
+                
             }
             catch
             {
@@ -51,45 +54,59 @@ namespace Services.Implementations
 
         }
 
-        public RatingAndReview GetRatingReview(string dispName, string titleSelected)
+        public IEnumerable<RatingAndReview> GetRatingReview(RatingAndReview getReview)
         {
-            RatingAndReview fetchRatingReview = new();
+            IEnumerable<RatingAndReview> fetchRatingReview = null;
 
-            fetchRatingReview = _rrDAO.AsyncGetUserTitleRatingsReviews(dispName, titleSelected).Result;
-
+            try
+            {
+                fetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
+                Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogTrue);
+            }
+            catch
+            {
+                Log reviewLogFalse = new("Cannot fetch review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogFalse);
+                return null;
+            }
 
             return fetchRatingReview;
 
         }
 
-        public bool DeleteRatingReview(string dispName, string titleSelected)
+        public bool DeleteRatingReview(RatingAndReview selectedReview)
         {
-            RatingAndReview userTitleReview = GetRatingReview(dispName, titleSelected);
             bool isDeleted = false;
-
-            if (userTitleReview is not null)
+            try
             {
-                try
+                RatingAndReview userTitleReview = GetRatingReview(selectedReview).FirstOrDefault();
+                if (userTitleReview is not null)
                 {
-                    isDeleted = _rrDAO.AsyncDeleteRatingReview(dispName, titleSelected).Result;
-                    if (isDeleted)
+                    try
                     {
-                        Log reviewLogTrue = new("Review successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                        _loggingService.LogData(reviewLogTrue);
-                        return true;
+                        isDeleted = _rrDAO.AsyncDeleteRatingReview(selectedReview).Result;
+                        if (isDeleted)
+                        {
+                            Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                            _loggingService.LogData(reviewLogTrue);
+                            return true;
+                        }
+                    }
+                    catch
+                    {
+                        return false;
                     }
                 }
-                catch
-                {
-                    return false;
-                }
+                Log reviewLogFalse = new("Unsuccessful delete review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogFalse);
+                return isDeleted;
             }
-            Log reviewLogFalse = new("Unsuccessful delete review.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(reviewLogFalse);
-            return isDeleted;
-
+            catch
+            {
+                return false;
+            }
         }
-
 
     }
 }
