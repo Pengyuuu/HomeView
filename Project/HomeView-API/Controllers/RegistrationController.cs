@@ -13,18 +13,21 @@ namespace HomeView_API.Controllers
         private readonly HttpClient _httpClient;
 
 
-        public RegistrationController(IRegistrationManager registrationManager)
+        public RegistrationController(IRegistrationManager registrationManager, HttpConfiguration config)
         {
             _registrationManager = registrationManager;
             _httpClient = new HttpClient();
+            // maps web api routes
+            config.MapHttpAttributeRoutes();
         }
 
 
         // GET /registration/email/dob/pw
-        [HttpGet("{email}/{dob}/{pw}")]
-        public IHttpActionResult Get(string email, string dob, string pw)
+        [Route("/registration/{email}/{dob}/{pw}")]
+        [HttpPost]
+        public IHttpActionResult CreateNewUser(string email, string dob, string pw)
         {
-            HttpResponse response = null;   // sorta confused on this part
+            IHttpActionResult httpActionResult = new 
             
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);
             if (isValid)
@@ -47,13 +50,13 @@ namespace HomeView_API.Controllers
         }
 
         // PUT api/<RegistrationController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/<RegistrationController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public void Delete(int id)
         {
         }
