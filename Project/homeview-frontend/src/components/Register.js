@@ -1,39 +1,68 @@
-import React, {useRef} from 'react'
+import React, {useState, useRef} from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import axios from 'axios';
 
-export default function register() {
+export default function Register(props) {
+
+    const[data, setdata] = useState({Email:'', Password:'', Birthday:''})
+    const apiURL = "";
+
+    const Registration = (e) => {
+        e.preventDefault();
+        debugger;
+        const userData = {
+            Email: data.email,
+            Password: data.password,
+            Birthday: data.birthday
+        };
+        axios.post(apiURL, userData)
+        .then((result)=> {
+            debugger;
+            console.log(result.data);
+            if (result.data.Status === 'Invalid')
+                alert('Invlaid User');
+            else
+                props.history.push('/Home');
+        })
+    }
+
     const emailRef = useRef()
     const passwordRef = useRef()
     const birthdayRef = useRef()
 
-    return (
+    const onChange = (e) => {
+        e.persist();
+        debugger;
+        setdata({...data, [e.target.name]: e.target.value});
+    }
 
-        <>
+    return (
             <div>
             <div className='background-Homeview'></div>
                 <div className='card-center'>
                     <Card>
                         <Card.Body>
                             <h2 className="text-center mb-4"> Sign Up</h2>
-                            <Form>
+                            <Form onSubmit={Registration}>
                                 <Form.Group id="email">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" ref={emailRef} required></Form.Control>
+                                    <Form.Control name = 'Email' type="email" ref={emailRef} required placeholder="Email" onChange={onChange} value={data.Email}></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" ref={passwordRef} required></Form.Control>
+                                    <Form.Control name = 'Password' type="password" ref={passwordRef} required placeholder="Password" onChange={onChange} value={data.Password}></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="birthday">
                                     <Form.Label>Birthday</Form.Label>
-                                    <Form.Control type="date" ref={birthdayRef} required></Form.Control>
+                                    <Form.Control name = 'Birthday' type="date" ref={birthdayRef} required placeholder="Birthday" onChange={onChange} value={data.Birthday}></Form.Control>
                                 </Form.Group>
                                 <br></br>
-                                <Button className="w-100" type="submit" onclick={registerUser()}>
+                                <Button className="btn-signup" type="submit">
                                     Sign Up
                                 </Button>
-                            </Form>
+                            </Form >
+                            
                         </Card.Body>
                     </Card>
                     <div className="w-100 text-center mt-2 extraInfo">
@@ -41,7 +70,6 @@ export default function register() {
                     </div>
                 </div>
             </div>
-        </>
     )
 }
 
