@@ -21,31 +21,56 @@ namespace Core.User
             _db = db;
         }
 
-        public async Task<bool> AsyncCreateUser(User user)
+        public async Task<bool> AsyncCreateUser(User user, int CREATION_MODE)
         {
-            
-            var person = new
+            // unverified, newly registered user
+            if (CREATION_MODE == 0)
             {
-                firstName = user.FirstName,
-                lastName = user.LastName,
-                email = user.Email,
-                password = user.Password,
-                dob = user.Dob,
-                dispName = user.Email,
-                status = 0,                                            
-                role = (int)user.Role,
-                token = user.Token
-            };
+                var person = new
+                {
+                    email = user.Email,
+                    password = user.Password,
+                    dob = user.Dob,
+                    token = user.Token
+                };
 
-            try
-            {
-                await _db.SaveData("dbo.Users_CreateUser", person);               
+                try
+                {
+                    await _db.SaveData("dbo.RegisteredUsers_CreateUser", person);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            catch
+            // verified, confirmed user
+            else if (CREATION_MODE == 1)
             {
-                return false;
+                var person = new
+                {
+                    firstName = user.FirstName,
+                    lastName = user.LastName,
+                    email = user.Email,
+                    password = user.Password,
+                    dob = user.Dob,
+                    dispName = user.Email,
+                    status = 1,
+                    role = (int)user.Role,
+                    token = user.Token
+                };
+
+                try
+                {
+                    await _db.SaveData("dbo.Users_CreateUser", person);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            return true;
+            return false;
         }
 
         public async Task<bool> AsyncUpdateUser(User user)

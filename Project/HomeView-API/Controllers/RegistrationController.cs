@@ -27,26 +27,30 @@ namespace HomeView_API.Controllers
         [HttpPost]
         public IHttpActionResult CreateNewUser(string email, string dob, string pw)
         {
-            IHttpActionResult httpActionResult = new 
             
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);
             if (isValid)
             {
-                _registrationManager.CreateUser(email, dob, pw);
-                response.StatusCode = 200;
+                bool isCreated = _registrationManager.CreateUser(email, dob, pw);
+                if (isCreated)
+                {
+                    return Ok("Check Email for confirmation.");
+                }
+                return BadRequest("User already exists.");
 
             }
             else
             {
-                response.StatusCode = 400;
+                return BadRequest("Invalid fields");
             }
-            return response;
         }
 
-        // POST /registration
+        // POST /registration/OTP
+        [Route("/registration/{otp}")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void ConfirmNewUser(string otp)
         {
+
         }
 
         // PUT api/<RegistrationController>/5

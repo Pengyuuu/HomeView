@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Managers.Contracts
+namespace Managers.Implementations
 {
     public interface IUserManager
     {
-        bool CreateUser(string email, DateTime birth, string pw);
+        bool CreateRegistrationUser(string email, DateTime birth, string pw);
+        bool CreateVerifiedUser(string email, DateTime birth, string pw);
         bool DeleteUser(string email);
         User DisplayGetUser(string display);
         string DoBulkOp(string file);

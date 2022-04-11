@@ -19,16 +19,20 @@ namespace Services.Implementations
             _userDAO = new UserDAO();
         }
 
-        public bool CreateUser(User userCreate)
+        // creates user given user fields and creation mode (either verified user, sent to user db, or unverified user, sent to accounts db )
+        public bool CreateUser(User userCreate, int CREATION_MODE)
         {
             bool isCreated = false;
             try
             {
-                isCreated = _userDAO.AsyncCreateUser(userCreate).Result;
-
+                isCreated = _userDAO.AsyncCreateUser(userCreate, CREATION_MODE).Result;
+                Log userLog = new("User created.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(userLog);
             }
             catch
             {
+                Log userLogFalse = new("Unsuccessful create user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(userLogFalse);
                 return false;
             }
             return isCreated;
@@ -112,7 +116,7 @@ namespace Services.Implementations
             }
             else
             {
-                CreateUser(user);
+                CreateUser(user, creation);
                 Log userLogCreate = new("User: " + user.Email + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 _loggingService.LogData(userLogCreate);
                 return user;
@@ -182,6 +186,7 @@ namespace Services.Implementations
                 userMod.DispName = delimiter[6];
                 userMod.Status = Convert.ToBoolean(delimiter[7]);
                 userMod.Role = (Role)(Convert.ToInt16(delimiter[8]));
+                const int CREATION_MODE = 1;
 
 
                 if (userMod is not null)
@@ -191,7 +196,7 @@ namespace Services.Implementations
                     {
                         if (mode == "Create")
                         {
-                            CreateUser(userMod);
+                            CreateUser(userMod, CREATION_MODE);
                         }
                         else if (mode == "Modify")
                         {
