@@ -141,21 +141,37 @@ namespace Core.User
             }
         }
 
-        public async Task<bool> AsyncDeleteUser(string email)
+        public async Task<bool> AsyncDeleteUser(string email, int DELETION_MODE)
         {
             var user = new
             {
                 email = email
             };
-            try
+            if (DELETION_MODE == 0)
             {
-                await _db.SaveData("dbo.Users_DeleteUser", user);
-                return true;
+                try
+                {
+                    await _db.SaveData("dbo.Users_DeleteUser", user);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            catch
+            else if (DELETION_MODE == 1)
             {
-                return false;
-            }           
+                try
+                {
+                    await _db.SaveData("dbo.RegisteredUsers_DeleteUser", user);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

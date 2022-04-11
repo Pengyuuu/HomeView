@@ -81,9 +81,16 @@ namespace Managers.Implementations
             return _userService.GetAllUsers();
         }
 
-        public bool DeleteUser(string email)
+        public bool DeleteVerifiedUser(string email)
         {
-            return _userService.DeleteUser(email);
+            const int DELETION_MODE = 1;
+            return _userService.DeleteUser(email, DELETION_MODE);
+        }
+
+        public bool DeleteRegistrationUser(string email)
+        {
+            const int DELETION_MODE = 0;
+            return _userService.DeleteUser(email, DELETION_MODE);
         }
 
         public User ModifyUser(User user)

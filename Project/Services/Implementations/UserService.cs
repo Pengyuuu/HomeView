@@ -83,12 +83,13 @@ namespace Services.Implementations
             return null;
         }
 
-        public bool DeleteUser(string email)
+        public bool DeleteUser(string email, int DELETION_MODE)
         {
+
             User user = GetUser(email);
             if (user is not null)
             {
-                var isDeleted = _userDAO.AsyncDeleteUser(email).Result;
+                var isDeleted = _userDAO.AsyncDeleteUser(email, DELETION_MODE).Result;
                 if (isDeleted)
                 {
                     Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -116,7 +117,8 @@ namespace Services.Implementations
             }
             else
             {
-                CreateUser(user, creation);
+                const int CREATION_MODE = 1;
+                CreateUser(user, CREATION_MODE);
                 Log userLogCreate = new("User: " + user.Email + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 _loggingService.LogData(userLogCreate);
                 return user;
@@ -187,6 +189,7 @@ namespace Services.Implementations
                 userMod.Status = Convert.ToBoolean(delimiter[7]);
                 userMod.Role = (Role)(Convert.ToInt16(delimiter[8]));
                 const int CREATION_MODE = 1;
+                const int DELETION_MODE = 1;
 
 
                 if (userMod is not null)
@@ -204,7 +207,7 @@ namespace Services.Implementations
                         }
                         else if (mode == "Delete")
                         {
-                            DeleteUser(userMod.Email);
+                            DeleteUser(userMod.Email, DELETION_MODE);
                         }
                         successMods++;
                     }
