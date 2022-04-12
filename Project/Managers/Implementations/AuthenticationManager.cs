@@ -22,9 +22,14 @@ namespace Managers.Implementations
         }
 
         // for registering users
-        public string generateOTP()
+        public string GenerateOTP()
         {
             return _authenticationService.AsyncGenerateOTP().Result;
+        }
+
+        public bool AuthenticateUser(string email, string userOtp)
+        {
+            return _authenticationService.AuthenticateUser(email, userOtp);
         }
 
 

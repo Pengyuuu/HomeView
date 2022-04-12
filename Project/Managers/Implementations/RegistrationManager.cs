@@ -99,7 +99,7 @@ namespace Managers.Implementations
 
             if (ValidateFields(email, birth, pw))
             {
-                string userOtp = _authenticationManager.generateOTP();
+                string userOtp = _authenticationManager.GenerateOTP();
                 if (userOtp != null)
                 {
                     User userCreate = new User();

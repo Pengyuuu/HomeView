@@ -1,12 +1,11 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-using Managers.Contracts;
+﻿using Managers.Contracts;
 using System.Web.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HomeView_API.Controllers
 {
-    [Route("/registration")]
+    [Route("api/registration")]
     public class RegistrationController : ApiController
     {
         private readonly IRegistrationManager _registrationManager;
@@ -18,7 +17,7 @@ namespace HomeView_API.Controllers
             _registrationManager = registrationManager;
             _httpClient = new HttpClient();
             // maps web api routes
-            config.MapHttpAttributeRoutes();
+            //config.MapHttpAttributeRoutes();
         }
 
 

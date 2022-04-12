@@ -2,6 +2,8 @@
 {
     public interface IAuthenticationManager
     {
-        string generateOTP();
+        string GenerateOTP();
+        bool AuthenticateUser(string email, string userOtp);
+
     }
 }

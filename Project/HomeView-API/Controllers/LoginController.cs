@@ -1,9 +1,10 @@
 ﻿using Managers.Contracts;
 using System.Web.Http;
 
+
 namespace HomeView_API.Controllers
 {
-    [Route("/login")]
+    [Route("api/login")]
     public class LoginController : ApiController
     {
         private readonly IUserManager _userManager;
@@ -22,7 +23,7 @@ namespace HomeView_API.Controllers
         [HttpGet]
         public IHttpActionResult LogIn(string email, string pw)
         {
-
+            return Ok();
         }
 
 
@@ -32,7 +33,8 @@ namespace HomeView_API.Controllers
         public IHttpActionResult ConfirmUser(string userOtp, string email)
         {
             // user is confirmed, directs them to homepage and auto activates user's profile in user db and deletes from reg db
-            _authenticationManager.generateOTP();    
+            _authenticationManager.AuthenticateUser(email, userOtp);
+            return Ok();
         
         }
 
