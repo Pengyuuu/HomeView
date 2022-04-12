@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
+using Managers.Implementations;
 
 
 namespace Managers.Implementations
 {
     public class RegistrationManager : IRegistrationManager
     {
-        private IUserManager _userManager;
-        private IRegistrationService _registrationService;
+        private readonly IUserManager _userManager;
+        private readonly IRegistrationService _registrationService;
+        private readonly IEmailManager _emailManager;
 
         public RegistrationManager()
         {
+            _userManager = new UserManager();
+            _emailManager = new EmailManager();
         }
 
         public bool ValidateEmail(string email)
@@ -90,13 +94,19 @@ namespace Managers.Implementations
 
         public bool CreateUser(string email, string birth, string pw)
         {
+
             if (ValidateFields(email, birth, pw))
             {
                 User userCreate = new User();
                 userCreate.Email = email;
                 userCreate.Dob = Convert.ToDateTime(birth);
                 userCreate.Password = pw;
-                return _registrationService.CreateUser(userCreate);
+                const int CREATION_MODE = 0;
+                bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
+                if (isCreatedDB)
+                {
+                    return _emailManager.SendConfirmationEmail(userCreate.Email); 
+                }
             }
             return false;
 

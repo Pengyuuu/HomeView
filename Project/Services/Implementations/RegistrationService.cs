@@ -10,18 +10,21 @@ namespace Services.Implementations
 {
     public class RegistrationService : IRegistrationService
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
 
         public RegistrationService()
         {
+            _userService = new UserService();
+            _emailService = new EmailService();
         }
 
-        public bool CreateUser(User userCreate)
+        public bool CreateUser(User userCreate, int CREATION_MODE)
         {
             bool isCreated = false;
             try
             {
-                isCreated = _userService.CreateUser(userCreate);
+                isCreated = _userService.CreateUser(userCreate, CREATION_MODE);
             }
             catch
             {

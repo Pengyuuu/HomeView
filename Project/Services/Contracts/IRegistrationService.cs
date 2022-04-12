@@ -4,6 +4,6 @@ namespace Services.Contracts
 {
     public interface IRegistrationService
     {
-        bool CreateUser(User userCreate);
+        bool CreateUser(User userCreate, int CREATION_MODE);
     }
 }
