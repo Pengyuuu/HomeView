@@ -7,7 +7,38 @@ using Services.Contracts;
 
 namespace Services.Implementations
 {
-    internal class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
+        private readonly IUserService _userService;
+
+        public AuthenticationService()
+        {
+
+        }
+
+        // used for when newly registered users try to log in
+        public async Task<string> AsyncGenerateOTP()
+        {
+            return "";
+        }
+
+        public bool AuthenticateUser(string email, string userOtp)
+        {
+            var fetchedUser = _userService.GetUser(email);
+            if (fetchedUser != null) 
+            {
+              var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
+              if ((DateTime.UtcNow < expireTime) && (fetchedUser.Token == userOtp))
+                {
+                    // deletes user from registration db
+                    _userService.DeleteUser(email, 0);
+                    // creates user into user db
+                    _userService.CreateUser(fetchedUser, 1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

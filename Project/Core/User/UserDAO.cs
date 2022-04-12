@@ -31,7 +31,8 @@ namespace Core.User
                     email = user.Email,
                     password = user.Password,
                     dob = user.Dob,
-                    token = user.Token
+                    token = user.Token,
+                    status = 0
                 };
 
                 try
@@ -107,8 +108,15 @@ namespace Core.User
             try
             {
                 var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);
-                return results.FirstOrDefault();
 
+                // check registration account db if it is null in user db
+                if (results.FirstOrDefault() == null)
+                {
+                    results = await _db.LoadData<User, dynamic>("dbo.RegisteredUsers_ReadUser", user);
+                }    
+                
+                return results.FirstOrDefault();
+                
             }
             catch
             {

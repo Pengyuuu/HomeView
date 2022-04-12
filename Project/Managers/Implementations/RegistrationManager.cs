@@ -16,6 +16,7 @@ namespace Managers.Implementations
         private readonly IUserManager _userManager;
         private readonly IRegistrationService _registrationService;
         private readonly IEmailManager _emailManager;
+        private readonly IAuthenticationManager _authenticationManager;
 
         public RegistrationManager()
         {
@@ -92,20 +93,26 @@ namespace Managers.Implementations
             return ValidateEmail(email) == ValidatePassword(pw) == ValidateBirth(dob);
         }
 
+        // creates user into reg db and sends confirmation email
         public bool CreateUser(string email, string birth, string pw)
         {
 
             if (ValidateFields(email, birth, pw))
             {
-                User userCreate = new User();
-                userCreate.Email = email;
-                userCreate.Dob = Convert.ToDateTime(birth);
-                userCreate.Password = pw;
-                const int CREATION_MODE = 0;
-                bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
-                if (isCreatedDB)
+                string userOtp = _authenticationManager.generateOTP();
+                if (userOtp != null)
                 {
-                    return _emailManager.SendConfirmationEmail(userCreate.Email); 
+                    User userCreate = new User();
+                    userCreate.Email = email;
+                    userCreate.Dob = Convert.ToDateTime(birth);
+                    userCreate.Password = pw;
+                    userCreate.Token = userOtp;
+                    const int CREATION_MODE = 0;
+                    bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
+                    if (isCreatedDB)
+                    {
+                        return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
+                    }
                 }
             }
             return false;

@@ -2,6 +2,6 @@
 {
     public interface IEmailManager
     {
-        bool SendConfirmationEmail(string registerEmail);
+        bool SendConfirmationEmail(string registerEmail, string userOtp);
     }
 }

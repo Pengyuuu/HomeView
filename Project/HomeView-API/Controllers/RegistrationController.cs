@@ -34,7 +34,6 @@ namespace HomeView_API.Controllers
                 bool isCreated = _registrationManager.CreateUser(email, dob, pw);
                 if (isCreated)
                 {
-
                     return Ok("Check Email for confirmation.");
                 }
                 return BadRequest("User already exists.");
