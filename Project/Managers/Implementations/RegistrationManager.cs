@@ -114,7 +114,8 @@ namespace Managers.Implementations
                     bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
                     if (isCreatedDB)
                     {
-                        return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
+                        return true;
+                        //return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
                     }
                 }
             }
