@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HomeView_API.Controllers
 {
-    [Route("api/Login")]
+    [Route("api/login")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -17,9 +17,9 @@ namespace HomeView_API.Controllers
             _authenticationManager = authenticationManager;
         }
 
-        [Route("/login/{email}/{pw}")]
+        [Route("validate/{email}/{pw}")]
         [HttpGet]
-        public bool LogIn(string email, string pw)
+        public bool ValidateLogIn(string email, string pw)
         {
             return _authenticationManager.AuthenticateLogInUser(email, pw);           
         }

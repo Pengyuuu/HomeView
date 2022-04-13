@@ -21,7 +21,7 @@ namespace Managers.Implementations
         public EmailManager()
         {
             _emailService = new EmailService();
-            _fromEmail = Smtp.Id;
+            _fromEmail = "";
         }
 
 

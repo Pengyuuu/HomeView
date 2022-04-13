@@ -6,34 +6,47 @@ import axios from 'axios';
 export default function Register(props) {
 
     const[data, setdata] = useState({Email:'', Password:'', Birthday:''})
-    const apiURL = "";
+    const apiURL = "api/registration/register";
 
     const Registration = (e) => {
         e.preventDefault();
-        debugger;
+        //debugger;
         const userData = {
             Email: data.email,
             Password: data.password,
             Birthday: data.birthday
         };
-        axios.post(apiURL, userData)
-        .then((result)=> {
-            debugger;
-            console.log(result.data);
-            if (result.data.Status === 'Invalid')
-                alert('Invlaid User');
-            else
-                props.history.push('/Home');
-        })
+
+        axios.get("api/registration/validate", userData)
+            .then((result) => {
+                //debugger;
+                console.log(result.data);
+                if (result.data.Status === 'Invalid')
+                    alert('Invalid User');
+                else
+                    axios.post(apiURL, userData)
+                        .then((result) => {
+                            //debugger;
+                            console.log(result.data);
+                            if (result.data.Status === 'Invalid')
+                                alert('Invalid User');
+                            else
+                                //props.history.push('/EmailSent');
+                                alert('Confirmation email sent.');
+                        })
+                    //props.history.push('/Home');
+            })
+
+      
     }
 
     const emailRef = useRef()
     const passwordRef = useRef()
     const birthdayRef = useRef()
-
+    
     const onChange = (e) => {
-        e.persist();
-        debugger;
+        //e.persist();
+       // debugger;
         setdata({...data, [e.target.name]: e.target.value});
     }
 
@@ -73,46 +86,4 @@ export default function Register(props) {
     )
 }
 
-function registerUser() {
-    // call c# backend
-    /*
-    var successMessage = document.getElementById("success");
-    var errorMessage = document.getElementById("error");
 
-    // Lecture:
-    // Send user credentials to the server to validate
-
-    if (username === "john" && password === "smith") {
-        // Create the authentication cookie
-        document.cookie = "username=john;path=/;samesite=strict;";
-
-
-        errorMessage.style.visibility = 'hidden';
-        successMessage.style.visibility = 'visible';
-
-        alert("Login Success");
-
-        return true;
-    } else {
-
-        successMessage.style.visibility = 'hidden';
-        errorMessage.style.visibility = 'visible';
-
-        return false;
-    }
-
-    $.ajax({
-        type: "POST",
-        url: 'Default.aspx/DeleteItem',
-        data: "",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (msg) {
-            $("#divResult").html("success");
-        },
-        error: function (e) {
-            $("#divResult").html("Something Wrong.");
-        }
-    });
-    */
-}

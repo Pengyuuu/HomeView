@@ -4,8 +4,41 @@ import { Link } from 'react-router-dom'
 import '../css/App.css'
 
 export default function Login() {
+
+    const [data, setdata] = useState({ Email: '', Password: ''})
+    const apiURL = "/api/login/validate/{email}/{pw}";
+
+    const loginUser = (e) => {
+        e.preventDefault();
+        //debugger;
+        const userData = {
+            Email: data.email,
+            Password: data.password
+        };
+
+        axios.get(apiURL, userData)
+            .then((result) => {
+                //debugger;
+                console.log(result.data);
+                if (result.data.Status === 'Invalid')
+                    alert('Invalid User');
+                else                    
+                    props.history.push('/home');
+            })
+
+
+    }
+
+
     const emailRef = useRef()
     const passwordRef = useRef()
+
+    const onChange = (e) => {
+        //e.persist();
+        // debugger;
+        setdata({ ...data, [e.target.name]: e.target.value });
+    }
+
 
     return (
         <div>
@@ -14,7 +47,7 @@ export default function Login() {
                 <Card>
                     <Card.Body>
                         <h2 className="text-center mb-4"> Log In</h2>
-                        <Form>
+                        <Form onSubmit={loginUser}>
                             <Form.Group id="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" ref={emailRef} required></Form.Control>
@@ -68,8 +101,8 @@ function loginUser() {
         errorMessage.style.visibility = 'visible';
 
         return false;
-    }
+    }    const token = window.sessionStorage.setItem("token", )
+
     */
 
-    const token = window.sessionStorage.setItem("token", )
 }

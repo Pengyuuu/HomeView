@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using Services.Contracts;
 using System.Net;
+using System.Configuration;
 
 
 namespace Services.Implementations
@@ -19,8 +20,9 @@ namespace Services.Implementations
         public string Key { get; set; }
         public EmailService()
         {
-            _server = Smtp.Server;
-            _port =Smtp.pORT;
+            
+            _server = "Smtp.Server";
+            _port = 0;
             _smtpClient = new SmtpClient(_server, _port);
             _smtpClient.EnableSsl = true;
             _smtpClient.Host = _server;
@@ -35,7 +37,7 @@ namespace Services.Implementations
                 try
                 {
 
-                    NetworkCredential NetworkCred = new NetworkCredential(Smtp.Id, Smtp.pw);
+                    NetworkCredential NetworkCred = new NetworkCredential("", "");
                     _smtpClient.UseDefaultCredentials = false;
                     _smtpClient.Credentials = NetworkCred;
                     _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
