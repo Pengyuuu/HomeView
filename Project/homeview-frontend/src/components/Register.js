@@ -1,54 +1,13 @@
-import React, {useState, useRef} from 'react'
+import React, {useRef} from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import axios from 'axios';
 
-export default function Register(props) {
 
-    const[data, setdata] = useState({Email:'', Password:'', Birthday:''})
-    const apiURL = "api/registration/register";
-
-    const Registration = (e) => {
-        e.preventDefault();
-        //debugger;
-        const userData = {
-            Email: data.email,
-            Password: data.password,
-            Birthday: data.birthday
-        };
-
-        axios.get("api/registration/validate", userData)
-            .then((result) => {
-                //debugger;
-                console.log(result.data);
-                if (result.data.Status === 'Invalid')
-                    alert('Invalid User');
-                else
-                    axios.post(apiURL, userData)
-                        .then((result) => {
-                            //debugger;
-                            console.log(result.data);
-                            if (result.data.Status === 'Invalid')
-                                alert('Invalid User');
-                            else
-                                //props.history.push('/EmailSent');
-                                alert('Confirmation email sent.');
-                        })
-                    //props.history.push('/Home');
-            })
-
-      
-    }
+export default function Register() {
 
     const emailRef = useRef()
     const passwordRef = useRef()
     const birthdayRef = useRef()
-    
-    const onChange = (e) => {
-        //e.persist();
-       // debugger;
-        setdata({...data, [e.target.name]: e.target.value});
-    }
 
     return (
             <div>
@@ -57,21 +16,21 @@ export default function Register(props) {
                     <Card>
                         <Card.Body>
                             <h2 className="text-center mb-4"> Sign Up</h2>
-                            <Form onSubmit={Registration}>
+                            <Form onSubmit={registerUser}>
                                 <Form.Group id="email">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control name = 'Email' type="email" ref={emailRef} required placeholder="Email" onChange={onChange} value={data.Email}></Form.Control>
+                                    <Form.Control name = 'Email' type="email" ref={emailRef} required placeholder="Email" ></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control name = 'Password' type="password" ref={passwordRef} required placeholder="Password" onChange={onChange} value={data.Password}></Form.Control>
+                                    <Form.Control name = 'Password' type="password" ref={passwordRef} required placeholder="Password" ></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="birthday">
                                     <Form.Label>Birthday</Form.Label>
-                                    <Form.Control name = 'Birthday' type="date" ref={birthdayRef} required placeholder="Birthday" onChange={onChange} value={data.Birthday}></Form.Control>
+                                    <Form.Control name = 'Birthday' type="date" ref={birthdayRef} required placeholder="Birthday" ></Form.Control>
                                 </Form.Group>
                                 <br></br>
-                                <Button className="btn-signup" type="submit">
+                                <Button type="submit" className="btn-signup">
                                     Sign Up
                                 </Button>
                             </Form >
@@ -84,6 +43,68 @@ export default function Register(props) {
                 </div>
             </div>
     )
+
+    async function registerUser() {
+        console.log('start reg')
+        
+        fetch('https://reqres.in/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: 'hardname',
+                job: 'hardjob'
+            })
+        }).then (res=> {
+                return res.json()
+            })
+            .then (data=> console.log(data))
+
+        console.log('end reg')
+    }
 }
+    // call c# backend
+    /*
+    Validate info server side
+    Validate info client side
+
+    var successMessage = document.getElementById("success");
+    var errorMessage = document.getElementById("error");
+
+    // Lecture:
+    // Send user credentials to the server to validate
+
+    if (username === "john" && password === "smith") {
+        // Create the authentication cookie
+        document.cookie = "username=john;path=/;samesite=strict;";
 
 
+        errorMessage.style.visibility = 'hidden';
+        successMessage.style.visibility = 'visible';
+
+        alert("Login Success");
+
+        return true;
+    } else {
+
+        successMessage.style.visibility = 'hidden';
+        errorMessage.style.visibility = 'visible';
+
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: 'Default.aspx/DeleteItem',
+        data: "",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            $("#divResult").html("success");
+        },
+        error: function (e) {
+            $("#divResult").html("Something Wrong.");
+        }
+    });
+    */
