@@ -1,42 +1,53 @@
-﻿using Managers.Contracts;
-using System.Web.Http;
-
+﻿using Core.User;
+using Managers.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HomeView_API.Controllers
 {
-    [Route("api/login")]
-    public class LoginController : ApiController
+    [Route("api/Login")]
+    [ApiController]
+    public class LoginController : ControllerBase
     {
         private readonly IUserManager _userManager;
         private readonly IAuthenticationManager _authenticationManager;
 
-        private readonly HttpClient _httpClient;
-
-        public LoginController(IUserManager userManager, HttpConfiguration config)
+        public LoginController(IUserManager userManager, IAuthenticationManager authenticationManager)
         {
             _userManager = userManager;
-            _httpClient = new HttpClient();
-            config.MapHttpAttributeRoutes();
+            _authenticationManager = authenticationManager;
         }
 
         [Route("/login/{email}/{pw}")]
         [HttpGet]
-        public IHttpActionResult LogIn(string email, string pw)
+        public bool LogIn(string email, string pw)
         {
-            return Ok();
+            return _authenticationManager.AuthenticateLogInUser(email, pw);           
         }
 
 
-        // when user clicks registration link from email -> auto confirm
+        // when user clicks registration link from email -> authenticates user
         [Route("/account/confirmEmailLink/{userOtp}/{email}")]
         [HttpPost]
-        public IHttpActionResult ConfirmUser(string userOtp, string email)
+        public bool ConfirmRegisteredUser(string userOtp, string email)
         {
-            // user is confirmed, directs them to homepage and auto activates user's profile in user db and deletes from reg db
-            _authenticationManager.AuthenticateUser(email, userOtp);
-            return Ok();
+            // authenticates user from email, if true -> validates user into user db, returns false if invalid
+            return _authenticationManager.AuthenticateRegisteredUser(email, userOtp);
+            
         
         }
+
+        // this is after confirming user/authenticaated user
+        [Route("/login/{email}/{pw}/{token}")]
+        [HttpGet]
+        public User GetUser(string email)
+        {
+            // directs user to homepage and auto activates user's profile in user db and deletes from reg db
+            return null;         
+
+
+        }
+
+
 
 
     }

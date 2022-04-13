@@ -19,12 +19,13 @@ namespace Services.Implementations
         // used for when newly registered users try to log in
         public async Task<string> AsyncGenerateOTP()
         {
-            return "";
+            string p = "sdljfsdklsfjslkjf";
+            return p;
         }
 
-        public bool AuthenticateUser(string email, string userOtp)
+        public bool AuthenticateRegisteredUser(string email, string userOtp)
         {
-            var fetchedUser = _userService.GetUser(email);
+            var fetchedUser = _userService.GetRegisteredUser(email);
             if (fetchedUser != null) 
             {
               var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
@@ -36,6 +37,16 @@ namespace Services.Implementations
                     _userService.CreateUser(fetchedUser, 1);
                     return true;
                 }
+            }
+            return false;
+        }
+
+        public bool AuthenticateLogInUser(string email, string pw)
+        {
+            var fetchedUser = _userService.GetUser(email);
+            if ((fetchedUser != null) && (fetchedUser.Password == pw))
+            {                               
+                return true;               
             }
             return false;
         }

@@ -5,7 +5,9 @@ namespace Services.Contracts
     public interface IAuthenticationService
     {
         Task<string> AsyncGenerateOTP();
-        bool AuthenticateUser(string email, string userOtp);
+        bool AuthenticateRegisteredUser(string email, string userOtp);
+        bool AuthenticateLogInUser(string email, string pw);
+
 
     }
 }

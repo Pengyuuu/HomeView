@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using Services.Contracts;
+using System.Net;
+
 
 namespace Services.Implementations
 {
@@ -13,12 +15,16 @@ namespace Services.Implementations
         private SmtpClient _smtpClient;
         private readonly string _server;
         private readonly int _port;
+        public string FromEmail { get; set; }
+        public string Key { get; set; }
         public EmailService()
         {
-            _server = "smtp.gmail.com";
-            _port = 465;
+            _server = Smtp.Server;
+            _port =Smtp.pORT;
             _smtpClient = new SmtpClient(_server, _port);
             _smtpClient.EnableSsl = true;
+            _smtpClient.Host = _server;
+
         }
 
         public async Task<bool> AsyncSendEmail(MailMessage message)
@@ -29,10 +35,10 @@ namespace Services.Implementations
                 try
                 {
 
-                    //NetworkCredential NetworkCred = new NetworkCredential(model.Email, model.Password);
-                    _smtpClient.UseDefaultCredentials = true;
-                    //smtp.Credentials = NetworkCred;
-
+                    NetworkCredential NetworkCred = new NetworkCredential(Smtp.Id, Smtp.pw);
+                    _smtpClient.UseDefaultCredentials = false;
+                    _smtpClient.Credentials = NetworkCred;
+                    _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     await _smtpClient.SendMailAsync(message);
 
                     return true;

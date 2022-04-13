@@ -51,6 +51,19 @@ namespace Services.Implementations
             return fetchedUser;
         }
 
+        // Gets registered user
+        public User GetRegisteredUser(string email)
+        {
+            User fetchedUser = (User)_userDAO.AsyncReadRegisteredUser(email).Result;
+            if (fetchedUser != null)
+            {
+                Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(userLog);
+            }
+            return fetchedUser;
+        }
+
+
         public User DisplayGetUser(string display)
         {
             User fetchedUser = (User)_userDAO.AsyncDisplayReadUser(display).Result;

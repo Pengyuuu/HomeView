@@ -3,7 +3,9 @@
     public interface IAuthenticationManager
     {
         string GenerateOTP();
-        bool AuthenticateUser(string email, string userOtp);
+        bool AuthenticateRegisteredUser(string email, string userOtp);
+        bool AuthenticateLogInUser(string email, string userOtp);
+
 
     }
 }

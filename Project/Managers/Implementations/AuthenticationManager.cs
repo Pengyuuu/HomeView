@@ -27,9 +27,14 @@ namespace Managers.Implementations
             return _authenticationService.AsyncGenerateOTP().Result;
         }
 
-        public bool AuthenticateUser(string email, string userOtp)
+        public bool AuthenticateRegisteredUser(string email, string userOtp)
         {
-            return _authenticationService.AuthenticateUser(email, userOtp);
+            return _authenticationService.AuthenticateRegisteredUser(email, userOtp);
+        }
+
+        public bool AuthenticateLogInUser(string email, string userOtp)
+        {
+            return _authenticationService.AuthenticateLogInUser(email, userOtp);
         }
 
 

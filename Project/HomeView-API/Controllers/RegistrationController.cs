@@ -1,30 +1,27 @@
 ﻿using Managers.Contracts;
-using System.Web.Http;
-
+using Microsoft.AspNetCore.Mvc;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HomeView_API.Controllers
 {
     [Route("api/registration")]
-    public class RegistrationController : ApiController
+    [ApiController]
+    public class RegistrationController : ControllerBase
     {
         private readonly IRegistrationManager _registrationManager;
-        private readonly HttpClient _httpClient;
 
 
-        public RegistrationController(IRegistrationManager registrationManager, HttpConfiguration config)
+        public RegistrationController(IRegistrationManager registrationManager)
         {
             _registrationManager = registrationManager;
-            _httpClient = new HttpClient();
-            // maps web api routes
-            //config.MapHttpAttributeRoutes();
+           
         }
 
 
         // GET /registration/email/dob/pw
         [Route("/registration/{email}/{dob}/{pw}")]
         [HttpPost]
-        public IHttpActionResult CreateNewUser(string email, string dob, string pw)
+        public bool CreateNewUser(string email, string dob, string pw)
         {
             
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);
@@ -33,35 +30,16 @@ namespace HomeView_API.Controllers
                 bool isCreated = _registrationManager.CreateUser(email, dob, pw);
                 if (isCreated)
                 {
-                    return Ok("Check Email for confirmation.");
+                    return true;
                 }
-                return BadRequest("User already exists.");
+                return false;
 
             }
             else
             {
-                return BadRequest("Invalid fields");
+                return false;
             }
         }
-
-        // POST /registration/OTP
-        [Route("/registration/{otp}")]
-        [HttpPost]
-        public void ConfirmNewUser(string otp)
-        {
-
-        }
-
-        // PUT api/<RegistrationController>/5
-        [HttpPut]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<RegistrationController>/5
-        [HttpDelete]
-        public void Delete(int id)
-        {
-        }
+    
     }
 }

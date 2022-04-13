@@ -107,13 +107,7 @@ namespace Core.User
             };
             try
             {
-                var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);
-
-                // check registration account db if it is null in user db
-                if (results.FirstOrDefault() == null)
-                {
-                    results = await _db.LoadData<User, dynamic>("dbo.RegisteredUsers_ReadUser", user);
-                }    
+                var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);             
                 
                 return results.FirstOrDefault();
                 
@@ -123,6 +117,26 @@ namespace Core.User
                 return null;
             }
         }
+
+        public async Task<User?> AsyncReadRegisteredUser(string email)
+        {
+            var user = new
+            {
+                email = email
+            };
+            try
+            {
+                var results = await _db.LoadData<User, dynamic>("dbo.RegisteredUsers_ReadUser", user);
+
+                return results.FirstOrDefault();
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
 
         public async Task<User?> AsyncDisplayReadUser(string display)
         {

@@ -21,7 +21,7 @@ namespace Managers.Implementations
         public EmailManager()
         {
             _emailService = new EmailService();
-            _fromEmail = "homeviewcsulb@gmail.com";
+            _fromEmail = Smtp.Id;
         }
 
 
@@ -30,8 +30,8 @@ namespace Managers.Implementations
 
             //for creating email confirmation token
             var token = HttpUtility.UrlEncode(userOtp);
-            //creating a proper link of my API and attaching token and email
-            string confirmationUrl = "https://homeview/account/confirmEmailLink?token=" + token + "&email=" + registerEmail;
+            //creating link of API and attaching token and email
+            string confirmationUrl = "https://homeview/account/confirmEmailLink/" + token + "/" + registerEmail;
             StringBuilder stringAppend = new StringBuilder();
 
 
@@ -42,14 +42,13 @@ namespace Managers.Implementations
             
 
             stringAppend.AppendLine(homeviewConfirmMessage);
-            stringAppend.AppendLine(messageLink);
+            stringAppend.AppendLine(confirmationUrl);
             message.Body = stringAppend.ToString();
 
             // non-ASCII characters in body and subject
-            string someArrows = new string(new char[] { '\u2190', '\u2191', '\u2192', '\u2193' });
-            message.Body += Environment.NewLine + someArrows;
+            message.Body += Environment.NewLine;
             message.BodyEncoding = System.Text.Encoding.UTF8;
-            message.Subject = "HomeView Confirmation Email" + someArrows;
+            message.Subject = "HomeView Confirmation Email";
             message.SubjectEncoding = System.Text.Encoding.UTF8;
           
          

@@ -9,6 +9,7 @@ using Managers.Contracts;
 namespace HomeView_API.Controllers
 {
     [Route("api/RatingReview")]
+    [ApiController]
     public class RatingReviewController : ControllerBase
     {
         // GET: api/values
