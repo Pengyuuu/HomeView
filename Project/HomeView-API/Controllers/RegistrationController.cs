@@ -31,7 +31,7 @@ namespace HomeView_API.Controllers
         // POST /registration/email/dob/pw
         [Route("/register/{email}/{dob}/{pw}")]
         [HttpPost]
-        public bool CreateNewUser(string email, string dob, string pw)
+        public string CreateNewUser(string email, string dob, string pw)
         {
             
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);
@@ -40,14 +40,14 @@ namespace HomeView_API.Controllers
                 bool isCreated = _registrationManager.CreateUser(email, dob, pw);
                 if (isCreated)
                 {
-                    return true;
+                    return "pass";
                 }
-                return false;
+                return "already created";
 
             }
             else
             {
-                return false;
+                return "not valid";
             }
         }
     

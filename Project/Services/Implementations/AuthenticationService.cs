@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Services.Contracts;
+using Services.Implementations;
 
 namespace Services.Implementations
 {
@@ -13,7 +14,7 @@ namespace Services.Implementations
 
         public AuthenticationService()
         {
-
+            _userService = new UserService();
         }
 
         // used for when newly registered users try to log in

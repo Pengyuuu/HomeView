@@ -32,9 +32,9 @@ namespace Managers.Implementations
             return _authenticationService.AuthenticateRegisteredUser(email, userOtp);
         }
 
-        public bool AuthenticateLogInUser(string email, string userOtp)
+        public bool AuthenticateLogInUser(string email, string pw)
         {
-            return _authenticationService.AuthenticateLogInUser(email, userOtp);
+            return _authenticationService.AuthenticateLogInUser(email, pw);
         }
 
 
