@@ -44,7 +44,8 @@ export default function Register() {
             </div>
     )
 
-    async function registerUser() {
+    function registerUser(event) {
+        event.preventDefault()
         console.log('start reg')
         
         fetch('https://reqres.in/api/users', {
