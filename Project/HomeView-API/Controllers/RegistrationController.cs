@@ -1,5 +1,6 @@
 ﻿using Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Managers.Implementations;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HomeView_API.Controllers
@@ -11,15 +12,24 @@ namespace HomeView_API.Controllers
         private readonly IRegistrationManager _registrationManager;
 
 
-        public RegistrationController(IRegistrationManager registrationManager)
+        public RegistrationController()
         {
-            _registrationManager = registrationManager;
+            _registrationManager = new RegistrationManager();
            
         }
 
 
-        // GET /registration/email/dob/pw
-        [Route("/registration/{email}/{dob}/{pw}")]
+        // POST /registration/email/dob/pw
+        [Route("validate/{email}/{dob}/{pw}")]
+        [HttpGet]
+        public bool ValidateUserFields(string email, string dob, string pw)
+        {
+            return _registrationManager.ValidateFields(email, dob, pw);        
+        }
+
+
+        // POST /registration/email/dob/pw
+        [Route("/register/{email}/{dob}/{pw}")]
         [HttpPost]
         public bool CreateNewUser(string email, string dob, string pw)
         {

@@ -7,6 +7,7 @@ using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
 using Managers.Implementations;
+using Services.Implementations;
 
 
 namespace Managers.Implementations
@@ -22,6 +23,8 @@ namespace Managers.Implementations
         {
             _userManager = new UserManager();
             _emailManager = new EmailManager();
+            _authenticationManager = new AuthenticationManager();
+            _registrationService = new RegistrationService();
         }
 
         public bool ValidateEmail(string email)
