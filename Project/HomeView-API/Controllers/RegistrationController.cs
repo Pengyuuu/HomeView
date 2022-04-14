@@ -22,7 +22,7 @@ namespace HomeView_API.Controllers
         // POST /registration/email/dob/pw
         [Route("validate/{email}/{dob}/{pw}")]
         [HttpGet]
-        public bool ValidateUserFields(string email, string dob, string pw)
+        public ActionResult<bool> ValidateUserFields(string email, string dob, string pw)
         {
             return _registrationManager.ValidateFields(email, dob, pw);        
         }
@@ -31,7 +31,7 @@ namespace HomeView_API.Controllers
         // POST /registration/email/dob/pw
         [Route("/register/{email}/{dob}/{pw}")]
         [HttpPost]
-        public string CreateNewUser(string email, string dob, string pw)
+        public ActionResult<string> CreateNewUser(string email, string dob, string pw)
         {
             
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);

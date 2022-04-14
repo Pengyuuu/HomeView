@@ -8,7 +8,7 @@ using System.Net.Mail;
 using Services.Implementations;
 using Managers.Contracts;
 using System.Web;
-
+using System.Net.Mime;
 
 namespace Managers.Implementations
 {
@@ -38,7 +38,8 @@ namespace Managers.Implementations
             message.IsBodyHtml = true;
             string homeviewConfirmMessage = "Hello! Thanks for  registering for HomeView. Please click the URL below to confirm your account. \n";
             string messageLink = "<a href=\"" + confirmationUrl + "\"></a>";
-            
+            messageLink += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + confirmationUrl);
+
 
             stringAppend.AppendLine(homeviewConfirmMessage);
             stringAppend.AppendLine(confirmationUrl);
@@ -49,8 +50,11 @@ namespace Managers.Implementations
             message.BodyEncoding = System.Text.Encoding.UTF8;
             message.Subject = "HomeView Confirmation Email";
             message.SubjectEncoding = System.Text.Encoding.UTF8;
-          
-         
+
+            message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(homeviewConfirmMessage, null, MediaTypeNames.Text.Plain));
+            message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(messageLink, null, MediaTypeNames.Text.Html));
+
+
             try
             {
                 _emailService.AsyncSendEmail(message);

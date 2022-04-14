@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Features.Ratings_and_Reviews;
 using Managers.Contracts;
+using Managers.Implementations;
 
 
 namespace HomeView_API.Controllers
@@ -12,53 +13,57 @@ namespace HomeView_API.Controllers
     [ApiController]
     public class RatingReviewController : ControllerBase
     {
+
+        private readonly IRatingAndReviewManager _reviewManager;
+
+        public RatingReviewController()
+        {
+            _reviewManager = new RatingAndReviewManager();
+        }
+
         // GET: api/values
-        [HttpGet(Name = "GetRatingReviews")]
-        public IEnumerable<RatingAndReview> Get()
+        [HttpPost("api/RatingReview/submit/{title}/{id}")]
+        public ActionResult<bool> SubmitReview(string title, string id)
         {
+            return true;
+        }
 
-            
 
-            return new RatingAndReview[] { new RatingAndReview() };
-           
+        // GET: api/values
+        [HttpGet("api/RatingReview/GetRatingReviews")]
+        public ActionResult<IEnumerable<RatingAndReview>> Get()
+        {
+            return new RatingAndReview[] { new RatingAndReview() };        
         }
 
         // GET api/values/5
-        [HttpGet("{title}")]
-        public IEnumerable<RatingAndReview> Get(string title)
+        [HttpGet("api/RatingReview/get/{title}")]
+        public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
         {
-
-
-
             return new RatingAndReview[] { new RatingAndReview() };
-
-
         }
 
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("api/RatingReview/get/{title}/{id}")]
+        public ActionResult<RatingAndReview> GetUserTitleReview(string title, string id)
         {
-            return "value";
+            return new RatingAndReview();
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET api/values/5
+        [HttpGet("api/RatingReview/get/{title}/{id}")]
+        public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string id)
         {
+            return new RatingAndReview[] { new RatingAndReview() };
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("api/RatingReview/delete/{title}/{id}")]
+        public ActionResult<bool> DeleteReview(string id)
         {
+            return true;
         }
     }
 }

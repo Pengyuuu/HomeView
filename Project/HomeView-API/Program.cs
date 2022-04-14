@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddOptions();
+
 //builder.Services.Configure<EmailService>(builder.Configuration.GetSection("EmailService"));
 builder.Services.Configure<EmailManager>(_fromEmail =>
 {
@@ -46,13 +47,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     
 }
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapDefaultControllerRoute();
 
 app.Run();
 
