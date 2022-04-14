@@ -9,23 +9,19 @@ using System.Net;
 using System.Configuration;
 
 
+
 namespace Services.Implementations
 {
     public class EmailService : IEmailService
     {
         private SmtpClient _smtpClient;
-        private readonly string _server;
-        private readonly int _port;
-        public string FromEmail { get; set; }
-        public string Key { get; set; }
+        public string _server { get; set; }
+        public  int _port { get; set; }
+        public string _fromEmail { get; set; }
+        public string _key { get; set; }
         public EmailService()
-        {
-            
-            _server = "Smtp.Server";
-            _port = 0;
-            _smtpClient = new SmtpClient(_server, _port);
-            _smtpClient.EnableSsl = true;
-            _smtpClient.Host = _server;
+        {                    
+            _smtpClient = new SmtpClient(_server, _port);          
 
         }
 

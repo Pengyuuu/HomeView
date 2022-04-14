@@ -28,6 +28,7 @@ namespace Services.Implementations
             }
             catch
             {
+                // user is already in database
                 return false;
             }
             return isCreated;

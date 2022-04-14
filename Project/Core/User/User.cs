@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+//using Features.Ratings_and_Reviews;
 
 namespace Core.User
 {
@@ -15,6 +17,14 @@ namespace Core.User
 		private bool _status;           // user's _userStatus (enabled = 1 or disabled = 0)
 		private Role _role;             // user's role (admin or user)
 		private string _token;          // user's token for 2FA
+		//private List<RatingAndReview> _reviews;		// user's list of reviews made
+
+		/**
+		public List<RatingAndReview> Reviews
+        {
+			get { return _reviews; }
+			set { _reviews = value; }
+        }**/
 
 		public string FirstName
         {

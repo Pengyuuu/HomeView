@@ -4,6 +4,7 @@ using System.Linq;
 using Features.Ratings_and_Reviews;
 using Services.Contracts;
 using Core.Logging;
+using Data;
 
 namespace Services.Implementations
 {
@@ -14,7 +15,8 @@ namespace Services.Implementations
 
         public RatingAndReviewService()
         {
-
+            _rrDAO = new RatingAndReviewDAO(new SqlDataAccess());
+            _loggingService = new LoggingService();
         }
 
         public bool CreateRatingReview(RatingAndReview userRatingAndReview)
@@ -56,13 +58,15 @@ namespace Services.Implementations
 
         public IEnumerable<RatingAndReview> GetRatingReview(RatingAndReview getReview)
         {
-            IEnumerable<RatingAndReview> fetchRatingReview = null;
 
             try
             {
-                fetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
+                //IEnumerable<RatingAndReview> fetchRatingReview = Enumerable.Empty<RatingAndReview>(); ;
+                var ffetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
                 Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 _loggingService.LogData(reviewLogTrue);
+                return ffetchRatingReview;
+
             }
             catch
             {
@@ -70,9 +74,6 @@ namespace Services.Implementations
                 _loggingService.LogData(reviewLogFalse);
                 return null;
             }
-
-            return fetchRatingReview;
-
         }
 
         public bool DeleteRatingReview(RatingAndReview selectedReview)

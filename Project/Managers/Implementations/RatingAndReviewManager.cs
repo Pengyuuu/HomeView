@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Managers.Contracts;
 using Services.Contracts;
 using Features.Ratings_and_Reviews;
 using Services.Implementations;

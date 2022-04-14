@@ -32,7 +32,7 @@ namespace Managers.Implementations
             if (email != null)
             {
                 //  makes sure new user's email is valid (contains @.com)
-                if (email.Contains("@") && email.Contains(".com"))
+                if (email.Contains("@") && (email.Contains(".edu") || email.Contains(".com")))
                 {
                     // check if in db
                     if (_userManager.GetUser(email) == null)
@@ -114,8 +114,8 @@ namespace Managers.Implementations
                     bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
                     if (isCreatedDB)
                     {
-                        return true;
-                        //return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
+                        //return true;
+                        return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
                     }
                 }
             }

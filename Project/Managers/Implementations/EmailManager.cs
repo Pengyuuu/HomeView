@@ -15,13 +15,12 @@ namespace Managers.Implementations
     public class EmailManager : IEmailManager
     {
         private readonly IEmailService _emailService;
-        private string _message;
-        private readonly string _fromEmail;
+        public string _fromEmail { get; set; }
 
         public EmailManager()
         {
             _emailService = new EmailService();
-            _fromEmail = "";
+            
         }
 
 

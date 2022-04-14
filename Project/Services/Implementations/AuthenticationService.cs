@@ -32,9 +32,9 @@ namespace Services.Implementations
               var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
               if ((DateTime.UtcNow < expireTime) && (fetchedUser.Token == userOtp))
                 {
-                    // deletes user from registration db
-                    _userService.DeleteUser(email, 0);
                     // creates user into user db
+                    // status is set to true for being a first time user
+                    fetchedUser.Status = true;
                     _userService.CreateUser(fetchedUser, 1);
                     return true;
                 }

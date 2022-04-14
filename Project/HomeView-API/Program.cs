@@ -1,5 +1,7 @@
 using Services.Implementations;
 using System.Configuration;
+using Managers.Implementations;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,27 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Configuration.AddJsonFile("appsettings.json");
+builder.Services.AddOptions();
+//builder.Services.Configure<EmailService>(builder.Configuration.GetSection("EmailService"));
+builder.Services.Configure<EmailManager>(_fromEmail =>
+{
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_fromEmail);
+} );
+builder.Services.Configure<EmailService>(_fromEmail =>
+{
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_fromEmail);
+});
+builder.Services.Configure<EmailService>(_server =>
+{
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_server);
+}); builder.Services.Configure<EmailService>(_port =>
+{
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_port);
+}); builder.Services.Configure<EmailService>(_key =>
+{
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_key);
+});
 
 
 var app = builder.Build();
