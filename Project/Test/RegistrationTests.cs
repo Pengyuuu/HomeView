@@ -4,88 +4,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Core;
+using Managers.Contracts;
+using Managers.Implementations;
 
 namespace RegistrationTests
 {
     public class RegistrationTests
-    {/*
+    {
+        private readonly IRegistrationManager _registrationManager = new RegistrationManager();
+
         [Fact]
-        public void Register_isPasswordValidShouldReturnTrue()
+        public void Register_ShouldRegisterUserSuccess()
         {
             bool expected = true;
 
-            Register testRegister = new Register();
-
-            bool actual = testRegister.IsPassWordValid("iLoveL3ague!");
+            bool actual = _registrationManager.CreateUser("csulbtestingtestingtesting@gmail.com","2000-12-09", "TestPassword!12344556755");
 
             Assert.Equal(expected, actual);
 
         }
 
         [Fact]
-        public void Register_isPasswordValidShouldReturnFalse()
+        public void Register_ShouldRegisterUserUnsuccess()
         {
             bool expected = true;
-            bool actual = false;
 
-            Register testRegister = new Register();
+            bool actual = _registrationManager.CreateUser("csulbtestingtestingtesting@gmail.com", "2000-12-09", "TestPassword!12344556755");
+
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Register_RegisterUserInvalidFields()
+        {
+
+            bool expected = true;
+            bool actual = false;
 
             // Nothing
-            bool testReg1 = testRegister.IsPassWordValid("");
+            bool testReg1 = _registrationManager.ValidateFields("",null,"");
 
-            // Not long enough (11)
-            bool testReg2 = testRegister.IsPassWordValid("Not!ongenuf");
+            // pw Not long enough (11)
+            bool testReg2 = _registrationManager.ValidateFields("A@gmail.com", "2000-09-09" ,"Not!ongenuf");
 
             // No Capital
-            bool testReg3 = testRegister.IsPassWordValid("nocapitalhere!");
+            bool testReg3 = _registrationManager.ValidateFields("A@gmail.com", "2000-09-09", "nocapitalhere!");
 
             // No non-alpha
-            bool testReg4 = testRegister.IsPassWordValid("noAlphanumeric");
+            bool testReg4 = _registrationManager.ValidateFields("A@gmail.com", "2000-09-09", "noAlphanumeric");
+            // not old enough
+            bool testReg5 = _registrationManager.ValidateFields("A@gmail.com", "2011-09-09", "noAlphanumeric");
+            // not an email
+            bool testReg6 = _registrationManager.ValidateFields("A@.com", "2000-09-09", "noAlphanumeric");
 
-            if (!testReg1 && !testReg2 && !testReg3 && !testReg4)
+
+            if (!testReg1 && !testReg2 && !testReg3 && !testReg4 && !testReg5 && !testReg6)
             {
                 actual = true;
             }
-
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void Register_isEmailValidShouldReturnTrue()
+        public void Register_RegisterUserValidFields()
         {
             bool expected = true;
-
-            Register testRegister = new Register();
-
-            bool actual = testRegister.IsEmailValid("totallyrea1email@gmail.com");
+            bool actual = _registrationManager.ValidateFields("A@gmail.com", "2000-09-09", "noAlphanumeric!!123345531");
 
             Assert.Equal(expected, actual);
         }
-
-        [Fact]
-        public void Register_isEmailValidShouldReturnFalse()
-        {
-            bool expected = true;
-            bool actual = false;
-
-            Register testRegister = new Register();
-
-            // Only ".com"
-            bool testReg1 = testRegister.IsEmailValid("notanemailhere1.com");
-
-            // Only "@"
-            bool testReg2 = testRegister.IsEmailValid("not@nemailhere2");
-
-            if (!testReg1 && !testReg2)
-            {
-                actual = true;
-            }
-
-
-            Assert.Equal(expected, actual);
-        }
-        */
+        
     }
 
 }

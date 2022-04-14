@@ -3,12 +3,13 @@ using System.Linq;
 using Services.Contracts;
 using Features.Ratings_and_Reviews;
 using Services.Implementations;
+using Managers.Contracts;
 
 namespace Managers.Implementations
 {
-    public class RatingAndReviewManager
+    public class RatingAndReviewManager : IRatingAndReviewManager
     {
-       
+
         private IRatingAndReviewService _ratingAndReviewService;
 
         public RatingAndReviewManager()
@@ -95,7 +96,7 @@ namespace Managers.Implementations
             specificReview.DispName = dispName;
             specificReview.Title = selectedTitle;
             return _ratingAndReviewService.GetRatingReview(specificReview).FirstOrDefault();
-                  
+
         }
 
         public IEnumerable<RatingAndReview> GetTitleReviewRating(string selectedTitle)
