@@ -93,13 +93,12 @@ namespace Managers.Implementations
 
         public bool ValidateFields(string email, string dob, string pw)
         {
-            return ValidateEmail(email) == ValidatePassword(pw) == ValidateBirth(dob);
+            return ((ValidateEmail(email)) && (ValidatePassword(pw)) && (ValidateBirth(dob)));
         }
 
         // creates user into reg db and sends confirmation email
         public bool CreateUser(string email, string birth, string pw)
         {
-
             if (ValidateFields(email, birth, pw))
             {
                 string userOtp = _authenticationManager.GenerateOTP();
@@ -114,8 +113,8 @@ namespace Managers.Implementations
                     bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
                     if (isCreatedDB)
                     {
-                        //return true;
-                        return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
+                        return true;
+                        //return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
                     }
                 }
             }

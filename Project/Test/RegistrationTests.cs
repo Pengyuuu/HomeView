@@ -18,7 +18,7 @@ namespace RegistrationTests
         {
             bool expected = true;
 
-            bool actual = _registrationManager.CreateUser("csulbtestingtestingtesting@gmail.com","2000-12-09", "TestPassword!12344556755");
+            bool actual = _registrationManager.CreateUser("ctest@gmail.com","2000-12-09", "TestPassword!12344556755");
 
             Assert.Equal(expected, actual);
 
@@ -27,7 +27,7 @@ namespace RegistrationTests
         [Fact]
         public void Register_ShouldRegisterUserUnsuccess()
         {
-            bool expected = true;
+            bool expected = false;
 
             bool actual = _registrationManager.CreateUser("csulbtestingtestingtesting@gmail.com", "2000-12-09", "TestPassword!12344556755");
 
@@ -56,7 +56,7 @@ namespace RegistrationTests
             // not old enough
             bool testReg5 = _registrationManager.ValidateFields("A@gmail.com", "2011-09-09", "noAlphanumeric");
             // not an email
-            bool testReg6 = _registrationManager.ValidateFields("A@.com", "2000-09-09", "noAlphanumeric");
+            bool testReg6 = _registrationManager.ValidateFields("A@.om", "2000-09-09", "noAlphanumeric");
 
 
             if (!testReg1 && !testReg2 && !testReg3 && !testReg4 && !testReg5 && !testReg6)
