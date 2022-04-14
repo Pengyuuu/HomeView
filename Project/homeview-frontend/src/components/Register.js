@@ -1,13 +1,9 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 
 export default function Register() {
-
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const birthdayRef = useRef()
 
     return (
             <div>
@@ -16,18 +12,18 @@ export default function Register() {
                     <Card>
                         <Card.Body>
                             <h2 className="text-center mb-4"> Sign Up</h2>
-                            <Form onSubmit={registerUser}>
+                            <Form id="form" onSubmit={registerUser}>
                                 <Form.Group id="email">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control name = 'Email' type="email" ref={emailRef} required placeholder="Email" ></Form.Control>
+                                    <Form.Control name='Email' type="email" required placeholder="Email" id="email"></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control name = 'Password' type="password" ref={passwordRef} required placeholder="Password" ></Form.Control>
+                                    <Form.Control name='Password' type="password" required placeholder="Password" id="password"></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="birthday">
                                     <Form.Label>Birthday</Form.Label>
-                                    <Form.Control name = 'Birthday' type="date" ref={birthdayRef} required placeholder="Birthday" ></Form.Control>
+                                    <Form.Control name='Birthday' type="date" required placeholder="Birthday" id="birthday"></Form.Control>
                                 </Form.Group>
                                 <br></br>
                                 <Button type="submit" className="btn-signup">
@@ -45,17 +41,23 @@ export default function Register() {
     )
 
     function registerUser(event) {
+
+        var data = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            birthday: document.getElementById('birthday').value
+        }
+        
         event.preventDefault()
         console.log('start reg')
         
-        fetch('https://reqres.in/api/users', {
+        fetch('http://localhost:3000/register/api', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: 'hardname',
-                job: 'hardjob'
+                data
             })
         }).then (res=> {
                 return res.json()
