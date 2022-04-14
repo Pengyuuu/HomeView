@@ -29,7 +29,7 @@ namespace HomeView_API.Controllers
 
         // when user clicks registration link from email -> authenticates user
         [Route("/account/confirmEmailLink/{userOtp}/{email}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public ActionResult<string> ConfirmRegisteredUser(string userOtp, string email)
         {

@@ -14,11 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddOptions();
-builder.Services.AddControllersWithViews();
 
 //builder.Services.Configure<EmailService>(builder.Configuration.GetSection("EmailService"));
 builder.Services.Configure<EmailManager>(_fromEmail =>
@@ -53,14 +52,10 @@ if (app.Environment.IsDevelopment())
     
 }
 
-app.UseRouting();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+
 app.MapControllers();
 
 
