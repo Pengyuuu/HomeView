@@ -2,6 +2,8 @@ using Services.Implementations;
 using System.Configuration;
 using Managers.Implementations;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http.Headers;
+using System.Web.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddOptions();
+builder.Services.AddControllersWithViews();
 
 //builder.Services.Configure<EmailService>(builder.Configuration.GetSection("EmailService"));
 builder.Services.Configure<EmailManager>(_fromEmail =>
@@ -38,6 +41,7 @@ builder.Services.Configure<EmailService>(_server =>
 });
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,13 +50,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     
+    
 }
+
+app.UseRouting();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.MapControllers();
-app.MapDefaultControllerRoute();
+
 
 app.Run();
 
