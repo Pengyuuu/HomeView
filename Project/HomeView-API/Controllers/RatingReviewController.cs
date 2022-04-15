@@ -22,7 +22,7 @@ namespace HomeView_API.Controllers
         }
 
         // GET: api/values
-        [HttpPost("api/RatingReview/submit/{title}/{id}")]
+        [HttpPost("submit/{title}/{id}")]
         public ActionResult<bool> SubmitReview(string title, string id)
         {
             return true;
@@ -30,14 +30,14 @@ namespace HomeView_API.Controllers
 
 
         // GET: api/values
-        [HttpGet("api/RatingReview/GetRatingReviews")]
+        [HttpGet("GetRatingReviews")]
         public ActionResult<IEnumerable<RatingAndReview>> Get()
         {
             return new RatingAndReview[] { new RatingAndReview() };        
         }
 
         // GET api/values/5
-        [HttpGet("api/RatingReview/get/{title}")]
+        [HttpGet("get/{title}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
         {
             return new RatingAndReview[] { new RatingAndReview() };
@@ -45,14 +45,14 @@ namespace HomeView_API.Controllers
 
 
         // GET api/values/5
-        [HttpGet("api/RatingReview/get/{title}/{id}")]
+        [HttpGet("get/{title}/{id}")]
         public ActionResult<RatingAndReview> GetUserTitleReview(string title, string id)
         {
             return new RatingAndReview();
         }
 
         // GET api/values/5
-        [HttpGet("api/RatingReview/get/{id}")]
+        [HttpGet("get/{id}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string id)
         {
             return new RatingAndReview[] { new RatingAndReview() };
@@ -60,7 +60,7 @@ namespace HomeView_API.Controllers
 
 
         // DELETE api/values/5
-        [HttpDelete("api/RatingReview/delete/{title}/{id}")]
+        [HttpDelete("delete/{title}/{id}")]
         public ActionResult<bool> DeleteReview(string id)
         {
             return true;
