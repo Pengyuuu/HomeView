@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Services.Contracts;
@@ -52,5 +53,31 @@ namespace Services.Implementations
             return false;
         }
 
+        public string HashPassword(string pw)
+        {
+            SHA256 pww = SHA256.Create();
+
+            string salt = GenerateSalt();
+
+            // Converts the password string into bytes
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(pw + salt);
+
+            // Computes hash of data using the SHA256 algorithm
+            byte[] hash = pww.ComputeHash(bytes);
+
+            return Convert.ToBase64String(hash);
+        }
+
+        public string GenerateSalt()
+        {
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+
+            var buffer = new byte[32];
+
+            // Fills buffer array with a random sequence of 32 values
+            rng.GetBytes(buffer);
+
+            return Convert.ToBase64String(buffer);
+        }
     }
 }
