@@ -52,7 +52,7 @@ namespace HomeView_API.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("api/RatingReview/get/{title}/{id}")]
+        [HttpGet("api/RatingReview/get/{id}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string id)
         {
             return new RatingAndReview[] { new RatingAndReview() };

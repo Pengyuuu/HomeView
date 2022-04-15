@@ -28,7 +28,7 @@ namespace HomeView_API.Controllers
 
 
         // when user clicks registration link from email -> authenticates user
-        [Route("/account/confirmEmailLink/{userOtp}/{email}")]
+        [Route("account/confirmEmailLink/{userOtp}/{email}")]
         //[AllowAnonymous]
         [HttpGet]
         public ActionResult<string> ConfirmRegisteredUser(string userOtp, string email)
@@ -50,7 +50,7 @@ namespace HomeView_API.Controllers
         }
 
         // this is after confirming user/authenticaated user
-        [Route("/login/{email}")]
+        [Route("get/{email}")]
         [HttpGet]
         public ActionResult<User> GetUser(string email)
         {
