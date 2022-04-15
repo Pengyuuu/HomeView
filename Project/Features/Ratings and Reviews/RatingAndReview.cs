@@ -15,7 +15,7 @@ namespace Features.Ratings_and_Reviews
         private string _dispName;
 
         // User's rating for a title
-        public int Rating { get; set; }
+        public float Rating { get; set; }
 
         // User's review for a title
         public string Review { get; set; }
@@ -31,7 +31,7 @@ namespace Features.Ratings_and_Reviews
             this.Title = "";
             this.DispName = "";
         }
-        public RatingAndReview(string dispName, string selectedTitle, int userRating)
+        public RatingAndReview(string dispName, string selectedTitle, float userRating)
         {
             this.Rating = userRating;
             this.Review = "";
@@ -47,7 +47,7 @@ namespace Features.Ratings_and_Reviews
             this.DispName = dispName;
         }
 
-        public RatingAndReview(string dispName, string selectedTitle, int userRating, string userReview)
+        public RatingAndReview(string dispName, string selectedTitle, float userRating, string userReview)
         {
             this.Rating = userRating;
             this.Review = userReview;

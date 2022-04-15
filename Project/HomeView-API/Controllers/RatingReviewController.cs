@@ -21,49 +21,53 @@ namespace HomeView_API.Controllers
             _reviewManager = new RatingAndReviewManager();
         }
 
-        // GET: api/values
-        [HttpPost("submit/{title}/{id}")]
-        public ActionResult<bool> SubmitReview(string title, string id)
+        // post: /submit
+        [HttpPost("submit/{title}/{dispName}")]
+        public ActionResult<bool> SubmitReview(string title, string dispName, float rating, string review)
         {
-            return true;
+            return _reviewManager.SubmitReviewRating(dispName, title, rating, review);
+
         }
 
-
-        // GET: api/values
-        [HttpGet("GetRatingReviews")]
-        public ActionResult<IEnumerable<RatingAndReview>> Get()
+        // post: /update
+        [HttpPost("update/{title}/{dispName}")]
+        public ActionResult<bool> UpdateReview(string title, string dispName, float rating, string review)
         {
-            return new RatingAndReview[] { new RatingAndReview() };        
+            return _reviewManager.UpdateReviewRating(dispName, title, rating, review);
+
         }
 
-        // GET api/values/5
+        // GET /get list of reviews for the title
         [HttpGet("get/{title}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
         {
-            return new RatingAndReview[] { new RatingAndReview() };
+            var titleReviews = _reviewManager.GetTitleReviewRating("Power Rangers");
+            return titleReviews;
         }
 
 
         // GET api/values/5
-        [HttpGet("get/{title}/{id}")]
-        public ActionResult<RatingAndReview> GetUserTitleReview(string title, string id)
+        [HttpGet("get/{title}/{dispName}")]
+        public ActionResult<RatingAndReview> GetUserTitleReview(string title, string dispName)
         {
             return new RatingAndReview();
         }
 
         // GET api/values/5
-        [HttpGet("get/{id}")]
-        public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string id)
+        [HttpGet("get/{dispName}")]
+        public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string dispName)
         {
-            return new RatingAndReview[] { new RatingAndReview() };
+            var userList = _reviewManager.GetUserReviewRating(dispName);
+
+            return _reviewManager.GetUserReviewRating(dispName);
         }
 
 
         // DELETE api/values/5
-        [HttpDelete("delete/{title}/{id}")]
-        public ActionResult<bool> DeleteReview(string id)
+        [HttpDelete("delete/{title}/{dispName}")]
+        public ActionResult<bool> DeleteReview(string title, string dispName)
         {
-            return true;
+            return _reviewManager.DeleteReviewRating(dispName, title);
         }
     }
 }

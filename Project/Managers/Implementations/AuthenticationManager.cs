@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Services.Contracts;
+﻿using Services.Contracts;
 using Services.Implementations;
 using Managers.Contracts;
 
@@ -21,10 +16,15 @@ namespace Managers.Implementations
             _authenticationService = new AuthenticationService();
         }
 
+        public string GenerateJWTToken(string email)
+        {
+            return _authenticationService.GenerateJWTToken(email);
+        }
+
         // for registering users
         public string GenerateOTP()
         {
-            return _authenticationService.AsyncGenerateOTP().Result;
+            return _authenticationService.GenerateOTP();
         }
 
         public bool AuthenticateRegisteredUser(string email, string userOtp)

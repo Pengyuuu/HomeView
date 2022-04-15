@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 
 export default function Register() {
+
+    const passwordRef = useRef();
+
+    const [disable, setDisable] = React.useState(false);
 
     return (
             <div>
@@ -19,14 +23,14 @@ export default function Register() {
                                 </Form.Group>
                                 <Form.Group id="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control name='Password' type="password" required placeholder="Password" id="password"></Form.Control>
+                                    <Form.Control name='Password' type="password" required placeholder="Password" id="password" onChange={validatePass} ref={passwordRef}></Form.Control>
                                 </Form.Group>
                                 <Form.Group id="birthday">
                                     <Form.Label>Birthday</Form.Label>
                                     <Form.Control name='Birthday' type="date" required placeholder="Birthday" id="birthday"></Form.Control>
                                 </Form.Group>
                                 <br></br>
-                                <Button type="submit" className="btn-signup">
+                                <Button type="submit" className="btn-signup" id='btn-signup' disabled={disable}>
                                     Sign Up
                                 </Button>
                             </Form >
@@ -40,8 +44,22 @@ export default function Register() {
             </div>
     )
 
-    function registerUser(event) {
 
+    
+    function validatePass(event) {
+        var password = event.target.value
+        console.log(event.target.value)
+        
+        if (/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Z\d@$!%*#?&]{12,}$/.test(password)) {
+            setDisable(false);
+        }
+        else{
+            setDisable(true);
+        }
+    }
+
+    function registerUser(event) {
+        
         var data = {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
@@ -51,7 +69,7 @@ export default function Register() {
         event.preventDefault()
         console.log('start reg')
         
-        fetch('http://localhost:3000/api/registration', {
+        fetch('http://localhost:3000/api/registration/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
