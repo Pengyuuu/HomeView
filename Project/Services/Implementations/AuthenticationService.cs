@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using Services.Contracts;
 using System.IdentityModel.Tokens.Jwt;
@@ -34,10 +35,10 @@ namespace Services.Implementations
                     SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
                 };
                 SecurityToken token = tokenHandler.CreateToken(claims);
-                return tokenHandler.WriteToken(token);               
+                return tokenHandler.WriteToken(token);
             }
 
-            catch 
+            catch
             {
                 return null;
             }
@@ -46,7 +47,7 @@ namespace Services.Implementations
         // otp
         public string GenerateOTP()
         {
-            
+
             return "1231238130test!";
         }
 
@@ -54,10 +55,10 @@ namespace Services.Implementations
         {
             var fetchedUser = _userService.GetRegisteredUser(email);
             // user is found and they're unconfirmed
-            if (fetchedUser != null && (!fetchedUser.Status)) 
+            if (fetchedUser != null && (!fetchedUser.Status))
             {
-              var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
-              if ((DateTime.UtcNow < expireTime) && (fetchedUser.Token == userOtp))
+                var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
+                if ((DateTime.UtcNow < expireTime) && (fetchedUser.Token == userOtp))
                 {
                     // creates user into user db
                     // status is set to true for being a first time user
@@ -75,11 +76,37 @@ namespace Services.Implementations
         {
             var fetchedUser = _userService.GetUser(email);
             if ((fetchedUser != null) && (fetchedUser.Password == pw))
-            {                               
-                return true;               
+            {
+                return true;
             }
             return false;
         }
 
+        public string HashPassword(string pw)
+        {
+            SHA256 pww = SHA256.Create();
+
+            string salt = GenerateSalt();
+
+            // Converts the password string into bytes
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(pw + salt);
+
+            // Computes hash of data using the SHA256 algorithm
+            byte[] hash = pww.ComputeHash(bytes);
+
+            return Convert.ToBase64String(hash);
+        }
+
+        public string GenerateSalt()
+        {
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+
+            var buffer = new byte[32];
+
+            // Fills buffer array with a random sequence of 32 values
+            rng.GetBytes(buffer);
+
+            return Convert.ToBase64String(buffer);
+        }
     }
 }
