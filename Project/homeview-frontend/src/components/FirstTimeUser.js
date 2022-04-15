@@ -29,12 +29,34 @@ export default function FirstTimeUser() {
                                     <Form.Control name='Display Name' type="text" required placeholder="Display Name" id="dName"></Form.Control>
                                 </Form.Group>
                                 <p>Select your genres!</p>
-                                <Button style={ {backgroundColor:'gray'}} value='Action' id='Action' onClick={addtoGenres}>Action</Button>
-                                <Button style={ {backgroundColor:'gray'}} value='Romance' id='Romance' onClick={addtoGenres}>Romance</Button>
-                                <Button style={ {backgroundColor:'gray'}} value='Comedy' id='Comedy' onClick={addtoGenres}>Comedy</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Biography' id='Biography' onClick={addtoGenres}>Biography</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Film Noir' id='Romance' onClick={addtoGenres}>Romance</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Game Show' id='Game Show' onClick={addtoGenres}>Game Show</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Musical' id='Musical' onClick={addtoGenres}>Musical</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Sport' id='Sport' onClick={addtoGenres}>Sport</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Short' id='Short' onClick={addtoGenres}>Short</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Adult' id='Adult' onClick={addtoGenres}>Adult</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Adventure' id='Adventure' onClick={addtoGenres}>Adventure</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Fantasy' id='Fantasy' onClick={addtoGenres}>Fantasy</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Animation' id='Animation' onClick={addtoGenres}>Animation</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Drama' id='Drama' onClick={addtoGenres}>Drama</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Horror' id='Horror' onClick={addtoGenres}>Horror</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Action' id='Action' onClick={addtoGenres}>Action</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Comedy' id='Comedy' onClick={addtoGenres}>Comedy</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='History' id='History' onClick={addtoGenres}>History</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Western' id='Western' onClick={addtoGenres}>Western</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Thriller' id='Thriller' onClick={addtoGenres}>Thriller</Button>
-                                <Button style={ {backgroundColor:'gray'}} value='Slice of Life' id='sLICE' onClick={addtoGenres}>Slice of Life</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Crime' id='Crime' onClick={addtoGenres}>Crime</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Documentary' id='Documentary' onClick={addtoGenres}>Documentary</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Science Fiction' id='Science Fiction' onClick={addtoGenres}>Science Fiction</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Mystery' id='Mystery' onClick={addtoGenres}>Mystery</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Music' id='Music' onClick={addtoGenres}>Music</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Romance' id='Romance' onClick={addtoGenres}>Romance</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Family' id='Family' onClick={addtoGenres}>Family</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='War' id='War' onClick={addtoGenres}>War</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='News' id='News' onClick={addtoGenres}>News</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Reality' id='Reality' onClick={addtoGenres}>Reality</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Talk Show' id='Talk Show' onClick={addtoGenres}>Talk Show</Button>
 
                                 <p> Select your streaming services!</p>
                                 <Button style={ {backgroundColor:'gray'}} value='apple' id='apple' onClick={addtoServices}>Apple</Button>
