@@ -70,9 +70,6 @@ export default function FirstTimeUser() {
                                 <Button style={ {backgroundColor:'gray'}} value='prime' id='prime' onClick={addtoServices}>Prime</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='showtime' id='showtime' onClick={addtoServices}>Showtime</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='starz' id='starz' onClick={addtoServices}>Starz</Button>
-
-
-                                <br></br>
                                 <Button type="submit" className="btn-signup">
                                     Sign Up
                                 </Button>
@@ -80,9 +77,6 @@ export default function FirstTimeUser() {
                             
                         </Card.Body>
                     </Card>
-                    <div className="w-100 text-center mt-2 extraInfo">
-                        Already have an account? <Link to="/login">Log In</Link>
-                    </div>
                 </div>
             </div>
     )
