@@ -36,7 +36,3 @@ export default function (title) {
        </>
         )
 }
-
-function validateReview() {
-    if (reviewRef.length)
-}
