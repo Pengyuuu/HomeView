@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Services.Contracts;
-using Services.Implementations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Services.Implementations
 {
@@ -17,17 +16,45 @@ namespace Services.Implementations
             _userService = new UserService();
         }
 
-        // used for when newly registered users try to log in
-        public async Task<string> AsyncGenerateOTP()
+        // generates jwt token, should this be async?
+        public string GenerateJWTToken(string email)
         {
-            string p = "sdljfsdklsfjslkjf";
-            return p;
+            try
+            {
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                // sample security key but replace with one from config???
+                var encoded = Base64UrlEncoder.Encode("securitykeyexample");
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encoded));
+                var claims = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
+                    Expires = DateTime.UtcNow.AddMinutes(15),
+                    Issuer = "HomeView",
+                    Audience = "HomeViewUser",
+                    SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+                };
+                SecurityToken token = tokenHandler.CreateToken(claims);
+                return tokenHandler.WriteToken(token);               
+            }
+
+            catch 
+            {
+                return null;
+            }
+        }
+
+        // otp
+        public string GenerateOTP()
+        {
+            
+            return "1231238130test!";
         }
 
         public bool AuthenticateRegisteredUser(string email, string userOtp)
         {
             var fetchedUser = _userService.GetRegisteredUser(email);
-            if (fetchedUser != null) 
+            // user is found and they're unconfirmed
+            if (fetchedUser != null && (!fetchedUser.Status)) 
             {
               var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
               if ((DateTime.UtcNow < expireTime) && (fetchedUser.Token == userOtp))
@@ -35,6 +62,8 @@ namespace Services.Implementations
                     // creates user into user db
                     // status is set to true for being a first time user
                     fetchedUser.Status = true;
+                    // resets token so it is no longer valid now that user is confirmed already
+                    fetchedUser.Token = "";
                     _userService.CreateUser(fetchedUser, 1);
                     return true;
                 }

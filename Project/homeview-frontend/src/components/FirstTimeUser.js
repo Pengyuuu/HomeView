@@ -1,6 +1,5 @@
 import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
 
 
 export default function FirstTimeUser() {
@@ -9,28 +8,34 @@ export default function FirstTimeUser() {
     return (
             <div>
             <div className='background-Homeview'></div>
-                <div className='card-center'>
+                <div className='card-long'>
                     <Card>
                         <Card.Body>
-                            <h2 className="text-center mb-4"> Welcome to HomeView! </h2>
-                            <p className="text-center mb-4"> Please fill out the form below to finish setting up your account.</p>
+                            <h2 className="text-center"> Welcome to HomeView! </h2>
+                            <p className="text-center "> Please fill out the form below to finish setting up your account.</p>
 
                             <Form id="form" onSubmit={SaveUserProfile}>
                                 <Form.Group id="fName">
                                     <Form.Label>First Name</Form.Label>
                                     <Form.Control name='First Name' type="text" required placeholder="First Name" id="fName"></Form.Control>
-                                </Form.Group>
+                            </Form.Group>
+                            <br></br>
                                 <Form.Group id="lName">
                                     <Form.Label>Last Name</Form.Label>
                                     <Form.Control name='First Name' type="text" required placeholder="Last Name" id="lastName"></Form.Control>
-                                </Form.Group>
+                            </Form.Group>
+                            <br></br>
+
                                 <Form.Group id="dName">
                                     <Form.Label>Display Name</Form.Label>
                                     <Form.Control name='Display Name' type="text" required placeholder="Display Name" id="dName"></Form.Control>
-                                </Form.Group>
-                                <p>Select your genres!</p>
+                            </Form.Group>
+                            <br></br>
+
+                            <p>Select your genres!</p>
+
                                 <Button style={ {backgroundColor:'gray'}} value='Biography' id='Biography' onClick={addtoGenres}>Biography</Button>
-                                <Button style={ {backgroundColor:'gray'}} value='Film Noir' id='Romance' onClick={addtoGenres}>Romance</Button>
+                                <Button style={ {backgroundColor:'gray'}} value='Film Noir' id='Film Noir' onClick={addtoGenres}>Film Noir</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Game Show' id='Game Show' onClick={addtoGenres}>Game Show</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Musical' id='Musical' onClick={addtoGenres}>Musical</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Sport' id='Sport' onClick={addtoGenres}>Sport</Button>
@@ -57,8 +62,11 @@ export default function FirstTimeUser() {
                                 <Button style={ {backgroundColor:'gray'}} value='News' id='News' onClick={addtoGenres}>News</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Reality' id='Reality' onClick={addtoGenres}>Reality</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Talk Show' id='Talk Show' onClick={addtoGenres}>Talk Show</Button>
+                            <br></br>
+                            <br></br>
 
-                                <p> Select your streaming services!</p>
+                            <p> Select your streaming services!</p>
+
                                 <Button style={ {backgroundColor:'gray'}} value='apple' id='apple' onClick={addtoServices}>Apple</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='disney' id='disney' onClick={addtoServices}>Disney</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='hbo' id='hbo' onClick={addtoServices}>HBO</Button>
@@ -69,8 +77,12 @@ export default function FirstTimeUser() {
                                 <Button style={ {backgroundColor:'gray'}} value='peacock' id='peacock' onClick={addtoServices}>Peacock</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='prime' id='prime' onClick={addtoServices}>Prime</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='showtime' id='showtime' onClick={addtoServices}>Showtime</Button>
-                                <Button style={ {backgroundColor:'gray'}} value='starz' id='starz' onClick={addtoServices}>Starz</Button>
-                                <Button type="submit" className="btn-signup">
+                            <Button style={{ backgroundColor: 'gray' }} value='starz' id='starz' onClick={addtoServices}>Starz</Button>
+                            <br></br>
+                            <br></br>
+
+
+                                <Button type="submit" className="btn-signup center">
                                     Sign Up
                                 </Button>
                             </Form >
