@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Button, Card, ToggleButton, ToggleButtonGroup} from 'react-bootstrap'
+import {Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 
@@ -153,47 +153,3 @@ export default function FirstTimeUser() {
         console.log('end firsttimeform')
     }
 }
-    // call c# backend
-    /*
-    Validate info server side
-    Validate info client side
-
-    var successMessage = document.getElementById("success");
-    var errorMessage = document.getElementById("error");
-
-    // Lecture:
-    // Send user credentials to the server to validate
-
-    if (username === "john" && password === "smith") {
-        // Create the authentication cookie
-        document.cookie = "username=john;path=/;samesite=strict;";
-
-
-        errorMessage.style.visibility = 'hidden';
-        successMessage.style.visibility = 'visible';
-
-        alert("Login Success");
-
-        return true;
-    } else {
-
-        successMessage.style.visibility = 'hidden';
-        errorMessage.style.visibility = 'visible';
-
-        return false;
-    }
-
-    $.ajax({
-        type: "POST",
-        url: 'Default.aspx/DeleteItem',
-        data: "",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (msg) {
-            $("#divResult").html("success");
-        },
-        error: function (e) {
-            $("#divResult").html("Something Wrong.");
-        }
-    });
-    */

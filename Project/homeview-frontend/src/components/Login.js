@@ -24,7 +24,7 @@ export default function Login() {
                                 <Form.Control type="password" ref={passwordRef} required></Form.Control>
                             </Form.Group>
                             <br></br>
-                            <Button className="w-100" type="submit" onclick={loginUser()}>
+                            <Button className="w-100" type="submit" onClick={loginUser()}>
                                 Log In
                             </Button>
                         </Form>
