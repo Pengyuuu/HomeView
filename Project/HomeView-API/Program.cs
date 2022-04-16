@@ -30,16 +30,16 @@ builder.Services.Configure<EmailService>(_fromEmail =>
 });
 builder.Services.Configure<EmailService>(_server =>
 {
-    builder.Configuration.GetSection("EmailService").GetSection("_server").Bind(_server);
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_server);
 }); builder.Services.Configure<EmailService>(_port =>
 {
-    builder.Configuration.GetSection("EmailService").GetSection("_port").Bind(_port);
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_port);
 }); builder.Services.Configure<EmailService>(_key =>
 {
-    builder.Configuration.GetSection("EmailService").GetSection("_key").Bind(_key);
+    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_key);
 });
 
-
+builder.Services.AddSingleton<IAuthenticationManager, AuthenticationManager > ();
 
 var app = builder.Build();
 

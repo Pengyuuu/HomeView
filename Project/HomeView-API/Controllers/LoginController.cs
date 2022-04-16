@@ -13,10 +13,10 @@ namespace HomeView_API.Controllers
         private readonly IUserManager _userManager;
         private readonly IAuthenticationManager _authenticationManager;
 
-        public LoginController()
+        public LoginController(IUserManager userManager, IAuthenticationManager authenticationManager)
         {
-            _userManager = new UserManager();
-            _authenticationManager = new AuthenticationManager();
+            _userManager = userManager;
+            _authenticationManager = authenticationManager;
         }
 
         [Route("validate/{email}/{pw}")]
