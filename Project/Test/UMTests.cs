@@ -24,14 +24,14 @@ namespace UMTests
         {
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("Password1234!", salt);
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "PropaneHank", salt  );
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "PropaneHank", salt);
             string email = newUser.Email;
 
             // delete user first in case it already exists
             bool isDeleted = userManager.DeleteVerifiedUser(newUser.Email);
 
 
-            bool isCreated = userManager.CreateVerifiedUser("HankHill@yahoo.com", new DateTime(2011, 6, 10), "Password1234!" );
+            bool isCreated = userManager.CreateVerifiedUser("HankHill@yahoo.com", new DateTime(2011, 6, 10), hashedPw );
             string actual = "";
             try
             {

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Configuration;
 
 namespace Data
 {
     public class ConnectionString
     {
         static string connStr;
+        private onfigr
         public static string getConnectionString()
         {
             if (String.IsNullOrEmpty(connStr))
@@ -13,7 +15,8 @@ namespace Data
                 string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 string path = (System.IO.Path.GetDirectoryName(executable));
                 path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Database\\Homeview.mdf"));
-                connStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + path + "; Integrated Security = True; Connect Timeout = 30";
+                //connStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + path + "; Integrated Security = True; Connect Timeout = 30";
+                connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
             }
             return connStr;
         }

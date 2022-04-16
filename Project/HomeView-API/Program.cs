@@ -1,7 +1,6 @@
 using Services.Implementations;
 using System.Configuration;
 using Managers.Implementations;
-using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
 using System.Web.Http;
 
@@ -40,6 +39,7 @@ builder.Services.Configure<EmailService>(_server =>
 });
 
 builder.Services.AddSingleton<IAuthenticationManager, AuthenticationManager > ();
+//var appSettings = System.Configuration.ConfigurationManager.AppSettings;
 
 var app = builder.Build();
 
