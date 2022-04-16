@@ -34,9 +34,9 @@ namespace AuthTesting
         [Fact]
         public void AuthManager_ShouldAuthenticateRegisteredUser()
         {
-            bool expected = false;
+            bool expected = true;
 
-            bool actual = _authManager.GenerateJWTToken("csulbtestingtestingtesting@gmail.com", "2000-12-09", "TestPassword!12344556755");
+            bool actual = _authManager.AuthenticateRegisteredUser("csulbtestingtestingtesting@gmail.com", "TestPassword!12344556755");
 
 
             Assert.Equal(expected, actual);
@@ -47,7 +47,7 @@ namespace AuthTesting
         public void AuthManager_ShouldAuthenticateLogInUser()
         {
             bool expected = true;
-            bool actual = _authManager.AuthenticateRegisteredUser("A@gmail.com", "2000-09-09", "noAlphanumeric!!123345531");
+            bool actual = _authManager.AuthenticateLogInUser("A@gmail.com", "noAlphanumeric!!123345531");
 
             Assert.Equal(expected, actual);
         }

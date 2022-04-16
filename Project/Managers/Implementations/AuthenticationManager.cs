@@ -37,6 +37,16 @@ namespace Managers.Implementations
             return _authenticationService.AuthenticateLogInUser(email, pw);
         }
 
+        public string HashPassword(string pw, string salt)
+        {
+            return _authenticationService.HashPassword(pw, salt);
+        }
+
+        public string GetSalt()
+        {
+            return _authenticationService.GenerateSalt();
+        }
+
 
     }
 }

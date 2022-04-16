@@ -9,8 +9,8 @@ namespace Services.Contracts
         bool AuthenticateRegisteredUser(string email, string userOtp);
         bool AuthenticateLogInUser(string email, string pw);
 
-        //string HashPassword(string pw, string salt);
+        string HashPassword(string pw, string salt);
         
-        //string GenerateSalt();
+        string GenerateSalt();
     }
 }

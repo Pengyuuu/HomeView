@@ -101,14 +101,17 @@ namespace Managers.Implementations
         {
             if (ValidateFields(email, birth, pw))
             {
+                string userSalt = _authenticationManager.GetSalt();
+                string hashedPw = _authenticationManager.HashPassword(pw, userSalt);
                 string userOtp = _authenticationManager.GenerateOTP();
                 if (userOtp != null)
                 {
                     User userCreate = new User();
                     userCreate.Email = email;
                     userCreate.Dob = Convert.ToDateTime(birth);
-                    userCreate.Password = pw;
+                    userCreate.Password = hashedPw;
                     userCreate.Token = userOtp;
+                    userCreate.Salt = userSalt;
                     const int CREATION_MODE = 0;
                     bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
                     if (isCreatedDB)
