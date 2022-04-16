@@ -44,11 +44,26 @@ namespace Services.Implementations
             }
         }
 
-        // otp
+        // creates randomized string of randomized length with min of 8 char
         public string GenerateOTP()
         {
+            string alphaNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
+            string otp = "";
 
-            return "1231238130test!";
+            Random rand = new Random();
+            const int MIN_LENGTH = 8;
+            const int MAX_LENGTH = 41;
+            int otpLength = (rand.Next(MIN_LENGTH, MAX_LENGTH));
+
+            // otp of varying length with minimum of 8
+            for (int i = 0; i < otpLength; i++)
+            {
+                // gets random index for alpha string
+                int randIndex = rand.Next(alphaNum.Length);
+                otp += alphaNum[randIndex];         
+            }
+
+            return otp;
         }
 
         public bool AuthenticateRegisteredUser(string email, string userOtp)

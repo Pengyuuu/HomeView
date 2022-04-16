@@ -14,18 +14,25 @@ namespace AuthTesting
         private readonly IAuthenticationManager _authManager = new AuthenticationManager();
 
         [Fact]
-        public void Register_ShouldRegisterUserSuccess()
+        public void AuthManager_ShouldGenereateJWTToken()
         {
-            bool expected = true;
+            string testEmail = "bob@gmail.com";
+            var actual = _authManager.GenerateJWTToken(testEmail);
 
-            bool actual = _authManager.GenerateOTP("ctest@gmail.com", "2000-12-09", "TestPassword!12344556755");
-
-            Assert.Equal(expected, actual);
+            Assert.True(actual.Any());
 
         }
 
         [Fact]
-        public void Register_ShouldRegisterUserUnsuccess()
+        public void AuthManager_ShouldGenerateOTP()
+        {
+            var actual = _authManager.GenerateOTP();
+
+            Assert.True(actual.Any());
+        }
+
+        [Fact]
+        public void AuthManager_ShouldAuthenticateRegisteredUser()
         {
             bool expected = false;
 
@@ -37,12 +44,13 @@ namespace AuthTesting
 
 
         [Fact]
-        public void Register_RegisterUserValidFields()
+        public void AuthManager_ShouldAuthenticateLogInUser()
         {
             bool expected = true;
             bool actual = _authManager.AuthenticateRegisteredUser("A@gmail.com", "2000-09-09", "noAlphanumeric!!123345531");
 
             Assert.Equal(expected, actual);
         }
+      
     }
 }
