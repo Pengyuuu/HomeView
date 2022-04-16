@@ -18,6 +18,7 @@ namespace Core.User
 		private Role _role;             // user's role (admin or user)
 		private string _token;          // user's token for 2FA
 		//private List<RatingAndReview> _reviews;		// user's list of reviews made
+		//private string _salt; // salt generated for user's password
 
 		/**
 		public List<RatingAndReview> Reviews
@@ -84,6 +85,14 @@ namespace Core.User
 			get { return _token; }
 			set { _token = value; }
 		}
+
+		/**
+		public string Salt
+		{
+			get { return _salt; }
+			set { _salt = value; }
+		}
+
 		/** User Constructor
 		 * Creates a new User given first name, last name, userEmail address, password, 
 		 * date of birth, display name, and Role
@@ -99,6 +108,7 @@ namespace Core.User
 			this._role = Role.User;
 			this._dob = new DateTime();
 			this._status = false;
+			//this.salt = "";
 		}
 
 		public User(string emailAddr, string userPassword)
@@ -119,7 +129,7 @@ namespace Core.User
 			_dob = userDob;
 			_status = userStatus;
 			_role = Role.User;
-
+			//_salt = salt;
 		}
 
 		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
@@ -148,6 +158,7 @@ namespace Core.User
 			_regDate = Convert.ToDateTime(delimiter[7]);
 			_role = (Role)(Convert.ToInt16(delimiter[7]));
 			_status = bool.Parse(delimiter[8]);
+			//_salt = delimiter[9];
 			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _status);
 		}
 
@@ -159,6 +170,7 @@ namespace Core.User
             {
                 return "User not found.";
             }
+			// need to add salt value to the string
             return this._firstName + ", "+ this._lastName + ", " + this._email 
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
 				+ this._regDate + ", " + this._role + "," +  this._status;
