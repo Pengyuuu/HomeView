@@ -1,11 +1,9 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../css/App.css'
 
 export default function Login() {
-    const emailRef = useRef()
-    const passwordRef = useRef()
 
     return (
         <div>
@@ -14,17 +12,17 @@ export default function Login() {
                 <Card>
                     <Card.Body>
                         <h2 className="text-center mb-4"> Log In</h2>
-                        <Form>
+                        <Form id='form' onSubmit={verifyUser}>
                             <Form.Group id="email">
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" ref={emailRef} required></Form.Control>
+                                <Form.Control name='Email' type="email" required id='email'></Form.Control>
                             </Form.Group>
                             <Form.Group id="password">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" ref={passwordRef} required></Form.Control>
+                                <Form.Control name='Password' type="password"  required id='password'></Form.Control>
                             </Form.Group>
                             <br></br>
-                            <Button className="w-100" type="submit" onClick={loginUser()}>
+                            <Button className="w-100" type="submit" id="btn-login">
                                 Log In
                             </Button>
                         </Form>
@@ -38,8 +36,51 @@ export default function Login() {
     )
 }
 
+/*
+Get email and pass and verify w/ backend and send back a jwt token
+Store token in sessionStorage
 
-function loginUser() {
+
+*/
+
+function verifyUser(e) {
+
+    let email = e.target.Email.value;
+    let password = e.target.Password.value;
+
+    var data = {
+        email: email,
+        password: password
+    }
+    
+    console.log('start login')
+    
+    fetch('https://reqres.in/api/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            data
+        })
+    }).then (res=> {
+            return res.json()
+        })
+        .then (data=> console.log(data))
+
+    console.log('end login')
+    loginUser(email)
+}
+
+// Call backend to get token from server
+function loginUser(email) {
+
+    console.log('logging in', email);
+
+    // temp test token
+    window.sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
+
+
     // call backend
     /*
     var username = document.querySelector("input[type='username']").value;
