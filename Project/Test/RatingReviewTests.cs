@@ -72,8 +72,13 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_GetAllTitleReviews()   
         {
-
-            IEnumerable<RatingAndReview> actual = _reviewManager.GetTitleReviewRating("Power Rangers");
+            IEnumerable<RatingAndReview> actual = Enumerable.Empty<RatingAndReview>();
+            try
+            {
+                actual = _reviewManager.GetTitleReviewRating("Power Rangers");
+            }
+            catch { }
+            var i = 1 + 1;
             Assert.True(actual.Any());
 
         }

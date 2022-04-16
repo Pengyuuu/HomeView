@@ -63,7 +63,7 @@ namespace Features.Ratings_and_Reviews
         public async Task<IEnumerable<RatingAndReview>> AsyncGetRatingReviews(RatingAndReview fetchReview)
         {
             // fetch a user's list of reviews
-            if ((fetchReview.DispName is not null) && (fetchReview.Title == ""))
+            if ((fetchReview.DispName != "") && (fetchReview.Title == ""))
             {
                 var fetchUserReviews = new
                 {
@@ -82,7 +82,7 @@ namespace Features.Ratings_and_Reviews
             }
 
             // fetch a title's list of reviews
-            else if ((fetchReview.Title is not null) && (fetchReview.DispName == ""))
+            else if ((fetchReview.Title != "") && (fetchReview.DispName == ""))
             {
                 var fetchTitlesRatingReview = new
                 {
@@ -100,7 +100,7 @@ namespace Features.Ratings_and_Reviews
             }
 
             // fetch a user's review for a specific title
-            else if ((fetchReview.Title is not null) && (fetchReview.DispName is not null))
+            else if ((fetchReview.Title != "") && (fetchReview.DispName != ""))
             {
                 var fetchUserTitleRatingReview = new
                 {
