@@ -13,7 +13,7 @@ namespace EmailTests
 {
     public class EmailTests
     {
-        private string email = "homeviewcsulb@gmail.com";
+        private string email = "erictruong15@student@gmail.com";
         
         private IEmailManager _emailManager = new EmailManager();
 

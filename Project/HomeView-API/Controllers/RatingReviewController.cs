@@ -41,7 +41,8 @@ namespace HomeView_API.Controllers
         [HttpGet("get/{title}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
         {
-            var titleReviews = _reviewManager.GetTitleReviewRating("Power Rangers");
+            var titleList = _reviewManager.GetTitleReviewRating("Power Rangers");
+            List<RatingAndReview> titleReviews = (List<RatingAndReview>)titleList;
             return titleReviews;
         }
 
@@ -58,8 +59,8 @@ namespace HomeView_API.Controllers
         public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string dispName)
         {
             var userList = _reviewManager.GetUserReviewRating(dispName);
-
-            return _reviewManager.GetUserReviewRating(dispName);
+            List<RatingAndReview> userReviews = (List<RatingAndReview>)userList;
+            return userReviews;
         }
 
 

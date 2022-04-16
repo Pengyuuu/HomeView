@@ -147,7 +147,7 @@ namespace Core.User
 
 		}
 
-		public User ReadUser(string csvLine)
+		public User ReadCSVUser(string csvLine)
 		{
 			string[] delimiter = csvLine.Split(',');
 			_firstName = delimiter[1];
@@ -160,7 +160,7 @@ namespace Core.User
 			_role = (Role)(Convert.ToInt16(delimiter[7]));
 			_status = bool.Parse(delimiter[8]);
 			_salt = delimiter[9];
-			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _status);
+			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _salt, _status);
 		}
 
 				

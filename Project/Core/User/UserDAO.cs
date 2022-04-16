@@ -32,8 +32,8 @@ namespace Core.User
                     password = user.Password,
                     dob = user.Dob,
                     token = user.Token,
-                    status = 0
-                    //salt = user.Salt
+                    status = 0,
+                    salt = user.Salt
                 };
 
                 try
@@ -59,8 +59,8 @@ namespace Core.User
                     dispName = user.Email,
                     status = 1,
                     role = (int)user.Role,
-                    token = user.Token
-                    //salt = user.Salt
+                    token = user.Token,
+                    salt = user.Salt
                 };
 
                 try
@@ -88,8 +88,8 @@ namespace Core.User
                 dispName = user.DispName,
                 status = user.Status,
                 role = (int) user.Role,
-                token = user.Token
-                //salt = user.Salt
+                token = user.Token,
+                salt = user.Salt
             };
             try
             {

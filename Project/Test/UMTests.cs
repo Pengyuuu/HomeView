@@ -15,12 +15,16 @@ namespace UMTests
         static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
         static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Test\\UMBulkOp.csv"));
         IUserManager userManager = new UserManager();
+        IAuthenticationManager authenticationManager = new AuthenticationManager();
+
 
 
         [Fact]
         public void UserManager_CreateUserShouldCreateNewUser()
         {
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", "Password1234!", new DateTime(2011, 6, 10), "PropaneHank");
+            var salt = authenticationManager.GetSalt();
+            var hashedPw = authenticationManager.HashPassword("Password1234!", salt);
+            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "PropaneHank", salt  );
             string email = newUser.Email;
 
             // delete user first in case it already exists
@@ -49,8 +53,9 @@ namespace UMTests
         public void UserManager_CreationUserShouldDisplayNotCreateExistingUser()
         {
             bool expected = false;
-
-            User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", "iL0vem1@12345", new DateTime(2000, 12, 12), "mWallace");
+            var salt = authenticationManager.GetSalt();
+            var hashedPw = authenticationManager.HashPassword("iL0vem1@12345", salt);
+            User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", hashedPw, new DateTime(2000, 12, 12), "mWallace", salt);
 
 
             bool actual = userManager.CreateVerifiedUser("mWallace@pulp.com", new DateTime(2000,12,12), "iL0vem1@12345");
@@ -121,8 +126,9 @@ namespace UMTests
         public void UserManager_DeleteUserSuccesssful()
         {
             bool expected = true;
-
-            User newUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
+            var salt = authenticationManager.GetSalt();
+            var hashedPw = authenticationManager.HashPassword("dogsRcool1234!", salt);
+            User newUser = new User("hanna", "lin", "hLin@balls.com", hashedPw, new DateTime(2000, 12, 12), "hLin", salt);
 
 
             bool isCreated = userManager.CreateVerifiedUser("hLin@balls.com", new DateTime(2000,12,12), "dogsRcool1234!");
@@ -136,8 +142,9 @@ namespace UMTests
         public void UserManager_DeleteUserUnSucessful()
         {
             bool expected = false;
-
-            User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", "dogsRcool1234!", new DateTime(2000, 12, 12), "hLin");
+            var salt = authenticationManager.GetSalt();
+            var hashedPw = authenticationManager.HashPassword("dogsRcool1234!", salt);
+            User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", hashedPw, new DateTime(2000, 12, 12), "hLin", salt);
 
 
             // delete twice just in case
