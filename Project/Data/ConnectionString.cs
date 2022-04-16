@@ -16,13 +16,13 @@ namespace Data
                 string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 string path = (System.IO.Path.GetDirectoryName(executable));
                 path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Database\\Homeview.mdf"));
-                //connStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + path + "; Integrated Security = True; Connect Timeout = 30";
+                connStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + path + "; Integrated Security = True; Connect Timeout = 30";
 
-                var val = ConfigurationManager.AppSettings;
-                var t = val.AllKeys;
+                //var val = ConfigurationManager.AppSettings;
+                //var t = val.AllKeys;
 
-                var section = ConfigurationManager.GetSection("ConnectionStrings");
-                var test = ConfigurationManager.ConnectionStrings[0].ConnectionString;
+                //var section = ConfigurationManager.GetSection("ConnectionStrings");
+               // var test = ConfigurationManager.ConnectionStrings[0].ConnectionString;
                 
                 
             }
