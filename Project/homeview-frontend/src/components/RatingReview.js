@@ -1,21 +1,27 @@
-export default function (title) {
-    const ratingRef = useRef()
-    const reviewRef = useRef()
-    const titleRef = this.title
+import React from 'react'
+import { Form, Button, Card } from 'react-bootstrap'
+
+
+//<script src='/Security.js'></script>
+
+export default function () {
+    const ratingRef = document.getElementById("")
+    const reviewRef = document.getElementById("")
+    //const titleRef = this.title
+    const titleRef = document.getElementById("")
 
     return (
        <>
        < div >
         <Card>
             <Card.Body>
-                <h2 className="text-center mb-4"> Ratings and Reviews</h2>
                 <br></br>
                 <h3 className="text-center mb-4"> Create a Review</h3>
 
                 <Form>
-                    <Form.Group id="rating">
+                    <Form.Group  id="rating">
                         <Form.Label>Rating</Form.Label>
-                        <Form.Control type="int" ref={ratingRef} required></Form.Control>
+                        <Form.Control type="number" ref={ratingRef} required></Form.Control>
                     </Form.Group>
                     <Form.Group id="review">
                         <Form.Label>Review</Form.Label>
@@ -27,7 +33,6 @@ export default function (title) {
                     </Button>
                 </Form>
 
-                <LoadReviews> </LoadReviews>
 
             </Card.Body>
         </Card>
@@ -35,4 +40,8 @@ export default function (title) {
        </div>
        </>
         )
+}
+
+function validateReview() {
+    return false
 }

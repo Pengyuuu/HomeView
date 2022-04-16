@@ -32,7 +32,7 @@ export default function FirstTimeUser() {
                             </Form.Group>
                             <br></br>
 
-                            <p>Select your genres!</p>
+                            <p>Select your genres.</p>
 
                                 <Button style={ {backgroundColor:'gray'}} value='Biography' id='Biography' onClick={addtoGenres}>Biography</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='Film Noir' id='Film Noir' onClick={addtoGenres}>Film Noir</Button>
@@ -65,7 +65,7 @@ export default function FirstTimeUser() {
                             <br></br>
                             <br></br>
 
-                            <p> Select your streaming services!</p>
+                            <p> Select your streaming services.</p>
 
                                 <Button style={ {backgroundColor:'gray'}} value='apple' id='apple' onClick={addtoServices}>Apple</Button>
                                 <Button style={ {backgroundColor:'gray'}} value='disney' id='disney' onClick={addtoServices}>Disney</Button>

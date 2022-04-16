@@ -43,6 +43,7 @@ Store token in sessionStorage
 
 */
 
+// goes to validateLogin method in LoginController
 function verifyUser(e) {
 
     let email = e.target.Email.value;
@@ -72,13 +73,28 @@ function verifyUser(e) {
     loginUser(email)
 }
 
-// Call backend to get token from server
+// Call backend to get token from server -> should GetJWTToken method from login controller
 function loginUser(email) {
-
-    console.log('logging in', email);
+    var data = {
+        email: email,
+    }
+    console.log('getting token', email);
+    // api route:  /api/login/get/token/{email}
+    fetch('https://reqres.in/api/users', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            data
+        })
+    }).then(res => {
+        return res.json()
+    })
+        .then(data => console.log(data))
 
     // temp test token
-    window.sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
+    window.sessionStorage.setItem('token', data)
 
 
     // call backend

@@ -61,6 +61,18 @@ namespace HomeView_API.Controllers
 
         }
 
+        // generates JWT token for a valid user
+        [Route("get/token/{email}")]
+        [HttpGet]
+        public ActionResult<string> GetJWTToken(string email)
+        {
+            // directs user to homepage and auto activates user's profile in user db and deletes from reg db
+            var token = _authenticationManager.GenerateJWTToken(email);
+            return token;
+
+
+        }
+
 
 
 

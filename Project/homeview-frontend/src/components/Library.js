@@ -1,13 +1,12 @@
 import React from 'react'
 import '../css/test.css'
 import Navigation from './Navigation'
-import FirstTimeUser from './FirstTimeUser'
-import Library from './Library'
-export default function Home() {
+
+export default function Library() {
     //<script src='/Security.js'></script>
 
-    const isFirst = checkFirstTimeUser()
-    if (isFirst) {
+    const userPref = getUserPref()
+    if (userPref) {
         return (
             <>
                 <Navigation>
@@ -16,7 +15,6 @@ export default function Home() {
                     TEST
 
                 </div>
-                <FirstTimeUser></FirstTimeUser>)
 
             </>
 
@@ -28,17 +26,17 @@ export default function Home() {
                 <Navigation>
                 </Navigation>
                 <div className='logo'>
-                    Your HomeView
+                    TEST
                 </div>
-                <Library></Library>
             </>
 
         )
     }
-    
+
 }
 
-function checkFirstTimeUser() {
+// genre list and services list
+function getUserPref() {
     return false
 }
 
