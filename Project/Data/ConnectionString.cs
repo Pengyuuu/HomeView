@@ -18,12 +18,13 @@ namespace Data
                 path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Database\\Homeview.mdf"));
                 //connStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + path + "; Integrated Security = True; Connect Timeout = 30";
 
+                /*
                 var val = ConfigurationManager.AppSettings;
                 var t = val.AllKeys;
 
                 var section = ConfigurationManager.GetSection("ConnectionStrings");
                 var test = ConfigurationManager.ConnectionStrings[0].ConnectionString;
-                
+                */
                 
             }
             return connStr;

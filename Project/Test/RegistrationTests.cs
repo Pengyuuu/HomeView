@@ -18,7 +18,7 @@ namespace RegistrationTests
         {
             bool expected = true;
 
-            bool actual = _registrationManager.CreateUser("ctest@gmail.com","2000-12-09", "TestPassword!12344556755");
+            bool actual = _registrationManager.CreateUser("testing","2000-12-09", "TestPassword!12344556755");
 
             Assert.Equal(expected, actual);
 

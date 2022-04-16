@@ -31,8 +31,8 @@ namespace Core.User
                     email = user.Email,
                     password = user.Password,
                     dob = user.Dob,
-                    token = user.Token,
                     status = 0,
+                    token = user.Token,
                     salt = user.Salt
                 };
 
