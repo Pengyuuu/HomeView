@@ -33,6 +33,7 @@ namespace Core.User
                     dob = user.Dob,
                     token = user.Token,
                     status = 0
+                    //salt = user.Salt
                 };
 
                 try
@@ -59,6 +60,7 @@ namespace Core.User
                     status = 1,
                     role = (int)user.Role,
                     token = user.Token
+                    //salt = user.Salt
                 };
 
                 try
@@ -87,6 +89,7 @@ namespace Core.User
                 status = user.Status,
                 role = (int) user.Role,
                 token = user.Token
+                //salt = user.Salt
             };
             try
             {

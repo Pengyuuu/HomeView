@@ -82,11 +82,9 @@ namespace Services.Implementations
             return false;
         }
 
-        public string HashPassword(string pw)
+        public string HashPassword(string pw, string salt)
         {
             SHA256 pww = SHA256.Create();
-
-            string salt = GenerateSalt();
 
             // Converts the password string into bytes
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(pw + salt);

@@ -16,11 +16,13 @@ namespace Managers.Implementations
     public class UserManager : IUserManager
     {
         private IUserService _userService;
+        //private IAuthenticationService _authService;
 
 
         public UserManager()
         {
             _userService = new UserService();
+            //_authService = new AuthenticationService();
         }
 
         // creates verified/confirmed user into user database
@@ -29,6 +31,9 @@ namespace Managers.Implementations
             var user = new User();
             user.Email = email;
             user.Dob = birth;
+            //string salt = _authService.GenerateSalt();
+            //user.Salt = salt;
+            //user.Password = _authService.HashPassword(pw, salt);
             user.Password = pw;
             const int CREATION_MODE = 1;
 
@@ -50,6 +55,9 @@ namespace Managers.Implementations
             var user = new User();
             user.Email = email;
             user.Dob = birth;
+            //string salt = _authService.GenerateSalt();
+            //user.Salt = salt;
+            //user.Password = _authService.HashPassword(pw, salt);
             user.Password = pw;
             const int CREATION_MODE = 0;
 
