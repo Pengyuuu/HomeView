@@ -33,7 +33,7 @@ namespace Services.Implementations
                 try
                 {
 
-                    NetworkCredential NetworkCred = new NetworkCredential("", "");
+                    NetworkCredential NetworkCred = new NetworkCredential(_fromEmail, _key);
                     _smtpClient.UseDefaultCredentials = false;
                     _smtpClient.Credentials = NetworkCred;
                     _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;

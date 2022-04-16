@@ -18,7 +18,7 @@ namespace Core.User
 		private Role _role;             // user's role (admin or user)
 		private string _token;          // user's token for 2FA
 		//private List<RatingAndReview> _reviews;		// user's list of reviews made
-		//private string _salt; // salt generated for user's password
+		private string _salt; // salt generated for user's password
 
 		/**
 		public List<RatingAndReview> Reviews
@@ -86,7 +86,7 @@ namespace Core.User
 			set { _token = value; }
 		}
 
-		/**
+		
 		public string Salt
 		{
 			get { return _salt; }
@@ -108,7 +108,7 @@ namespace Core.User
 			this._role = Role.User;
 			this._dob = new DateTime();
 			this._status = false;
-			//this.salt = "";
+			this._salt = "";
 		}
 
 		public User(string emailAddr, string userPassword)
@@ -119,7 +119,7 @@ namespace Core.User
 		}
 
 		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob,
-			string dName, bool userStatus = false)
+			string dName, string salt, bool userStatus = false)
 		{
 			_firstName = fName;
 			_lastName = lName;
@@ -129,11 +129,11 @@ namespace Core.User
 			_dob = userDob;
 			_status = userStatus;
 			_role = Role.User;
-			//_salt = salt;
+			_salt = salt;
 		}
 
 		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
-			string dName, Role userRole, bool userStatus = false)
+			string dName, Role userRole, string salt, bool userStatus = false)
 		{
 			_firstName = fName;
 			_lastName = lName;
@@ -143,6 +143,7 @@ namespace Core.User
 			_dob = userDob;
 			_status = userStatus;
 			_role = userRole;
+			_salt = salt;
 
 		}
 
@@ -158,7 +159,7 @@ namespace Core.User
 			_regDate = Convert.ToDateTime(delimiter[7]);
 			_role = (Role)(Convert.ToInt16(delimiter[7]));
 			_status = bool.Parse(delimiter[8]);
-			//_salt = delimiter[9];
+			_salt = delimiter[9];
 			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _status);
 		}
 
