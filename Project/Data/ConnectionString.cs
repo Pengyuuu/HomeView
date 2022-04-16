@@ -7,7 +7,7 @@ namespace Data
     public class ConnectionString
     {
         static string connStr;
-        private onfigr
+        //private readonly IConfiguration config = new Con
         public static string getConnectionString()
         {
             if (String.IsNullOrEmpty(connStr))
@@ -16,7 +16,8 @@ namespace Data
                 string path = (System.IO.Path.GetDirectoryName(executable));
                 path = Path.GetFullPath(Path.Combine(path, "@\\..\\..\\..\\..\\..\\..\\Project\\Data\\Database\\Homeview.mdf"));
                 //connStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + path + "; Integrated Security = True; Connect Timeout = 30";
-                connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+                var conn = ConfigurationManager.AppSettings["ConnectionStrings"];
+                string connStr = conn[]
             }
             return connStr;
         }

@@ -39,6 +39,8 @@ builder.Services.Configure<EmailService>(_server =>
 });
 
 builder.Services.AddSingleton<IAuthenticationManager, AuthenticationManager > ();
+//builder.Services.AddSingleton<ConfigurationManager>();
+
 //var appSettings = System.Configuration.ConfigurationManager.AppSettings;
 
 var app = builder.Build();
