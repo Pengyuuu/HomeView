@@ -44,13 +44,21 @@ namespace AuthTesting
 
 
         [Fact]
-        public void AuthManager_ShouldAuthenticateLogInUser()
+        public void AuthManager_ShouldGenerateSalt()
         {
-            bool expected = true;
-            bool actual = _authManager.AuthenticateLogInUser("A@gmail.com", "noAlphanumeric!!123345531");
+            var actual = _authManager.GetSalt();
 
-            Assert.Equal(expected, actual);
+            Assert.True(actual.Any());
         }
-      
+
+        [Fact]
+        public void AuthManager_ShouldHashPassword()
+        {
+            string salt = _authManager.GetSalt();          
+            string actual = _authManager.HashPassword("noAlphanumeric!!123345531", salt);
+
+            Assert.True(actual.Any());
+        }
+
     }
 }
