@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {  Form, Button, Card } from 'react-bootstrap'
 import { BsStar, BsStarFill, BsStarHalf} from 'react-icons/bs'
-import { icons } from 'react-icons/lib';
 
 
 //<script src='/Security.js'></script>
@@ -24,7 +23,7 @@ function Star({
             return (
                 <BsStarFill
                     color={"gold"}
-                    size={50}
+                    size={25}
                     onClick={e => {
                         console.log(e.detail);
 
@@ -40,7 +39,7 @@ function Star({
             return (
                 <BsStarHalf
                     color={"gold"}
-                    size={50}
+                    size={25}
                     onClick={e => {
                         console.log(e.detail);
                         if (e.detail === 1) handleSetRating();
@@ -54,7 +53,7 @@ function Star({
         return (
             <BsStar
                 color={"gold"}
-                size={50}
+                size={25}
                 onMouseEnter={() => handleHoverValue(thresh)}
             />
         );
@@ -67,7 +66,6 @@ export default function RatingReview() {
     //const titleRef = document.getElementById("")                             
     const [rating, setRating] = useState(null);
     const [hoverValue, setHover] = useState(0);
-
     const handleSetRating = () => {
         if (rating != null) {
             setRating(null);
@@ -75,38 +73,29 @@ export default function RatingReview() {
         else {
             setRating(hoverValue);
         }
- 
     };
-
     const handleDoubleRating = () => {
-         setRating(hoverValue+0.5);
-        
-        
+         setRating(hoverValue+0.5);              
     };
-
     const handleHoverValue = (val) => {
         if (rating != null) {
             setHover(rating);
-
         }
         else {
             setHover(val);
         }
     };
 
-
-
     return (
        <>
-       <div>
+       
         <Card>
             <Card.Body>
                 <br></br>
-                <h3 className="text-center mb-4"> Create a Review</h3>
+                <h3 className="text-center"> Create a Review</h3>
 
                         <Form id="reviewForm" onSubmit={SaveReview}>
-                    <Form.Group  id="rating">
-                                <Form.Label>Rating</Form.Label>
+                            <Form.Group className="text-center" id="rating">
                                 <Star
                                     thresh={0.5}
                                     hoverValue={hoverValue}
@@ -149,14 +138,16 @@ export default function RatingReview() {
                                 />
                                 <div>{hoverValue}</div>
 
+
                     </Form.Group>
-                    <Form.Group id="review">
-                        <Form.Label>Review</Form.Label>
-                        <textarea id="review" placeholder="Enter the text..." ref={reviewRef} required></textarea>
+                            <Form.Group className="text-center" id="review">
+                                <br></br>
+
+                                <textarea className="w-100" id="review" placeholder="Type your review here" ref={reviewRef} required></textarea>
                     </Form.Group>
                     <br></br>
                     <Button className="w-100" type="submit" onClick={validateReview()}>
-                        Sign Up
+                        Submit Review
                     </Button>
                 </Form>
 
@@ -164,7 +155,7 @@ export default function RatingReview() {
             </Card.Body>
         </Card>
 
-       </div>
+      
     </>
     )
 

@@ -8,7 +8,7 @@ import { TVShows } from "./TVShows"
 import { Movies } from "./Movies"
 import { News } from "./News"
 import { ActWiki } from "./ActWiki"
-import  RatingReview  from './RatingReview'
+import Title  from './Title'
 
 function App() {
 
@@ -26,7 +26,8 @@ function App() {
                         <Route exact path="/movies" element={<Movies />} />
                         <Route exact path="/news" element={<News />} />
                         <Route exact path="/actwiki" element={<ActWiki />} />
-                        <Route exact path="/rev" element={<RatingReview />} />
+                        <Route exact path="/title" element={<Title />} />
+
 
                     </Routes>
                 </Router>
