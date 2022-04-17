@@ -1,13 +1,12 @@
 import React,{Component} from 'react'
-import Navigation from './Navigation'
+import {Navigation} from '../Navigation'
 
-
-export class Movies extends Component{
+export class TVShows extends Component{
   render() {
     return(
         <div className="container">
         <h3 className="mt-5 d-flex justify-content-left">
-        This is where the Movies will be.
+        This is where the TV Shows will be.
         </h3>
         <Navigation/>
   

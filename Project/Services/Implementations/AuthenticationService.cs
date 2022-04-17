@@ -26,7 +26,7 @@ namespace Services.Implementations
                 // sample security key but replace with one from config???
                 var encoded = Base64UrlEncoder.Encode("securitykeyexample");
                 SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encoded));
-                var claims = new SecurityTokenDescriptor
+                var payload = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
                     Expires = DateTime.UtcNow.AddMinutes(15),
@@ -34,7 +34,7 @@ namespace Services.Implementations
                     Audience = "HomeViewUser",
                     SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
                 };
-                SecurityToken token = tokenHandler.CreateToken(claims);
+                SecurityToken token = tokenHandler.CreateToken(payload);
                 return tokenHandler.WriteToken(token);
             }
 
