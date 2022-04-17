@@ -5,50 +5,96 @@ import { icons } from 'react-icons/lib';
 
 
 //<script src='/Security.js'></script>
+function Star({
+    thresh,
+    hoverValue,
+    rating,
+    handleHoverValue,
+    handleSetRating, handleDoubleRating
+}) {
+    let isFilled = false;
+
+    if (rating != null) {
+        isFilled = rating >= thresh;
+    } else {
+        isFilled = hoverValue >= thresh;
+    }
+    if (isFilled) {
+        if (thresh < rating || thresh < hoverValue) {
+            return (
+                <BsStarFill
+                    color={"gold"}
+                    size={50}
+                    onClick={e => {
+                        console.log(e.detail);
+
+                        if (e.detail === 1) handleSetRating();
+                        if (e.detail === 2) handleDoubleRating();
+                    }}
+                    
+                    onMouseLeave={() => handleHoverValue(rating)}
+                />
+            );
+        }
+        else {
+            return (
+                <BsStarHalf
+                    color={"gold"}
+                    size={50}
+                    onClick={e => {
+                        console.log(e.detail);
+                        if (e.detail === 1) handleSetRating();
+                        if (e.detail === 2) handleDoubleRating();
+                    }}
+                    onMouseLeave={() => handleHoverValue(rating)}
+                />
+            );
+        }
+    } else {
+        return (
+            <BsStar
+                color={"gold"}
+                size={50}
+                onMouseEnter={() => handleHoverValue(thresh)}
+            />
+        );
+    }
+}
 
 export default function RatingReview() {
-    const [starRating, setRating] = useState(0);
     const reviewRef = document.getElementById("");
-    //const titleRef = this.title <Form.Control type="number" ref={ratingRef} required></Form.Control>
-    //const titleRef = document.getElementById("")                                   <BsStar size="2x" id="rating" onClick={updateRating} />
+    //const titleRef = this.title
+    //const titleRef = document.getElementById("")                             
+    const [rating, setRating] = useState(null);
+    const [hoverValue, setHover] = useState(0);
 
-    const handleRating = () => {
-        updateRating();
-        setRating(starRating);
+    const handleSetRating = () => {
+        if (rating != null) {
+            setRating(null);
+        }
+        else {
+            setRating(hoverValue);
+        }
+ 
     };
 
-    function Star1(rating) {
-        const values = [1, 2, 3, 4, 5];
-        //const isClicked = false;
-        // not clicked
-        if (rating == 0) {
+    const handleDoubleRating = () => {
+         setRating(hoverValue+0.5);
+        
+        
+    };
 
-            return <BsStar color={"gold"} rating={rating} onClick={handleRating} size={50} />
-        }
-        // whole number
-        else if (values.includes(rating)) {
-            return <BsStarFill color={"gold"} onClick={handleRating} size={50} />
-        }
-        // half number
-        else {
-            return <BsStarHalf color={"gold"} onClick={handleRating} size={50} />
-        }
-    }
-
-
-
-    function updateRating(event) {
-        if (setRating !== 5) {
-            setRating(setRating + 0.5);
+    const handleHoverValue = (val) => {
+        if (rating != null) {
+            setHover(rating);
 
         }
         else {
-            setRating(0);
-
+            setHover(val);
         }
-        handleRating();
-        console.log(setRating);
-    }
+    };
+
+
 
     return (
        <>
@@ -61,14 +107,55 @@ export default function RatingReview() {
                         <Form id="reviewForm" onSubmit={SaveReview}>
                     <Form.Group  id="rating">
                                 <Form.Label>Rating</Form.Label>
-                                <Star1 onClick={handleRating} />
+                                <Star
+                                    thresh={0.5}
+                                    hoverValue={hoverValue}
+                                    rating={rating}
+                                    handleHoverValue={handleHoverValue}
+                                    handleSetRating={handleSetRating}
+                                    handleDoubleRating={handleDoubleRating}
+                                />
+                                <Star
+                                    thresh={1.5}
+                                    hoverValue={hoverValue}
+                                    rating={rating}
+                                    handleHoverValue={handleHoverValue}
+                                    handleSetRating={handleSetRating}
+                                    handleDoubleRating={handleDoubleRating}
+                                />
+                                <Star
+                                    thresh={2.5}
+                                    hoverValue={hoverValue}
+                                    rating={rating}
+                                    handleHoverValue={handleHoverValue}
+                                    handleSetRating={handleSetRating}
+                                    handleDoubleRating={handleDoubleRating}
+                                />
+                                <Star
+                                    thresh={3.5}
+                                    hoverValue={hoverValue}
+                                    rating={rating}
+                                    handleHoverValue={handleHoverValue}
+                                    handleSetRating={handleSetRating}
+                                    handleDoubleRating={handleDoubleRating}
+                                />
+                                <Star
+                                    thresh={4.5}
+                                    hoverValue={hoverValue}
+                                    rating={rating}
+                                    handleHoverValue={handleHoverValue}
+                                    handleSetRating={handleSetRating}
+                                    handleDoubleRating={handleDoubleRating}
+                                />
+                                <div>{hoverValue}</div>
+
                     </Form.Group>
                     <Form.Group id="review">
                         <Form.Label>Review</Form.Label>
                         <textarea id="review" placeholder="Enter the text..." ref={reviewRef} required></textarea>
                     </Form.Group>
                     <br></br>
-                    <Button className="w-100" type="submit" onclick={validateReview()}>
+                    <Button className="w-100" type="submit" onClick={validateReview()}>
                         Sign Up
                     </Button>
                 </Form>
@@ -78,8 +165,9 @@ export default function RatingReview() {
         </Card>
 
        </div>
-       </>
+    </>
     )
+
 
     function validateReview() {
         return false
