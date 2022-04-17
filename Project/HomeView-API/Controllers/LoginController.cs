@@ -1,8 +1,6 @@
 ﻿using Core.User;
 using Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Managers.Implementations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace HomeView_API.Controllers
 {
@@ -44,7 +42,7 @@ namespace HomeView_API.Controllers
             {
                 return "Email confirmed.";
             }
-            return "Invalid confirmation.";
+            return Ok("Invalid confirmation.");
             
         
         }

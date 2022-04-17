@@ -27,8 +27,6 @@ function App() {
                         <Route exact path="/news" element={<News />} />
                         <Route exact path="/actwiki" element={<ActWiki />} />
                         <Route exact path="/title" element={<Title />} />
-
-
                     </Routes>
                 </Router>
             </div>

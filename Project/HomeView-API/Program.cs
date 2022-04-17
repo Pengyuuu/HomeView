@@ -26,9 +26,8 @@ builder.Services.AddSingleton<IUserManager, UserManager>();
 
 
 
-builder.Configuration.AddJsonFile("appsettings.json");
 
-builder.Configuration.AddConfiguration()
+builder.Configuration.AddJsonFile("appsettings.json");
 
 builder.Services.AddOptions();
 

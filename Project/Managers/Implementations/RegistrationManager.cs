@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
@@ -71,7 +67,6 @@ namespace Managers.Implementations
             }
             return false;
         }
-
         public bool ValidateBirth(string dob)
         {
             DateTime birth = Convert.ToDateTime(dob);
