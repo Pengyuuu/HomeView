@@ -3,6 +3,8 @@ import '../css/test.css'
 import Navigation from './Navigation'
 import FirstTimeUser from './FirstTimeUser'
 import Library from './Library'
+
+
 export default function Home() {
     //<script src='/Security.js'></script>
 
@@ -10,27 +12,23 @@ export default function Home() {
     if (isFirst) {
         return (
             <>
-                <Navigation>
-                </Navigation>
+                <Navigation/>
                 <div className='logo'>
-                    TEST
-
+                    TESTING
                 </div>
                 <FirstTimeUser></FirstTimeUser>)
 
             </>
-
         )
     }
     else {
         return (
             <>
-                <Navigation>
-                </Navigation>
+                <Navigation/>
                 <div className='logo'>
-                    Your HomeView
+                    Your HomeViews
                 </div>
-                <Library></Library>
+                <Library/>
             </>
 
         )
@@ -39,7 +37,7 @@ export default function Home() {
 }
 
 function checkFirstTimeUser() {
-    return false
+    return false;
 }
 
 

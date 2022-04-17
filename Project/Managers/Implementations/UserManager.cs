@@ -1,14 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
 using Services.Implementations;
-
-
 
 
 namespace Managers.Implementations
