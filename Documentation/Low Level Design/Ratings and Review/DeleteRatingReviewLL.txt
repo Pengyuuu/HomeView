@@ -1,0 +1,44 @@
+title Delete a Rating Review
+participant User
+participant "Ratings and Review Controller" as rc
+participant "Ratings and Review Manager" as rm
+participant "Ratings and Review Service" as s
+participant "Ratings and Review Data Access Object" as dao
+database database
+
+User->rc: User selects "Delete a Review"
+activate rc
+
+
+rc->rm: DeleteReview(string title, \nstring dispName)
+
+
+rm->s: RatingReviewService()
+activate s
+
+rm->s: DeleteReview(RatingReview object)
+
+s->dao: DeleteReview(RatingReview object)
+activate dao
+dao->dao: log database access
+dao->database: DeleteReview(RatingReview object) \n(deletes from database)
+activate database
+group Database Error
+database->dao: return false
+dao-> s: return false
+s->rm:return false
+rm-> rc: return false
+rc-> User: return "Unable to delete review/rating. \nDatabase error."
+end
+database->dao: return true
+deactivate database
+
+dao->dao:log database return time
+dao->s:return true
+deactivate dao
+s->rm:return true
+deactivate s
+rm->rc:return true
+deactivate rm
+rc->User:return "Rating/Review Deleted."
+deactivate rc
