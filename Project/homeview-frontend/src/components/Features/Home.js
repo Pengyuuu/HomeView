@@ -1,6 +1,6 @@
 import React from 'react'
-import '../css/test.css'
-import Navigation from './Navigation'
+import '../../css/test.css'
+import Navigation from '../Navigation'
 import FirstTimeUser from './FirstTimeUser'
 import Library from './Library'
 
@@ -37,7 +37,7 @@ export default function Home() {
 }
 
 function checkFirstTimeUser() {
-    return false;
+    return true;
 }
 
 

@@ -4,6 +4,7 @@ import { BsStar, BsStarFill, BsStarHalf} from 'react-icons/bs'
 
 
 //<script src='/Security.js'></script>
+// need to check if user already has review data - if so, then load it first
 function Star({
     thresh,
     hoverValue,
@@ -25,7 +26,6 @@ function Star({
                     color={"gold"}
                     size={25}
                     onClick={e => {
-                        console.log(e.detail);
 
                         if (e.detail === 1) handleSetRating();
                         if (e.detail === 2) handleDoubleRating();
@@ -41,7 +41,6 @@ function Star({
                     color={"gold"}
                     size={25}
                     onClick={e => {
-                        console.log(e.detail);
                         if (e.detail === 1) handleSetRating();
                         if (e.detail === 2) handleDoubleRating();
                     }}
@@ -61,9 +60,11 @@ function Star({
 }
 
 export default function RatingReview() {
-    const reviewRef = document.getElementById("");
+    const reviewRef = document.getElementById("id");
+    // title should get passed
     //const titleRef = this.title
-    //const titleRef = document.getElementById("")                             
+    //const titleRef = document.getElementById("")  
+    const [count, currCount] = useState(0);
     const [rating, setRating] = useState(null);
     const [hoverValue, setHover] = useState(0);
     const handleSetRating = () => {
@@ -85,6 +86,10 @@ export default function RatingReview() {
             setHover(val);
         }
     };
+    const handleCount = (e) => {
+        currCount(e.target.value.length);
+    }
+
 
     return (
        <>
@@ -143,10 +148,11 @@ export default function RatingReview() {
                             <Form.Group className="text-center" id="review">
                                 <br></br>
 
-                                <textarea className="w-100" id="review" placeholder="Type your review here" ref={reviewRef} required></textarea>
+                            <textarea className="w-100" id="review" placeholder="Type your review here" onChange={handleCount} ref={reviewRef} maxLength="2500"></textarea>
+                            <p>Character count: {count} (Max is 2500)</p>
                     </Form.Group>
                     <br></br>
-                    <Button className="w-100" type="submit" onClick={validateReview()}>
+                    <Button className="w-100" type="submit" onClick={validateReview}>
                         Submit Review
                     </Button>
                 </Form>
@@ -159,13 +165,20 @@ export default function RatingReview() {
     </>
     )
 
-
     function validateReview() {
         return false
     }
 
     function SaveReview() {
         return false
+    }
+
+    function LoadReview() {
+
+    }
+
+    function UpdateReview() {
+
     }
 }
 
