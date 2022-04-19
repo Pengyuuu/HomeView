@@ -65,7 +65,7 @@ import TitleModal from '../../components/Features/TitlePage/TitleModal'
             <div className='movie-container'>
                 {movies.length > 0 && movies.map((movie) =>(
                     <Movie key={movie.tmdbID} {...movie} onClick={handleState} />,    
-                    <TitleModal key={movie.tmdbID} props={movie} show={checkState} onHide={() => setModalShow(null)}/>        
+                    <TitleModal key={movie.tmdbID} {...movie} show={checkState} onHide={() => setModalShow(null)}/>        
                 ))}
             </div>
         );
