@@ -8,7 +8,7 @@ import { TVShows } from "./Features/TVShows"
 import { Movies } from "./Features/Movies"
 import { News } from "./Features/News"
 import { ActWiki } from "./Features/ActWiki"
-import  Title  from './Features/Title'
+import Title from './Features/TitlePage/Title'
 
 function App() {
 

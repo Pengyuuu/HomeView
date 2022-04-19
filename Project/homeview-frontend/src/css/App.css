@@ -79,3 +79,17 @@
     width: 100%;
 }
 
+.title-container {
+    float: left;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.title-details {
+    display: inline-block;
+    vertical-align: text-top;
+    margin: 0 auto;
+}
+
+

@@ -39,6 +39,7 @@ var config2 = builder.Configuration.GetSection("ConnectionStrings:ConnectionStr"
 
 // To get the value configA
 var value = config["ConnectionStr"];
+
 /**
 builder.Services.Configure<SqlDataAccess>(con =>
 {
@@ -79,6 +80,7 @@ if (app.Environment.IsDevelopment())
     //app.Create
     app.UseSwagger();
     app.UseSwaggerUI();
+    
     
     
 }

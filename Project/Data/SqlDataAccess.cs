@@ -20,12 +20,7 @@ namespace Data
 
 		public SqlDataAccess()
         {
-			//var c = IConfiguration.GetSection("ConnectionStrings");
-
-			// To get the value configA
-			//var value = c["ConnectionStr"];
-			//ConnectionStr = value;
-			this.ConnectionStr = "hi";
+			var tests = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 
 
 		}
@@ -40,7 +35,6 @@ namespace Data
 
 			// To get the value configA
 			var value = c["ConnectionStr"];
-			ConnectionStr = "Data Source = homeviewdb.cotk9avwlowj.us - west - 1.rds.amazonaws.com,1433; Initial Catalog = homeviewdb; User ID = awshomeviewadmin; Password = TeamUnite562!";
 
 		}**/
 

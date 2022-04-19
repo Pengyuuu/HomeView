@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import '../../css/test.css'
-import Navigation from '../Navigation'
+import '../../../css/test.css'
+import Navigation from '../../Navigation'
 import RatingReview from './RatingReview'
 import { Button, Card } from 'react-bootstrap'
 import { render } from 'react-dom'
 
-// Page for when a user clicks on a Title
+// Modal for when a user clicks on a Title
 
 
 
