@@ -1,13 +1,13 @@
 import React from 'react'
-import '../../css/test.css'
 import Navigation from '../Navigation'
 import FirstTimeUser from './FirstTimeUser'
 import Library from './Library'
-
+import Movie from '../cml/MovieList'
 
 export default function Home() {
     //<script src='/Security.js'></script>
     //const [titleClick, setTitle] = useState(false);
+    /*
     var listofShows = [];
     let props = {
         title: "Power Rangers",
@@ -32,6 +32,9 @@ export default function Home() {
     };
     listofShows.push(props);
     listofShows.push(props2);
+    */
+
+
 
     const isFirst = checkFirstTimeUser()
     if (isFirst) {
@@ -53,7 +56,8 @@ export default function Home() {
                 <div className='logo'>
                     Your HomeViews
                 </div>
-                <Library listofShows={listofShows}/>
+                <Movie/>
+                
             </>
 
         )

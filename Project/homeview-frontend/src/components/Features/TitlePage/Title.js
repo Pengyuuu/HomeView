@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import '../../../css/test.css'
 import Navigation from '../../Navigation'
 import RatingReview from './RatingReview'
 import { Button, Card } from 'react-bootstrap'

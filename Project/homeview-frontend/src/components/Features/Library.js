@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/test.css'
 import Navigation from '../Navigation'
 
 export default function Library() {
