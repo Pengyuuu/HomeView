@@ -32,6 +32,7 @@ namespace Services.Implementations
                     Expires = DateTime.UtcNow.AddMinutes(15),
                     Issuer = "HomeView",
                     Audience = "HomeViewUser",
+                    IssuedAt = DateTime.UtcNow,
                     SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
                 };
                 SecurityToken token = tokenHandler.CreateToken(payload);

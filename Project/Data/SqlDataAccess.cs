@@ -25,7 +25,8 @@ namespace Data
 			// To get the value configA
 			//var value = c["ConnectionStr"];
 			//ConnectionStr = value;
-			this.ConnectionStr = ;
+			this.ConnectionStr = "hi";
+
 
 		}
 		/**

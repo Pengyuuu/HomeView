@@ -45,7 +45,7 @@ builder.Services.Configure<SqlDataAccess>(con =>
     //get from config.json file
     con.ConnectionStr = value;
 });**/
-
+var x = 1;
 // or direct get the value
 //var configA = Configuration.GetSection("MyConfig:ConfigA");
 
