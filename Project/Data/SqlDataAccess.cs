@@ -25,9 +25,11 @@ namespace Data
 			// To get the value configA
 			//var value = c["ConnectionStr"];
 			//ConnectionStr = value;
-		}
+			this.ConnectionStr = ;
 
-        public SqlDataAccess(IConfiguration config)
+		}
+		/**
+		public SqlDataAccess(IConfiguration config)
 		{
 			_configuration = config;
 			//_connStr = _configuration.GetSection("ConnectionStrings:ConnectionStr").Value;
@@ -37,9 +39,9 @@ namespace Data
 
 			// To get the value configA
 			var value = c["ConnectionStr"];
-			ConnectionStr = value;
+			ConnectionStr = "Data Source = homeviewdb.cotk9avwlowj.us - west - 1.rds.amazonaws.com,1433; Initial Catalog = homeviewdb; User ID = awshomeviewadmin; Password = TeamUnite562!";
 
-		}
+		}**/
 
 
 		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters)

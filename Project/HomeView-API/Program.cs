@@ -1,5 +1,5 @@
 using Services.Implementations;
-using System.Configuration;
+//using System.Configuration;
 using Managers.Implementations;
 using Managers.Contracts;
 using System.Net.Http.Headers;
@@ -30,7 +30,7 @@ builder.Services.AddSingleton<IEmailManager, EmailManager>();
 builder.Services.AddSingleton<ILoggingManager, LoggingManager>();
 builder.Services.AddSingleton<IRatingAndReviewManager, RatingAndReviewManager>();
 builder.Services.AddSingleton<IUserManager, UserManager>();
-//builder.Services.AddSingleton<IConfiguration, Configuration>();
+//builder.Services.AddSingleton<IConfiguration>();
 //builder.Services.AddSingleton<>
 builder.Services.AddSingleton<SqlDataAccess>();
 
@@ -39,11 +39,12 @@ var config2 = builder.Configuration.GetSection("ConnectionStrings:ConnectionStr"
 
 // To get the value configA
 var value = config["ConnectionStr"];
+/**
 builder.Services.Configure<SqlDataAccess>(con =>
 {
     //get from config.json file
     con.ConnectionStr = value;
-});
+});**/
 
 // or direct get the value
 //var configA = Configuration.GetSection("MyConfig:ConfigA");
