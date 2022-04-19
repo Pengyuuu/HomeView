@@ -45,10 +45,10 @@ namespace Services.Implementations
         /**
          * Grabs 30-day old logs and puts them into a list to be archived
          * @returns true once logs have been archived
-         */
+         
         public bool ArchiveLog()
         {
-            SqlConnection conn = new SqlConnection(Data.ConnectionString.getConnectionString());
+            SqlConnection conn = new SqlConnection(getConnectionString());
             SqlCommand command = new SqlCommand("GetOldLog", conn);
             string result = "";
             try
@@ -94,6 +94,6 @@ namespace Services.Implementations
             SendLogs(_log);
 
             return true;
-        }
+        }**/
     }
 }

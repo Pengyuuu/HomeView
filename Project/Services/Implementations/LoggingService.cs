@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Logging;
+using Data;
 using Services.Contracts;
 
 namespace Services.Implementations
@@ -13,7 +14,7 @@ namespace Services.Implementations
         private LogDAO _logDAO;
         public LoggingService()
         {
-            _logDAO = new LogDAO(new Data.SqlDataAccess());
+            _logDAO = new LogDAO();
         }
 
         // Manager communicates with Service layer through this method

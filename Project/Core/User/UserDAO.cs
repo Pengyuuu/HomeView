@@ -13,7 +13,7 @@ namespace Core.User
 
         public UserDAO()
         {
-            _db = new SqlDataAccess();
+            //_db = new SqlDataAccess();
         }
 
         public UserDAO(SqlDataAccess db)

@@ -4,14 +4,21 @@ using Managers.Implementations;
 using Managers.Contracts;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using Data;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
-
-
+builder.Services.AddOptions();
 
 // Add services to the container.
 
+builder.Configuration.AddJsonFile("appsettings.json");
+var c = builder.Configuration.AddUserSecrets("c75071fc - 3162 - 491e-84bc - 0281cca24924");
+//var config = c.AddConfiguration(builder.Configuration);
 
+//builder.Configuration.AddConfiguration(builder.Configuration);
+//builder.Services.AddSingleton<IConfiguration, config.>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,32 +30,41 @@ builder.Services.AddSingleton<IEmailManager, EmailManager>();
 builder.Services.AddSingleton<ILoggingManager, LoggingManager>();
 builder.Services.AddSingleton<IRatingAndReviewManager, RatingAndReviewManager>();
 builder.Services.AddSingleton<IUserManager, UserManager>();
+//builder.Services.AddSingleton<IConfiguration, Configuration>();
+//builder.Services.AddSingleton<>
+builder.Services.AddSingleton<SqlDataAccess>();
 
+var config = builder.Configuration.GetSection("ConnectionStrings");
+var config2 = builder.Configuration.GetSection("ConnectionStrings:ConnectionStr");
 
-
-
-builder.Configuration.AddJsonFile("appsettings.json");
-
-builder.Services.AddOptions();
-
-builder.Services.Configure<EmailManager>(_fromEmail =>
+// To get the value configA
+var value = config["ConnectionStr"];
+builder.Services.Configure<SqlDataAccess>(con =>
 {
-    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_fromEmail);
-} );
-builder.Services.Configure<EmailService>(_fromEmail =>
-{
-    builder.Configuration.GetSection("EmailService").GetSection("_fromEmail").Bind(_fromEmail);
+    //get from config.json file
+    con.ConnectionStr = value;
 });
-builder.Services.Configure<EmailService>(_server =>
-{
-    builder.Configuration.GetSection("EmailService").GetSection("_server").Bind(_server);
-}); builder.Services.Configure<EmailService>(_port =>
-{
-    builder.Configuration.GetSection("EmailService").GetSection("_port").Bind(_port);
-}); builder.Services.Configure<EmailService>(_key =>
-{
-    builder.Configuration.GetSection("EmailService").GetSection("_key").Bind(_key);
-});
+
+// or direct get the value
+//var configA = Configuration.GetSection("MyConfig:ConfigA");
+
+// This is to bind to your object
+//builder.Configuration.GetSection("ConnectionStrings").Bind(data);
+//builder.Configuration.Bind(data.ConnectionStr, value);
+//builder.Services.Configure<SqlDataAccess>(builder.Configuration.GetSection("ConnectionStrings"));
+//builder.Services.Configure<SqlDataAccess>(conn);
+
+
+
+
+
+
+//builder.Services.AddSingleton<SqlDataAccess>();
+
+
+
+
+
 
 
 
@@ -58,6 +74,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    //builder.Configuration.AddUserSecrets("c75071fc - 3162 - 491e-84bc - 0281cca24924");
+    //app.Create
     app.UseSwagger();
     app.UseSwaggerUI();
     

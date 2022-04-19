@@ -15,7 +15,8 @@ namespace Services.Implementations
 
         public RatingAndReviewService()
         {
-            _rrDAO = new RatingAndReviewDAO(new SqlDataAccess());
+            SqlDataAccess db = new SqlDataAccess();
+            _rrDAO = new RatingAndReviewDAO(db);
             _loggingService = new LoggingService();
         }
 
