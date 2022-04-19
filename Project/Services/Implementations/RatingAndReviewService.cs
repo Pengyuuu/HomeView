@@ -47,10 +47,13 @@ namespace Services.Implementations
             try
             {
                 isUpdated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
-                
+                Log reviewLogTrue = new("Review successfully updated to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogTrue);
             }
             catch
             {
+                Log reviewLogFalse = new("Cannot update review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogFalse);
                 return false;
             }
             return isUpdated;

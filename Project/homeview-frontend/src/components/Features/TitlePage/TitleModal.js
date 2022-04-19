@@ -3,6 +3,7 @@ import '../../../css/App.css'
 import RatingReview from './RatingReview'
 import { Button, Image, Modal } from 'react-bootstrap'
 import { render } from 'react-dom'
+import ReviewSection from './ReviewSection'
 
 const IMG_API = "https://image.tmdb.org/t/p/original/"
 
@@ -25,7 +26,8 @@ export default function TitleModal(props) {
                 <p>props.props.services</p>
                 <p>props.props.genres</p>
                     <p>props.props.actors</p>
-                    </div>
+                </div>
+                <ReviewSection title={props.title}/>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>

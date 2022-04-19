@@ -13,7 +13,7 @@ import ReviewItem from './ReviewItem'
                 selectedTitle
             }
         }
-
+        /**
         useEffect(() => {
             axios.request(HOMEVIEW_API).then(function (response) {
                 console.log(response.data);
@@ -22,6 +22,8 @@ import ReviewItem from './ReviewItem'
                 console.error(error);
             });
         }, []);
+        **/
+        //setReviews
 
         return (
             <div >

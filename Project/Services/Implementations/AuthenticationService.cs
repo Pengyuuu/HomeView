@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using Services.Contracts;
@@ -11,10 +12,12 @@ namespace Services.Implementations
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserService _userService;
+        private readonly string _secretkey;
 
         public AuthenticationService()
         {
             _userService = new UserService();
+            _secretkey = ConfigurationManager.AppSettings.Get(4).ToString();
         }
 
         // generates jwt token, should this be async?
@@ -22,10 +25,9 @@ namespace Services.Implementations
         {
             try
             {
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                // sample security key but replace with one from config???
-                var encoded = Base64UrlEncoder.Encode("securitykeyexample");
-                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encoded));
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();             
+                var encodeKey = Base64UrlEncoder.Encode(_secretkey);
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
                 var payload = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),

@@ -14,34 +14,19 @@ namespace Data
 	public class SqlDataAccess
 	{
 		//private readonly string _connStr;
-		private readonly IConfiguration _configuration;
-		private string _connStr;
-		public string ConnectionStr { get; set; }
+		//private readonly IConfiguration _configuration;
+		private readonly string _connStr;
 
 		public SqlDataAccess()
         {
-			var tests = ConfigurationManager.ConnectionStrings[0].ConnectionString;
-
-
+			this._connStr = ConfigurationManager.ConnectionStrings[1].ConnectionString;
 		}
-		/**
-		public SqlDataAccess(IConfiguration config)
-		{
-			_configuration = config;
-			//_connStr = _configuration.GetSection("ConnectionStrings:ConnectionStr").Value;
-			//_connStr = ConnectionStr;
-			//_connStr = ConfigurationExtensions.
-			var c = config.GetSection("ConnectionStrings");
 
-			// To get the value configA
-			var value = c["ConnectionStr"];
-
-		}**/
 
 
 		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters)
 		{
-			using (IDbConnection conn = new SqlConnection(ConnectionStr))
+			using (IDbConnection conn = new SqlConnection(_connStr))
 			{
 				//return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 				return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -50,7 +35,7 @@ namespace Data
 
 		public async Task SaveData<T>(string storedProcedure, T parameters)
 		{
-		using (IDbConnection conn = new SqlConnection(ConnectionStr))
+		using (IDbConnection conn = new SqlConnection(_connStr))
 		{
 			await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 

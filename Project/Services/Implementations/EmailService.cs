@@ -2,21 +2,25 @@
 using System.Net.Mail;
 using Services.Contracts;
 using System.Net;
-
-
+using System.Configuration;
+using System;
 
 namespace Services.Implementations
 {
     public class EmailService : IEmailService
     {
         private SmtpClient _smtpClient;
-        public string _server { get; set; }
-        public  int _port { get; set; }
-        public string _fromEmail { get; set; }
-        public string _key { get; set; }
+        private readonly string _server;
+        private readonly int _port;
+        public readonly string _fromEmail;
+        public readonly string _key;
         public EmailService()
         {                    
-            _smtpClient = new SmtpClient(_server, _port);          
+            _smtpClient = new SmtpClient(_server, _port);
+            _server = ConfigurationManager.AppSettings.Get(0).ToString();
+            _port = Convert.ToInt32(ConfigurationManager.AppSettings.Get(1));
+            _fromEmail = ConfigurationManager.AppSettings.Get(2).ToString();
+            _key = ConfigurationManager.AppSettings.Get(3).ToString();
 
         }
 
