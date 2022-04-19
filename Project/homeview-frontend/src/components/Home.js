@@ -1,19 +1,16 @@
 import React from 'react'
-import '../css/test.css'
 import Navigation from './Navigation'
 import FirstTimeUser from './FirstTimeUser'
+import MovieList from './cml/MovieList'
 
 export default function Home() {
 
   //const userFirstTime = {}
     return (
-      <>
-      <Navigation>
-      </Navigation>
-      <div className='logo'>
-        TEST
+      
+      <div className='container'>
+        <Navigation/>
+        {MovieList()}
       </div>
-      <FirstTimeUser></FirstTimeUser>
-      </>
   )
 }
