@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Movie from './MovieTile';
 import './../../css/movietile.css';
+import TitleModal from '../../components/Features/TitlePage/TitleModal'
+
 
     const MOVIES_API = {
         method: 'GET',
@@ -30,6 +32,8 @@ import './../../css/movietile.css';
 
     function MovieList() {
         const [ movies, setMovies ] = useState([]);
+        const [modalShow, setModalShow] = useState(null);
+        
 
         useEffect(() => {
             axios.request(MOVIES_API).then(function (response) {
@@ -39,12 +43,29 @@ import './../../css/movietile.css';
                 console.error(error);
             });
         }, []);
-        
-        
+
+        const handleState = (e) => {
+            if (modalShow != null) {
+                setModalShow(null);
+            }
+            else {
+                setModalShow(e.target.key);
+            }
+        };
+        const checkState = (e) => {
+            if (e.target.key === modalShow) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
         return (
             <div className='movie-container'>
                 {movies.length > 0 && movies.map((movie) =>(
-                    <Movie key={movie.tmdbID} {...movie} />            
+                    <Movie key={movie.tmdbID} {...movie} onClick={handleState} />,    
+                    <TitleModal key={movie.tmdbID} props={movie} show={checkState} onHide={() => setModalShow(null)}/>        
                 ))}
             </div>
         );

@@ -1,7 +1,6 @@
 import React from 'react'
 import Navigation from '../Navigation'
 import FirstTimeUser from './FirstTimeUser'
-import Library from './Library'
 import Movie from '../cml/MovieList'
 
 export default function Home() {

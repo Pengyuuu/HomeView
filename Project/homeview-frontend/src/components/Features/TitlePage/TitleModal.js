@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../../css/test.css'
+import '../../../css/App.css'
 import RatingReview from './RatingReview'
 import { Button, Image, Modal } from 'react-bootstrap'
 import { render } from 'react-dom'
