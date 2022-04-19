@@ -1,13 +1,14 @@
 import React from "react"
-import Register from "./Register"
+import  Register  from "./Core/Register"
 import {Container} from 'react-bootstrap'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Home from './Home'
-import Login from './Login'
-import { TVShows } from "./TVShows"
-import { Movies } from "./Movies"
-import { News } from "./News"
-import { ActWiki } from "./ActWiki"
+import  Home  from './Features/Home'
+import  Login  from './Core/Login'
+import { TVShows } from "./Features/TVShows"
+import { Movies } from "./Features/Movies"
+import { News } from "./Features/News"
+import { ActWiki } from "./Features/ActWiki"
+import Title from './Features/TitlePage/Title'
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
                         <Route exact path="/movies" element={<Movies />} />
                         <Route exact path="/news" element={<News />} />
                         <Route exact path="/actwiki" element={<ActWiki />} />
+                        <Route exact path="/title" element={<Title />} />
+
                     </Routes>
                 </Router>
             </div>

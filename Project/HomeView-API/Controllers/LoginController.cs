@@ -1,8 +1,6 @@
 ﻿using Core.User;
 using Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Managers.Implementations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace HomeView_API.Controllers
 {
@@ -44,7 +42,7 @@ namespace HomeView_API.Controllers
             {
                 return "Email confirmed.";
             }
-            return "Invalid confirmation.";
+            return Ok("Invalid confirmation.");
             
         
         }
@@ -57,6 +55,18 @@ namespace HomeView_API.Controllers
             // directs user to homepage and auto activates user's profile in user db and deletes from reg db
             var fetchedUser = _userManager.GetUser(email);
             return fetchedUser;
+
+
+        }
+
+        // generates JWT token for a valid user
+        [Route("get/token/{email}")]
+        [HttpGet]
+        public ActionResult<string> GetJWTToken(string email)
+        {
+            // directs user to homepage and auto activates user's profile in user db and deletes from reg db
+            var token = _authenticationManager.GenerateJWTToken(email);
+            return token;
 
 
         }

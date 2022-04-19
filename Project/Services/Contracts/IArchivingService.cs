@@ -4,7 +4,7 @@ namespace Services.Contracts
 {
     public interface IArchivingService
     {
-        bool ArchiveLog();
+        //bool ArchiveLog();
         bool SendLogs(List<string> oldLogs);
     }
 }

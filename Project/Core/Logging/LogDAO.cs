@@ -13,6 +13,7 @@ namespace Core.Logging
         private readonly SqlDataAccess _db;
         public LogDAO()
         {
+            _db = new SqlDataAccess();
         }
 
         public LogDAO(SqlDataAccess db)

@@ -1,4 +1,4 @@
-﻿namespace Managers.Implementations
+﻿namespace Managers.Contracts
 {
     public interface IAuthenticationManager
     {

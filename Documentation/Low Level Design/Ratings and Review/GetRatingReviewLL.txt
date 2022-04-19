@@ -1,0 +1,44 @@
+title Get Rating Reviews
+participant User
+participant "Ratings and Review Controller" as rc
+participant "Ratings and Review Manager" as rm
+participant "Ratings and Review Service" as s
+participant "Ratings and Review Data Access Object" as dao
+database database
+
+User->rc: User selects a Title
+activate rc
+
+
+rc->rm: GetReview(string titleSelected)
+
+
+rm->s: RatingReviewService()
+activate s
+
+rm->s: GetReview(RatingReview object)
+
+s->dao: GetReview(RatingReview object)
+activate dao
+dao->dao: log database access
+dao->database: GetReview(RatingReview object) \n(fetches from database)
+activate database
+group Database Error
+database->dao: return false
+dao-> s: return false
+s->rm:return false
+rm-> rc: return false
+rc-> User: return "Unable to get title's rating reviews. \nDatabase error."
+end
+database->dao: return title's list of reviews
+deactivate database
+
+dao->dao:log database return time
+dao->s:return title's list of reviews
+deactivate dao
+s->rm:return title's list of reviews
+deactivate s
+rm->rc:return title's list of reviews
+deactivate rm
+rc->User:return title's list of reviews
+deactivate rc

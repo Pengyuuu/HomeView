@@ -109,16 +109,16 @@ namespace UMTests
             Assert.True(actual.Any());
         }
 
-        
+        [Fact]
         public void UserManager_GetUser()   // needs all users inside first to get expected
         {
 
-            string expected = "Hill";
+            string expected = "HankHill@yahoo.com";
 
 
             User actual = userManager.GetUser("HankHill@yahoo.com");
 
-            Assert.True(expected == actual.LastName);
+            Assert.True(expected == actual.Email);
 
         }
 

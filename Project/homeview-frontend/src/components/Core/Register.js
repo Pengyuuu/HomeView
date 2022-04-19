@@ -72,7 +72,7 @@ export default function Register() {
         
         console.log('start reg')
         
-        fetch('https://reqres.in/api/users', {
+        var ret = fetch('https://reqres.in/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ export default function Register() {
                 return res.json()
             })
             .then (data=> console.log(data))
-
+        
         console.log('end reg')
     }
 }
