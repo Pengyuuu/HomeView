@@ -1,4 +1,4 @@
-function clearToken() {
+export function clearToken() {
     console.log('clear tokens')
 
     window.sessionStorage.removeItem('token');
