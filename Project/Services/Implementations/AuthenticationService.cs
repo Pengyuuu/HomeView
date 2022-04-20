@@ -91,8 +91,10 @@ namespace Services.Implementations
         public bool AuthenticateLogInUser(string email, string pw)
         {
             var fetchedUser = _userService.GetUser(email);
-            //string hashedPW = HashPassword(pw, fetchedUser.Salt);
-            if ((fetchedUser != null) && (fetchedUser.Password == pw))
+
+            string hashedPW = HashPassword(pw, fetchedUser.Salt);
+
+            if ((fetchedUser != null) && (fetchedUser.Password == hashedPW))
             {
                 return true;
             }

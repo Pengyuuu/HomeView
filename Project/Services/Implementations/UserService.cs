@@ -48,6 +48,10 @@ namespace Services.Implementations
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 _loggingService.LogData(userLog);
             }
+            else
+            {
+                fetchedUser = (User)_userDAO.AsyncReadRegisteredUser(email).Result;
+            }
             return fetchedUser;
         }
 
