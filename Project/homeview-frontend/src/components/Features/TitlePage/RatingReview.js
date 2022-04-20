@@ -4,7 +4,6 @@ import Star from './Star'
 
 
 //<script src='/Security.js'></script>
-// need to check if user already has review data - if so, then load it first
 
 export default function RatingReview() {
     const reviewRef = document.getElementById("id");
@@ -43,9 +42,9 @@ export default function RatingReview() {
         <Card>
             <Card.Body>
                 <br></br>
-                <h3 className="text-center"> Create a Review</h3>
+                    <h3 className="text-center" style={{color: 'black'}}> Create a Review</h3>
 
-                        <Form id="reviewForm" onSubmit={SaveReview}>
+                        <Form id="reviewForm" onSubmit={saveReview}>
                             <Form.Group className="text-center" id="rating">
                                 <Star
                                     thresh={0.5}
@@ -91,14 +90,13 @@ export default function RatingReview() {
 
 
                     </Form.Group>
-                            <Form.Group className="text-center" id="review">
+                        <Form.Group className="text-center" id="review" style={{color:'black'}}>
                                 <br></br>
-
                             <textarea className="w-100" id="review" placeholder="Type your review here" onChange={handleCount} ref={reviewRef} maxLength="2500"></textarea>
                             <p>Character count: {count} (Max is 2500)</p>
-                    </Form.Group>
+                             </Form.Group>
                     <br></br>
-                    <Button className="w-100" type="submit" onClick={validateReview}>
+                    <Button className="w-100" type="submit" onClick={submitReview}>
                         Submit Review
                     </Button>
                 </Form>
@@ -111,21 +109,17 @@ export default function RatingReview() {
     </>
     )
 
-    function validateReview() {
+    
+
+    function submitReview() {
         return false
     }
 
-    function SaveReview() {
+    function saveReview() {
         return false
     }
 
-    function LoadReview() {
-
-    }
-
-    function UpdateReview() {
-
-    }
+  
 }
 
 

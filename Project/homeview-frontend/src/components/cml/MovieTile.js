@@ -36,33 +36,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
         setReviews(titleReviews);
     };
 
-    
-
-
-
-    /*
-    const rev = titleReviews.ratingAndReviews;
-    
-    const [reviews, setReviews] = useState([]);
-    const [avg, setAvg] = useState(null);
-    //const [currentTitle, setTitle] = useState(null);
-    const handleReviews = () => {
-        if (show) {
-            setReviews(rev);
-            setAvg(titleReviews.rating);
-        }
-        else {
-            setReviews(null);
-            setAvg(null);
-        }
-    };
-  
-
-    
-    const [reviews, setReviews] = useState([]);
-    const loadReviews = () => {
-        /**
-     const HOMEVIEW_API = {
+    /* 
+            const HOMEVIEW_API = {
          method: 'GET',
          url: 'https://homeview.me/reviews/get',
          params: {
@@ -78,33 +53,6 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 console.error(error);
             });
         }, []);
-        
-
-        var titleReviews = {
-            "rating": 4,
-            "ratingAndReviews": [
-                {
-                    "rating": 4,
-                    "review": "???",
-                    "title": "Power Rangers",
-                    "dispName": "HankHill@yahoo.com"
-                }
-            ]
-        };
-        return titleReviews;
-    };
-    var revList = loadReviews();
-    var avgRating = revList.rating;
-    setReviews(revList.ratingAndReviews);
-
-
-    <br></br>
-        {
-    reviews.length > 0 && reviews.map((review) => (
-        <ReviewItem key={review.dispName} {...review} />
-            ))
-        }
-        <br></br> 
 */
  
    

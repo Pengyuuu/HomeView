@@ -8,7 +8,7 @@ export default function Star({
     handleHoverValue,
     handleSetRating, handleDoubleRating
 }) {
-    let isFilled = false;
+    var isFilled = false;
 
     if (rating != null) {
         isFilled = rating >= thresh;
