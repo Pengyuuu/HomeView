@@ -28,6 +28,9 @@ export class Navigation extends Component{
             <NavLink className = "d-inline p-2 bg-dark text-white" to="/ActWiki">
                 Act Wiki
             </NavLink>
+            <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
+                Log Out
+            </NavLink>
             </Nav>
             </Navbar.Collapse>
                   </Navbar>

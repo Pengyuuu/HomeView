@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap'
-
+import { Button } from 'react-bootstrap';
+import clearToken from '/Security.js';
 
 function Navbar() {
     return (
@@ -14,7 +14,8 @@ function Navbar() {
                     <Link className="color-style" to="/">News</Link> <span></span>
                     <Link className="color-style" to="/">ActWiki</Link> <span></span>
                     <Link className="color-style" to="/">Account</Link> <span></span>
-                    <Button className="color-style" type="submit" >Log Out </Button>
+                    <Button className="color-style" type="submit" onclick={clearToken}>Log Out </Button>
+
 
                 </div>
             </nav>
