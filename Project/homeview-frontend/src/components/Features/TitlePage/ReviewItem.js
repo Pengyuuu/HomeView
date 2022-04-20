@@ -2,14 +2,17 @@ import React from 'react';
 //import './../../css/movietile.css';
 
 
-const ReviewItem = ({rating, review, dispName}) => (
+const ReviewItem = ({ rating, review, dispName }) => {
+    return (<>
 
-<div>
         <div>
-            <h6>{dispName} - {rating} / 5</h6>
-            <p>{review}</p>
+            <div>
+                <h6>{dispName} - {rating} / 5</h6>
+                <p>{review}</p>
+            </div>
         </div>
-    </div>
-)
+        </>
+    )
+}
 
 export default ReviewItem;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
-import { ReviewSection } from './ReviewSection'
+import  ReviewSection  from './../Features/TitlePage/ReviewSection'
 import axios from 'axios';
 import GenreList from './MovieList'
 import './../../css/Modal.css';
@@ -42,9 +42,9 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 <p>Rating: {imdbRating}</p>
                 <p>Streaming Service: {Object.keys((streamingInfo))}</p>
                 <p>Genres: {genres}</p>
-                <p>Actors: {cast}</p>
+                        <p>Actors: {cast}</p>
+
                     </div>
-                    <ReviewSection/>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
