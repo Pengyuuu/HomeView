@@ -24,6 +24,10 @@ import ReviewItem from './ReviewItem'
         }, []);
         **/
         //setReviews
+        var titleReviews = {
+
+        }
+        
 
         return (
             <div >
