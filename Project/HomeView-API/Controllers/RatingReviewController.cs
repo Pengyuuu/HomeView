@@ -6,16 +6,16 @@ using Managers.Implementations;
 
 namespace HomeView_API.Controllers
 {
-    [Route("api/RatingReview")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RatingReviewController : ControllerBase
     {
 
         private readonly IRatingAndReviewManager _reviewManager;
 
-        public RatingReviewController()
+        public RatingReviewController(IRatingAndReviewManager ratingAndReviewManager)
         {
-            _reviewManager = new RatingAndReviewManager();
+            _reviewManager = ratingAndReviewManager;
         }
 
         // post: /submit a review
@@ -69,8 +69,9 @@ namespace HomeView_API.Controllers
     
         // GET list of all reviews for the title
         [HttpGet("get/title/{title}")]
-        public ActionResult<TitleInfo> GetTitleReviews(string title)
+        public string GetTitleReviews(string title)
         {
+            return title;
             try
             {
                 List<RatingAndReview> titleList = (List<RatingAndReview>)(_reviewManager.GetTitleReviewRating(title));
@@ -80,13 +81,13 @@ namespace HomeView_API.Controllers
                     TitleInfo info = new TitleInfo();
                     info.Rating = avgRating;
                     info.RatingAndReviews = titleList;
-                    return Ok(info);
+                    //return Ok(info);
                 }
-                return BadRequest("Unable to get title's rating reviews information. Database error.");
+                //return BadRequest("Unable to get title's rating reviews information. Database error.");
             }
             catch
             {
-                return BadRequest("Unable to get title's rating reviews information. System error.");
+                //return BadRequest("Unable to get title's rating reviews information. System error.");
             }
         }
 

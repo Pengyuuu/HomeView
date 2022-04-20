@@ -30,8 +30,6 @@ builder.Services.AddSingleton<IEmailManager, EmailManager>();
 builder.Services.AddSingleton<ILoggingManager, LoggingManager>();
 builder.Services.AddSingleton<IRatingAndReviewManager, RatingAndReviewManager>();
 builder.Services.AddSingleton<IUserManager, UserManager>();
-//builder.Services.AddSingleton<IConfiguration>();
-//builder.Services.AddSingleton<>
 builder.Services.AddSingleton<SqlDataAccess>();
 
 var config = builder.Configuration.GetSection("ConnectionStrings");
