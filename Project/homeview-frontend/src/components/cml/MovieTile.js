@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
+import GenreList from './MovieList'
+import './../../css/Modal.css';
+
 
 
 const IMG_API = "https://image.tmdb.org/t/p/original/"
@@ -10,8 +14,9 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
 
-    console.log(title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast);
+    //console.log(title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast);
     return (
     <>
         <div className='movie' onClick={handleShow}>
@@ -30,7 +35,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <img className="title-container" src={IMG_API + posterPath}></img>
+                    <img className="title-img" src={IMG_API + posterPath}></img>
                 </div>
                 <div className="title-details">
                 <p>Year: {year}</p>
@@ -47,10 +52,10 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
             </Modal.Footer>
         </Modal>
     </>
-
-        
     )
 }
+
+
 
 
 export default Movie;
