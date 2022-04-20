@@ -35,7 +35,6 @@ import ReviewItem from './ReviewItem'
                 }
             ]
         };
-        console.log(titleReviews);
         var reviewList = titleReviews.ratingAndReviews;
         console.log(reviewList);
         setReviews(reviewList);
