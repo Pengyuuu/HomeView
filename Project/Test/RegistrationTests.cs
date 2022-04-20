@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 using Managers.Contracts;
 using Managers.Implementations;
 
@@ -18,7 +13,7 @@ namespace RegistrationTests
         {
             bool expected = true;
 
-            bool actual = _registrationManager.CreateUser("testing","2000-12-09", "TestPassword!12344556755");
+            bool actual = _registrationManager.CreateUser("testing@gmail.com","2000-12-09", "TestPassword!12344556755");
 
             Assert.Equal(expected, actual);
 
