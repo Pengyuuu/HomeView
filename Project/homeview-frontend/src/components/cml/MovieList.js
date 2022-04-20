@@ -11,6 +11,7 @@ import './../../css/movietile.css';
             service: 'netflix',
             type: 'movie',
             output_language: 'en',
+            language: 'en',
             page: 40
         },
         headers: {
