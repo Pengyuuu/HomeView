@@ -36,14 +36,16 @@ namespace HomeView_API.Controllers
             return _reviewManager.UpdateReviewRating(dispName, title, rating, review);
 
         }
-
+    
         // GET /get list of reviews for the title
         [HttpGet("get/{title}")]
-        public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
+        public ActionResult<List<(double avg, IEnumerable<RatingAndReview> list)>> GetTitleReviews(string title)
         {
-            var titleList = _reviewManager.GetTitleReviewRating("Power Rangers");
-            List<RatingAndReview> titleReviews = (List<RatingAndReview>)titleList;
-            return titleReviews;
+            var titleInfo = new List<(double avg, IEnumerable<RatingAndReview> list)>();
+            List<RatingAndReview> titleList = (List<RatingAndReview>)(_reviewManager.GetTitleReviewRating(title));
+            double avgRating = _reviewManager.GetAverageRating(title);
+            titleInfo.Add((avgRating, titleList));
+            return titleInfo;
         }
 
 
@@ -59,7 +61,7 @@ namespace HomeView_API.Controllers
         public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string dispName)
         {
             var userList = _reviewManager.GetUserReviewRating(dispName);
-            List<RatingAndReview> userReviews = (List<RatingAndReview>)userList;
+            List<RatingAndReview> userReviews = (List<RatingAndReview>) userList;
             return userReviews;
         }
 

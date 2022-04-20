@@ -113,5 +113,17 @@ namespace Managers.Implementations
             return _ratingAndReviewService.GetRatingReview(userReviews);
         }
 
+        public double GetAverageRating(string selectedTitle)
+        {
+            double totalRating = 0;
+            var titleReviews = GetTitleReviewRating(selectedTitle);
+            foreach(var review in titleReviews)
+            {
+                totalRating += review.Rating;
+            }
+            double averageRating = totalRating / (titleReviews.Count());
+            return averageRating;
+        }
+
     }
 }

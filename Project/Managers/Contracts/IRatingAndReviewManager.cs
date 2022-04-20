@@ -12,5 +12,7 @@ namespace Managers.Contracts
         IEnumerable<RatingAndReview> GetUserReviewRating(string dispName);
         bool SubmitReviewRating(string dispName, string titleSelected, float uRating, string uReview);
         bool UpdateReviewRating(string dispName, string titleSelected, float uRating, string uReview);
+        double GetAverageRating(string selectedTitle);
+
     }
 }

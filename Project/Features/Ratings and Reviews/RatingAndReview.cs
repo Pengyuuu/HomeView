@@ -20,6 +20,15 @@ namespace Features.Ratings_and_Reviews
             this.Title = "";
             this.DispName = "";
         }
+
+        public RatingAndReview(string dispName, string selectedTitle)
+        {
+            this.Rating = 0.0;
+            this.Review = "";
+            this.Title = selectedTitle;
+            this.DispName = dispName;
+        }
+
         public RatingAndReview(string dispName, string selectedTitle, float userRating)
         {
             this.Rating = userRating;
