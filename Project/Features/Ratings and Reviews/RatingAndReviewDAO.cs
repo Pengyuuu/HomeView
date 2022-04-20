@@ -20,7 +20,7 @@ namespace Features.Ratings_and_Reviews
             {
                 dispName = userRatingReview.DispName,
                 title = userRatingReview.Title,          
-                rate = userRatingReview.Rating,
+                rating = userRatingReview.Rating,
                 review = userRatingReview.Review            
             };
             try
@@ -41,7 +41,7 @@ namespace Features.Ratings_and_Reviews
             {
                 dispName = userRatingReview.DispName,
                 title = userRatingReview.Title,
-                rate = userRatingReview.Rating,
+                rating = userRatingReview.Rating,
                 review = userRatingReview.Review
             };
             try

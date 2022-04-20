@@ -44,7 +44,7 @@ namespace HomeView_API.Controllers
 
         // post: update a user's review
         [HttpPost("update/{title}/{dispName}")]
-        public ActionResult<bool> UpdateReview(string title, string dispName, float rating, string review)
+        public ActionResult<bool> UpdateReview(string title, string dispName, double rating, string review)
         {
             try
             {
@@ -77,7 +77,9 @@ namespace HomeView_API.Controllers
                 double avgRating = _reviewManager.GetAverageRating(title);
                 if ((titleList.Count != 0) && (avgRating > 0))
                 {
-                    var info = new TitleInfo(avgRating, titleList);
+                    TitleInfo info = new TitleInfo();
+                    info.Rating = avgRating;
+                    info.RatingAndReviews = titleList;
                     return Ok(info);
                 }
                 return BadRequest("Unable to get title's rating reviews information. Database error.");
@@ -94,7 +96,7 @@ namespace HomeView_API.Controllers
         public ActionResult<RatingAndReview> GetUserTitleReview(string title, string dispName)
         {
             try {
-                var review = _reviewManager.GetSpecificReviewRating(dispName, title);
+                RatingAndReview review = _reviewManager.GetSpecificReviewRating(dispName, title);
                 if (review!= null)
                 {
                     return Ok(review);
@@ -113,7 +115,7 @@ namespace HomeView_API.Controllers
         {
             try
             {
-                var userList = _reviewManager.GetUserReviewRating(dispName);
+                IEnumerable<RatingAndReview> userList = _reviewManager.GetUserReviewRating(dispName);
                 List<RatingAndReview> userReviews = (List<RatingAndReview>)userList;
                 if (userReviews.Count > 0)
                 {

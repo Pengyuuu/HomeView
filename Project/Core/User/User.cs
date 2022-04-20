@@ -170,7 +170,6 @@ namespace Core.User
             {
                 return "User not found.";
             }
-			// need to add salt value to the string
             return this._firstName + ", "+ this._lastName + ", " + this._email 
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
 				+ this._regDate + ", " + this._role + "," +  this._status;

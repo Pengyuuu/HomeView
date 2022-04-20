@@ -5,13 +5,13 @@ namespace Managers.Contracts
 {
     public interface IRatingAndReviewManager
     {
-        bool CheckReviewFields(string titleSelected, float uRating, string uReview);
+        bool CheckReviewFields(string titleSelected, double uRating, string uReview);
         bool DeleteReviewRating(string dispName, string titleSelected);
         RatingAndReview GetSpecificReviewRating(string dispName, string selectedTitle);
         IEnumerable<RatingAndReview> GetTitleReviewRating(string selectedTitle);
         IEnumerable<RatingAndReview> GetUserReviewRating(string dispName);
-        bool SubmitReviewRating(string dispName, string titleSelected, float uRating, string uReview);
-        bool UpdateReviewRating(string dispName, string titleSelected, float uRating, string uReview);
+        bool SubmitReviewRating(string dispName, string titleSelected, double uRating, string uReview);
+        bool UpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview);
         double GetAverageRating(string selectedTitle);
 
     }

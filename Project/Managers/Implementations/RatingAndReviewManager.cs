@@ -18,7 +18,7 @@ namespace Managers.Implementations
         }
 
         // Checks valid review fields
-        public bool CheckReviewFields(string titleSelected, float uRating, string uReview)
+        public bool CheckReviewFields(string titleSelected, double uRating, string uReview)
         {
 
             const int MAX_REVIEW_CHARACTERS = 2500;
@@ -43,7 +43,7 @@ namespace Managers.Implementations
 
         }
 
-        public bool SubmitReviewRating(string dispName, string titleSelected, float uRating, string uReview)
+        public bool SubmitReviewRating(string dispName, string titleSelected, double uRating, string uReview)
         {
             try
             {
@@ -76,12 +76,12 @@ namespace Managers.Implementations
             }
         }
 
-        public bool UpdateReviewRating(string dispName, string titleSelected, float uRating, string uReview)
+        public bool UpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview)
         {
             RatingAndReview updateReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
             bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
             RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updateReview).FirstOrDefault();
-            if (oldReview is not null && (isValidReview))
+            if ((oldReview is not null) && (isValidReview))
             {
                 return _ratingAndReviewService.UpdateRatingReview(updateReview);
             }
@@ -117,12 +117,16 @@ namespace Managers.Implementations
         {
             double totalRating = 0;
             var titleReviews = GetTitleReviewRating(selectedTitle);
-            foreach(var review in titleReviews)
+            if (titleReviews.Count() > 0)
             {
-                totalRating += review.Rating;
+                foreach (var review in titleReviews)
+                {
+                    totalRating += review.Rating;
+                }
+                double averageRating = totalRating / (titleReviews.Count());
+                return averageRating;
             }
-            double averageRating = totalRating / (titleReviews.Count());
-            return averageRating;
+            return totalRating;
         }
 
     }
