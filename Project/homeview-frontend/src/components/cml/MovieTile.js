@@ -2,21 +2,113 @@ import React, { useState } from 'react';
 import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
 import  ReviewSection  from './../Features/TitlePage/ReviewSection'
+//import  ReviewItem  from './../Features/TitlePage/ReviewItem'
+
 import axios from 'axios';
 import GenreList from './MovieList'
 import './../../css/Modal.css';
 
 
 const IMG_API = "https://image.tmdb.org/t/p/original/"
+const titleReviews = {
+    "rating": 4,
+    "ratingAndReviews": [
+        {
+            "rating": 4,
+            "review": "???",
+            "title": "Power Rangers",
+            "dispName": "HankHill@yahoo.com"
+        }
+    ]
+};
 
 const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast }) => {
     
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [reviews, setReviews] = useState([]);
+
+    const handleClose = () => {
+        setShow(false);
+        setReviews([]);
+    };
+    const handleShow = () => {
+        setShow(true);
+        setReviews(titleReviews);
+    };
+
     
 
-    //console.log(title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast);
+
+
+    /*
+    const rev = titleReviews.ratingAndReviews;
+    
+    const [reviews, setReviews] = useState([]);
+    const [avg, setAvg] = useState(null);
+    //const [currentTitle, setTitle] = useState(null);
+    const handleReviews = () => {
+        if (show) {
+            setReviews(rev);
+            setAvg(titleReviews.rating);
+        }
+        else {
+            setReviews(null);
+            setAvg(null);
+        }
+    };
+  
+
+    
+    const [reviews, setReviews] = useState([]);
+    const loadReviews = () => {
+        /**
+     const HOMEVIEW_API = {
+         method: 'GET',
+         url: 'https://homeview.me/reviews/get',
+         params: {
+             selectedTitle
+         }
+     }**/
+        /**
+        useEffect(() => {
+            axios.request(HOMEVIEW_API).then(function (response) {
+                console.log(response.data);
+                setReviews(response.data.results);
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }, []);
+        
+
+        var titleReviews = {
+            "rating": 4,
+            "ratingAndReviews": [
+                {
+                    "rating": 4,
+                    "review": "???",
+                    "title": "Power Rangers",
+                    "dispName": "HankHill@yahoo.com"
+                }
+            ]
+        };
+        return titleReviews;
+    };
+    var revList = loadReviews();
+    var avgRating = revList.rating;
+    setReviews(revList.ratingAndReviews);
+
+
+    <br></br>
+        {
+    reviews.length > 0 && reviews.map((review) => (
+        <ReviewItem key={review.dispName} {...review} />
+            ))
+        }
+        <br></br> 
+*/
+ 
+   
+
     return (
     <>
         <div className='movie' onClick={handleShow}>
@@ -43,11 +135,12 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 <p>Streaming Service: {Object.keys((streamingInfo))}</p>
                 <p>Genres: {genres}</p>
                         <p>Actors: {cast}</p>
+                </div>
+                    <ReviewSection average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show}/>
 
-                    </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleClose} >
                     Close
                 </Button>
             </Modal.Footer>
