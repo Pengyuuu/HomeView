@@ -92,4 +92,19 @@
     margin: 0 auto;
 }
 
+.button-delete {
+    background-color: red;
+    color: white;
+    padding:2px;
+}
+
+.button-review {
+    color:white;
+    padding:2px;
+}
+
+.review-title {
+    font-size:12px;
+    padding:4px;
+}
 
