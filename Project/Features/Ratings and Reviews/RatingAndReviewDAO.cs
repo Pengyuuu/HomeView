@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
 
@@ -24,18 +21,18 @@ namespace Features.Ratings_and_Reviews
                 dispName = userRatingReview.DispName,
                 title = userRatingReview.Title,          
                 rate = userRatingReview.Rating,
-                review = userRatingReview.Review,
-               
+                review = userRatingReview.Review            
             };
             try
             {
                 await _db.SaveData("dbo.RatingReviews_CreateRatingReview", userRatingReview);
+
+                return true;
             }
             catch
             {
                 return false;
             }
-            return true;
         }
 
         public async Task<bool> AsyncUpdateRateReview(RatingAndReview userRatingReview)
@@ -45,20 +42,19 @@ namespace Features.Ratings_and_Reviews
                 dispName = userRatingReview.DispName,
                 title = userRatingReview.Title,
                 rate = userRatingReview.Rating,
-                review = userRatingReview.Review,
-
+                review = userRatingReview.Review
             };
             try
             {
                 await _db.SaveData("dbo.RatingReviews_UpdateRatingReview", newRatingReview);
+
+                return true;
             }
             catch
             {
                 return false;
             }
-            return true;
         }
-
 
         public async Task<IEnumerable<RatingAndReview>> AsyncGetRatingReviews(RatingAndReview fetchReview)
         {
@@ -141,6 +137,5 @@ namespace Features.Ratings_and_Reviews
                 return false;
             }
         }
-
     }
 }
