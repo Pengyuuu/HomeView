@@ -1,8 +1,6 @@
 ﻿using Dapper;
-//using System;
 using System.Data;
 using System.Threading.Tasks;
-//using System.Linq;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -13,8 +11,7 @@ namespace Data
 
 	public class SqlDataAccess
 	{
-		//private readonly string _connStr;
-		//private readonly IConfiguration _configuration;
+		
 		private readonly string _connStr;
 
 		public SqlDataAccess()
@@ -28,7 +25,6 @@ namespace Data
 		{
 			using (IDbConnection conn = new SqlConnection(_connStr))
 			{
-				//return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 				return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 			}
 		}
