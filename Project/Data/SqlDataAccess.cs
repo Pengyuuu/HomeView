@@ -16,7 +16,7 @@ namespace Data
 
 		public SqlDataAccess()
         {
-			this._connStr = ConfigurationManager.ConnectionStrings[1].ConnectionString;
+			this._connStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 		}
 
 
