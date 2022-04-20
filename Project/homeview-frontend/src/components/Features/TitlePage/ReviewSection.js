@@ -5,14 +5,14 @@ import ReviewItem from './ReviewItem'
 
     function ReviewSection({selectedTitle}) {
         const [ reviews, setReviews ] = useState([]);
-        
+        /**
         const HOMEVIEW_API = {
             method: 'GET',
             url: 'https://homeview.me/reviews/get',
             params: {
                 selectedTitle
             }
-        }
+        }**/
         /**
         useEffect(() => {
             axios.request(HOMEVIEW_API).then(function (response) {
