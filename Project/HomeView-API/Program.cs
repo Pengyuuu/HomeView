@@ -23,7 +23,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+/**
 builder.Services.AddSingleton<IAuthenticationManager, AuthenticationManager>();
 builder.Services.AddSingleton<IArchivingManager, ArchivingManager>();
 builder.Services.AddSingleton<IEmailManager, EmailManager>();
@@ -45,7 +45,7 @@ builder.Services.Configure<SqlDataAccess>(con =>
 {
     //get from config.json file
     con.ConnectionStr = value;
-});**/
+});
 var x = 1;
 // or direct get the value
 //var configA = Configuration.GetSection("MyConfig:ConfigA");
@@ -57,26 +57,15 @@ var x = 1;
 //builder.Services.Configure<SqlDataAccess>(conn);
 
 
-
-
-
-
 //builder.Services.AddSingleton<SqlDataAccess>();
 
-
-
-
-
-
-
-
+**/
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //builder.Configuration.AddUserSecrets("c75071fc - 3162 - 491e-84bc - 0281cca24924");
     //app.Create
     app.UseSwagger();
     app.UseSwaggerUI();

@@ -43,11 +43,9 @@ function ReviewSection({ average, reviewList, show }) {
             <div >
                 <h5>Review Section</h5>
                 <p> Average Rating: {average} </p>
-                <Button style={{ color:'white' }} onClick={createReview}>Create/Update a review</Button>
-                <Button style={{ backgroundColor: 'red', color:'white' }} onClick={deleteReview}>Delete a review</Button>
+                <Button class="mr-1" style={{ color: 'white' }} onClick={createReview}>Create/Update a review</Button>
+                <Button class="mr-1" style={{ backgroundColor: 'red', color:'white' }} onClick={deleteReview}>Delete a review</Button>
                 <CreateReview createRev={createRev} />
-                <br />
-                <br/>
                 {reviewList.length > 0 && reviewList.map((review) => (
                     <ReviewItem key={review.dispName} {...review} />
                 ))}
