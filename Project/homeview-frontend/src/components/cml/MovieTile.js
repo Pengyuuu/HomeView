@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
+import { ReviewSection } from './ReviewSection'
 import axios from 'axios';
 import GenreList from './MovieList'
 import './../../css/Modal.css';
-
 
 
 const IMG_API = "https://image.tmdb.org/t/p/original/"
@@ -44,6 +44,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 <p>Genres: {genres}</p>
                 <p>Actors: {cast}</p>
                     </div>
+                    <ReviewSection/>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>

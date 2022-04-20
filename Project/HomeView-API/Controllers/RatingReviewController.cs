@@ -21,7 +21,7 @@ namespace HomeView_API.Controllers
             _reviewManager = new RatingAndReviewManager();
         }
 
-        // post: /submit
+        // post: /submit a review
         [HttpPost("submit/{title}/{dispName}")]
         public ActionResult<bool> SubmitReview(string title, string dispName, float rating, string review)
         {
@@ -29,7 +29,7 @@ namespace HomeView_API.Controllers
 
         }
 
-        // post: /update
+        // post: update a user's review
         [HttpPost("update/{title}/{dispName}")]
         public ActionResult<bool> UpdateReview(string title, string dispName, float rating, string review)
         {
@@ -37,8 +37,8 @@ namespace HomeView_API.Controllers
 
         }
     
-        // GET /get list of reviews for the title
-        [HttpGet("get/{title}")]
+        // GET list of all reviews for the title
+        [HttpGet("get/title/{title}")]
         public ActionResult<List<(double avg, IEnumerable<RatingAndReview> list)>> GetTitleReviews(string title)
         {
             var titleInfo = new List<(double avg, IEnumerable<RatingAndReview> list)>();
@@ -49,15 +49,15 @@ namespace HomeView_API.Controllers
         }
 
 
-        // GET api/values/5
-        [HttpGet("get/{title}/{dispName}")]
+        // GET a user's review for a selected title
+        [HttpGet("get/title/user/{title}/{dispName}")]
         public ActionResult<RatingAndReview> GetUserTitleReview(string title, string dispName)
         {
-            return new RatingAndReview();
+            return _reviewManager.GetSpecificReviewRating(dispName, title);
         }
 
-        // GET api/values/5
-        [HttpGet("get/{dispName}")]
+        // GET ALL of user's reviews
+        [HttpGet("get/user/reviews/{dispName}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string dispName)
         {
             var userList = _reviewManager.GetUserReviewRating(dispName);
@@ -66,8 +66,8 @@ namespace HomeView_API.Controllers
         }
 
 
-        // DELETE api/values/5
-        [HttpDelete("delete/{title}/{dispName}")]
+        // DELETE user's review for a title
+        [HttpDelete("delete/title/user/{title}/{dispName}")]
         public ActionResult<bool> DeleteReview(string title, string dispName)
         {
             return _reviewManager.DeleteReviewRating(dispName, title);
