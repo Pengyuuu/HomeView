@@ -7,15 +7,8 @@ import '../../../css/App.css'
 
 
 
-function ReviewSection({ average, reviewList, show }) {
+function ReviewSection({ average, reviewList, show}) {
     const [createRev, setCreate] = useState(null);
-    const handleClose = () => {
-        setCreate(false);
-    };
-    const handleShow = () => {
-        setCreate(true);
-    };
-
 
     function createReview() {
         if (createRev != null) {
@@ -34,17 +27,31 @@ function ReviewSection({ average, reviewList, show }) {
     }
 
     function deleteReview() {
-        // call delete api
-        return false;
+        const dispNameTest = 'testName';
+        const titleTest = 'Chris Tucker: Live';
+        const DELETE_URL = 'http://myhomeview.me/api/RatingReview/delete/title/user/' + titleTest + '/' + dispNameTest
+        
+        fetch(DELETE_URL, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            console.log(res)
+            return res.json()
+        })
+            .then(data => console.log("reach"))
+        return true;
     }
+
 
     if (show) {
         return (
             <div >
                 <h5>Review Section</h5>
                 <p> Average Rating: {average} </p>
-                <Button class="mr-1" style={{ color: 'white' }} onClick={createReview}>Create/Update a review</Button>
-                <Button class="mr-1" style={{ backgroundColor: 'red', color:'white' }} onClick={deleteReview}>Delete a review</Button>
+                <Button className="mr-1" style={{ color: 'white' }} onClick={createReview}>Create/Update a review</Button>
+                <Button className="mr-1" style={{ backgroundColor: 'red', color:'white' }} onClick={deleteReview}>Delete a review</Button>
                 <CreateReview createRev={createRev} />
                 {reviewList.length > 0 && reviewList.map((review) => (
                     <ReviewItem key={review.dispName} {...review} />
