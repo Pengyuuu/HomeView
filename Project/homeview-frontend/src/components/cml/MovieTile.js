@@ -10,22 +10,31 @@ import './../../css/Modal.css';
 
 
 const IMG_API = "https://image.tmdb.org/t/p/original/"
-const titleReviews = {
-    "rating": 4,
-    "ratingAndReviews": [
-        {
-            "rating": 4,
-            "review": "???",
-            "title": "Power Rangers",
-            "dispName": "HankHill@yahoo.com"
-        }
-    ]
-};
+
 
 const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast }) => {
     
     const [show, setShow] = useState(false);
     const [reviews, setReviews] = useState([]);
+
+    let titleReviews = [];
+    const dispNameTest = 'testName';
+    const testTitle = 'Power Rangers';
+    const GET_URL = 'http://myhomeview.me/api/RatingReview/submit/' + title
+
+    const testtitleReviews = {
+        "rating": 4,
+        "ratingAndReviews": [
+            {
+                "rating": 4,
+                "review": "???",
+                "title": "Power Rangers",
+                "dispName": "HankHill@yahoo.com"
+            }
+        ]
+    };
+
+
 
     const handleClose = () => {
         setShow(false);
@@ -33,27 +42,20 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     };
     const handleShow = () => {
         setShow(true);
-        setReviews(titleReviews);
-    };
 
-    /* 
-            const HOMEVIEW_API = {
-         method: 'GET',
-         url: 'https://homeview.me/reviews/get',
-         params: {
-             selectedTitle
-         }
-     }**/
-        /**
-        useEffect(() => {
-            axios.request(HOMEVIEW_API).then(function (response) {
-                console.log(response.data);
-                setReviews(response.data.results);
-            }).catch(function (error) {
-                console.error(error);
-            });
-        }, []);
-*/
+
+        fetch(GET_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            console.log(res)
+            //titleReviews = res.json()
+        })
+            .then(data => console.log(titleReviews))
+        setReviews(testtitleReviews);
+    };
  
    
 

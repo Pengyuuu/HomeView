@@ -1,6 +1,7 @@
 import React from 'react'
 import Navigation from '../Navigation'
-<script src='/Core/Security.js'></script>
+//<script src='/Core/Security.js'></script>
+
 
 export default function Library() {
     //<script src='/Security.js'></script>

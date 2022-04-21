@@ -4,7 +4,7 @@ import FirstTimeUser from './FirstTimeUser'
 import Library from './Library'
 import Movie from '../cml/MovieList'
 
-<script src='/Core/Security.js'></script>
+//<script src='/Core/Security.js'></script>
 
 export default function Home() {
     //<script src='/Security.js'></script>

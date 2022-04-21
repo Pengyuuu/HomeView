@@ -2,6 +2,8 @@ import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../../css/App.css'
+import axios from 'axios';
+
 
 export default function Login() {
 
@@ -45,7 +47,7 @@ Store token in sessionStorage
 
 // goes to validateLogin method in LoginController
 function verifyUser(e) {
-
+    e.preventDefault();
     let email = e.target.Email.value;
     let password = e.target.Password.value;
 
@@ -55,22 +57,31 @@ function verifyUser(e) {
     }
     
     console.log('start login')
+    console.log(data)
+    const validateLoginUrl = 'http://myhomeview.me:80/api/login/validate/' + email +'/' + password
+    console.log(validateLoginUrl);
     
-    fetch('https://reqres.in/api/users', {
-        method: 'POST',
+    fetch(validateLoginUrl, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            data
-        })
-    }).then (res=> {
+        }
+    }).then(res => {
+        console.log(res)
             return res.json()
         })
-        .then (data=> console.log(data))
+        .then (data=> console.log("reach"))
+
+
+    /**
+    axios.request(validateLoginUrl).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });  ** /
 
     console.log('end login')
-    loginUser(email)
+    //loginUser(email)
 }
 
 // Call backend to get token from server -> should GetJWTToken method from login controller

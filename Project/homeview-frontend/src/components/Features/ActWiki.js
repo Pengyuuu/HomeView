@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import Navigation from '../Navigation'
 
-<script src='/Core/Security.js'></script>
+//<script src='/Core/Security.js'></script>
 
 export class ActWiki extends Component{
   render() {
