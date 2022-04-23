@@ -13,19 +13,23 @@ namespace Features.Playlist
         /* Name of user playlist belongs to */
         public string DispName { get; set; }
 
+        public PlaylistViewMode ViewMode { get; set; }
+
         /* Default Playlist constructor */
         public Playlist()
         {
             Name = "";
             Titles = new List<string>();
             DispName = "";
+            ViewMode = PlaylistViewMode.Public;
         }
 
-        public Playlist(string name, List<string> titles, string dispName)
+        public Playlist(string name, List<string> titles, string dispName, PlaylistViewMode viewMode)
         {
             Name = name;
             Titles = titles;
             DispName = dispName;
+            ViewMode = viewMode;
         }
     }
 }
