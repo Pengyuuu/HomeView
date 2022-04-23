@@ -38,18 +38,25 @@ namespace Managers.Implementations
             return true;
         }
 
-        public bool CreatePlaylist(string playlistName, string dispName)
+        public bool CreatePlaylist(string playlistName, string dispName, PlaylistViewMode viewMode)
         {
             if (!ValidateName(playlistName, dispName))
             {
                 return false;
             }
 
-            Playlist newPlaylist = new Playlist(playlistName, null, dispName);
+            Playlist newPlaylist = new Playlist(playlistName, null, dispName, viewMode);
 
-            bool isCreated = _playlistService.CreatePlaylist(newPlaylist);
+            return _playlistService.CreatePlaylist(newPlaylist);
+        }
 
-            return isCreated;
+        public bool DeletePlaylist(string playlistName, string dispName)
+        {
+            Playlist targetPlaylist = new Playlist();
+            targetPlaylist.Name = playlistName;
+            targetPlaylist.DispName = dispName;
+
+            return _playlistService.DeletePlaylist(targetPlaylist);
         }
     }
 }

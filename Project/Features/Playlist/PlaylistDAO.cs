@@ -21,7 +21,8 @@ namespace Features.Playlist
             var newPlaylist = new
             {
                 playlistName = playlist.Name,
-                dispName = playlist.DispName
+                dispName = playlist.DispName,
+                viewMode = playlist.ViewMode,
             };
             try
             {
@@ -36,15 +37,24 @@ namespace Features.Playlist
             }
         }
 
-        public async void AsyncDeletePlaylist(Playlist playlist)
+        public async Task<bool> AsyncDeletePlaylist(Playlist playlist)
         {
             var targetPlaylist = new
             {
-                name = playlist.Name,
+                playlistName = playlist.Name,
                 dispName = playlist.DispName
             };
+            try
+            {
+                await _db.SaveData("dbo.Playlist_DeletePlaylist", targetPlaylist);
 
-            await _db.SaveData("dbo.Playlist_DeletePlaylist", targetPlaylist);
+                return true;
+            }
+            
+            catch
+            {
+                return false;
+            }
         }
     }
 }

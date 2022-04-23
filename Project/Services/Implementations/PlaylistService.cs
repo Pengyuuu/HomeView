@@ -17,9 +17,12 @@ namespace Services.Implementations
 
         public bool CreatePlaylist(Playlist newPlaylist)
         {
-            bool isCreated = _playlistDAO.AsyncCreatePlaylist(newPlaylist).Result;
+            return _playlistDAO.AsyncCreatePlaylist(newPlaylist).Result;
+        }
 
-            return isCreated;
+        public bool DeletePlaylist(Playlist targetPlaylist)
+        {
+            return _playlistDAO.AsyncDeletePlaylist(targetPlaylist).Result;
         }
     }
 }

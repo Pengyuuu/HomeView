@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Features.Playlist;
 
 namespace Managers.Contracts
 {
     public interface IPlaylistManager
     {
-        bool CreatePlaylist(string playlistName, string dispName);
+        bool CreatePlaylist(string playlistName, string dispName, PlaylistViewMode viewMode);
+
+        bool DeletePlaylist(string playlistName, string dispName);
     }
 }

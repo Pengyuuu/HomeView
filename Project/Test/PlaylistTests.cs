@@ -15,7 +15,17 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.CreatePlaylist("Test Playlist", "testName");
+            bool actual = playlistManager.CreatePlaylist("Test Playlist", "testName", PlaylistViewMode.Public);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Playlist_DeletePlaylistSuccessful()
+        {
+            bool expected = true;
+
+            bool actual = playlistManager.DeletePlaylist("Test Playlist", "testName");
 
             Assert.Equal(expected, actual);
         }
