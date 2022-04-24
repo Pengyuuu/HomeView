@@ -58,5 +58,12 @@ namespace Managers.Implementations
 
             return _playlistService.DeletePlaylist(targetPlaylist);
         }
+
+        public bool AddToPlaylist(int playlistID, string title, string year)
+        {
+            PlaylistTitle addTitle = new PlaylistTitle(playlistID, title, year);
+
+            return _playlistService.AddToPlaylist(addTitle);
+        }
     }
 }

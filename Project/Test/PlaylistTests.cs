@@ -29,5 +29,25 @@ namespace PlaylistTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Playlist_AddTitleSuccessful()
+        {
+            bool expected = true;
+
+            bool actual = playlistManager.AddToPlaylist();
+
+            Assert.Equal(!expected, actual);
+        }
+
+        [Fact]
+        public void Playlist_RemoveTitleSuccessful()
+        {
+            bool expected = true;
+
+            bool actual = playlistManager.RemoveFromPlaylist();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
