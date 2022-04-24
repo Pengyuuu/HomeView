@@ -35,19 +35,26 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.AddToPlaylist();
+            bool actual = playlistManager.AddToPlaylist(1, "The Fast and The Furious", "2001");
 
-            Assert.Equal(!expected, actual);
+            Assert.Equal(expected, actual);
         }
-
+        
         [Fact]
         public void Playlist_RemoveTitleSuccessful()
         {
             bool expected = true;
 
-            bool actual = playlistManager.RemoveFromPlaylist();
+            bool actual = playlistManager.RemoveFromPlaylist(1, "Tenet", "2020");
 
             Assert.Equal(expected, actual);
+        }
+
+        public void Playlist_GetUsersPlaylistSuccessful()
+        {
+            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testName");
+
+            Assert.True(result.Any());
         }
     }
 }

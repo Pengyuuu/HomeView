@@ -7,5 +7,9 @@ namespace Services.Contracts
         bool CreatePlaylist(Playlist newPlaylist);
 
         bool DeletePlaylist(Playlist playlist);
+
+        bool AddToPlaylist(PlaylistTitle addTitle);
+
+        bool RemoveFromPlaylist(PlaylistTitle targetTitle);
     }
 }
