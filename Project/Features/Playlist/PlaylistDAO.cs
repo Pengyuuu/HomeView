@@ -78,8 +78,8 @@ namespace Features.Playlist
                 return false;
             }
         }
-
-        public async Task<bool> AsyncDeleteTitleFromPlaylist(PlaylistTitle title)
+        
+        public async Task<bool> AsyncRemoveTitleFromPlaylist(PlaylistTitle title)
         {
             var removeTitle = new
             {
@@ -98,6 +98,19 @@ namespace Features.Playlist
             catch
             {
                 return false;
+            }
+        }
+
+        public async Task<IEnumerable<Playlist>> AsyncGetPlaylist(string dispName)
+        {
+            try
+            {
+                return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", dispName);
+            }
+            
+            catch
+            {
+                return null;
             }
         }
     }
