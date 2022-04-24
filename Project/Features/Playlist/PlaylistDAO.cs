@@ -56,5 +56,49 @@ namespace Features.Playlist
                 return false;
             }
         }
+
+        public async Task<bool> AsyncAddTitleToPlaylist(PlaylistTitle title)
+        {
+            var addingTitle = new
+            {
+                playlistID = title.PlaylistId,
+                title = title.Title,
+                year = title.Year
+            };
+
+            try
+            {
+                await _db.SaveData("dbo.Playlist_AddTitle", addingTitle);
+
+                return true;
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> AsyncDeleteTitleFromPlaylist(PlaylistTitle title)
+        {
+            var removeTitle = new
+            {
+                playlistID = title.PlaylistId,
+                title = title.Title,
+                year = title.Year
+            };
+
+            try
+            {
+                await _db.SaveData("dbo.Playlist_DeleteTitle", removeTitle);
+
+                return true;
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
