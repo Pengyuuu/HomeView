@@ -1,4 +1,5 @@
-﻿using Features.Playlist;
+﻿using Core.User;
+using Features.Playlist;
 using Services.Contracts;
 using Data;
 using System.Collections.Generic;
@@ -35,10 +36,15 @@ namespace Services.Implementations
         {
             return _playlistDAO.AsyncRemoveTitleFromPlaylist(targetTitle).Result;
         }
-
-        public IEnumerable<Playlist> GetPlaylist(string dispName)
+        
+        public IEnumerable<Playlist> GetPlaylist(Playlist targetPlaylist)
         {
-            return _playlistDAO.AsyncGetPlaylist(dispName).Result;
+            return _playlistDAO.AsyncGetPlaylist(targetPlaylist).Result;
+        }
+
+        public IEnumerable<PlaylistTitle> PopulatePlaylist(PlaylistTitle playlistID)
+        {
+            return _playlistDAO.AsyncPopulatePlaylist(playlistID).Result;
         }
     }
 }

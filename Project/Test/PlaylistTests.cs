@@ -15,7 +15,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.CreatePlaylist("Test Playlist", "testName", PlaylistViewMode.Public);
+            bool actual = playlistManager.CreatePlaylist("Test Playlist 3", "testing@gmail.com", PlaylistViewMode.Private);
 
             Assert.Equal(expected, actual);
         }
@@ -25,7 +25,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.DeletePlaylist("Test Playlist", "testName");
+            bool actual = playlistManager.DeletePlaylist("Test Playlist", "testing@gmail.com");
 
             Assert.Equal(expected, actual);
         }
@@ -35,7 +35,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.AddToPlaylist(1, "The Fast and The Furious", "2001");
+            bool actual = playlistManager.AddToPlaylist(1, "Tenet", "2020");
 
             Assert.Equal(expected, actual);
         }
@@ -45,16 +45,31 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.RemoveFromPlaylist(1, "Tenet", "2020");
+            bool actual = playlistManager.RemoveFromPlaylist(2, "The Fast and The Furious", "2001");
 
             Assert.Equal(expected, actual);
         }
-
+        
+        [Fact]
         public void Playlist_GetUsersPlaylistSuccessful()
         {
-            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testName");
+            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testing@gmail.com");
 
             Assert.True(result.Any());
+        }
+
+        [Fact]
+        public void Playlist_PopulatePlaylistSuccessful()
+        {
+            IEnumerable<Playlist> playlistName = playlistManager.GetPlaylist("testing@gmail.com");
+
+            Playlist result = playlistName.First();
+
+            IEnumerable<PlaylistTitle> playlistResult = playlistManager.PopulatePlaylist(result.playlistID);
+
+            result.Titles.Add(playlistResult.First());
+
+            Assert.True(result.Titles.Any());
         }
     }
 }

@@ -4,31 +4,36 @@ namespace Features.Playlist
 {
     public class Playlist
     {
+        /* ID number of the playlist, used to grab it's movies and shows */
+        public int playlistID { get; set; }
+
         /* Name of the playlist */
-        public string Name { get; set; }
+        public string playlistName { get; set; }
 
         /* The shows and movies that are in the playlist */
-        public List<string> Titles { get; set; }
+        public List<PlaylistTitle> Titles { get; set; }
 
-        /* Name of user playlist belongs to */
-        public string DispName { get; set; }
+        /* Email of the user playlist belongs to */
+        public string Email { get; set; }
 
         public PlaylistViewMode ViewMode { get; set; }
 
         /* Default Playlist constructor */
         public Playlist()
         {
-            Name = "";
-            Titles = new List<string>();
-            DispName = "";
+            playlistID = 0;
+            playlistName = "";
+            Titles = new List<PlaylistTitle>();
+            Email = "";
             ViewMode = PlaylistViewMode.Public;
         }
 
-        public Playlist(string name, List<string> titles, string dispName, PlaylistViewMode viewMode)
+        public Playlist(int id, string name, List<PlaylistTitle> titles, string email, PlaylistViewMode viewMode)
         {
-            Name = name;
+            playlistID = id;
+            playlistName = name;
             Titles = titles;
-            DispName = dispName;
+            Email = email;
             ViewMode = viewMode;
         }
     }

@@ -17,33 +17,40 @@ namespace Services.Implementations
         public AuthenticationService()
         {
             _userService = new UserService();
-            _secretkey = ";
+            _secretkey = "";
         }
 
         public string GenerateJWTToken(string email)
         {
-            try
+           
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();             
+            var encodeKey = Base64UrlEncoder.Encode(_secretkey);
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
+            var payload = new SecurityTokenDescriptor
             {
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();             
-                var encodeKey = Base64UrlEncoder.Encode(_secretkey);
-                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
-                var payload = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
-                    Expires = DateTime.UtcNow.AddMinutes(15),
-                    Issuer = "HomeView",
-                    Audience = "HomeViewUser",
-                    IssuedAt = DateTime.UtcNow,
-                    SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
-                };
-                SecurityToken token = tokenHandler.CreateToken(payload);
-                return tokenHandler.WriteToken(token);
-            }
+                Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
+                Expires = DateTime.UtcNow.AddMinutes(15),
+                Issuer = "HomeView",
+                Audience = "HomeViewUser",
+                IssuedAt = DateTime.UtcNow,
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+            };
+            SecurityToken token = tokenHandler.CreateToken(payload);
+            return tokenHandler.WriteToken(token);
+            
+        }
 
-            catch
+        public bool ValidateJWTToken(string jwtToken)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            if (tokenHandler.CanReadToken(jwtToken))
             {
-                return null;
+                //var claims = tokenHandler.ValidateToken(jwtToken, );
+
+                return true;
+                
             }
+            return false;
         }
 
         // creates randomized string of randomized length with min of 8 char
@@ -89,25 +96,22 @@ namespace Services.Implementations
             return false;
         }
 
-        public bool AuthenticateLogInUser(string email, string pw)
+        public string AuthenticateLogInUser(string email, string pw)
         {
-            try
+            
+            var fetchedUser = _userService.GetUser(email);
+            if (fetchedUser != null)
             {
-                var fetchedUser = _userService.GetUser(email);
-                if (fetchedUser != null)
-                {
-                    string hashedPW = HashPassword(pw, fetchedUser.Salt);
+                string hashedPW = HashPassword(pw, fetchedUser.Salt);
 
-                    if ((fetchedUser.Password == hashedPW))
-                    {
-                        return true;
-                    }
+                if ((fetchedUser.Password == hashedPW))
+                {
+                    var jwtToken = GenerateJWTToken(email);
+                    _userService.CreateUserSession(fetchedUser, jwtToken);
+                    return jwtToken;
                 }
-            }
-            catch {
-                return false;
-            }
-            return false;
+            }                     
+            return null;
         }
 
         public string HashPassword(string pw, string salt)

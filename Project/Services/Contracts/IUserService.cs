@@ -14,5 +14,7 @@ namespace Services.Contracts
         User GetUser(string email);
         User GetRegisteredUser(string email);
         User ModifyUser(User user);
+        bool CreateUserSession(User user, string jwtToken);
+
     }
 }

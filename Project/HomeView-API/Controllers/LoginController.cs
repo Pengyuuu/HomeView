@@ -20,9 +20,14 @@ namespace HomeView_API.Controllers
 
         [Route("validate/{email}/{pw}")]
         [HttpGet]
-        public ActionResult<bool> ValidateLogIn(string email, string pw)
+        public ActionResult<string> ValidateLogIn(string email, string pw)
         {
-            return _authenticationManager.AuthenticateLogInUser(email, pw);           
+            var valid = _authenticationManager.AuthenticateLogInUser(email, pw); 
+            if (valid is not null)
+            {
+                return Ok(valid);
+            }
+            return BadRequest("Invalid");
         }
 
 
@@ -67,6 +72,7 @@ namespace HomeView_API.Controllers
         {
             // directs user to homepage and auto activates user's profile in user db and deletes from reg db
             var token = _authenticationManager.GenerateJWTToken(email);
+
             return token;
 
 
