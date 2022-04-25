@@ -15,5 +15,7 @@ namespace Services.Contracts
         bool RemoveFromPlaylist(PlaylistTitle targetTitle);
 
         IEnumerable<Playlist> GetPlaylist(Playlist targetPlaylist);
+
+        IEnumerable<PlaylistTitle> PopulatePlaylist(PlaylistTitle playlistID);
     }
 }

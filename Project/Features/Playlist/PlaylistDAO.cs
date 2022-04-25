@@ -17,7 +17,7 @@ namespace Features.Playlist
         {
             var newPlaylist = new
             {
-                playlistName = playlist.Name,
+                playlistName = playlist.playlistName,
                 email = playlist.Email,
                 viewMode = playlist.ViewMode,
             };
@@ -38,7 +38,7 @@ namespace Features.Playlist
         {
             var targetPlaylist = new
             {
-                playlistName = playlist.Name,
+                playlistName = playlist.playlistName,
                 email = playlist.Email
             };
 
@@ -111,6 +111,24 @@ namespace Features.Playlist
                 return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", targetUser);
             }
             
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<PlaylistTitle>> AsyncPopulatePlaylist(PlaylistTitle titles)
+        {
+            var targetPlaylist = new
+            {
+                playlistID = titles.PlaylistId
+            };
+
+            try
+            {
+                return await _db.LoadData<PlaylistTitle, dynamic>("dbo.Playlist_GetTitle", targetPlaylist);
+            }
+
             catch
             {
                 return null;

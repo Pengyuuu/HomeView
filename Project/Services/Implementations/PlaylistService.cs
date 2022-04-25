@@ -41,5 +41,10 @@ namespace Services.Implementations
         {
             return _playlistDAO.AsyncGetPlaylist(targetPlaylist).Result;
         }
+
+        public IEnumerable<PlaylistTitle> PopulatePlaylist(PlaylistTitle playlistID)
+        {
+            return _playlistDAO.AsyncPopulatePlaylist(playlistID).Result;
+        }
     }
 }

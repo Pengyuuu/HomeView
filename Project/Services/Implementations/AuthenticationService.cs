@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using Services.Contracts;
@@ -11,21 +12,21 @@ namespace Services.Implementations
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserService _userService;
+        private readonly string _secretkey;
 
         public AuthenticationService()
         {
             _userService = new UserService();
+            _secretkey = "";
         }
 
-        // generates jwt token, should this be async?
         public string GenerateJWTToken(string email)
         {
             try
             {
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                // sample security key but replace with one from config???
-                var encoded = Base64UrlEncoder.Encode("securitykeyexample");
-                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encoded));
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();             
+                var encodeKey = Base64UrlEncoder.Encode(_secretkey);
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
                 var payload = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
@@ -90,13 +91,21 @@ namespace Services.Implementations
 
         public bool AuthenticateLogInUser(string email, string pw)
         {
-            var fetchedUser = _userService.GetUser(email);
-
-            string hashedPW = HashPassword(pw, fetchedUser.Salt);
-
-            if ((fetchedUser != null) && (fetchedUser.Password == hashedPW))
+            try
             {
-                return true;
+                var fetchedUser = _userService.GetUser(email);
+                if (fetchedUser != null)
+                {
+                    string hashedPW = HashPassword(pw, fetchedUser.Salt);
+
+                    if ((fetchedUser.Password == hashedPW))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch {
+                return false;
             }
             return false;
         }
@@ -104,14 +113,16 @@ namespace Services.Implementations
         public string HashPassword(string pw, string salt)
         {
             SHA256 pww = SHA256.Create();
-
+            //byte[] convertSalt = Convert.FromBase64String(salt);
+            string addSalt = pw + salt;
             // Converts the password string into bytes
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(pw + salt);
-
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(addSalt);
+            //byte[] bytes = Convert.FromBase64String(addSalt);
             // Computes hash of data using the SHA256 algorithm
             byte[] hash = pww.ComputeHash(bytes);
 
             return Convert.ToBase64String(hash);
+
         }
 
         public string GenerateSalt()

@@ -51,7 +51,7 @@ namespace Managers.Implementations
         public bool DeletePlaylist(string playlistName, string email)
         {
             Playlist targetPlaylist = new Playlist();
-            targetPlaylist.Name = playlistName;
+            targetPlaylist.playlistName = playlistName;
             targetPlaylist.Email = email;
 
             return _playlistService.DeletePlaylist(targetPlaylist);
@@ -81,6 +81,15 @@ namespace Managers.Implementations
             targetPlaylist.Email = email;
 
             return _playlistService.GetPlaylist(targetPlaylist);
+        }
+
+        public IEnumerable<PlaylistTitle> PopulatePlaylist(int playlistID)
+        {
+            PlaylistTitle targetPlaylist = new PlaylistTitle();
+
+            targetPlaylist.PlaylistId = playlistID;
+
+            return _playlistService.PopulatePlaylist(targetPlaylist);
         }
     }
 }
