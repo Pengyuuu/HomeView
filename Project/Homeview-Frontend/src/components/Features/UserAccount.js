@@ -11,7 +11,7 @@ export class UserAccount extends Component {
         <div>
             <div className='background-Homeview'></div>
             <Navigation/>
-            <div className='card-center'>
+            <div className='card-center w-50 ;'>
                 <Card>
                     <Card.Body>
                         <h2 className="text-left">Account Details</h2>
@@ -34,7 +34,7 @@ export class UserAccount extends Component {
                         </Form>
                     </Card.Body>
                     <h3 className="text-left">Playlist</h3>
-                    <Button name="button" type="submit">+</Button>
+                    <Button name="button" href="/Playlist">+</Button>
                 </Card>
             </div>
         </div>
