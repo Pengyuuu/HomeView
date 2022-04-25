@@ -17,7 +17,7 @@ namespace Services.Implementations
         public AuthenticationService()
         {
             _userService = new UserService();
-            _secretkey = ";
+            _secretkey = "";
         }
 
         public string GenerateJWTToken(string email)

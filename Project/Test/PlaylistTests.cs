@@ -3,7 +3,6 @@ using System.Linq;
 using Xunit;
 using Features.Playlist;
 using Managers.Implementations;
-using System;
 
 namespace PlaylistTests
 {
@@ -56,11 +55,21 @@ namespace PlaylistTests
         {
             IEnumerable<Playlist> result = playlistManager.GetPlaylist("testing@gmail.com");
 
-            var playlist = result.First();
-
-            playlist = result.Last();
-
             Assert.True(result.Any());
+        }
+
+        [Fact]
+        public void Playlist_PopulatePlaylistSuccessful()
+        {
+            IEnumerable<Playlist> playlistName = playlistManager.GetPlaylist("testing@gmail.com");
+
+            Playlist result = playlistName.First();
+
+            IEnumerable<PlaylistTitle> playlistResult = playlistManager.PopulatePlaylist(result.playlistID);
+
+            result.Titles.Add(playlistResult.First());
+
+            Assert.True(result.Titles.Any());
         }
     }
 }
