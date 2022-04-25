@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import Navigation from '../Navigation'
 
 //<script src='/Core/Security.js'></script>
@@ -32,7 +33,7 @@ export class UserAccount extends Component {
                             <Button name="button" type="submit">Edit</Button>
                         </Form>
                     </Card.Body>
-                    <div className='text'>Playlists</div>
+                    <Link className="color-style" to="/">Playlist</Link> <span></span>
                 </Card>
             </div>
         </div>
