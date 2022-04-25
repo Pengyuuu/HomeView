@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Form, Button, Card} from 'react-bootstrap'
 import Navigation from '../Navigation'
 
 //<script src='/Core/Security.js'></script>
@@ -6,13 +7,36 @@ import Navigation from '../Navigation'
 export class UserAccount extends Component {
     render() {
         return (
-            <div className="container">
-                <h3 className="mt-5 d-flex justify-content-left">
-                    This is where the UserAccount will be.
-                </h3>
-                <Navigation />
-
+        <div>
+            <div className='background-Homeview'></div>
+            <Navigation/>
+            <div className='card-center'>
+                <Card>
+                    <Card.Body>
+                        <h2 className="text-left">Account Details</h2>
+                        <Form id="form">
+                            <Form.Group id="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control name='Email' type="email" required id='email'></Form.Control>
+                            </Form.Group>
+                            <Button name="button" type="submit">Edit</Button>
+                            <Form.Group id="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control name='Password' type="password"  required id='password'></Form.Control>
+                            </Form.Group>
+                            <Button name="button" type="submit">Edit</Button>
+                            <Form.Group id="displayName">
+                                    <Form.Label>Display Name</Form.Label>
+                                    <Form.Control name='displayName' type="displayName"  required id='displayName'></Form.Control>
+                            </Form.Group>
+                            <Button name="button" type="submit">Edit</Button>
+                        </Form>
+                    </Card.Body>
+                    <div className='text'>Playlists</div>
+                </Card>
             </div>
+        </div>
+            
         )
     }
 }
