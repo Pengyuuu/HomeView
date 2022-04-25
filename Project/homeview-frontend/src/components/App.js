@@ -8,15 +8,13 @@ import { TVShows } from "./Features/TVShows"
 import { Movies } from "./Features/Movies"
 import { News } from "./Features/News"
 import { ActWiki } from "./Features/ActWiki"
-import  Title  from './Features/Title'
+import Title from './Features/TitlePage/Title'
 
 function App() {
 
     return (
-        <Container className="d-flex align-items-center
-            justify-content-center"
-            style={{minHeight:"100vh"}}>
-            <div className="w-100" style={{ maxWidth: "400px" }}>
+        <Container className="app-container">
+            <div className="w-100">
                 <Router>
                     <Routes>
                         <Route exact path="/" element={<Home />} />

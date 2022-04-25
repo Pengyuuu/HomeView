@@ -1,63 +1,9 @@
 import React, { useState } from 'react'
 import {  Form, Button, Card } from 'react-bootstrap'
-import { BsStar, BsStarFill, BsStarHalf} from 'react-icons/bs'
+import Star from './Star'
 
 
 //<script src='/Security.js'></script>
-// need to check if user already has review data - if so, then load it first
-function Star({
-    thresh,
-    hoverValue,
-    rating,
-    handleHoverValue,
-    handleSetRating, handleDoubleRating
-}) {
-    let isFilled = false;
-
-    if (rating != null) {
-        isFilled = rating >= thresh;
-    } else {
-        isFilled = hoverValue >= thresh;
-    }
-    if (isFilled) {
-        if (thresh < rating || thresh < hoverValue) {
-            return (
-                <BsStarFill
-                    color={"gold"}
-                    size={25}
-                    onClick={e => {
-
-                        if (e.detail === 1) handleSetRating();
-                        if (e.detail === 2) handleDoubleRating();
-                    }}
-                    
-                    onMouseLeave={() => handleHoverValue(rating)}
-                />
-            );
-        }
-        else {
-            return (
-                <BsStarHalf
-                    color={"gold"}
-                    size={25}
-                    onClick={e => {
-                        if (e.detail === 1) handleSetRating();
-                        if (e.detail === 2) handleDoubleRating();
-                    }}
-                    onMouseLeave={() => handleHoverValue(rating)}
-                />
-            );
-        }
-    } else {
-        return (
-            <BsStar
-                color={"gold"}
-                size={25}
-                onMouseEnter={() => handleHoverValue(thresh)}
-            />
-        );
-    }
-}
 
 export default function RatingReview() {
     const reviewRef = document.getElementById("id");
@@ -93,13 +39,12 @@ export default function RatingReview() {
 
     return (
        <>
-       
         <Card>
-            <Card.Body>
+                <Card.Body className="color-style">
                 <br></br>
-                <h3 className="text-center"> Create a Review</h3>
+                    <h3 className="text-center" style={{color: 'black'}}> Create a Review</h3>
 
-                        <Form id="reviewForm" onSubmit={SaveReview}>
+                    <Form id="reviewForm" onSubmit={submitReview}>
                             <Form.Group className="text-center" id="rating">
                                 <Star
                                     thresh={0.5}
@@ -145,14 +90,13 @@ export default function RatingReview() {
 
 
                     </Form.Group>
-                            <Form.Group className="text-center" id="review">
+                        <Form.Group className="text-center color-style" id="review" >
                                 <br></br>
-
                             <textarea className="w-100" id="review" placeholder="Type your review here" onChange={handleCount} ref={reviewRef} maxLength="2500"></textarea>
-                            <p>Character count: {count} (Max is 2500)</p>
-                    </Form.Group>
+                            <p className="color-style">Character count: {count} (Max is 2500)</p>
+                             </Form.Group>
                     <br></br>
-                    <Button className="w-100" type="submit" onClick={validateReview}>
+                    <Button className="w-100" type="submit">
                         Submit Review
                     </Button>
                 </Form>
@@ -165,21 +109,31 @@ export default function RatingReview() {
     </>
     )
 
-    function validateReview() {
+    
+
+    function submitReview() {
+        const dispNameTest = 'testName';
+        const testTitle = 'Chris Tucker: Live';
+        const GET_URL = 'http://myhomeview.me/api/RatingReview/submit/' + testTitle + '/' + dispNameTest + '/' + rating + '/' + reviewRef
+
+        fetch(GET_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            console.log(res)
+            return res.json()
+        })
+            .then(data => console.log("reach"))
+        return true;
+    }
+
+    function saveReview() {
         return false
     }
 
-    function SaveReview() {
-        return false
-    }
-
-    function LoadReview() {
-
-    }
-
-    function UpdateReview() {
-
-    }
+  
 }
 
 

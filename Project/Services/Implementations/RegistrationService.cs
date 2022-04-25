@@ -11,12 +11,12 @@ namespace Services.Implementations
     public class RegistrationService : IRegistrationService
     {
         private readonly IUserService _userService;
-        private readonly IEmailService _emailService;
+        //private readonly IEmailService _emailService;
 
         public RegistrationService()
         {
             _userService = new UserService();
-            _emailService = new EmailService();
+            //_emailService = new EmailService();
         }
 
         public bool CreateUser(User userCreate, int CREATION_MODE)

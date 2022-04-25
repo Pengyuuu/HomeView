@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
-import {Navigation} from '../Navigation'
+import { Navigation } from '../Navigation'
+
+//<script src='/Core/Security.js'></script>
 
 export class TVShows extends Component{
     render() {

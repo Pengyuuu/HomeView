@@ -47,10 +47,13 @@ namespace Services.Implementations
             try
             {
                 isUpdated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
-                
+                Log reviewLogTrue = new("Review successfully updated to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogTrue);
             }
             catch
             {
+                Log reviewLogFalse = new("Cannot update review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(reviewLogFalse);
                 return false;
             }
             return isUpdated;
@@ -59,14 +62,20 @@ namespace Services.Implementations
 
         public IEnumerable<RatingAndReview> GetRatingReview(RatingAndReview getReview)
         {
-
+            IEnumerable<RatingAndReview> fetchRatingReview = Enumerable.Empty<RatingAndReview>();
             try
             {
-                //IEnumerable<RatingAndReview> fetchRatingReview = Enumerable.Empty<RatingAndReview>(); ;
-                var ffetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
+                fetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
                 Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 _loggingService.LogData(reviewLogTrue);
-                return ffetchRatingReview;
+                if (fetchRatingReview.Any())
+                {
+                    return fetchRatingReview;
+                }
+                else
+                {
+                    return null;
+                }
 
             }
             catch

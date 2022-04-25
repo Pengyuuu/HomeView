@@ -1,6 +1,7 @@
 ﻿using Core.User;
 using Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Managers.Implementations;
 
 namespace HomeView_API.Controllers
 {
@@ -11,10 +12,10 @@ namespace HomeView_API.Controllers
         private readonly IUserManager _userManager;
         private readonly IAuthenticationManager _authenticationManager;
 
-        public LoginController(IUserManager userManager, IAuthenticationManager authenticationManager)
+        public LoginController()
         {
-            _userManager = userManager;
-            _authenticationManager = authenticationManager;
+            _userManager = new UserManager();
+            _authenticationManager = new AuthenticationManager();
         }
 
         [Route("validate/{email}/{pw}")]

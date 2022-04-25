@@ -6,18 +6,20 @@ using Services.Implementations;
 using Managers.Contracts;
 using System.Web;
 using System.Net.Mime;
+using System.Configuration;
 
 namespace Managers.Implementations
 {
     public class EmailManager : IEmailManager
     {
         private readonly IEmailService _emailService;
-        public string _fromEmail { get; set; }
+        private readonly string _fromEmail;
 
         public EmailManager()
         {
             _emailService = new EmailService();
-            
+            _fromEmail = ConfigurationManager.AppSettings.Get(2).ToString();
+
         }
 
 

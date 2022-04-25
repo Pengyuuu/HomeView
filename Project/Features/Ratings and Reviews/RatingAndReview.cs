@@ -20,7 +20,16 @@ namespace Features.Ratings_and_Reviews
             this.Title = "";
             this.DispName = "";
         }
-        public RatingAndReview(string dispName, string selectedTitle, float userRating)
+
+        public RatingAndReview(string dispName, string selectedTitle)
+        {
+            this.Rating = 0.0;
+            this.Review = "";
+            this.Title = selectedTitle;
+            this.DispName = dispName;
+        }
+
+        public RatingAndReview(string dispName, string selectedTitle, double userRating)
         {
             this.Rating = userRating;
             this.Review = "";
@@ -36,7 +45,7 @@ namespace Features.Ratings_and_Reviews
             this.DispName = dispName;
         }
 
-        public RatingAndReview(string dispName, string selectedTitle, float userRating, string userReview)
+        public RatingAndReview(string dispName, string selectedTitle, double userRating, string userReview)
         {
             this.Rating = userRating;
             this.Review = userReview;
