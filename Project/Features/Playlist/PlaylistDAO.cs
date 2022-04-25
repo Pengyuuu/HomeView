@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
 
@@ -21,7 +18,7 @@ namespace Features.Playlist
             var newPlaylist = new
             {
                 playlistName = playlist.Name,
-                dispName = playlist.DispName,
+                email = playlist.Email,
                 viewMode = playlist.ViewMode,
             };
             try
@@ -42,8 +39,9 @@ namespace Features.Playlist
             var targetPlaylist = new
             {
                 playlistName = playlist.Name,
-                dispName = playlist.DispName
+                email = playlist.Email
             };
+
             try
             {
                 await _db.SaveData("dbo.Playlist_DeletePlaylist", targetPlaylist);
@@ -100,12 +98,17 @@ namespace Features.Playlist
                 return false;
             }
         }
-
-        public async Task<IEnumerable<Playlist>> AsyncGetPlaylist(string dispName)
+        
+        public async Task<IEnumerable<Playlist>> AsyncGetPlaylist(Playlist targetPlaylist)
         {
+            var targetUser = new
+            {
+                email = targetPlaylist.Email
+            };
+
             try
             {
-                return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", dispName);
+                return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", targetUser);
             }
             
             catch
