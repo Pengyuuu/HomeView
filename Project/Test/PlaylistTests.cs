@@ -3,6 +3,7 @@ using System.Linq;
 using Xunit;
 using Features.Playlist;
 using Managers.Implementations;
+using System;
 
 namespace PlaylistTests
 {
@@ -15,7 +16,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.CreatePlaylist("Test Playlist", "testName", PlaylistViewMode.Public);
+            bool actual = playlistManager.CreatePlaylist("Test Playlist 3", "testing@gmail.com", PlaylistViewMode.Private);
 
             Assert.Equal(expected, actual);
         }
@@ -25,7 +26,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.DeletePlaylist("Test Playlist", "testName");
+            bool actual = playlistManager.DeletePlaylist("Test Playlist", "testing@gmail.com");
 
             Assert.Equal(expected, actual);
         }
@@ -35,7 +36,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.AddToPlaylist(1, "The Fast and The Furious", "2001");
+            bool actual = playlistManager.AddToPlaylist(1, "Tenet", "2020");
 
             Assert.Equal(expected, actual);
         }
@@ -45,14 +46,19 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.RemoveFromPlaylist(1, "Tenet", "2020");
+            bool actual = playlistManager.RemoveFromPlaylist(2, "The Fast and The Furious", "2001");
 
             Assert.Equal(expected, actual);
         }
-
+        
+        [Fact]
         public void Playlist_GetUsersPlaylistSuccessful()
         {
-            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testName");
+            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testing@gmail.com");
+
+            var playlist = result.First();
+
+            playlist = result.Last();
 
             Assert.True(result.Any());
         }
