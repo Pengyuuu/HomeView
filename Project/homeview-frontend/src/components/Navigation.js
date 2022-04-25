@@ -32,7 +32,7 @@ export class Navigation extends Component{
                         </Nav>
                       </Navbar.Collapse>
                      <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/UserAccount">
-                          Account Page
+                          Account
                      </NavLink>
                     <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/login">
                         Log Out

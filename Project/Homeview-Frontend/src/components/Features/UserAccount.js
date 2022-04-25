@@ -30,10 +30,11 @@ export class UserAccount extends Component {
                                     <Form.Label>Display Name</Form.Label>
                                     <Form.Control name='displayName' type="displayName"  required id='displayName'></Form.Control>
                             </Form.Group>
-                            <Button name="button" type="submit">Edit</Button>
+                            <Button name="button" type="submit">Edit</Button> 
                         </Form>
                     </Card.Body>
-                    <Link className="color-style" to="/">Playlist</Link> <span></span>
+                    <h3 className="text-left">Playlist</h3>
+                    <Button name="button" type="submit">+</Button>
                 </Card>
             </div>
         </div>
