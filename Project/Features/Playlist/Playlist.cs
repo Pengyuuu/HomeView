@@ -5,13 +5,13 @@ namespace Features.Playlist
     public class Playlist
     {
         /* ID number of the playlist, used to grab it's movies and shows */
-        public int ID { get; set; }
+        public int playlistID { get; set; }
 
         /* Name of the playlist */
-        public string Name { get; set; }
+        public string playlistName { get; set; }
 
         /* The shows and movies that are in the playlist */
-        public List<string> Titles { get; set; }
+        public List<PlaylistTitle> Titles { get; set; }
 
         /* Email of the user playlist belongs to */
         public string Email { get; set; }
@@ -21,17 +21,17 @@ namespace Features.Playlist
         /* Default Playlist constructor */
         public Playlist()
         {
-            ID = 0;
-            Name = "";
-            Titles = new List<string>();
+            playlistID = 0;
+            playlistName = "";
+            Titles = new List<PlaylistTitle>();
             Email = "";
             ViewMode = PlaylistViewMode.Public;
         }
 
-        public Playlist(int id, string name, List<string> titles, string email, PlaylistViewMode viewMode)
+        public Playlist(int id, string name, List<PlaylistTitle> titles, string email, PlaylistViewMode viewMode)
         {
-            ID = id;
-            Name = name;
+            playlistID = id;
+            playlistName = name;
             Titles = titles;
             Email = email;
             ViewMode = viewMode;

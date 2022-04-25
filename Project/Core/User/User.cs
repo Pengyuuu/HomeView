@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Features.Playlist;
 //using Features.Ratings_and_Reviews;
 
 namespace Core.User
@@ -17,15 +18,7 @@ namespace Core.User
 		private bool _status;           // user's _userStatus (enabled = 1 or disabled = 0)
 		private Role _role;             // user's role (admin or user)
 		private string _token;          // user's token for 2FA
-		//private List<RatingAndReview> _reviews;		// user's list of reviews made
 		private string _salt; // salt generated for user's password
-
-		/**
-		public List<RatingAndReview> Reviews
-        {
-			get { return _reviews; }
-			set { _reviews = value; }
-        }**/
 
 		public string FirstName
         {
@@ -161,7 +154,6 @@ namespace Core.User
 			//_salt = delimiter[9];
 			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _status);
 		}
-
 				
 		override
 		public String ToString()

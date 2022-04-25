@@ -15,5 +15,7 @@ namespace Managers.Contracts
         bool RemoveFromPlaylist(int playlistID, string title, string year);
 
         IEnumerable<Playlist> GetPlaylist(string email);
+
+        IEnumerable<PlaylistTitle> PopulatePlaylist(int playlistID);
     }
 }
