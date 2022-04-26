@@ -3,39 +3,13 @@ import Navigation from '../Navigation'
 import FirstTimeUser from './FirstTimeUser'
 import Library from './Library'
 import Movie from '../cml/MovieList'
+import Popular from '../cml/Popular'
+
 
 //<script src='/Core/Security.js'></script>
 
 export default function Home() {
     //<script src='/Security.js'></script>
-    //const [titleClick, setTitle] = useState(false);
-    /*
-    var listofShows = [];
-    let props = {
-        title: "Power Rangers",
-        year: 2001,
-        imgsrc: "https://i.pinimg.com/originals/e8/6e/a3/e86ea309f7be09e85d38bb38e40690da.jpg",
-        rating: 4.5,
-        hvRating: "PG-13",
-        services: ["Netflix", "Hulu"],
-        genres: ["action", "kids"],
-        actors: ["tommy oliver"]
-    };
-
-    let props2 = {
-        title: "Breaking Bad",
-        year: 2011,
-        imgsrc: "https://m.media-amazon.com/images/I/51fWOBx3agL._AC_.jpg",
-        rating: 3,
-        hvRating: "PG-13",
-        services: ["Netflix"],
-        genres: ["action"],
-        actors: ["breaking bad actors"]
-    };
-    listofShows.push(props);
-    listofShows.push(props2);
-    */
-
 
     // to fill our first time form
     const isFirst = checkFirstTimeUser()
@@ -58,8 +32,8 @@ export default function Home() {
                 <div className='logo'>
                     Your HomeViews
                 </div>
-                <Movie/>
                 
+                <Popular/>
             </>
 
         )

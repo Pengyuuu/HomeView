@@ -1,5 +1,5 @@
 
-.movie{
+.series{
     position: relative;
     background-color: rgba(0, 0, 0, 0.329);
     margin: .5rem;
@@ -8,7 +8,7 @@
 
 }
 
-.movie img{
+.series img{
     object-fit: contain;
     width: 100%;
     max-height: 350px;
@@ -16,7 +16,7 @@
 }
 
 
-.movie-container {
+.series-container {
     display: flex;
     overflow-y: hidden;
     overflow-x: scroll;
@@ -72,7 +72,7 @@
     transform: translateY(0px);
 }
 
-.movie-title {
+.series-title {
     color: white;
     font-weight: bold;
     font-size: 1.5em;
