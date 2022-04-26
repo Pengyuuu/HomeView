@@ -7,16 +7,15 @@ using System.Web.Http;
 using Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var homeViewClient = "homeviewClient";
 // Add services to the container.
-builder.Services.AddCors(opt =>
+builder.Services.AddCors(options =>
 {
-    opt.AddDefaultPolicy(builder =>
-    {
-        builder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
+    options.AddPolicy(name: homeViewClient,
+                      policy =>
+                      {
+                          policy.WithOrigins("https://myhomeview.me");
+                      });
 });
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -41,12 +40,13 @@ if (app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors();
+app.UseCors(homeViewClient);
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
+app.MapControllers();
+/**app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-});
+});**/
 
 //app.UseCors();
 
