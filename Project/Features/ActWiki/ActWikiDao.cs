@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace Features.ActWiki
 {
-    internal class ActWikiDao
+    public class ActWikiDao
     {
+        private readonly SqlDataAccess _db;
+        
+        public ActWikiDao( SqlDataAccess db)
+        {
+            _db = db;
+        }
+
+        public async Task<bool> AsyncGetActorInfo ( ActWiki actor )
+        {
+            var newActor = new
+            {
+                actName = actor.actName;
+                actBirth = actor.actBirth;
+                actGender = actor.actGender;
+
+            }
+        }
     }
 }
