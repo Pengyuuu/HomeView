@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import Navigation from '../Navigation'
 
+//<script src='/Security.js'></script>
 
 export class Movies extends Component{
   render() {

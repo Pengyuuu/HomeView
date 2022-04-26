@@ -198,5 +198,26 @@ namespace Core.User
             }
             return false;
         }
+
+        public async Task<bool> AsyncCreateUserSession(User user, string jwtToken)
+        {
+
+            var userSession = new
+            {
+                email = user.Email,
+                sessionToken = jwtToken
+            };
+
+            try
+            {
+                await _db.SaveData("dbo.Sessions_CreateUserSession", userSession);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }          
+            
+        }
     }
 }

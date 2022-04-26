@@ -1,6 +1,7 @@
 ﻿using Core.User;
 using Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Managers.Implementations;
 
 namespace HomeView_API.Controllers
 {
@@ -11,17 +12,22 @@ namespace HomeView_API.Controllers
         private readonly IUserManager _userManager;
         private readonly IAuthenticationManager _authenticationManager;
 
-        public LoginController(IUserManager userManager, IAuthenticationManager authenticationManager)
+        public LoginController()
         {
-            _userManager = userManager;
-            _authenticationManager = authenticationManager;
+            _userManager = new UserManager();
+            _authenticationManager = new AuthenticationManager();
         }
 
         [Route("validate/{email}/{pw}")]
         [HttpGet]
-        public ActionResult<bool> ValidateLogIn(string email, string pw)
+        public ActionResult<string> ValidateLogIn(string email, string pw)
         {
-            return _authenticationManager.AuthenticateLogInUser(email, pw);           
+            var valid = _authenticationManager.AuthenticateLogInUser(email, pw); 
+            if (valid is not null)
+            {
+                return Ok(valid);
+            }
+            return BadRequest("Invalid");
         }
 
 
@@ -66,6 +72,7 @@ namespace HomeView_API.Controllers
         {
             // directs user to homepage and auto activates user's profile in user db and deletes from reg db
             var token = _authenticationManager.GenerateJWTToken(email);
+
             return token;
 
 

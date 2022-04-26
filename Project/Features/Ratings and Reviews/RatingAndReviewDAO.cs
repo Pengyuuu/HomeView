@@ -25,7 +25,7 @@ namespace Features.Ratings_and_Reviews
             };
             try
             {
-                await _db.SaveData("dbo.RatingReviews_CreateRatingReview", userRatingReview);
+                await _db.SaveData("dbo.RatingReviews_CreateRatingReview", ratingReview);
 
                 return true;
             }

@@ -22,58 +22,42 @@ namespace Managers.Implementations
         {
 
             const int MAX_REVIEW_CHARACTERS = 2500;
-            try
+            
+            if ((uRating <= 5) & (uRating >= 1))
             {
-                if ((uRating <= 5) & (uRating >= 1))
+                if ((uReview is null) || (uReview.Length <= MAX_REVIEW_CHARACTERS))
                 {
-                    if ((uReview is null) || (uReview.Length <= MAX_REVIEW_CHARACTERS))
+                    if (titleSelected is not null)
                     {
-                        if (titleSelected is not null)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
-            catch
-            {
-                return false;
-            }
+                    
             return false;
 
         }
 
         public bool SubmitReviewRating(string dispName, string titleSelected, double uRating, string uReview)
         {
-            try
+            
+            RatingAndReview userReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
+            bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
+            if (isValidReview)
             {
-                RatingAndReview userReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
-                bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
-                if (isValidReview)
-                {
-                    return _ratingAndReviewService.CreateRatingReview(userReview);
-                }
-            }
-            catch
-            {
-                return false;
-            }
+                return _ratingAndReviewService.CreateRatingReview(userReview);
+            }           
             return false;
         }
 
         public bool DeleteReviewRating(string dispName, string titleSelected)
         {
-            try
-            {
-                RatingAndReview deleteReview = new RatingAndReview();
-                deleteReview.DispName = dispName;
-                deleteReview.Title = titleSelected;
-                return _ratingAndReviewService.DeleteRatingReview(deleteReview);
-            }
-            catch
-            {
-                return false;
-            }
+            
+            RatingAndReview deleteReview = new RatingAndReview();
+            deleteReview.DispName = dispName;
+            deleteReview.Title = titleSelected;
+            return _ratingAndReviewService.DeleteRatingReview(deleteReview);
+            
         }
 
         public bool UpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview)

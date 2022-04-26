@@ -7,10 +7,12 @@ namespace Services.Contracts
         string GenerateJWTToken(string email);
         string GenerateOTP();
         bool AuthenticateRegisteredUser(string email, string userOtp);
-        bool AuthenticateLogInUser(string email, string pw);
+        string AuthenticateLogInUser(string email, string pw);
 
         string HashPassword(string pw, string salt);
         
         string GenerateSalt();
+        bool ValidateJWTToken(string jwtToken);
+
     }
 }

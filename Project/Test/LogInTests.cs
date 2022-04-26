@@ -13,6 +13,7 @@ namespace LogInTests
     {
         private readonly IAuthenticationManager _authenticationManager = new AuthenticationManager();
 
+        /*
         [Fact]
         public void LogIn_ShouldLogInUserSuccess()
         {
@@ -22,6 +23,6 @@ namespace LogInTests
 
             Assert.Equal(expected, actual);
 
-        }
+        }*/
     }
 }

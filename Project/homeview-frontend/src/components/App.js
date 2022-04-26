@@ -8,6 +8,7 @@ import { TVShows } from "./Features/TVShows"
 import { Movies } from "./Features/Movies"
 import { News } from "./Features/News"
 import { ActWiki } from "./Features/ActWiki"
+import { UserAccount } from "./Features/UserAccount"
 import Title from './Features/TitlePage/Title'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                         <Route exact path="/movies" element={<Movies />} />
                         <Route exact path="/news" element={<News />} />
                         <Route exact path="/actwiki" element={<ActWiki />} />
+                        <Route exact path="/useraccount" element={<UserAccount />} />
                         <Route exact path="/title" element={<Title />} />
 
                     </Routes>

@@ -10,22 +10,31 @@ import './../../css/Modal.css';
 
 
 const IMG_API = "https://image.tmdb.org/t/p/original/"
-const titleReviews = {
-    "rating": 4,
-    "ratingAndReviews": [
-        {
-            "rating": 4,
-            "review": "???",
-            "title": "Power Rangers",
-            "dispName": "HankHill@yahoo.com"
-        }
-    ]
-};
+
 
 const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast }) => {
     
     const [show, setShow] = useState(false);
     const [reviews, setReviews] = useState([]);
+
+    let titleReviews = [];
+    const dispNameTest = 'testName';
+    const testTitle = 'Power Rangers';
+    const GET_URL = 'http://myhomeview.me/api/RatingReview/submit/' + title
+
+    const testtitleReviews = {
+        "rating": 4,
+        "ratingAndReviews": [
+            {
+                "rating": 4,
+                "review": "???",
+                "title": "Power Rangers",
+                "dispName": "HankHill@yahoo.com"
+            }
+        ]
+    };
+
+
 
     const handleClose = () => {
         setShow(false);
@@ -33,79 +42,20 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     };
     const handleShow = () => {
         setShow(true);
-        setReviews(titleReviews);
+
+
+        fetch(GET_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            console.log(res)
+            //titleReviews = res.json()
+        })
+            .then(data => console.log(titleReviews))
+        setReviews(testtitleReviews);
     };
-
-    
-
-
-
-    /*
-    const rev = titleReviews.ratingAndReviews;
-    
-    const [reviews, setReviews] = useState([]);
-    const [avg, setAvg] = useState(null);
-    //const [currentTitle, setTitle] = useState(null);
-    const handleReviews = () => {
-        if (show) {
-            setReviews(rev);
-            setAvg(titleReviews.rating);
-        }
-        else {
-            setReviews(null);
-            setAvg(null);
-        }
-    };
-  
-
-    
-    const [reviews, setReviews] = useState([]);
-    const loadReviews = () => {
-        /**
-     const HOMEVIEW_API = {
-         method: 'GET',
-         url: 'https://homeview.me/reviews/get',
-         params: {
-             selectedTitle
-         }
-     }**/
-        /**
-        useEffect(() => {
-            axios.request(HOMEVIEW_API).then(function (response) {
-                console.log(response.data);
-                setReviews(response.data.results);
-            }).catch(function (error) {
-                console.error(error);
-            });
-        }, []);
-        
-
-        var titleReviews = {
-            "rating": 4,
-            "ratingAndReviews": [
-                {
-                    "rating": 4,
-                    "review": "???",
-                    "title": "Power Rangers",
-                    "dispName": "HankHill@yahoo.com"
-                }
-            ]
-        };
-        return titleReviews;
-    };
-    var revList = loadReviews();
-    var avgRating = revList.rating;
-    setReviews(revList.ratingAndReviews);
-
-
-    <br></br>
-        {
-    reviews.length > 0 && reviews.map((review) => (
-        <ReviewItem key={review.dispName} {...review} />
-            ))
-        }
-        <br></br> 
-*/
  
    
 

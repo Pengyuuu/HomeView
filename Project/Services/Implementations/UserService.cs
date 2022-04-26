@@ -146,6 +146,21 @@ namespace Services.Implementations
 
         }
 
+        public bool CreateUserSession(User user, string jwtToken)
+        {
+            
+            var isCreated = _userDAO.AsyncCreateUserSession(user, jwtToken).Result;
+            if (isCreated)
+            {
+                Log userLogTrue = new("Successfully created user session.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                _loggingService.LogData(userLogTrue);
+                return true;
+            }           
+            Log userLogFalse = new("Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+            _loggingService.LogData(userLogFalse);
+            return false;
+        }
+
         // Write to CSV File
         public String ExportAllUsers()
         {

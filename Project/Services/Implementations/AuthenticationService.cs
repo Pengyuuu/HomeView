@@ -17,34 +17,40 @@ namespace Services.Implementations
         public AuthenticationService()
         {
             _userService = new UserService();
-            _secretkey = ConfigurationManager.AppSettings.Get(4).ToString();
+            _secretkey = "";
         }
 
-        // generates jwt token, should this be async?
         public string GenerateJWTToken(string email)
         {
-            try
+           
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();             
+            var encodeKey = Base64UrlEncoder.Encode(_secretkey);
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
+            var payload = new SecurityTokenDescriptor
             {
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();             
-                var encodeKey = Base64UrlEncoder.Encode(_secretkey);
-                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
-                var payload = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
-                    Expires = DateTime.UtcNow.AddMinutes(15),
-                    Issuer = "HomeView",
-                    Audience = "HomeViewUser",
-                    IssuedAt = DateTime.UtcNow,
-                    SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
-                };
-                SecurityToken token = tokenHandler.CreateToken(payload);
-                return tokenHandler.WriteToken(token);
-            }
+                Subject = new ClaimsIdentity(new[] { new Claim("id", email) }),
+                Expires = DateTime.UtcNow.AddMinutes(15),
+                Issuer = "HomeView",
+                Audience = "HomeViewUser",
+                IssuedAt = DateTime.UtcNow,
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+            };
+            SecurityToken token = tokenHandler.CreateToken(payload);
+            return tokenHandler.WriteToken(token);
+            
+        }
 
-            catch
+        public bool ValidateJWTToken(string jwtToken)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            if (tokenHandler.CanReadToken(jwtToken))
             {
-                return null;
+                //var claims = tokenHandler.ValidateToken(jwtToken, );
+
+                return true;
+                
             }
+            return false;
         }
 
         // creates randomized string of randomized length with min of 8 char
@@ -90,30 +96,37 @@ namespace Services.Implementations
             return false;
         }
 
-        public bool AuthenticateLogInUser(string email, string pw)
+        public string AuthenticateLogInUser(string email, string pw)
         {
+            
             var fetchedUser = _userService.GetUser(email);
-
-            string hashedPW = HashPassword(pw, fetchedUser.Salt);
-
-            if ((fetchedUser != null) && (fetchedUser.Password == hashedPW))
+            if (fetchedUser != null)
             {
-                return true;
-            }
-            return false;
+                string hashedPW = HashPassword(pw, fetchedUser.Salt);
+
+                if ((fetchedUser.Password == hashedPW))
+                {
+                    var jwtToken = GenerateJWTToken(email);
+                    _userService.CreateUserSession(fetchedUser, jwtToken);
+                    return jwtToken;
+                }
+            }                     
+            return null;
         }
 
         public string HashPassword(string pw, string salt)
         {
             SHA256 pww = SHA256.Create();
-
+            //byte[] convertSalt = Convert.FromBase64String(salt);
+            string addSalt = pw + salt;
             // Converts the password string into bytes
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(pw + salt);
-
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(addSalt);
+            //byte[] bytes = Convert.FromBase64String(addSalt);
             // Computes hash of data using the SHA256 algorithm
             byte[] hash = pww.ComputeHash(bytes);
 
             return Convert.ToBase64String(hash);
+
         }
 
         public string GenerateSalt()

@@ -4,6 +4,8 @@ import FirstTimeUser from './FirstTimeUser'
 import Library from './Library'
 import Movie from '../cml/MovieList'
 
+//<script src='/Core/Security.js'></script>
+
 export default function Home() {
     //<script src='/Security.js'></script>
     //const [titleClick, setTitle] = useState(false);
@@ -35,7 +37,7 @@ export default function Home() {
     */
 
 
-
+    // to fill our first time form
     const isFirst = checkFirstTimeUser()
     if (isFirst) {
         return (

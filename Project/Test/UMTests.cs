@@ -113,10 +113,10 @@ namespace UMTests
         public void UserManager_GetUser()   // needs all users inside first to get expected
         {
 
-            string expected = "HankHill@yahoo.com";
+            string expected = "testing@gmail.com";
 
 
-            User actual = userManager.GetUser("HankHill@yahoo.com");
+            User actual = userManager.GetUser(expected);
 
             Assert.True(expected == actual.Email);
 
