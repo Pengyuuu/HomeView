@@ -15,12 +15,15 @@ namespace Features.Playlist
 
         public async Task<bool> AsyncCreatePlaylist(Playlist playlist)
         {
+            // Create a var object with the parameters for the stored procedure
             var newPlaylist = new
             {
                 playlistName = playlist.playlistName,
                 email = playlist.Email,
                 viewMode = playlist.ViewMode,
             };
+
+            // Need to use something else other than try and catch
             try
             {
                 await _db.SaveData("dbo.Playlist_CreatePlaylist", newPlaylist);
@@ -36,12 +39,14 @@ namespace Features.Playlist
 
         public async Task<bool> AsyncDeletePlaylist(Playlist playlist)
         {
+            // Create a var object with the parameters for the stored procedure
             var targetPlaylist = new
             {
                 playlistName = playlist.playlistName,
                 email = playlist.Email
             };
 
+            // Need to use something else other than try and catch
             try
             {
                 await _db.SaveData("dbo.Playlist_DeletePlaylist", targetPlaylist);
@@ -57,6 +62,7 @@ namespace Features.Playlist
 
         public async Task<bool> AsyncAddTitleToPlaylist(PlaylistTitle title)
         {
+            // Create a var object with the parameters for the stored procedure
             var addingTitle = new
             {
                 playlistID = title.PlaylistId,
@@ -64,6 +70,7 @@ namespace Features.Playlist
                 year = title.Year
             };
 
+            // Need to use something else other than try and catch
             try
             {
                 await _db.SaveData("dbo.Playlist_AddTitle", addingTitle);
@@ -79,6 +86,7 @@ namespace Features.Playlist
         
         public async Task<bool> AsyncRemoveTitleFromPlaylist(PlaylistTitle title)
         {
+            // Create a var object with the parameters for the stored procedure
             var removeTitle = new
             {
                 playlistID = title.PlaylistId,
@@ -86,6 +94,7 @@ namespace Features.Playlist
                 year = title.Year
             };
 
+            // Need to use something else other than try and catch
             try
             {
                 await _db.SaveData("dbo.Playlist_DeleteTitle", removeTitle);
@@ -101,38 +110,24 @@ namespace Features.Playlist
         
         public async Task<IEnumerable<Playlist>> AsyncGetPlaylist(Playlist targetPlaylist)
         {
+            // Create a var object with the parameters for the stored procedure
             var targetUser = new
             {
                 email = targetPlaylist.Email
             };
 
-            try
-            {
-                return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", targetUser);
-            }
-            
-            catch
-            {
-                return null;
-            }
+            return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", targetUser);
         }
 
         public async Task<IEnumerable<PlaylistTitle>> AsyncPopulatePlaylist(PlaylistTitle titles)
         {
+            // Create a var object with the parameters for the stored procedure
             var targetPlaylist = new
             {
                 playlistID = titles.PlaylistId
             };
 
-            try
-            {
-                return await _db.LoadData<PlaylistTitle, dynamic>("dbo.Playlist_GetTitle", targetPlaylist);
-            }
-
-            catch
-            {
-                return null;
-            }
+            return await _db.LoadData<PlaylistTitle, dynamic>("dbo.Playlist_GetTitle", targetPlaylist);
         }
     }
 }

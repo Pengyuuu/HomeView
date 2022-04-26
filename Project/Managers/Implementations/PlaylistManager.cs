@@ -23,6 +23,7 @@ namespace Managers.Implementations
 
         public bool ValidateName(string playlistName, string email)
         {
+            // If playlist name is blank then create an error log and return false
             if (playlistName == "")
             {
                 _loggingManager.LogData(
@@ -38,11 +39,13 @@ namespace Managers.Implementations
 
         public bool CreatePlaylist(string playlistName, string email, PlaylistViewMode viewMode)
         {
+            // Check if playlist name is valid
             if (!ValidateName(playlistName, email))
             {
                 return false;
             }
 
+            // Send a new playlist object to the playlist service
             Playlist newPlaylist = new Playlist(0, playlistName, null, email, viewMode);
 
             return _playlistService.CreatePlaylist(newPlaylist);
@@ -50,6 +53,7 @@ namespace Managers.Implementations
 
         public bool DeletePlaylist(string playlistName, string email)
         {
+            // Create new playlist representing the playlist to be deleted and send it to the service
             Playlist targetPlaylist = new Playlist();
             targetPlaylist.playlistName = playlistName;
             targetPlaylist.Email = email;
@@ -60,6 +64,7 @@ namespace Managers.Implementations
         
         public bool AddToPlaylist(int playlistID, string title, string year)
         {
+            // Create a playlist title object of the movie or show to be added to the specified playlist
             PlaylistTitle addTitle = new PlaylistTitle(playlistID, title, year);
 
             return _playlistService.AddToPlaylist(addTitle);
@@ -67,6 +72,7 @@ namespace Managers.Implementations
 
         public bool RemoveFromPlaylist(int playlistID, string title, string year)
         {
+            // Create a playlist title object of the movie or show to be removed from the specified playlist
             return _playlistService.RemoveFromPlaylist(new PlaylistTitle(playlistID, title, year));
 
             //PlaylistTitle targetTitle = new PlaylistTitle(playlistID, title, year);
