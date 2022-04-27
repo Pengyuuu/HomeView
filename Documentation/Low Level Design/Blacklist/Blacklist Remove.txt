@@ -1,0 +1,44 @@
+title Remove Genre/Actor from Blacklist
+participant User
+participant "Blacklist Controller" as bc
+participant "Blacklist Manager" as bm
+participant "Blacklist Service" as bs
+participant "Blacklist Data Access Object" as dao
+database database
+
+User->bc: User selects "Remove from blacklist"
+activate bc
+
+
+bc->bm: Remove(string bName)
+
+
+bm->bs: BlacklistService()
+activate bs
+
+bm->bs: Remove(string bName)
+
+bs->dao: Remove(string bName)
+activate dao
+dao->dao: log database access
+dao->database: Remove(string bName) \n(deletes from database)
+activate database
+group Database Error
+database->dao: return false
+dao-> bs: return false
+bs->bm:return false
+bm-> bc: return false
+bc-> User: return "Unable to remove genre/actor. \nDatabase error."
+end
+database->dao: return true
+deactivate database
+
+dao->dao:log database return time
+dao->bs:return true
+deactivate dao
+bs->bm:return true
+deactivate bs
+bm->bc:return true
+deactivate bm
+bc->User:return "Actor/Genre Deleted."
+deactivate bc
