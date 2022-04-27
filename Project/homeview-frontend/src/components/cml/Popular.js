@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Requests from '../Requests';
 import PopularMovieTile from './PopularMovieTile';
 import PopularSeriesTile from './PopularSeriesTile.js';
+import './../../css/maintitles.css'
 
 function Popular() {
 
@@ -29,22 +30,23 @@ function Popular() {
     
     return (
         <div>
-            <span>
+            <div className='main-titles'>
                 Popular Movies
-                <div className='movie-container'>
-                    {movies.length > 0 && movies.map((movie) =>(
-                        <PopularMovieTile key={movie.id} {...movie} />            
-                    ))}
-                </div>
-            </span>
-            <span>
+            </div>
+            <div className='p-movie-container'>
+                {movies.length > 0 && movies.map((movie) =>(
+                    <PopularMovieTile key={movie.id} {...movie} />            
+                ))}
+            
+            </div>
+            <div className='main-titles'>
                 Popular Series
-                <div className='series-container'>
-                    {series.length > 0 && series.map((serie) =>(
-                        <PopularSeriesTile key={serie.id} {...serie} />            
-                    ))}
-                </div>
-            </span>
+            </div>
+            <div className='p-series-container'>
+                {series.length > 0 && series.map((serie) =>(
+                    <PopularSeriesTile key={serie.id} {...serie} />            
+                ))}
+            </div>  
         </div>
     );
 }
