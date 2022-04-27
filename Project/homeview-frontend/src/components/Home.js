@@ -2,6 +2,7 @@ import React from 'react'
 import Navigation from './Navigation'
 import FirstTimeUser from './FirstTimeUser'
 import MovieList from './cml/MovieList'
+import Popular from './cml/Popular'
 
 export default function Home() {
 
@@ -10,7 +11,7 @@ export default function Home() {
       
       <div className='container'>
         <Navigation/>
-        {MovieList()}
+        
       </div>
   )
 }

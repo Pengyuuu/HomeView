@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Movie from './MovieTile';
+import MovieTile from './MovieTile';
 import './../../css/movietile.css';
 
     const MOVIES_API = {
@@ -46,7 +46,7 @@ import './../../css/movietile.css';
             
             <div className='movie-container'>
                 {movies.length > 0 && movies.map((movie) =>(
-                    <Movie key={movie.tmdbID} {...movie} />            
+                    <MovieTile key={movie.tmdbID} {...movie} />            
                 ))}
                 {GenreList()}
             </div>

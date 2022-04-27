@@ -1,0 +1,53 @@
+title Add Genre/Actor to Blacklist
+participant User
+participant "Blacklist Controller" as bc
+participant "Blacklist Manager" as bm
+participant "Blacklist Service" as bs
+participant "Blacklist Data Access Object" as dao
+database database
+
+User->bc: User selects a genre/actor \nchooses to add
+activate bc
+
+bc->bm: validateField(string uBlacklist)
+activate bm
+bm->bm: validate field 
+
+group Invalid Fields Error
+bm->bc: return false (invalid genre or actor)
+bc-> User: dislays to user an invalid genre\nor actor was selected
+end
+bm-> bc: return true (valid field)
+
+bc->bm: AddToBlacklist(string uBlacklist)
+
+
+bm->bs: BlacklistService()
+activate bs
+
+bm->bs: AddToBlacklist(string uBlacklist)
+
+bs->dao: AddToBlacklist(string uBlacklist)
+activate dao
+dao->dao: log database access
+dao->database: AddToBlacklist(string uBlacklist) \n(inserts into database)
+activate database
+group Database Error
+database->dao: return false
+dao-> bs: return false
+bs->bm:return false
+bm-> bc: return false
+bc-> User: return "Unable to add to Blacklist. \nDatabase error."
+end
+database->dao: return true
+deactivate database
+
+dao->dao:log database return time
+dao->bs:return true
+deactivate dao
+bs->bm:return true
+deactivate bs
+bm->bc:return true
+deactivate bm
+bc->User:return "Genre/Actor added."
+deactivate bc

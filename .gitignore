@@ -367,3 +367,4 @@ FodyWeavers.xsd
 .DS_Store
 
 /Project/HomeView-API/app.config
+Project/homeview-frontend/.env

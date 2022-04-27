@@ -33,6 +33,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
             }
         ]
     };
+    setReviews(testtitleReviews);
 
 
 
@@ -43,7 +44,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     const handleShow = () => {
         setShow(true);
 
-
+/** 
         fetch(GET_URL, {
             method: 'GET',
             headers: {
@@ -55,8 +56,9 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
         })
             .then(data => console.log(titleReviews))
         setReviews(testtitleReviews);
+         */
     };
- 
+
    
 
     return (

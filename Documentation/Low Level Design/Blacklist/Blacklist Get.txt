@@ -1,0 +1,44 @@
+title Remove Genre/Actor from Blacklist
+participant User
+participant "Blacklist Controller" as bc
+participant "Blacklist Manager" as bm
+participant "Blacklist Service" as bs
+participant "Blacklist Data Access Object" as dao
+database database
+
+User->bc: User views the Central Media Library
+activate bc
+
+
+bc->bm: GetBlacklist(string dispName)
+
+
+bm->bs: BlacklistService()
+activate bs
+
+bm->bs: GetBlacklist(string dispName)
+
+bs->dao: GetBlacklist(string dispName)
+activate dao
+dao->dao: log database access
+dao->database:GetBlacklist(string dispName) \n(fetches from database)
+activate database
+group Database Error
+database->dao: return false
+dao-> bs: return false
+bs->bm:return false
+bm-> bc: return false
+bc-> User: return "Unable to retrieve blacklist. \nDatabase error."
+end
+database->dao: return blacklist\n(list of genres/actors)
+deactivate database
+
+dao->dao:log database return time
+dao->bs:return blacklist
+deactivate dao
+bs->bm:return blacklist
+deactivate bs
+bm->bc:return blacklist
+deactivate bm
+bc->User: return blacklist
+deactivate bc
