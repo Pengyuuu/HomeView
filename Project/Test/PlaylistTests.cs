@@ -15,7 +15,7 @@ namespace PlaylistTests
         {
             bool expected = true;
 
-            bool actual = playlistManager.CreatePlaylist("Test Playlist 3", "testing@gmail.com", PlaylistViewMode.Private);
+            bool actual = playlistManager.CreatePlaylist("Test Playlist 4", "testing@gmail.com", PlaylistViewMode.Private);
 
             Assert.Equal(expected, actual);
         }
