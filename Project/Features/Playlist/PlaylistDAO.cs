@@ -23,18 +23,25 @@ namespace Features.Playlist
                 viewMode = playlist.ViewMode,
             };
 
-            // Need to use something else other than try and catch
-            try
-            {
-                await _db.SaveData("dbo.Playlist_CreatePlaylist", newPlaylist);
+            /* 
+             * var checkForPlaylist = new 
+             * {
+             * playlistName = playlist.PlaylistName,
+             * email = playlist.Email
+             * };
+             * 
+             * List<Playlist> duplicate = await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", checkForPlaylist);
+             * 
+             * 
+            */
+            var result = await _db.SaveData("dbo.Playlist_CreatePlaylist", newPlaylist);
 
-                return true;
-            }
-
-            catch
+            if (result != 1)
             {
                 return false;
             }
+
+            return true;
         }
 
         public async Task<bool> AsyncDeletePlaylist(Playlist playlist)
