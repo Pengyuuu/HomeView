@@ -19,8 +19,6 @@ namespace Data
 			this._connStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 		}
 
-
-
 		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters)
 		{
 			using (IDbConnection conn = new SqlConnection(_connStr))
@@ -29,14 +27,12 @@ namespace Data
 			}
 		}
 
-		public async Task SaveData<T>(string storedProcedure, T parameters)
+		public async Task<int> SaveData<T>(string storedProcedure, T parameters)
 		{
-		using (IDbConnection conn = new SqlConnection(_connStr))
-		{
-			await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-
-
-		}
+			using (IDbConnection conn = new SqlConnection(_connStr))
+			{
+				return await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+			}
 		}
 
 	}
