@@ -36,18 +36,12 @@ if (app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//app.MapControllers();
 
+app.UseCors(homeViewClient);
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors(homeViewClient);
 app.UseAuthorization();
 app.MapControllers();
-/**app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});**/
 
-//app.UseCors();
 
 app.Run();
