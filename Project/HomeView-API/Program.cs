@@ -48,6 +48,4 @@ app.MapControllers();
     endpoints.MapControllers();
 });**/
 
-//app.UseCors();
-
 app.Run();
