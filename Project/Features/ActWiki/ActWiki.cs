@@ -8,12 +8,12 @@ namespace Features.ActWiki
 {
     public class ActWiki
     {
-        public string actName {get; set};
-        public DateTime actBirth{get; set};
-        public string actGender{get; set};
-        public string actBiography{get; set};
+        public string actName { get; set; }
+        public DateTime actBirth{ get; set; }
+        public string actGender{ get; set; }
+        public string actBiography{ get; set; }
 
-        public ActWik()
+        public ActWiki()
         {
             actName = "";
             actBirth = new DateTime();

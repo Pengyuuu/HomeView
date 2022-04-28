@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data;
 
 namespace Features.ActWiki
 {
@@ -17,13 +15,23 @@ namespace Features.ActWiki
 
         public async Task<bool> AsyncGetActorInfo ( ActWiki actor )
         {
-            var newActor = new
+            var searchActor = new
             {
-                actName = actor.actName;
-                actBirth = actor.actBirth;
-                actGender = actor.actGender;
+                actName = actor.actName,
+                actBirth = actor.actBirth,
+                actGender = actor.actGender,
 
+            };
+            try
+            {
+                await _db.SaveData("dbo.SearchActor", searchActor);
+                return true;
             }
+            catch 
+            {
+                return false;
+            }
+        
         }
     }
 }
