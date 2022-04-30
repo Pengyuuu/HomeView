@@ -78,16 +78,19 @@ namespace NewsTest
 
         //Testing with first article 
         [Fact]
-        public void NewsManager_UpdateArticleShouldChangeArticle()
+        public async void NewsManager_UpdateArticleShouldChangeArticle()
         {
             //Arrange
-            Article newArt = new Article("Test Title", "content", "imgPath");
+            Article newArt = new Article("Updated Title!", "with updated content!", "imgPath");
+            newArt.ArticleId = 1;
+            string expected = "Updated Title!";
 
             //Act
-            var actual = newsManager.AsyncCreateArticle(newArt);
+            Article temp = await newsManager.AsyncUpdateArticleById(newArt);
+            string actual = temp.ArticleTitle;
 
             //Assert
-            Assert.NotNull(actual);
+            Assert.Equal(expected, actual);
 
         }
 

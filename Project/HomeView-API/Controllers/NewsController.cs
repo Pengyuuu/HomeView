@@ -1,4 +1,5 @@
-﻿using Managers.Implementations;
+﻿using Features.News;
+using Managers.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -46,15 +47,31 @@ namespace HomeView_API.Controllers
         }
         // POST api/<NewsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<string>> Post([FromBody] Article article)
         {
-
+            if (article == null)
+            {
+                return BadRequest("Could not create Article, received null value");
+            }
+            else {
+                Article ret = await _newsManager.AsyncCreateArticle(article);
+                return Ok("Created article with id " + ret.ArticleId);
+            }
         }
 
         // PUT api/<NewsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<ActionResult<string>> Put([FromBody] Article article)
         {
+            if (article == null)
+            {
+                return BadRequest("Could not create Article, received null value");
+            }
+            else
+            {
+                Article ret = await _newsManager.AsyncUpdateArticleById(article);
+                return Ok("Updated article with id " + ret.ArticleId);
+            }
         }
 
         // DELETE api/<NewsController>/5
@@ -64,7 +81,7 @@ namespace HomeView_API.Controllers
             var ret = await _newsManager.AsyncDeleteArticleById(id);
             if (ret != 0)
             {
-                return Ok(ret);
+                return Ok("Successfully deleted article with id " + id);
             }
             return NotFound("could not delete article with id" + id);
         }

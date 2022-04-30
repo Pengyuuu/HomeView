@@ -49,7 +49,15 @@ namespace Features.News
         /* returns an int, representing the rows affected (success = 1) */
         public async Task<int> AsyncUpdateArticle(Article article)
         {
-            return await _db.SaveData("dbo.NewsUpdate", article);
+            //Extracts the params from article DTO
+            var sp_params = new
+            {
+                articleID = article.ArticleId,
+                articleTitle = article.ArticleTitle,
+                articleContent = article.ArticleContent,
+                imgPath = article.ImgPath,
+            };
+            return await _db.SaveData("dbo.NewsUpdate", sp_params);
         }
 
         /* returns an int, representing the rows affected (success = 1) */

@@ -24,7 +24,8 @@ namespace Services.Implementations
             {
                 return null;
             }
-            return article;
+            IEnumerable<Article> articles =  await AsyncGetNews();
+            return articles.LastOrDefault();
         }
 
         /* will return a null Article if not found */
@@ -52,7 +53,8 @@ namespace Services.Implementations
             {
                 return null;
             }
-            return article;
+            var res = await _newsDAO.AsyncReadArticles(article.ArticleId);
+            return res.FirstOrDefault();
         }
 
         /* Deletes an Article
