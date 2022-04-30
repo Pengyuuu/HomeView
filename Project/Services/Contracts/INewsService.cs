@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
-    public interface INewsManager
+    public interface INewsService
     {
         Task<Article> AsyncCreateArticle(Article article);
         Task<int> AsyncDeleteArticleById(int id);

@@ -16,7 +16,7 @@ namespace Data
 
 		public SqlDataAccess()
         {
-			this._connStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
+			_connStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 		}
 
 		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters)

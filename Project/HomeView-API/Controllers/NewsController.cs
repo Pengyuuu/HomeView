@@ -1,5 +1,4 @@
-﻿using Managers.Contracts;
-using Managers.Implementations;
+﻿using Managers.Implementations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeView_API.Controllers
@@ -7,6 +6,11 @@ namespace HomeView_API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class NewsController : ControllerBase {
+
+        private readonly INewsManager _newsManager;
+        public NewsController(INewsManager newsManager) {
+            _newsManager = newsManager;
+        }
 
         // GET api/<NewsController>?id1={}&id2={}
         [HttpGet("add2")]

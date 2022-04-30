@@ -10,6 +10,7 @@ namespace Managers.Implementations
     public class NewsManager : INewsManager
     {
         private readonly INewsService _newsService;
+        private readonly int MAX_ARTICLE_LENGTH = 50000;
         public NewsManager(INewsService newsService)
         {
             _newsService = newsService;
@@ -17,28 +18,36 @@ namespace Managers.Implementations
 
         public async Task<Article> AsyncCreateArticle(Article article)
         {
-            //50k check
-            throw new NotImplementedException();
+            if (article != null)
+            {
+                if (article.ArticleContent.Length < MAX_ARTICLE_LENGTH)
+                {
+                    return await _newsService.AsyncCreateArticle(article);
+                }
+            }
+            /* Would it be best to truncate the article, 
+            * or refuse completely? */
+            return null;
         }
 
         public async Task<Article> AsyncGetArticleById(int id)
         {
-            return _newsService.GetArticleById(id);
+            return await _newsService.AsyncGetArticleById(id);
         }
 
         public async Task<IEnumerable<Article>> AsyncGetNews()
         {
-            return _newsService.GetNews();
+            return await _newsService.AsyncGetNews();
         }
 
         public async Task<Article> AsyncUpdateArticleById(Article article)
         {
-            throw new NotImplementedException();
+            return await _newsService.AsyncUpdateArticleById(article);
         }
 
-        public async Task<Article> AsyncDeleteArticleById(int id)
+        public async Task<int> AsyncDeleteArticleById(int id)
         {
-            throw new NotImplementedException();
+            return await _newsService.AsyncDeleteArticleById(id);
         }
     }
 }

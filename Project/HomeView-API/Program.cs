@@ -1,5 +1,3 @@
-using Services.Implementations;
-//using System.Configuration;
 using Managers.Implementations;
 using Managers.Contracts;
 using System.Net.Http.Headers;
@@ -22,6 +20,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+/* Insert customer services here */
+builder.Services.AddSingleton<INewsManager, NewsManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
