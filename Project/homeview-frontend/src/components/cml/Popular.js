@@ -26,7 +26,7 @@ function Popular() {
         });
 
     }, []);
-    
+
     return (
         <div className='pop-container'>
             <div className='main-titles'>

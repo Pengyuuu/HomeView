@@ -4,7 +4,13 @@
     box-sizing: border-box;
 }
 
+.news-container h1 {
+    text-align: center;
+    color: lightgray;
+}
+
 .article-cluster {
     background: green;
-    
 }
+
+.article-container
