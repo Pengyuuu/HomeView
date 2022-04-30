@@ -17,7 +17,9 @@ namespace Services.Implementations
         
         public bool GetAct(string name)
         {
-            fetchActor =
+
+            //fetchActor =
+            return false;
         }
     }
 
