@@ -1,0 +1,10 @@
+.news-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.article-cluster {
+    background: green;
+    
+}

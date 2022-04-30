@@ -28,7 +28,7 @@ export default function Home() {
     else {
         return (
             <>
-                <Navigation/>
+                <Navigation />
                 <div className='logo'>
                     Your HomeViews
                 </div>

@@ -34,6 +34,5 @@ namespace Data
 				return await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 			}
 		}
-
 	}
 }

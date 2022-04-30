@@ -33,7 +33,6 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
             }
         ]
     };
-    setReviews(testtitleReviews);
 
 
 
@@ -43,6 +42,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     };
     const handleShow = () => {
         setShow(true);
+        setReviews(testtitleReviews);
 
 /** 
         fetch(GET_URL, {
@@ -100,8 +100,6 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     </>
     )
 }
-
-
 
 
 export default Movie;

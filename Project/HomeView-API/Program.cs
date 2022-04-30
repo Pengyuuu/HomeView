@@ -14,7 +14,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: homeViewClient,
                       policy =>
                       {
-                          policy.WithOrigins("https://myhomeview.me");
+                          policy.WithOrigins("http://localhost:3000",
+                                             "http://myhomeview.me");
                       });
 });
 builder.Services.AddControllers();
@@ -38,7 +39,6 @@ if (app.Environment.IsProduction())
 }
 
 app.UseCors(homeViewClient);
-app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();

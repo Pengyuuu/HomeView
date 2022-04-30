@@ -12,7 +12,6 @@ function clearToken() {
 
 function Navbar() {
     return (
-        <>
             <nav className='navBar'>
                 <div className='navbar-container'>
                     <Link className="color-style" to="/">Home</Link> <span></span>
@@ -22,11 +21,8 @@ function Navbar() {
                     <Link className="color-style" to="/">ActWiki</Link> <span></span>
                     <Link className="color-style" to="/">Account</Link> <span></span>
                     <Button className="color-style" type="submit" onclick={clearToken}>Log Out </Button>
-
-
                 </div>
             </nav>
-        </>
     );
 }
 

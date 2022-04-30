@@ -7,16 +7,9 @@ namespace HomeView_API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class NewsController : ControllerBase {
-    
-        // GET: api/<NewsController>
-        [HttpGet]
-        public ActionResult<int> Get(int id)
-        {
-            return Ok(id);
-        }
 
-        // GET api/<NewsController>/
-        [HttpGet]
+        // GET api/<NewsController>?id1={}&id2={}
+        [HttpGet("add2")]
         public ActionResult<string> Get(int id1, int id2)
         {
             int result = id1 + id2;

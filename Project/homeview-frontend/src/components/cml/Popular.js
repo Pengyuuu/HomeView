@@ -25,11 +25,10 @@ function Popular() {
             console.error(error);
         });
 
-
     }, []);
     
     return (
-        <div>
+        <div className='pop-container'>
             <div className='main-titles'>
                 Popular Movies
             </div>
