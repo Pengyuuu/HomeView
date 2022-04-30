@@ -1,0 +1,15 @@
+﻿using Features.News;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Managers.Implementations
+{
+    public interface INewsManager
+    {
+        Task<Article> AsyncCreateArticle(Article article);
+        Task<Article> AsyncDeleteArticleById(int id);
+        Task<Article> AsyncGetArticleById(int id);
+        Task<IEnumerable<Article>> AsyncGetNews();
+        Task<Article> AsyncUpdateArticleById(Article article);
+    }
+}
