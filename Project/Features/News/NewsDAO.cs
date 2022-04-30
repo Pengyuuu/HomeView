@@ -55,7 +55,11 @@ namespace Features.News
         /* returns an int, representing the rows affected (success = 1) */
         public async Task<int> AsyncDeleteArticle(int articleId)
         {
-            return await _db.SaveData("dbo.NewsDelete", articleId);
+            var sp_params = new
+            {
+                articleID = articleId,
+            };
+            return await _db.SaveData("dbo.NewsDelete", sp_params);
         }
     }
 

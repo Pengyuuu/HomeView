@@ -1,7 +1,7 @@
 ﻿using Features.News;
 using Services.Contracts;
 using Services.Implementations;
-using System;
+using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +39,7 @@ namespace Managers.Implementations
 
         public async Task<IEnumerable<Article>> AsyncGetNews()
         {
-            return await _newsService.AsyncGetNews();
+            return  await _newsService.AsyncGetNews();
         }
 
         public async Task<Article> AsyncUpdateArticleById(Article article)

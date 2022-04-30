@@ -71,7 +71,7 @@ namespace NewsTest
 
             //Act
             IEnumerable<Article> actual = await newsManager.AsyncGetNews();
-
+            
             //Assert
             Assert.True(actual.Count() > 1);
         }
@@ -91,16 +91,35 @@ namespace NewsTest
 
         }
 
+        /* To test, delete the last article from the full list of articles */
         [Fact]
-        public void NewsManager_DeleteArticleSuccess()
+        public async void NewsManager_DeleteArticleSuccess()
         {
+            //Arrange
+            Article newArt = new Article("To be deleted", "content", "imgPath");
+            await newsManager.AsyncCreateArticle(newArt);
 
+            var arts = await newsManager.AsyncGetNews();
+            Article lastArt = arts.LastOrDefault();
+            int expected = 1;
+
+            //Act
+            var actual = await newsManager.AsyncDeleteArticleById(lastArt.ArticleId);
+
+            //Assert
+            Assert.Equal(actual, expected);
         }
 
         [Fact]
-        public void NewsManager_DeleteArticleFailure()
+        public async void NewsManager_DeleteArticleFailure()
         {
+            //Arrange
+            int expected = 0;
+            //Act
+            int actual = await newsManager.AsyncDeleteArticleById(-5);
 
+            //Assert
+            Assert.Equal(expected, actual);
         }
     }
 }

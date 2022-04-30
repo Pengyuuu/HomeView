@@ -59,7 +59,12 @@ namespace Services.Implementations
          * Returns 0 if failed (0 rows affected), 1 for success */
         public async Task<int> AsyncDeleteArticleById(int id)
         {
-            return await _newsDAO.AsyncDeleteArticle(id);
+            int ret = await _newsDAO.AsyncDeleteArticle(id);
+            if (ret != 0)
+            {
+                return ret;
+            }
+            return 0;
         }
     }
 }
