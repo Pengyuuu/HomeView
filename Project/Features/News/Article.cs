@@ -11,6 +11,7 @@ namespace Features.News
         public string ArticleTitle { get; set; }
         public string ArticleContent { get; set; }
         public string ImgPath { get; set; }
+        public DateTime publishDate { get; set; }
 
         public Article(string articleTitle, string articleContent, string imgPath)
         { 
@@ -19,10 +20,7 @@ namespace Features.News
             ImgPath = imgPath;
         }
 
-        public static explicit operator Article(Task<Article> v)
-        {
-            throw new NotImplementedException();
-        }
+        public Article() { }
     }
 
 

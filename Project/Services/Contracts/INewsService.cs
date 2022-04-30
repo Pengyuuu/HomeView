@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Managers.Implementations
+namespace Services.Contracts
 {
     public interface INewsService
     {

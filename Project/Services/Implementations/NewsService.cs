@@ -1,11 +1,12 @@
 ﻿using Features.News;
+using Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Managers.Implementations
+namespace Services.Implementations
 {
     public class NewsService : INewsService
     {

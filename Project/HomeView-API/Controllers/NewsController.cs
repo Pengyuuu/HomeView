@@ -12,11 +12,11 @@ namespace HomeView_API.Controllers
             _newsManager = newsManager;
         }
 
-        // GET api/<NewsController>?id1={}&id2={}
-        [HttpGet("add2")]
-        public ActionResult<string> Get(int id1, int id2)
+        // GET api/<NewsController>
+        [HttpGet]
+        public async Task<ActionResult<string>> GetNews()
         {
-            int result = id1 + id2;
+            var result = await _newsManager.AsyncGetNews();
             return Ok(result.ToString());
         }
 

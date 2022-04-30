@@ -3,28 +3,42 @@ using System.Linq;
 using Xunit;
 using Features.News;
 using Managers.Implementations;
-
+using System.IO;
 
 namespace NewsTest
 {
     // Arrange, Act, Assert
     public class NewsTests
     {
-        NewsManager newsManager = new NewsManager(new NewsService(new NewsDAO(new Data.SqlDataAccess())));
+        NewsManager newsManager = new NewsManager();
 
         [Fact]
-        public void NewsManager_CreateArticleSuccess()
+        public async void NewsManager_CreateArticleSuccess()
         {
             //Arrange
             Article newArt = new Article("Test Title", "content", "imgPath") ;
 
             //Act
-            var actual = (Article)newsManager.AsyncCreateArticle(newArt);
+            var actual = await newsManager.AsyncCreateArticle(newArt);
 
             //Assert
             Assert.NotNull(actual);   
 
         }
+        /*
+        [Fact]
+        public async void NewsManager_CreateArticleFailure()
+        {
+            //Arrange
+            //string content = File.ReadAllText("C:\\Users\\danny\\Source\\Repos\\HomeView\\Project\\Test\\50k.txt");
+            Article newArt = new Article("Test Title", "", "imgPath");
+
+            //Act
+            var actual = await newsManager.AsyncCreateArticle(newArt);
+
+            //Assert
+            Assert.NotNull(actual);
+        }*/
 
         [Fact]
         public void NewsManager_ReadArticleSuccess()
@@ -39,24 +53,24 @@ namespace NewsTest
         }
 
         [Fact]
-        public void NewsManager_ReadArticleFailure()
+        public async void NewsManager_ReadArticleFailure()
         {
             //Arrange
 
             //Act
-            var actual = newsManager.AsyncGetArticleById(-5);
+            var actual = await newsManager.AsyncGetArticleById(2010);
 
             //Assert
             Assert.Null(actual);
         }
 
         [Fact]
-        public void NewsManager_ReadAllNewsShouldReturnAllArticles()
+        public async void NewsManager_ReadAllNewsShouldReturnAllArticles()
         {
             //Arrange
 
             //Act
-            IEnumerable<Article> actual = (IEnumerable<Article>)newsManager.AsyncGetNews();
+            IEnumerable<Article> actual = await newsManager.AsyncGetNews();
 
             //Assert
             Assert.True(actual.Count() > 1);

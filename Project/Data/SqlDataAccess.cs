@@ -16,19 +16,21 @@ namespace Data
 
 		public SqlDataAccess()
         {
-			_connStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
+			//_connStr = ConfigurationManager.ConnectionStrings["RDS"].ConnectionString;
+			_connStr = "Data Source=homeviewdb.cotk9avwlowj.us-west-1.rds.amazonaws.com,1433;Initial Catalog=homeviewdb;User ID=awshomeviewadmin;Password=csulbUnite2022!";
 		}
 
 		public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parameters)
 		{
             using IDbConnection conn = new SqlConnection(_connStr);
-            return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+			return await conn.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
         }
 
 		public async Task<int> SaveData<T>(string storedProcedure, T parameters)
 		{
-            using IDbConnection conn = new SqlConnection(_connStr);
-            return await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+			using IDbConnection conn = new SqlConnection(_connStr);
+			var affectedRows = await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+			return affectedRows;
         }
 	}
 }

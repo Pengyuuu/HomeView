@@ -1,4 +1,6 @@
 ﻿using Features.News;
+using Services.Contracts;
+using Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,9 @@ namespace Managers.Implementations
     {
         private readonly INewsService _newsService;
         private readonly int MAX_ARTICLE_LENGTH = 50000;
-        public NewsManager(INewsService newsService)
+        public NewsManager()
         {
-            _newsService = newsService;
+            _newsService = new NewsService(new NewsDAO(new Data.SqlDataAccess()));
         }
 
         public async Task<Article> AsyncCreateArticle(Article article)

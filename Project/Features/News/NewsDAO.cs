@@ -20,7 +20,14 @@ namespace Features.News
         /* returns an int, representing the rows affected (success = 1) */
         public async Task<int> AsyncCreateArticle(Article article)
         {
-            return await _db.SaveData("dbo.NewsCreate", article);
+            //Extracts the params from article DTO
+            var sp_params = new
+            {
+                articleTitle = article.ArticleTitle,
+                articleContent = article.ArticleContent,
+                imgPath = article.ImgPath,
+            };
+            return await _db.SaveData("dbo.NewsCreate", sp_params);
         }
         
         /* id is optional argument, 
@@ -31,8 +38,12 @@ namespace Features.News
             {
                 return await _db.LoadData<Article, dynamic>("dbo.NewsRead", null);
             }
-            
-            return await _db.LoadData<Article, dynamic>("dbo.NewsRead", articleId);
+            var sp_params = new
+            {
+                articleID = articleId,
+            };
+
+            return await _db.LoadData<Article, dynamic>("dbo.NewsRead", sp_params);
         }
 
         /* returns an int, representing the rows affected (success = 1) */
