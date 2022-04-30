@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Threading.Tasks;
+
 namespace Features.News
 {
     /* Article DTO, matching properties to DB Cols */
@@ -9,6 +12,17 @@ namespace Features.News
         public string ArticleContent { get; set; }
         public string ImgPath { get; set; }
 
+        public Article(string articleTitle, string articleContent, string imgPath)
+        { 
+            ArticleTitle = articleTitle;
+            ArticleContent = articleContent;
+            ImgPath = imgPath;
+        }
+
+        public static explicit operator Article(Task<Article> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

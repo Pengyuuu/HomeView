@@ -5,125 +5,89 @@ using Features.News;
 using Managers.Implementations;
 
 
-namespace Test
+namespace NewsTest
 {
+    // Arrange, Act, Assert
     public class NewsTests
     {
-        RatingAndReviewManager reviewManager = new RatingAndReviewManager();
+        NewsManager newsManager = new NewsManager(new NewsService(new NewsDAO(new Data.SqlDataAccess())));
 
         [Fact]
         public void NewsManager_CreateArticleSuccess()
         {
-            bool expected = true;
-            // name, title, rating, review
-            RatingAndReview newReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
-            bool actual = reviewManager.SubmitReviewRating("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
+            //Arrange
+            Article newArt = new Article("Test Title", "content", "imgPath") ;
 
+            //Act
+            var actual = (Article)newsManager.AsyncCreateArticle(newArt);
 
-            Assert.Equal(expected, actual);
-
-        }
-
-        [Fact]
-        public void NewsManager_CreateArticleFailure()
-        {
-            bool expected = true;
-            // name, title, rating, review
-            RatingAndReview newReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
-            bool actual = reviewManager.SubmitReviewRating("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
-
-
-            Assert.Equal(expected, actual);
+            //Assert
+            Assert.NotNull(actual);   
 
         }
+
         [Fact]
         public void NewsManager_ReadArticleSuccess()
         {
-            bool expected = false;
+            //Arrange
 
-            bool actual = reviewManager.SubmitReviewRating("abcdegfhg", "Testing", 3, "I love the Power Rangers! You should go watch the original! :)");
+            //Act
+            var actual = newsManager.AsyncGetArticleById(1);
 
-            Assert.Equal(expected, actual);
+            //Assert
+            Assert.NotNull(actual);
         }
 
         [Fact]
         public void NewsManager_ReadArticleFailure()
         {
-            bool expected = false;
+            //Arrange
 
-            bool actual = reviewManager.SubmitReviewRating("abcdegfhg", "Testing", 3, "I love the Power Rangers! You should go watch the original! :)");
+            //Act
+            var actual = newsManager.AsyncGetArticleById(-5);
 
-            Assert.Equal(expected, actual);
+            //Assert
+            Assert.Null(actual);
         }
+
         [Fact]
         public void NewsManager_ReadAllNewsShouldReturnAllArticles()
         {
-            IEnumerable<RatingAndReview> actual = reviewManager.GetUserReviewRating("HankHill@yahoo.com");
-            Assert.True(actual.Any());
+            //Arrange
+
+            //Act
+            IEnumerable<Article> actual = (IEnumerable<Article>)newsManager.AsyncGetNews();
+
+            //Assert
+            Assert.True(actual.Count() > 1);
         }
 
+        //Testing with first article 
         [Fact]
         public void NewsManager_UpdateArticleShouldChangeArticle()
         {
-            RatingAndReview newReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers");
-            string actual = "";
-            try
-            {
-                var result = reviewManager.GetSpecificReviewRating(newReview.DispName, newReview.Title);
-                actual = result.ToString();
-            }
-            catch
-            {
-                actual = "null";
-            }
-            string expected = newReview.ToString();
+            //Arrange
+            Article newArt = new Article("Test Title", "content", "imgPath");
 
-            Assert.Equal(expected, actual);
+            //Act
+            var actual = newsManager.AsyncCreateArticle(newArt);
+
+            //Assert
+            Assert.NotNull(actual);
 
         }
 
         [Fact]
         public void NewsManager_DeleteArticleSuccess()
         {
-            bool hasReviews = false;
-            bool expected = true;
-            IEnumerable<RatingAndReview> actual = Enumerable.Empty<RatingAndReview>();
-            try
-            {
-                actual = reviewManager.GetTitleReviewRating("Power Rangers");
-                if (actual.Any())
-                {
-                    hasReviews = true;
-                }
-            }
-            catch
-            {
-                hasReviews = false;
-            }
-            Assert.Equal(expected, hasReviews);
+
         }
 
         [Fact]
         public void NewsManager_DeleteArticleFailure()
         {
-            bool hasReviews = false;
-            bool expected = true;
-            IEnumerable<RatingAndReview> actual = Enumerable.Empty<RatingAndReview>();
-            try
-            {
-                actual = reviewManager.GetTitleReviewRating("Power Rangers");
-                if (actual.Any())
-                {
-                    hasReviews = true;
-                }
-            }
-            catch
-            {
-                hasReviews = false;
-            }
-            Assert.Equal(expected, hasReviews);
 
         }
     }
 }
-}
+
