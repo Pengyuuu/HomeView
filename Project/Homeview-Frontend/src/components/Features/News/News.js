@@ -15,17 +15,12 @@ const News = () => {
      * setData renders the page on state change */
     const [data, setData] = useState(["Loading..."]);
 
-    const sample = [
-        { id: 1, title: "sample TITLE1", content: "here be articles", img: "an img" },
-        { id: 2, title: "sample TITLE", content: "here be articles", img: "an img" },
-        { id: 3, title: "sample TITLE", content: "here be articles", img: "an img" }];
-
     useEffect(() => {
-        /*let axios = require('axios');
+        let axios = require('axios');
 
         let config = {
             method: 'get',
-            url: 'http://54.219.16.154/api/news/add2/',
+            url: 'http://54.219.16.154/api/news',
             headers: {}
         };
 
@@ -35,8 +30,8 @@ const News = () => {
             })
             .catch(function (error) {
                 console.log(error);
-            });*/
-        setData(sample)
+            });
+
     }, []);
     /* useEffect is executed every time a state inside [] is changed (ie [data])
      * leave blank [] to only execute once and prevent calling API every state change*/

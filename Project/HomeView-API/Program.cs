@@ -39,8 +39,8 @@ if (app.Environment.IsProduction())
     app.UseSwaggerUI();
 }
 
-app.UseCors(homeViewClient);
 app.UseRouting();
+app.UseCors(homeViewClient);
 app.UseAuthorization();
 app.MapControllers();
 
