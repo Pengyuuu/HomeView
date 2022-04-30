@@ -122,5 +122,10 @@ namespace Services.Implementations
         {
             return _watchLaterDAO.AsyncGetList(userEmail).Result;
         }
+
+        List<WatchLaterTitle> IWatchLaterService.GetList(string userEmail)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
