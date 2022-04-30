@@ -33,6 +33,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
             }
         ]
     };
+    
 
 
 
@@ -100,6 +101,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     </>
     )
 }
+
+
 
 
 export default Movie;

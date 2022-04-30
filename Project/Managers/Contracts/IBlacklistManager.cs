@@ -7,7 +7,7 @@ namespace Managers.Contracts
     {
         bool AddToBlacklist (string blacklistItem);
         bool RemoveFromBlacklist (string blacklistItem);
-        IEnumerable<string> GetBlacklistNames (string dispName);
+        IEnumerable<string> GetBlacklist (string dispName);
         bool ToggleBlacklist(string dispName);
 
 

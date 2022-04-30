@@ -13,7 +13,7 @@ namespace Features.WatchLater
             _db = db;
         }
 
-        public async Task<bool> AsyncAddToWatchLater(WatchLaterTitle selectedTitle)
+        public async Task<int> AsyncAddToWatchLater(WatchLaterTitle selectedTitle)
         {
             var insertToList = new
             {
@@ -22,17 +22,10 @@ namespace Features.WatchLater
                 year = selectedTitle.Year
             };
 
-            int result = await _db.SaveData("dbo.WatchLater_AddToList", insertToList);
-
-            if (result != 1)
-            {
-                return false;
-            }
-
-            return true;
+            return await _db.SaveData("dbo.WatchLater_AddToList", insertToList);
         }
 
-        public async Task<bool> AsyncRemoveFromList(WatchLaterTitle selectedTitle)
+        public async Task<int> AsyncRemoveFromList(WatchLaterTitle selectedTitle)
         {
             var deleteFromList = new
             {
@@ -41,14 +34,7 @@ namespace Features.WatchLater
                 year = selectedTitle.Year
             };
 
-            int result = await _db.SaveData("dbo.WatchLater_RemoveFromList", deleteFromList);
-
-            if (result != 1)
-            {
-                return false;
-            }
-
-            return true;
+            return await _db.SaveData("dbo.WatchLater_RemoveFromList", deleteFromList);
         }
 
         public async Task<IEnumerable<WatchLaterTitle>> AsyncGetList(string userEmail)
@@ -58,14 +44,7 @@ namespace Features.WatchLater
                 email = userEmail
             };
 
-            List<WatchLaterTitle> result = (List<WatchLaterTitle>) await _db.LoadData<WatchLaterTitle, dynamic>("dbo.WatchLater_GetList", targetUser);
-
-            if (result.Count == 0)
-            {
-                return null;
-            }
-
-            return result;
+            return await _db.LoadData<WatchLaterTitle, dynamic>("dbo.WatchLater_GetList", targetUser);
         }
     }
 }
