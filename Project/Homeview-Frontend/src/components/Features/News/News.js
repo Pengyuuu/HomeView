@@ -26,7 +26,7 @@ const News = () => {
 
         axios(config)
             .then(function (response) {
-                setData(response.json());
+                setData(response.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -37,13 +37,14 @@ const News = () => {
      * leave blank [] to only execute once and prevent calling API every state change*/
 
     /* length check to ensure it doesn't try generating initial "Loading..." val */
+    console.log(data);
     return (
         <div className="news-container">
             <Navigation />
             <h1>HomeView News</h1>
             <div className="article-cluster">
                 {data.length > 1 && data.map((article) => (
-                    <ArticleThumb key={article.id} {...article} />))
+                    <ArticleThumb key={article.ArticleId} id={article.ArticleId} title={article.ArticleTitle} content={article.ArticleContent} />))
                 }
             </div>
         </div>
