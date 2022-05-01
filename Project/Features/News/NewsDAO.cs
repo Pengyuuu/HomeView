@@ -32,6 +32,15 @@ namespace Features.News
         
         /* id is optional argument, 
          * leaving it blank results in returning all articles */
+
+        /*
+         * make parameter (int?) <- null check, can do away with if statement
+         */
+
+        /*
+         * dynamic vars can produce err at runtime bcz compilers ignore, don't use, inefficient as well
+         * better off passing params 
+         */
         public async Task<IEnumerable<Article>> AsyncReadArticles(int articleId=-1)
         {
             if (articleId == -1)

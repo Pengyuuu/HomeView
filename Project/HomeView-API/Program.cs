@@ -22,7 +22,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 /* Insert customer services here */
-builder.Services.AddSingleton<INewsManager, NewsManager>();
+/* User Transient -> new manager for every call 
+ * transient v scoped (once per chain call)
+ * use scoped for transactions
+ */
+builder.Services.AddTransient<INewsManager, NewsManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -10,9 +10,15 @@
 }
 
 .article-cluster {
-    background: green;
+    margin: 0px 50px 80px 50px;
 }
 
 .article-container {
+    background: lightgray;
+    padding: 0px 50px 80px 50px;
+    margin: 20px 0 10px 0;
+}
 
+.article-container h1 {
+    color: darkslategray;
 }

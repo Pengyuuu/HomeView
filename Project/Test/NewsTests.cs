@@ -127,3 +127,8 @@ namespace NewsTest
     }
 }
 
+/* Ways to Test UI
+ * Scraper for UI tests
+ * WebDriver W3C Spec : can select specific elements and launch events
+ */
+

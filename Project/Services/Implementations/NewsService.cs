@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
+    /*
+     * Go for reusability in the services
+     * validate and deserialize (-> object) in here
+     */
     public class NewsService : INewsService
     {
 
@@ -29,6 +33,9 @@ namespace Services.Implementations
         }
 
         /* will return a null Article if not found */
+        /*
+         * no need for null check, instead check length of arr
+         */
         public async Task<Article> AsyncGetArticleById(int id)
         {
             var res = await _newsDAO.AsyncReadArticles(id);

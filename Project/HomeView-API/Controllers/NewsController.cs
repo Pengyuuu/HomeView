@@ -15,6 +15,12 @@ namespace HomeView_API.Controllers
         }
 
         // GET api/<NewsController>
+
+        /* adjust endpoint to handle large requests
+         * always cap, or partition requests that involve getting all rows from db
+         * 
+         * pagination - set limit per page and every subsequent "show more" (ie load 20 every time)
+         */
         [HttpGet]
         public async Task<ActionResult<string>> GetNews()
         {
@@ -31,8 +37,12 @@ namespace HomeView_API.Controllers
         }
 
         // GET api/<NewsController>/id
+        /*
+         * use IActionResult, no need to Serialize, framework will handle return type
+         * Async must be suffix
+         */
         [HttpGet("{id}")]
-        public async Task<ActionResult<string>> GetArticleById(int id)
+        public async Task<IActionResult> GetArticleById(int id)
         {
             var result = await _newsManager.AsyncGetArticleById(id);
             if (result == null)
