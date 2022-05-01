@@ -1,10 +1,10 @@
 ﻿using Features.ActWiki;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Services.Contracts
 {
     public interface IActWikiService
     {
-        bool GetAct(string name);
+        Task<ActWiki> AsyncGetAct(ActWiki actor);
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Services.Contracts;
+﻿using Services.Contracts;
 using Services.Implementations;
 using Managers.Contracts;
 using Features.ActWiki;
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
@@ -16,11 +15,15 @@ namespace Managers.Implementations
             _ActWikiService = new ActWikiService(); 
         }
 
-        public ActWiki GetActor (string name)
+        public async Task<ActWiki> AsyncGetAct ( ActWiki act)
         {
-            ActWiki actor = new ActWiki();
-            actor.actName = name;
-            return actor;
+            if (act == null)
+            {
+                return await _ActWikiService.AsyncGetAct(act);
+            }
+            return null;
+
         }
+        
     }
 }
