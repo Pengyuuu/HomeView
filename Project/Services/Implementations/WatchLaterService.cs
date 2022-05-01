@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Core.Logging;
 using Data;
 using Features.WatchLater;
@@ -121,11 +118,6 @@ namespace Services.Implementations
         public IEnumerable<WatchLaterTitle> GetList(string userEmail)
         {
             return _watchLaterDAO.AsyncGetList(userEmail).Result;
-        }
-
-        List<WatchLaterTitle> IWatchLaterService.GetList(string userEmail)
-        {
-            throw new NotImplementedException();
         }
     }
 }

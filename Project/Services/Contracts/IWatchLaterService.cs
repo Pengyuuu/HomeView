@@ -9,6 +9,6 @@ namespace Services.Contracts
 
         bool RemoveFromList(WatchLaterTitle selectedTitle);
 
-        List<WatchLaterTitle> GetList(string userEmail);
+        IEnumerable<WatchLaterTitle> GetList(string userEmail);
     }
 }
