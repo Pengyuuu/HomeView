@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation'
+import BlacklistButton from '../Features/Blacklist/AccountButton'
 
 //<script src='/Core/Security.js'></script>
 
@@ -11,7 +12,7 @@ export class UserAccount extends Component {
         <div>
             <div className='background-Homeview'></div>
             <Navigation/>
-            <div className='card-center w-50 ;'>
+            <div className='card-center'>
                 <Card>
                     <Card.Body>
                         <h2 className="text-left">Account Details</h2>
@@ -35,6 +36,7 @@ export class UserAccount extends Component {
                     </Card.Body>
                     <h3 className="text-left">Playlist</h3>
                     <Button name="button" href="/Playlist">+</Button>
+                    <BlacklistButton/>
                 </Card>
             </div>
         </div>

@@ -6,7 +6,6 @@ using Managers.Implementations;
 
 namespace HomeView_API.Controllers
 {
-    /*
     [Route("api/[controller]")]
     [ApiController]
     public class BlacklistController : ControllerBase
@@ -18,36 +17,103 @@ namespace HomeView_API.Controllers
             _blacklistManager = blacklistManager;
         }
 
-        // POST blacklist
+        // IActionResult, framework handles return type
+
+        // POST api/<BlacklistController>
         [HttpPost]
-        public async ActionResult<bool> PostBlacklist(string dispName, string blacklistItem)
+        public async Task<IActionResult> Post([FromBody] Blacklist blacklistItem)
         {
-            return new NotImplementedException();
+            if (blacklistItem == null)
+            {
+                return BadRequest("Null value. Could not add to Blacklist.");
+            }
+            else
+            {
+                var res = await _blacklistManager.AddToBlacklistAsync(blacklistItem);
+                if (res.LastOrDefault() == null)
+                {
+                    return NotFound("Could not find Blacklist.");
+                }
+                return Ok("Add " + res.LastOrDefault().blacklistItem + " to Blacklist.");
+            }
         }
-        // DELETE from blacklist
+
+        // DELETE api/<BlacklistController>
         [HttpDelete]
-        public async ActionResult<bool> Delete(string dispName, string blacklistItem)
+        public async Task<IActionResult> Delete([FromBody] Blacklist blacklistItem)
         {
-            return new NotImplementedException();
+            if (blacklistItem == null)
+            {
+                return BadRequest("Null value. Could not remove from Blacklist.");
+            }
+            else
+            {
+                var res = await _blacklistManager.RemoveFromBlacklistAsync(blacklistItem);
+                if (res.LastOrDefault() == null)
+                {
+                    return NotFound("Could not find Blacklist. Or no items in Blacklist.");
+                }
+                return Ok("Removed " + blacklistItem.blacklistItem + " from Blacklist.");
+            }
         }
-        // GET 
-        [HttpGet]
-        public async ActionResult<IEnumerable<string>> GetBlacklist(string dispName)
-        {
-            return new NotImplementedException();
-        }
-        // GET api/<BlacklistController>
-        [HttpGet]
-        public async ActionResult<bool> GetToggle(string dispName)
-        {
 
-        }
-
-        // POST blacklist toggle
-        [HttpPost]
-        public async ActionResult<bool> PostToggle(string dispName, bool userToggle)
+        // GET api/<BlacklistController>/blacklist
+        [HttpGet("blacklist/{selectedUser}")]
+        public async Task<IActionResult> GetBlacklist(Blacklist selectedUser)
         {
-
+            if (selectedUser == null)
+            {
+                return BadRequest("Null value. Could not retrieve Blacklist");
+            }
+            else
+            {
+                var res = await _blacklistManager.GetBlacklistAsync(selectedUser);
+                if (res.LastOrDefault() == null)
+                {
+                    return NotFound("Could not find Blacklist. Or no items in Blacklist.");
+                }
+                return Ok(res);
+            }
         }
-    }*/
+        // GET api/<BlacklistController>/toggle
+        [HttpGet("toggle/{selectedUser}")]
+        public async Task<IActionResult> GetToggle(Blacklist selectedUser)
+        {
+            if (selectedUser == null)
+            {
+                return BadRequest("Null value.");
+            }
+            else
+            {
+                var res = await _blacklistManager.GetBlacklistToggleAsync(selectedUser);
+                if (res == null)
+                {
+                    return NotFound("Unable to find user.");
+                }
+                return Ok(res);
+            }
+        }
+
+        // PUT api/<BlacklistController>
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Blacklist selectedUser)
+        {
+            if (selectedUser == null)
+            {
+                return BadRequest("Null value.");
+            }
+            else
+            {
+                var res = await _blacklistManager.UpdateToggleBlacklistAsync(selectedUser);
+                if (res == null)
+                {
+                    return NotFound("Unable to find user.");
+                }
+                return Ok(res);
+            }
+        }
+        
+        
+        
+    }
 }

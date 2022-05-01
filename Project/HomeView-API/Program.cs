@@ -27,6 +27,7 @@ builder.Services.AddSwaggerGen();
  * use scoped for transactions
  */
 builder.Services.AddTransient<INewsManager, NewsManager>();
+builder.Services.AddTransient<IBlacklistManager, BlacklistManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

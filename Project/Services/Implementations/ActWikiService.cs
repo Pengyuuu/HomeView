@@ -2,6 +2,7 @@
 using Services.Contracts;
 using Data;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
@@ -14,12 +15,12 @@ namespace Services.Implementations
             SqlDataAccess db = new SqlDataAccess();
             _ActWikiDao = new ActWikiDao(db);
         }
-        
-        public bool GetAct(string name)
-        {
 
-            //fetchActor =
-            return false;
+        public async Task<ActWiki>AsyncGetAct(ActWiki act)
+        {
+            var found = await _ActWikiDao.AsyncGetAct(act);
+            return null;
+
         }
     }
 

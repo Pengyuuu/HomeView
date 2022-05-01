@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-﻿using Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Data;
+
 
 namespace Features.ActWiki
 {
@@ -18,34 +14,20 @@ namespace Features.ActWiki
             _db = db;
         }
 
-        public async Task<bool> AsyncGetActorInfo ( ActWiki actor )
+        public async Task<int> AsyncGetAct ( ActWiki act )
         {
-            /* Commenting out so I can build 
-            var searchActor = new
-
-            
-            var newActor = new
+            var searchAct = new
 
             {
-                actName = actor.actName,
-                actBirth = actor.actBirth,
-                actGender = actor.actGender,
-
-
+                ActName = act.ActName,
+                ActBirth = act.ActBirth,
+                ActGender = act.ActGender,
+                ActBio = act.ActBio,
+              
             };
-            try
-            {
-                await _db.SaveData("dbo.SearchActor", searchActor);
-                return true;
-            }
-            catch 
-            {
-                return false;
-            }
-        
 
-            };*/
-            return false;
+            return await _db.SaveData("dbo.ActSearched", searchAct);
+
 
         }
     }
