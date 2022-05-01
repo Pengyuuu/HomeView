@@ -21,35 +21,17 @@ namespace Features.ActWiki
             _db = db;
         }
 
-        public async Task<bool> AsyncGetActorInfo ( ActWiki actor )
+        public async Task<int> AsyncGetActorInfo ( ActWiki actor )
         {
-<<<<<<< HEAD
             var searchActor = new
-=======
-            /* Commenting out so I can build 
-            var newActor = new
->>>>>>> 5fe1b6b8fa68adc322adea14f5088bcf1b114003
             {
                 actName = actor.actName,
                 actBirth = actor.actBirth,
                 actGender = actor.actGender,
-
-<<<<<<< HEAD
             };
-            try
-            {
-                await _db.SaveData("dbo.SearchActor", searchActor);
-                return true;
-            }
-            catch 
-            {
-                return false;
-            }
-        
-=======
-            };*/
-            return false;
->>>>>>> 5fe1b6b8fa68adc322adea14f5088bcf1b114003
+
+            return await _db.SaveData("dbo.ActorSearched", searchActor);
+
         }
     }
 }

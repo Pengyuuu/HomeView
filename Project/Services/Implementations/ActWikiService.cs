@@ -17,7 +17,7 @@ namespace Services.Implementations
         
         public bool GetAct(string name)
         {
-            fetchActor =
+            fetchActor = ActWikiDao.AsyncGetActorInfo(name);
         }
     }
 
