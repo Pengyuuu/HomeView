@@ -47,7 +47,6 @@ import './../../css/movietile.css';
                 {movies.length > 0 && movies.map((movie) =>(
                     <MovieTile key={movie.tmdbID} {...movie} />            
                 ))}
-                {GenreList()}
             </div>
         );
     }

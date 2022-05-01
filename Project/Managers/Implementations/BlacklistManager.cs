@@ -20,6 +20,7 @@ namespace Managers.Implementations
             _loggingManager = new LoggingManager();
         }
 
+        // check if blacklistItem or dispName is null
         public bool IsNull(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -28,6 +29,8 @@ namespace Managers.Implementations
             }
             return false;
         }
+
+        // check if dispName and blacklistItem is null
         public bool IsNull(string dispName, string blacklistItem)
         {
             if (string.IsNullOrWhiteSpace(dispName) && string.IsNullOrWhiteSpace(blacklistItem))
@@ -39,14 +42,13 @@ namespace Managers.Implementations
 
         public bool AddToBlacklist(string dispName, string blacklistItem)
         {
-            Console.WriteLine("manager add to blacklist");
             if (IsNull(dispName, blacklistItem))
             {
                 return false;
             }
 
-            Blacklist AddItem = new Blacklist(dispName, blacklistItem);
-            return (_blacklistService.AddToBlacklist(AddItem));
+            Blacklist addItem = new Blacklist(dispName, blacklistItem);
+            return (_blacklistService.AddToBlacklist(addItem));
         }
 
         public IEnumerable<string> GetBlacklist(string dispName)
@@ -55,18 +57,14 @@ namespace Managers.Implementations
             {
                 return null;
             }
-            Blacklist GetList = new Blacklist(dispName);
-            return (_blacklistService.GetBlacklist(GetList));
+            Blacklist getList = new Blacklist(dispName);
+            return (_blacklistService.GetBlacklist(getList));
         }
 
-        public bool? GetBlacklistToggle(string dispName)
+        public bool GetBlacklistToggle(string dispName)
         {
-            if (IsNull(dispName))
-            {
-                return null;
-            }
-            Blacklist GetToggle = new Blacklist(dispName);
-            var result = _blacklistService.GetBlacklistToggle(GetToggle);
+            Blacklist getToggle = new Blacklist(dispName);
+            var result = _blacklistService.GetBlacklistToggle(getToggle);
 
             return result;
         }
@@ -77,8 +75,8 @@ namespace Managers.Implementations
             {
                 return false;
             }
-            Blacklist RemoveItem = new Blacklist(dispName, blacklistItem);
-            return _blacklistService.RemoveFromBlacklist(RemoveItem);
+            Blacklist removeItem = new Blacklist(dispName, blacklistItem);
+            return _blacklistService.RemoveFromBlacklist(removeItem);
         }
 
         public bool ToggleBlacklist(string dispName, bool blacklistToggle)
@@ -87,8 +85,8 @@ namespace Managers.Implementations
             {
                 return false;
             }
-            Blacklist Toggle = new Blacklist(dispName, blacklistToggle);
-            return _blacklistService.UpdateToggleBlacklist(Toggle);
+            Blacklist toggleUser = new Blacklist(dispName, blacklistToggle);
+            return _blacklistService.UpdateToggleBlacklist(toggleUser);
         }
     }
 }

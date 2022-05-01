@@ -9,6 +9,6 @@ namespace Services.Contracts
         bool RemoveFromBlacklist(Blacklist blacklistItem);
         IEnumerable<string> GetBlacklist(Blacklist selectedUser);
         bool UpdateToggleBlacklist(Blacklist selectedUser);
-        bool? GetBlacklistToggle(Blacklist selectedUser);
+        bool GetBlacklistToggle(Blacklist selectedUser);
     }
 }

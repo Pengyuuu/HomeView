@@ -42,7 +42,7 @@ namespace Test
         [Fact]
         public void BlacklistManager_GetBlacklistShouldReturnBlacklist()
         {
-            IEnumerable<string> actual = blacklistManager.GetBlacklist("HankHill@yahoo.com");
+            IEnumerable<string> actual = blacklistManager.GetBlacklist("mWallace@pulp.com");
             Assert.True(actual.Any());
         }
 
@@ -50,7 +50,9 @@ namespace Test
         public void BlacklistManager_RemoveFromBlacklistShouldRemoveFromBlacklist()
         {
             bool expected = true;
-            bool actual = blacklistManager.RemoveFromBlacklist("HankHill@yahoo.com", "getlist2");
+
+            blacklistManager.AddToBlacklist("mWallace@pulp.com", "getlist4");
+            bool actual = blacklistManager.RemoveFromBlacklist("mWallace@pulp.com", "getlist4");
 
             Assert.Equal(expected, actual);
         }
@@ -59,7 +61,9 @@ namespace Test
         public void BlacklistManager_ToggleBlacklistShouldToggleBlacklist()
         {
             bool expected = true;
-            bool actual = blacklistManager.ToggleBlacklist("mWallace@pulp.com", true);
+
+            bool getToggle = blacklistManager.GetBlacklistToggle("mWallace@yahoo.com");
+            bool actual = blacklistManager.ToggleBlacklist("mWallace@pulp.com", !getToggle);
 
             Assert.Equal(expected, actual);
         }
@@ -67,8 +71,10 @@ namespace Test
         [Fact]
         public void BlacklistManager_GetBlacklistToggleShouldToggleBlacklist()
         {
-            bool? expected = false;
-            bool? actual = blacklistManager.GetBlacklistToggle("HankHill@yahoo.com");
+            bool expected = false;
+            blacklistManager.ToggleBlacklist("mWallace@pulp.com", false);
+
+            bool actual = blacklistManager.GetBlacklistToggle("mWallace@yahoo.com");
 
             Assert.Equal(expected, actual);
 
