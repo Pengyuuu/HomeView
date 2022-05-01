@@ -17,36 +17,103 @@ namespace HomeView_API.Controllers
             _blacklistManager = blacklistManager;
         }
 
-        // POST blacklist
-        [HttpPost]
-        public async ActionResult<bool> PostBlacklist(string dispName, string blacklistItem)
-        {
+        // IActionResult, framework handles return type
 
+        // POST api/<BlacklistController>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Blacklist blacklistItem)
+        {
+            if (blacklistItem == null)
+            {
+                return BadRequest("Null value. Could not add to Blacklist.");
+            }
+            else
+            {
+                var res = await _blacklistManager.AddToBlacklistAsync(blacklistItem);
+                if (res.LastOrDefault() == null)
+                {
+                    return NotFound("Could not find Blacklist.");
+                }
+                    return Ok("Add " + res.LastOrDefault().blacklistItem + " to Blacklist.");
+            }
         }
-        // DELETE from blacklist
+        
+        // DELETE api/<BlacklistController>
         [HttpDelete]
-        public async ActionResult<bool> Delete(string dispName, string blacklistItem)
+        public async Task<IActionResult> Delete([FromBody] Blacklist blacklistItem)
         {
-
+            if (blacklistItem == null)
+            {
+                return BadRequest("Null value. Could not remove from Blacklist.");
+            }
+            else
+            {
+                var res = await _blacklistManager.RemoveFromBlacklistAsync(blacklistItem);
+                if (res.LastOrDefault() == null)
+                {
+                    return NotFound("Could not find Blacklist. Or no items in Blacklist.");
+                }
+                return Ok("Removed " + blacklistItem.blacklistItem + " from Blacklist.");
+            }
         }
-        // GET 
-        [HttpGet]
-        public async ActionResult<IEnumerable<string>> GetBlacklist(string dispName)
+        
+        // GET api/<BlacklistController>/blacklist
+        [HttpGet("blacklist")]
+        public async Task<IActionResult> GetBlacklist([FromBody] Blacklist selectedUser)
         {
-
+            if (selectedUser == null)
+            {
+                return BadRequest("Null value. Could not retrieve Blacklist");
+            }
+            else
+            {
+                var res = await _blacklistManager.GetBlacklistAsync(selectedUser);
+                if (res.LastOrDefault() == null)
+                {
+                    return NotFound("Could not find Blacklist. Or no items in Blacklist.");
+                }
+                return Ok(res);
+            }
         }
-        // GET api/<BlacklistController>
-        [HttpGet]
-        public async ActionResult<bool> GetToggle(string dispName)
+        // GET api/<BlacklistController>/toggle
+        [HttpGet("toggle")]
+        public async Task<IActionResult> GetToggle([FromBody] Blacklist selectedUser)
         {
-
+            if (selectedUser == null)
+            {
+                return BadRequest("Null value.");
+            }
+            else
+            {
+                var res = await _blacklistManager.GetBlacklistToggleAsync(selectedUser);
+                if (res == null)
+                {
+                    return NotFound("Unable to find user.");
+                }
+                return Ok(res);
+            }
         }
 
-        // POST blacklist toggle
-        [HttpPost]
-        public async ActionResult<bool> PostToggle(string dispName, bool userToggle)
+        // PUT api/<BlacklistController>
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Blacklist selectedUser)
         {
-
+            if (selectedUser == null)
+            {
+                return BadRequest("Null value.");
+            }
+            else
+            {
+                var res = await _blacklistManager.UpdateToggleBlacklistAsync(selectedUser);
+                if (res == null)
+                {
+                    return NotFound("Unable to find user.");
+                }
+                return Ok(res);
+            }
         }
+        
+        
+        
     }
 }

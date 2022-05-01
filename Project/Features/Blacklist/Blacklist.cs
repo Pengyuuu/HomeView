@@ -26,6 +26,7 @@ namespace Features.Blacklist
             this.dispName=dispName;
         }
 
+        public Blacklist() { }
     }
 
 

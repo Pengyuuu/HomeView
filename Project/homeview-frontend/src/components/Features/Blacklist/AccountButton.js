@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import {Button, Modal} from 'react-bootstrap'
 
-function ModalButton({items}) {
-
+function AccountButton() {
     const [show, setShow] = useState(false);
-    const [item, setItem] = useState();
 
     const handleClose = () => {
         setShow(false);
@@ -12,23 +10,20 @@ function ModalButton({items}) {
     const handleShow = () => {
         setShow(true);
     };
-
-    console.log(items)
     return(
         <>
-        {items.length > 0 && items.map((item) => 
-        <Button key = {item}  onClick={handleShow}>
-            {item}
-        </Button>)}
+        <Button onClick={handleShow}>
+            Show Blacklist
+        </Button>
         
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title id = "contained-modal-title-vcenter">
-                    Blacklist
+                    Your Blacklist
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Button>Add to Blacklist</Button>
+                Lists of Blacklists here
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
@@ -37,9 +32,7 @@ function ModalButton({items}) {
             </Modal.Footer>
         </Modal>
         </>
-
-
-    );
+    )
 }
-//<p>Genres: {genres.map((genre) => <Button>{genre}</Button>)}</p>
-export default ModalButton;
+
+export default AccountButton
