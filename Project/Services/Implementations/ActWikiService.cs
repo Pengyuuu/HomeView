@@ -19,7 +19,7 @@ namespace Services.Implementations
         public async Task<ActWiki>AsyncGetAct(ActWiki act)
         {
             var found = await _ActWikiDao.AsyncGetAct(act);
- 
+            return null;
 
         }
     }

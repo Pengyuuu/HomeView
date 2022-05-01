@@ -21,7 +21,7 @@ namespace HomeView_API.Controllers
 
         // POST api/<BlacklistController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Blacklist blacklistItem)
+        public async Task<IActionResult> Post([FromBody] Blacklist blacklistItem)
         {
             if (blacklistItem == null)
             {
@@ -34,10 +34,10 @@ namespace HomeView_API.Controllers
                 {
                     return NotFound("Could not find Blacklist.");
                 }
-                    return Ok("Add " + res.LastOrDefault().blacklistItem + " to Blacklist.");
+                return Ok("Add " + res.LastOrDefault().blacklistItem + " to Blacklist.");
             }
         }
-        
+
         // DELETE api/<BlacklistController>
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] Blacklist blacklistItem)
@@ -56,10 +56,10 @@ namespace HomeView_API.Controllers
                 return Ok("Removed " + blacklistItem.blacklistItem + " from Blacklist.");
             }
         }
-        
+
         // GET api/<BlacklistController>/blacklist
-        [HttpGet("blacklist")]
-        public async Task<IActionResult> GetBlacklist([FromBody] Blacklist selectedUser)
+        [HttpGet("blacklist/{selectedUser}")]
+        public async Task<IActionResult> GetBlacklist(Blacklist selectedUser)
         {
             if (selectedUser == null)
             {
@@ -76,8 +76,8 @@ namespace HomeView_API.Controllers
             }
         }
         // GET api/<BlacklistController>/toggle
-        [HttpGet("toggle")]
-        public async Task<IActionResult> GetToggle([FromBody] Blacklist selectedUser)
+        [HttpGet("toggle/{selectedUser}")]
+        public async Task<IActionResult> GetToggle(Blacklist selectedUser)
         {
             if (selectedUser == null)
             {
