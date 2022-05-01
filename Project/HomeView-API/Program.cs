@@ -1,5 +1,3 @@
-using Services.Implementations;
-//using System.Configuration;
 using Managers.Implementations;
 using Managers.Contracts;
 using System.Net.Http.Headers;
@@ -22,6 +20,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+/* Insert customer services here */
+/* User Transient -> new manager for every call 
+ * transient v scoped (once per chain call)
+ * use scoped for transactions
+ */
+builder.Services.AddTransient<INewsManager, NewsManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,8 +43,8 @@ if (app.Environment.IsProduction())
     app.UseSwaggerUI();
 }
 
-app.UseCors(homeViewClient);
 app.UseRouting();
+app.UseCors(homeViewClient);
 app.UseAuthorization();
 app.MapControllers();
 

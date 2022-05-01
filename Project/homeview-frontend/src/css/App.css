@@ -2,8 +2,9 @@
     background-image: url(../css/images/homeview.png);
     display: flex;
     flex-direction: column;
-    background-repeat: repeat-y;
     background-size: cover;
+    min-height: 100vh;
+    background-attachment:fixed;
 }
 .logo {
     color: white;
@@ -39,27 +40,8 @@
     color:white;
 }
 
-
-
-.navbar-container {
-    font-size: 20px;
-    font-family: 'Century Gothic';
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 .color-style {
     color: black;
-}
-
-.top {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
 }
 
 .title-container {

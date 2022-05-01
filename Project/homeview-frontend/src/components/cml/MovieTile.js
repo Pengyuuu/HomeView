@@ -3,6 +3,7 @@ import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
 import  ReviewSection  from './../Features/TitlePage/ReviewSection'
 //import  ReviewItem  from './../Features/TitlePage/ReviewItem'
+import BlacklistButton from './../Features/Blacklist/ModalButton'
 
 import axios from 'axios';
 import GenreList from './MovieList'
@@ -86,8 +87,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 <p>Year: {year}</p>
                 <p>Rating: {imdbRating}</p>
                 <p>Streaming Service: {Object.keys((streamingInfo))}</p>
-                <p>Genres: {genres}</p>
-                        <p>Actors: {cast}</p>
+                <p>Genres: <BlacklistButton items = {genres}/></p>
+                        <p>Actors: <BlacklistButton items = {cast}/></p>
                 </div>
                     <ReviewSection average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show}/>
 
@@ -101,8 +102,6 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     </>
     )
 }
-
-
 
 
 export default Movie;

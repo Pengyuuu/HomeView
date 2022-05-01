@@ -4,39 +4,70 @@ using Data;
 
 namespace Features.Blacklist
 {
+    // CRUD for Blacklist
     public class BlacklistDAO
     {
+        // SQLDataAccessObject, standardizes the use of stored procedures
         private readonly SqlDataAccess _db;
 
+        // Constructor, pass SQLDataAccess
         public BlacklistDAO(SqlDataAccess db)
         {
             _db = db;
         }
 
-        public async Task<int> AsyncAddToBlacklist(string blacklistItem)
+        // returns int number of rows effected (pass = 1)
+        public async Task<int> AsyncAddToBlacklist(Blacklist blacklistItem)
         {
-            return await _db.SaveData("dbo.Blacklist_AddItem", blacklistItem);
-
+            // get parameters from blacklistItem
+            var blacklistReq = new
+            {
+                dispName = blacklistItem.dispName,
+                blacklistItem = blacklistItem.blacklistItem,
+            };
+            return await _db.SaveData("dbo.Blacklist_AddItem", blacklistReq);
         }
 
-        public async Task<int> AsyncRemoveFromBlacklist(string blacklistItem)
+        // returns int number of rows effected (pass = 1)
+        public async Task<int> AsyncRemoveFromBlacklist(Blacklist blacklistItem)
         {
-            return await _db.SaveData("dbo.Blacklist_RemoveItem", blacklistItem);
+            var blacklistReq = new
+            {
+                dispName = blacklistItem.dispName,
+                blacklistItem = blacklistItem.blacklistItem,
+            };
+            return await _db.SaveData("dbo.Blacklist_RemoveItem", blacklistReq);
         }
 
-        public async Task<IEnumerable<string>> AsyncGetBlacklist(string dispName)
+        // returns string list of a users blacklist items
+        public async Task<IEnumerable<string>> AsyncGetBlacklist(Blacklist blacklistItem)
         {
-            return await _db.LoadData<string, dynamic>("dbo.Blacklist_ReadList", dispName);
+            var blacklistReq = new
+            {
+                dispName = blacklistItem.dispName,
+            };
+            return await _db.LoadData<string, dynamic>("dbo.Blacklist_ReadList", blacklistReq);
         }
 
-        public async Task<int> AsyncToggleBlacklist(bool toggle)
+        // returns int number of rows effected (pass = 1)
+        public async Task<int> AsyncUpdateToggleBlacklist(Blacklist selectedUser)
         {
-            return await _db.SaveData("dbo.Blacklist_UpdateToggle", toggle);
+            var blacklistReq = new
+            {
+                dispName = selectedUser.dispName,
+                blacklistToggle = selectedUser.blacklistToggle,
+            };
+            return await _db.SaveData("dbo.Blacklist_UpdateToggle", blacklistReq);
         }
 
-        public async Task<int> AsyncGetBlacklistToggle(string dispName)
+        // returns bool, the users current toggle setting (either on or off)
+        public async Task<IEnumerable<bool>> AsyncGetBlacklistToggle(Blacklist selectedUser)
         {
-            return await _db.SaveData("dbo.Blacklist_ReadToggle", dispName);
+            var blacklistReq = new
+            {
+                dispName = selectedUser.dispName,
+            };
+            return await _db.LoadData<bool, dynamic>("dbo.Blacklist_ReadToggle", blacklistReq);
         }
     }
 

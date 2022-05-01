@@ -8,6 +8,10 @@
 
 }
 
+.pop-container {
+    margin-left: 40px;
+    margin-right: 40px;
+}
 .p-series img{
     object-fit: contain;
     width: 100%;
