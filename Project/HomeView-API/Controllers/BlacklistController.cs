@@ -6,6 +6,7 @@ using Managers.Implementations;
 
 namespace HomeView_API.Controllers
 {
+    /*
     [Route("api/[controller]")]
     [ApiController]
     public class BlacklistController : ControllerBase
@@ -21,19 +22,19 @@ namespace HomeView_API.Controllers
         [HttpPost]
         public async ActionResult<bool> PostBlacklist(string dispName, string blacklistItem)
         {
-
+            return new NotImplementedException();
         }
         // DELETE from blacklist
         [HttpDelete]
         public async ActionResult<bool> Delete(string dispName, string blacklistItem)
         {
-
+            return new NotImplementedException();
         }
         // GET 
         [HttpGet]
         public async ActionResult<IEnumerable<string>> GetBlacklist(string dispName)
         {
-
+            return new NotImplementedException();
         }
         // GET api/<BlacklistController>
         [HttpGet]
@@ -48,5 +49,5 @@ namespace HomeView_API.Controllers
         {
 
         }
-    }
+    }*/
 }
