@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Features.WatchLater;
 using Xunit;
@@ -29,6 +28,24 @@ namespace WatchLaterTest
             bool actual = watchLaterManager.AddToWatchLater("testing@gmail.com", "Tenet", "2020");
 
             Assert.Equal(!expected, actual);
+        }
+
+        [Fact]
+        public void WatchLater_RemoveFromListSuccessful()
+        {
+            bool expected = true;
+
+            bool actual = watchLaterManager.RemoveFromList("testing@gmail.com", "Tenet", "2020");
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void WatchLater_GetListSuccessful()
+        {
+            List<WatchLaterTitle> result = watchLaterManager.GetList("testing@gmail.com");
+
+            Assert.True(result.Any());
         }
     }
 }

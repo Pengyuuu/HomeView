@@ -55,7 +55,7 @@ namespace Managers.Implementations
 
         public List<WatchLaterTitle> GetList(string userEmail)
         {
-            return _watchLaterService.GetList(userEmail);
+            return (List<WatchLaterTitle>) _watchLaterService.GetList(userEmail);
         }
     }
 }
