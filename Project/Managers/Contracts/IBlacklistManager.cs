@@ -11,7 +11,7 @@ namespace Managers.Contracts
         bool RemoveFromBlacklist (string dispName, string blacklistItem);
         IEnumerable<string> GetBlacklist (string dispName);
         bool ToggleBlacklist(string dispName, bool blacklistToggle);
-        bool? GetBlacklistToggle (string dispName);
+        bool GetBlacklistToggle (string dispName);
 
     }
 }
