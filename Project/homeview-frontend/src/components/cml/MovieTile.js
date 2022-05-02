@@ -62,7 +62,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     };
 
    
-
+    // use blacklistbutton/modalbutton func to make genres and cast buttons
     return (
     <>
         <div className='movie' onClick={handleShow}>
@@ -102,7 +102,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     </>
     )
 
-    
+
 }
 
 

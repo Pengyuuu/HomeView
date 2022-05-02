@@ -12,8 +12,8 @@ namespace Managers.Implementations
     public class BlacklistManager : IBlacklistManager
     {
 
-        private IBlacklistService _blacklistService;
-        private ILoggingManager _loggingManager;
+        private readonly IBlacklistService _blacklistService;
+        private readonly ILoggingManager _loggingManager;
 
         public BlacklistManager()
         {
@@ -21,7 +21,7 @@ namespace Managers.Implementations
             _loggingManager = new LoggingManager();
         }
 
-        // add logs
+        // check if list null, false return null, true return list
         public async Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem)
         {
             if (blacklistItem == null)
@@ -31,6 +31,8 @@ namespace Managers.Implementations
             return await _blacklistService.AddToBlacklistAsync(blacklistItem);
             
         }
+
+        // check if list null, false return null, true return list
         public async Task<IEnumerable<Blacklist>> RemoveFromBlacklistAsync(Blacklist blacklistItem)
         {
             if (blacklistItem == null)
@@ -41,6 +43,7 @@ namespace Managers.Implementations
 
         }
 
+        // check null, false return null, true return list
         public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
             // check string null/empty
@@ -51,6 +54,8 @@ namespace Managers.Implementations
             return await _blacklistService.GetBlacklistAsync(selectedUser);
             
         }
+
+        // check null, false return null, true return blacklist obj
         public async Task<Blacklist> UpdateToggleBlacklistAsync(Blacklist selectedUser)
         {
             if (selectedUser == null)
@@ -61,6 +66,7 @@ namespace Managers.Implementations
 
         }
 
+        // check null, false return null, true return blacklist obj
         public async Task<Blacklist> GetBlacklistToggleAsync(string selectedUser)
         {
             // check string null/empty

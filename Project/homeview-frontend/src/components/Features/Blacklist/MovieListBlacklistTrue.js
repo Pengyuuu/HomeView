@@ -37,9 +37,13 @@ import'./../../../css/movietile.css';
         headers: { }
     };
 
+    // if blacklist toggle is true, render this
     function MovieList() {
         const [ movies, setMovies ] = useState([]);
         const [items, setItems] = useState([])
+
+        const blacklist = []
+        const bItems = []
 
         useEffect(() => {
             
@@ -61,13 +65,11 @@ import'./../../../css/movietile.css';
             });
 
         }, []);
-            //console.log(items)
-           // items.map((item) => (
-             //   console.log(item) ))
-//array1.filter(element => array2.includes(element));
         
-        const blacklist = []
-        const bItems = []
+        /**
+         * items = blackist data fetched, list of blacklists containing dispName, blacklistItem, toggle
+         * for each item in items, get item's blacklistItem and push to bItem arr
+         */
         items.forEach((item) => (
             bItems.push(item.blacklistItem)
         ))
@@ -107,11 +109,16 @@ import'./../../../css/movietile.css';
                 }}
             )       
         ))  
-        // array1.filter(element => array2.includes(element));
-        //console.log(blacklist)      
+        //console.log(blacklist)
+        /**
+         * checks every element in movie w/ every element in blacklist
+         * and filters out any matching elements
+         * so finalList should only have elements not in blacklist arr
+         */      
         const finalList = movies.filter(element => ! blacklist.includes(element));
         //console.log(finalList)
         
+        // use effect clears state, was getting memory leak before
         useEffect(() => {
             return () => {
                 {setMovies({})}

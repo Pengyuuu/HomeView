@@ -12,18 +12,20 @@ namespace Services.Implementations
 {
     public class BlacklistService : IBlacklistService
     {
-        private BlacklistDAO _bDAO;
-        private ILoggingService _loggingService;
+        private readonly BlacklistDAO _bDAO;
+        private readonly ILoggingService _loggingService;
+        private readonly SqlDataAccess _db;
+
 
         public BlacklistService()
         {
-            SqlDataAccess db = new SqlDataAccess();
-            _bDAO = new BlacklistDAO(db);
+            _db = new SqlDataAccess();
+            _bDAO = new BlacklistDAO(_db);
             _loggingService = new LoggingService();
         }
 
         // return what was added
-        // return true if rowsEffected = 1, else return false
+        // return list if rowsEffected = 1, else return null
         // add logs
         public async Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem)
         {
@@ -37,7 +39,7 @@ namespace Services.Implementations
             return res;
         }
 
-        // return true if rowsEffected = 1, else return false
+        // return updated list if rowsEffected = 1, else return null
         public async Task<IEnumerable<Blacklist>> RemoveFromBlacklistAsync(Blacklist blacklistItem)
         {
             int rowsEffected = await _bDAO.RemoveFromBlacklistAsync(blacklistItem);
@@ -49,15 +51,14 @@ namespace Services.Implementations
             return res;
         }
 
-        // return what was deleted
-        // return true if successfully fetched from db and contains anything, else return null
+        // return list of blacklist from user
         public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
             return await _bDAO.GetBlacklistAsync(selectedUser);
         }
 
-        // return update
-        // return true if rowsEffected = 1, else return false
+        
+        // return toggle if rowsEffected = 1, else return null
         public async Task<Blacklist> UpdateToggleBlacklistAsync(Blacklist selectedUser)
         {
             int rowsEffected = await _bDAO.UpdateToggleBlacklistAsync(selectedUser);
@@ -66,7 +67,7 @@ namespace Services.Implementations
                 return null;
             }
             var res = await _bDAO.GetBlacklistToggleAsync(selectedUser.dispName);
-            // Should only be one blacklist obj here
+            // only be one blacklist obj here
             return res.FirstOrDefault();
         }
 
@@ -74,6 +75,7 @@ namespace Services.Implementations
         public async Task<Blacklist> GetBlacklistToggleAsync(string selectedUser)
         {
             var res = await _bDAO.GetBlacklistToggleAsync(selectedUser);
+            // only be one obj here
             return res.FirstOrDefault();
 
         }

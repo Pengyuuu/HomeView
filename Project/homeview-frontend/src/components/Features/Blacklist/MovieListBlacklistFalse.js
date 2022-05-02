@@ -28,6 +28,7 @@ import'./../../../css/movietile.css';
         }
       };  
 
+    // if blacklist toggle is false, render this (all movies)
     function MovieList() {
         const [ movies, setMovies ] = useState([]);
 
@@ -44,6 +45,7 @@ import'./../../../css/movietile.css';
             
         }, []);
 
+        // use effect clears state, was getting memory leak before
         return (
             <div className='movie-container'>
                 {movies.length > 0 && movies.map((movie) => (

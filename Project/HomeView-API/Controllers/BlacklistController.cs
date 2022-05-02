@@ -57,7 +57,7 @@ namespace HomeView_API.Controllers
             }
         }
 
-        // GET api/<BlacklistController>/blacklist
+        // GET api/<BlacklistController>
         [HttpGet]
         public async Task<IActionResult> GetBlacklist([FromQuery] string selectedUser)
         {
