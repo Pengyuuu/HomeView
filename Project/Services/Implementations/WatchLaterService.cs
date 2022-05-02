@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Core.Logging;
 using Data;
 using Features.WatchLater;
@@ -26,6 +23,28 @@ namespace Services.Implementations
 
         public bool AddToWatchLater(WatchLaterTitle selectedTitle)
         {
+            var isDuplicate = (List<WatchLaterTitle>) GetList(selectedTitle.Email);
+
+            if (isDuplicate.Count > 0)
+            {
+                foreach (var item in isDuplicate)
+                {
+                    if (item.Title == selectedTitle.Title && item.Year == selectedTitle.Year)
+                    {
+                        Log info = new Log
+                        {
+                            Description = $"{selectedTitle.Title} ({selectedTitle.Year}) is already in {selectedTitle.Email}'s WatchLater",
+                            Level = LogLevel.Info,
+                            Category = LogCategory.Data,
+                            timeStamp = DateTime.UtcNow
+                        };
+
+                        _logging.LogData(info);
+
+                        return false;
+                    }
+                }
+            }
             var result = _watchLaterDAO.AsyncAddToWatchLater(selectedTitle).Result;
 
             if (result == 0)
@@ -121,11 +140,6 @@ namespace Services.Implementations
         public IEnumerable<WatchLaterTitle> GetList(string userEmail)
         {
             return _watchLaterDAO.AsyncGetList(userEmail).Result;
-        }
-
-        List<WatchLaterTitle> IWatchLaterService.GetList(string userEmail)
-        {
-            throw new NotImplementedException();
         }
     }
 }

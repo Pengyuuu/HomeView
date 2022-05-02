@@ -5,6 +5,7 @@ using Features.Blacklist;
 using Services.Contracts;
 using Core.Logging;
 using Data;
+using System.Threading.Tasks;
 
 
 namespace Services.Implementations
@@ -21,125 +22,60 @@ namespace Services.Implementations
             _loggingService = new LoggingService();
         }
 
+        // return what was added
         // return true if rowsEffected = 1, else return false
-        public bool AddToBlacklist(Blacklist blacklistItem)
+        // add logs
+        public async Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem)
         {
-            try
+            int rowsEffected = await _bDAO.AddToBlacklistAsync(blacklistItem);
+            if (rowsEffected != 1)
             {
-                int rowsEffected = _bDAO.AsyncAddToBlacklist(blacklistItem).Result;
-
-                if (rowsEffected == 1)
-                {
-                    Log blacklistLogTrue = new("One row effected in AddToBlackList.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(blacklistLogTrue);
-                    return true;
-                }
-                if (rowsEffected == 0 || rowsEffected > 1)
-                {
-                    Log blacklistLogFalse = new(rowsEffected + " rows effected in AddToBlacklist.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(blacklistLogFalse);
-                }
-                return false;
+                return null;
             }
-            catch
-            {
-                Log blacklistLogFalse = new("Cannot add blacklist item to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(blacklistLogFalse);
 
-                return false;
-            }
+            var res = await _bDAO.GetBlacklistAsync(blacklistItem.dispName);
+            return res;
         }
 
+        // return true if rowsEffected = 1, else return false
+        public async Task<IEnumerable<Blacklist>> RemoveFromBlacklistAsync(Blacklist blacklistItem)
+        {
+            int rowsEffected = await _bDAO.RemoveFromBlacklistAsync(blacklistItem);
+            if (rowsEffected != 1)
+            {
+                return null;
+            }
+            var res = await _bDAO.GetBlacklistAsync(blacklistItem.dispName);
+            return res;
+        }
+
+        // return what was deleted
         // return true if successfully fetched from db and contains anything, else return null
-        public IEnumerable<string> GetBlacklist(Blacklist selectedUser)
+        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
-            IEnumerable<string> fetchBlacklist = Enumerable.Empty<string>();
-            try
-            {
-                fetchBlacklist = _bDAO.AsyncGetBlacklist(selectedUser).Result;
-
-                Log blacklistLogTrue = new("Successfully fetched backlist from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(blacklistLogTrue);
-
-                if (fetchBlacklist.Any())
-                {
-                    return fetchBlacklist;
-                }
-                return null;
-            }
-            catch
-            {
-                Log blacklistLogFalse = new("Cannot fetch blacklist from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(blacklistLogFalse);
-
-                return null;
-            }
+            return await _bDAO.GetBlacklistAsync(selectedUser);
         }
+
+        // return update
+        // return true if rowsEffected = 1, else return false
+        public async Task<Blacklist> UpdateToggleBlacklistAsync(Blacklist selectedUser)
+        {
+            int rowsEffected = await _bDAO.UpdateToggleBlacklistAsync(selectedUser);
+            if (rowsEffected != 1)
+            {
+                return null;
+            }
+            var res = await _bDAO.GetBlacklistToggleAsync(selectedUser.dispName);
+            // Should only be one blacklist obj here
+            return res.FirstOrDefault();
+        }
+
         // return user's blacklist toggle option (true/false or on/off)
-        public bool GetBlacklistToggle(Blacklist selectedUser)
+        public async Task<Blacklist> GetBlacklistToggleAsync(string selectedUser)
         {
-            return _bDAO.AsyncGetBlacklistToggle(selectedUser).Result.FirstOrDefault();
+            var res = await _bDAO.GetBlacklistToggleAsync(selectedUser);
+            return res.FirstOrDefault();
 
-
-            Log blacklistLogTrue = new("Successfully fetched blacklist toggle from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(blacklistLogTrue);
-
-        }
-        // return true if rowsEffected = 1, else return false
-        public bool RemoveFromBlacklist(Blacklist blacklistItem)
-        {
-            try
-            {
-                int rowsEffected = _bDAO.AsyncRemoveFromBlacklist(blacklistItem).Result;
-                if (rowsEffected == 1)
-                {
-                    Log blacklistLogTrue = new("One row effected in RemoveFromBlacklist.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(blacklistLogTrue);
-                    return true;
-                }
-                if (rowsEffected == 0 || rowsEffected > 1)
-                {
-                    Log blacklistLogFalse = new(rowsEffected + " rows effected in RemoveFromBlacklist.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(blacklistLogFalse);
-                }
-                return false;
-            }
-            catch
-            {
-                Log blacklistLogFalse = new("Cannot remove blacklist item from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(blacklistLogFalse);
-
-                return false;
-            }
-        }
-
-        // return true if rowsEffected = 1, else return false
-        public bool UpdateToggleBlacklist(Blacklist selectedUser)
-        {
-            try
-            {
-                int rowsEffected = _bDAO.AsyncUpdateToggleBlacklist(selectedUser).Result;
-
-                if (rowsEffected == 1)
-                {
-                    Log blacklistLogTrue = new("One row effected in UpdateToggleBlacklist.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(blacklistLogTrue);
-                    return true;
-                }
-                if (rowsEffected == 0 || rowsEffected > 1)
-                {
-                    Log blacklistLogFalse = new(rowsEffected + " rows effected in UpdateToggleBlacklist.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(blacklistLogFalse);
-                }
-                return false;
-            }
-            catch
-            {
-                Log blacklistLogFalse = new("Cannot update toggleblackist in database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(blacklistLogFalse);
-
-                return false;
-            }
         }
     }
 }

@@ -101,6 +101,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
         </Modal>
     </>
     )
+
+    
 }
 
 

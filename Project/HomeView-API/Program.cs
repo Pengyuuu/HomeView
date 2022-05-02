@@ -13,8 +13,9 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:3000",
-                                             "http://myhomeview.me");
+                                             "http://myhomeview.me").AllowAnyHeader().AllowAnyMethod();
                       });
+
 });
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,6 +28,7 @@ builder.Services.AddSwaggerGen();
  * use scoped for transactions
  */
 builder.Services.AddTransient<INewsManager, NewsManager>();
+builder.Services.AddTransient<IBlacklistManager, BlacklistManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

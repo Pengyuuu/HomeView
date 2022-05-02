@@ -5,6 +5,7 @@ using Features.Blacklist;
 using Services.Implementations;
 using Managers.Contracts;
 using System;
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
@@ -20,73 +21,58 @@ namespace Managers.Implementations
             _loggingManager = new LoggingManager();
         }
 
-        // check if blacklistItem or dispName is null
-        public bool IsNull(string name)
+        // add logs
+        public async Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        // check if dispName and blacklistItem is null
-        public bool IsNull(string dispName, string blacklistItem)
-        {
-            if (string.IsNullOrWhiteSpace(dispName) && string.IsNullOrWhiteSpace(blacklistItem))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool AddToBlacklist(string dispName, string blacklistItem)
-        {
-            if (IsNull(dispName, blacklistItem))
-            {
-                return false;
-            }
-
-            Blacklist addItem = new Blacklist(dispName, blacklistItem);
-            return (_blacklistService.AddToBlacklist(addItem));
-        }
-
-        public IEnumerable<string> GetBlacklist(string dispName)
-        {
-            if (IsNull(dispName))
+            if (blacklistItem == null)
             {
                 return null;
             }
-            Blacklist getList = new Blacklist(dispName);
-            return (_blacklistService.GetBlacklist(getList));
+            return await _blacklistService.AddToBlacklistAsync(blacklistItem);
+            
         }
-
-        public bool GetBlacklistToggle(string dispName)
+        public async Task<IEnumerable<Blacklist>> RemoveFromBlacklistAsync(Blacklist blacklistItem)
         {
-            Blacklist getToggle = new Blacklist(dispName);
-            var result = _blacklistService.GetBlacklistToggle(getToggle);
-
-            return result;
-        }
-
-        public bool RemoveFromBlacklist(string dispName, string blacklistItem)
-        {
-            if (IsNull(dispName, blacklistItem))
+            if (blacklistItem == null)
             {
-                return false;
+                return null;
             }
-            Blacklist removeItem = new Blacklist(dispName, blacklistItem);
-            return _blacklistService.RemoveFromBlacklist(removeItem);
+            return await _blacklistService.RemoveFromBlacklistAsync(blacklistItem);
+
         }
 
-        public bool ToggleBlacklist(string dispName, bool blacklistToggle)
+        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
-            if (IsNull(dispName))
+            // check string null/empty
+            if (string.IsNullOrEmpty(selectedUser))
             {
-                return false;
+                return null;
             }
-            Blacklist toggleUser = new Blacklist(dispName, blacklistToggle);
-            return _blacklistService.UpdateToggleBlacklist(toggleUser);
+            return await _blacklistService.GetBlacklistAsync(selectedUser);
+            
         }
+        public async Task<Blacklist> UpdateToggleBlacklistAsync(Blacklist selectedUser)
+        {
+            if (selectedUser == null)
+            {
+                return null;
+            }
+            return await _blacklistService.UpdateToggleBlacklistAsync(selectedUser);
+
+        }
+
+        public async Task<Blacklist> GetBlacklistToggleAsync(string selectedUser)
+        {
+            // check string null/empty
+            if (string.IsNullOrEmpty(selectedUser))
+            {
+                return null;
+            }
+            return await _blacklistService.GetBlacklistToggleAsync(selectedUser);
+        }
+
+
+
+
     }
 }

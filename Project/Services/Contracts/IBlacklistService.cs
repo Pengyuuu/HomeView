@@ -1,14 +1,15 @@
 ﻿using Features.Blacklist;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Services.Contracts
 {
     public interface IBlacklistService
     {
-        bool AddToBlacklist(Blacklist blacklistItem);
-        bool RemoveFromBlacklist(Blacklist blacklistItem);
-        IEnumerable<string> GetBlacklist(Blacklist selectedUser);
-        bool UpdateToggleBlacklist(Blacklist selectedUser);
-        bool GetBlacklistToggle(Blacklist selectedUser);
+        Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem);
+        Task<IEnumerable<Blacklist>> RemoveFromBlacklistAsync(Blacklist blacklistItem);
+        Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser);
+        Task<Blacklist> UpdateToggleBlacklistAsync(Blacklist selectedUser);
+        Task<Blacklist> GetBlacklistToggleAsync(string selectedUser);
     }
 }

@@ -55,6 +55,7 @@ namespace HomeView_API.Controllers
                 return Ok(response);
             }
         }
+        
         // POST api/<NewsController>
         [HttpPost]
         public async Task<ActionResult<string>> Post([FromBody] Article article)
