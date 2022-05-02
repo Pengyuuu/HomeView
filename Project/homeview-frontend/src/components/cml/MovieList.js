@@ -43,23 +43,97 @@ import './../../css/movietile.css';
 
     function MovieList() {
         const [ movies, setMovies ] = useState([]);
+        const [items, setItems] = useState([])
+        const [toggle, setToggle] = useState();
 
         useEffect(() => {
+            
             axios.request(MOVIES_API).then(function (response) {
                 console.log(response.data);
+                console.log(response.data.results);
                 setMovies(response.data.results);
             }).catch(function (error) {
                 console.error(error);
             });
+            
+            
+
+            axios.request(BLACKLIST_API_GET).then(function (response) {
+                console.log(response.data);
+                setItems(response.data);
+            }).catch(function (error) {
+                console.error(error);
+            });
+
+            axios.request(BLACKLIST_API_GET_TOGGLE).then(function (response) {
+                //console.log(response.data.blacklistToggle);
+                setToggle(response.data.blacklistToggle);
+            }).catch(function (error) {
+                console.error(error);
+            });
+
+            
+            
 
         }, []);
+
+            //console.log(items)
+
+
+
+           // items.map((item) => (
+             //   console.log(item) ))
+//array1.filter(element => array2.includes(element));
+
+        const blacklist = []
+        const bItems = []
+        items.forEach((item) => (
+            bItems.push(item.blacklistItem)
+        ))
+        console.log(bItems)
+       // const test = ["Ed Helms", 35, "test"]
+       /**
+        * Loop for each movie in movies
+        * Loop for each cast member in cast
+        * if bItems contains a cast member from movie
+        * add to blacklist array
+        */
+        movies.forEach((movie) => (
+            movie.cast.forEach((cast) => 
+                //console.log(test.includes(cast)))
+                {if (bItems.includes(cast)) {
+                    blacklist.push(movie)
+                    console.log(movie)
+                }}
+            )       
+        ))  
         
-        console.log("MOVEILIST" + movies)
-        
+        /**
+        * Loop for each movie in movies
+        * Loop for each genre in genres
+        * if bItems contains a genre from genre
+        * check if its already in blacklist
+        * add to blacklist array
+        */
+        movies.forEach((movie) => (
+            movie.genres.forEach((genre) => 
+                //console.log(test.includes(genre)))
+                {if (bItems.includes(genre.toString())) {
+                    if (!blacklist.includes(movie)) {
+                        blacklist.push(movie)
+                        console.log(movie)
+                    }
+                }}
+            )       
+        ))  
+        // array1.filter(element => array2.includes(element));
+        //console.log(blacklist)      
+        const finalList = movies.filter(element => ! blacklist.includes(element));
+        //console.log(finalList)
 
         return (
             <div className='movie-container'>
-                {movies.length > 0 && movies.map((movie) =>(
+                {finalList.length > 0 && finalList.map((movie) => (
                     <MovieTile key={movie.tmdbID} {...movie} />            
                 ))}
             </div>
