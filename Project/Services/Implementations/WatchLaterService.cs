@@ -23,6 +23,28 @@ namespace Services.Implementations
 
         public bool AddToWatchLater(WatchLaterTitle selectedTitle)
         {
+            var isDuplicate = (List<WatchLaterTitle>) GetList(selectedTitle.Email);
+
+            if (isDuplicate.Count > 0)
+            {
+                foreach (var item in isDuplicate)
+                {
+                    if (item.Title == selectedTitle.Title && item.Year == selectedTitle.Year)
+                    {
+                        Log info = new Log
+                        {
+                            Description = $"{selectedTitle.Title} ({selectedTitle.Year}) is already in {selectedTitle.Email}'s WatchLater",
+                            Level = LogLevel.Info,
+                            Category = LogCategory.Data,
+                            timeStamp = DateTime.UtcNow
+                        };
+
+                        _logging.LogData(info);
+
+                        return false;
+                    }
+                }
+            }
             var result = _watchLaterDAO.AsyncAddToWatchLater(selectedTitle).Result;
 
             if (result == 0)
