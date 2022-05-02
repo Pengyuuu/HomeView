@@ -1,12 +1,12 @@
 ﻿using Features.ActWiki;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 
 namespace Managers.Contracts
 {
     public interface IActWikiManager
     {
-        Task<ActWiki> AsyncGetAct(ActWiki act);      
+        IEnumerable<ActWiki> GetAct(ActWiki act);
+        bool StoreAct(int actID, string actName, string actBirth, int actGender, string actBio);
     }
 }

@@ -9,7 +9,7 @@ import { TVShows } from "./Features/TVShows"
 import { Movies } from "./Features/Movies"
 import News from "./Features/News/News"
 import Article from "./Features/News/Article"
-import { ActWiki } from "./Features/ActWiki"
+import ActWiki from "./Features/ActWiki/ActWiki"
 import { UserAccount } from "./Features/UserAccount"
 import Title from './Features/TitlePage/Title'
 
