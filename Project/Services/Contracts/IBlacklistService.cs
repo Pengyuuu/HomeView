@@ -8,8 +8,8 @@ namespace Services.Contracts
     {
         Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem);
         Task<IEnumerable<Blacklist>> RemoveFromBlacklistAsync(Blacklist blacklistItem);
-        Task<IEnumerable<Blacklist>> GetBlacklistAsync(Blacklist selectedUser);
+        Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser);
         Task<Blacklist> UpdateToggleBlacklistAsync(Blacklist selectedUser);
-        Task<Blacklist> GetBlacklistToggleAsync(Blacklist selectedUser);
+        Task<Blacklist> GetBlacklistToggleAsync(string selectedUser);
     }
 }

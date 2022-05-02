@@ -41,8 +41,9 @@ namespace Managers.Implementations
 
         }
 
-        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(Blacklist selectedUser)
+        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
+            // check for null/empty instead
             if (selectedUser == null)
             {
                 return null;
@@ -60,8 +61,9 @@ namespace Managers.Implementations
 
         }
 
-        public async Task<Blacklist> GetBlacklistToggleAsync(Blacklist selectedUser)
+        public async Task<Blacklist> GetBlacklistToggleAsync(string selectedUser)
         {
+            // check for null/empty instead
             if (selectedUser == null)
             {
                 return null;

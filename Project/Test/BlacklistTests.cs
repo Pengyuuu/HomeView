@@ -29,7 +29,7 @@ namespace Test
         [Fact]
         public async void BlacklistManager_GetBlacklistShouldReturnBlacklist()
         {
-            Blacklist user = new Blacklist("mWallace@pulp.com");
+            string user = "mWallace@pulp.com";
             
             var actual = await blacklistManager.GetBlacklistAsync(user);
 
@@ -50,9 +50,9 @@ namespace Test
         [Fact]
         public async void BlacklistManager_UpdateToggleBlacklistShouldReturnToggleAndUser()
         {
-            Blacklist userGet = new Blacklist("mWallace@pulp.com");
+            string userGet = "mWallace@pulp.com";
             var getToggle = await blacklistManager.GetBlacklistToggleAsync(userGet);
-            bool expected = !userGet.blacklistToggle;
+            bool expected = !getToggle.blacklistToggle;
 
             Blacklist userUpdate = new Blacklist("mWallace@pulp.com", !getToggle.blacklistToggle);
             var actual = await blacklistManager.UpdateToggleBlacklistAsync(userUpdate);
@@ -67,7 +67,7 @@ namespace Test
             Blacklist user = new Blacklist("mWallace@pulp.com", false);
             await blacklistManager.UpdateToggleBlacklistAsync(user);
 
-            var actual = await blacklistManager.GetBlacklistToggleAsync(user);
+            var actual = await blacklistManager.GetBlacklistToggleAsync(user.dispName);
 
             Assert.Equal(expected, actual.blacklistToggle);
         }
@@ -87,7 +87,7 @@ namespace Test
         {
             Blacklist user = new Blacklist("nullUser", "nulltest");
 
-            var actual = await blacklistManager.GetBlacklistAsync(user);
+            var actual = await blacklistManager.GetBlacklistAsync(user.dispName);
 
             Assert.Null(actual.FirstOrDefault());
         }
@@ -107,7 +107,7 @@ namespace Test
         {
             Blacklist user = new Blacklist("nullUser", "nulltest");
 
-            var actual = await blacklistManager.GetBlacklistToggleAsync(user);
+            var actual = await blacklistManager.GetBlacklistToggleAsync(user.dispName);
 
             Assert.Null(actual);
         }

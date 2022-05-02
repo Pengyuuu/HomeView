@@ -59,7 +59,7 @@ namespace HomeView_API.Controllers
 
         // GET api/<BlacklistController>/blacklist
         [HttpGet("blacklist/{selectedUser}")]
-        public async Task<IActionResult> GetBlacklist(Blacklist selectedUser)
+        public async Task<IActionResult> GetBlacklist(string selectedUser)
         {
             if (selectedUser == null)
             {
@@ -77,7 +77,7 @@ namespace HomeView_API.Controllers
         }
         // GET api/<BlacklistController>/toggle
         [HttpGet("toggle/{selectedUser}")]
-        public async Task<IActionResult> GetToggle(Blacklist selectedUser)
+        public async Task<IActionResult> GetToggle(string selectedUser)
         {
             if (selectedUser == null)
             {

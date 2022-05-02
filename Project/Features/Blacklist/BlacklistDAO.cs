@@ -41,11 +41,11 @@ namespace Features.Blacklist
         }
 
         // returns list of a user's blacklist items
-        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(Blacklist blacklistItem)
+        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
             var blacklistReq = new
             {
-                dispName = blacklistItem.dispName,
+                dispName = selectedUser,
             };
             return await _db.LoadData<Blacklist, dynamic>("dbo.Blacklist_ReadList", blacklistReq);
         }
@@ -62,11 +62,11 @@ namespace Features.Blacklist
         }
 
         // returns blacklist obj containing toggle (bool) value
-        public async Task<IEnumerable<Blacklist>> GetBlacklistToggleAsync(Blacklist selectedUser)
+        public async Task<IEnumerable<Blacklist>> GetBlacklistToggleAsync(string selectedUser)
         {
             var blacklistReq = new
             {
-                dispName = selectedUser.dispName,
+                dispName = selectedUser,
             };
             return await _db.LoadData<Blacklist, dynamic>("dbo.Blacklist_ReadToggle", blacklistReq);
         }

@@ -33,7 +33,7 @@ namespace Services.Implementations
                 return null;
             }
 
-            var res = await _bDAO.GetBlacklistAsync(blacklistItem);
+            var res = await _bDAO.GetBlacklistAsync(blacklistItem.dispName);
             return res;
         }
 
@@ -45,13 +45,13 @@ namespace Services.Implementations
             {
                 return null;
             }
-            var res = await _bDAO.GetBlacklistAsync(blacklistItem);
+            var res = await _bDAO.GetBlacklistAsync(blacklistItem.dispName);
             return res;
         }
 
         // return what was deleted
         // return true if successfully fetched from db and contains anything, else return null
-        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(Blacklist selectedUser)
+        public async Task<IEnumerable<Blacklist>> GetBlacklistAsync(string selectedUser)
         {
             return await _bDAO.GetBlacklistAsync(selectedUser);
         }
@@ -65,13 +65,13 @@ namespace Services.Implementations
             {
                 return null;
             }
-            var res = await _bDAO.GetBlacklistToggleAsync(selectedUser);
+            var res = await _bDAO.GetBlacklistToggleAsync(selectedUser.dispName);
             // Should only be one blacklist obj here
             return res.FirstOrDefault();
         }
 
         // return user's blacklist toggle option (true/false or on/off)
-        public async Task<Blacklist> GetBlacklistToggleAsync(Blacklist selectedUser)
+        public async Task<Blacklist> GetBlacklistToggleAsync(string selectedUser)
         {
             var res = await _bDAO.GetBlacklistToggleAsync(selectedUser);
             return res.FirstOrDefault();
