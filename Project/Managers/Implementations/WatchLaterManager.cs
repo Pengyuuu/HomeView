@@ -17,6 +17,7 @@ namespace Managers.Implementations
 
         public bool AddToWatchLater(string email, string title, string year)
         {
+            /*
             var isDuplicate = GetList(email);
 
             if (isDuplicate.Count > 0)
@@ -28,7 +29,7 @@ namespace Managers.Implementations
                         return false;
                     } 
                 }
-            }
+            }*/
 
             WatchLaterTitle targetTitle = new WatchLaterTitle
             {
