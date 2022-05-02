@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Button, Modal} from 'react-bootstrap'
 import axios from 'axios';
+import { callbackify } from "util";
 
 const BLACKLIST_API_GET = {
     method: 'get',
@@ -21,21 +22,20 @@ function AccountButton() {
     };
 
 
-    
-
-    useEffect(() => {
+    function callGET() {
         axios.request(BLACKLIST_API_GET).then(function (response) {
             //console.log(response.data);
             setData(response.data);
         }).catch(function (error) {
             console.error(error);
         });
-    }, []);
+    }
+
 
 
     return(
         <>
-        <Button onClick={()=>{handleShow();}}>
+        <Button onClick={()=>{handleShow(); callGET()}}>
             Show Blacklist
         </Button>
         

@@ -52,7 +52,7 @@ function hello() {
 function call(item) {
     var axios = require('axios');
     var data = JSON.stringify({
-    "blacklistItem": "productiontest2",
+    "blacklistItem": ""+item,
     "dispName": "HankHill@yahoo.com"
     });
 
