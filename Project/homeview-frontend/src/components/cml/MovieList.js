@@ -29,6 +29,18 @@ import './../../css/movietile.css';
         }
       };  
 
+      const BLACKLIST_API_GET_TOGGLE = {
+        method: 'get',
+        url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=HankHill@yahoo.com',
+        headers: { }
+    };
+
+    const BLACKLIST_API_GET = {
+        method: 'get',
+        url: 'http://54.219.16.154/api/blacklist/?selectedUser=HankHill@yahoo.com',
+        headers: { }
+    };
+
     function MovieList() {
         const [ movies, setMovies ] = useState([]);
 
@@ -42,6 +54,9 @@ import './../../css/movietile.css';
 
         }, []);
         
+        console.log("MOVEILIST" + movies)
+        
+
         return (
             <div className='movie-container'>
                 {movies.length > 0 && movies.map((movie) =>(

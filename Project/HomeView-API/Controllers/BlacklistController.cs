@@ -58,8 +58,8 @@ namespace HomeView_API.Controllers
         }
 
         // GET api/<BlacklistController>/blacklist
-        [HttpGet("{selectedUser}")]
-        public async Task<IActionResult> GetBlacklist(string selectedUser)
+        [HttpGet]
+        public async Task<IActionResult> GetBlacklist([FromQuery] string selectedUser)
         {
             var res = await _blacklistManager.GetBlacklistAsync(selectedUser);
             if (res.LastOrDefault() == null)
@@ -69,8 +69,8 @@ namespace HomeView_API.Controllers
             return Ok(res);
         }
         // GET api/<BlacklistController>/toggle
-        [HttpGet("toggle/{selectedUser}")]
-        public async Task<IActionResult> GetToggle(string selectedUser)
+        [HttpGet("toggle")]
+        public async Task<IActionResult> GetToggle([FromQuery] string selectedUser)
         {
 
             var res = await _blacklistManager.GetBlacklistToggleAsync(selectedUser);
