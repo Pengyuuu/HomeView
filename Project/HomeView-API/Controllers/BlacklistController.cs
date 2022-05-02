@@ -58,40 +58,28 @@ namespace HomeView_API.Controllers
         }
 
         // GET api/<BlacklistController>/blacklist
-        [HttpGet("blacklist/{selectedUser}")]
+        [HttpGet("{selectedUser}")]
         public async Task<IActionResult> GetBlacklist(string selectedUser)
         {
-            if (selectedUser == null)
+            var res = await _blacklistManager.GetBlacklistAsync(selectedUser);
+            if (res.LastOrDefault() == null)
             {
-                return BadRequest("Null value. Could not retrieve Blacklist");
+                return NotFound("Could not find Blacklist. Or no items in Blacklist.");
             }
-            else
-            {
-                var res = await _blacklistManager.GetBlacklistAsync(selectedUser);
-                if (res.LastOrDefault() == null)
-                {
-                    return NotFound("Could not find Blacklist. Or no items in Blacklist.");
-                }
-                return Ok(res);
-            }
+            return Ok(res);
         }
         // GET api/<BlacklistController>/toggle
         [HttpGet("toggle/{selectedUser}")]
         public async Task<IActionResult> GetToggle(string selectedUser)
         {
-            if (selectedUser == null)
+
+            var res = await _blacklistManager.GetBlacklistToggleAsync(selectedUser);
+            if (res == null)
             {
-                return BadRequest("Null value.");
+                return NotFound("Unable to find user.");
             }
-            else
-            {
-                var res = await _blacklistManager.GetBlacklistToggleAsync(selectedUser);
-                if (res == null)
-                {
-                    return NotFound("Unable to find user.");
-                }
-                return Ok(res);
-            }
+            return Ok(res);
+
         }
 
         // PUT api/<BlacklistController>
