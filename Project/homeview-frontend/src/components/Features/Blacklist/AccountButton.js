@@ -101,6 +101,7 @@ function Remove(item) {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("removed")
     })
     .catch(function (error) {
     console.log(error);
@@ -129,6 +130,7 @@ function disable() {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("disabled")
     })
     .catch(function (error) {
     console.log(error);
@@ -158,6 +160,7 @@ function enable() {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("enabled")
     })
     .catch(function (error) {
     console.log(error);
