@@ -14,6 +14,7 @@ function AccountButton() {
     const [show, setShow] = useState(false);
     const [data, setData] = useState(["Loading..."]);
 
+    // arrow func sets states to false/true when called
     const handleClose = () => {
         setShow(false);
     };
@@ -21,8 +22,8 @@ function AccountButton() {
         setShow(true);
     };
 
-
-    function callGET() {
+    // calls get blacklists
+    function Get() {
         axios.request(BLACKLIST_API_GET).then(function (response) {
             //console.log(response.data);
             setData(response.data);
@@ -32,10 +33,11 @@ function AccountButton() {
     }
 
 
-
+    // loops through blacklist array and displays each item as blacklist component
+    // which is a <li> and a button
     return(
         <>
-        <Button onClick={()=>{handleShow(); callGET()}}>
+        <Button onClick={()=>{handleShow(); Get()}}>
             Show Blacklist
         </Button>
         
@@ -51,12 +53,12 @@ function AccountButton() {
                 }
             </Modal.Body>
             <Modal.Footer>
-                <Button variant = "primary" onClick={()=>{enable()}}>
+                <Button variant = "primary" onClick={()=>{Enable()}}>
                     
                     Enable
                 </Button>
 
-                <Button variant = "danger" onClick={()=>{disable()}}>
+                <Button variant = "danger" onClick={()=>{Disable()}}>
                     
                     Disable
                 </Button>
@@ -81,7 +83,7 @@ function Blacklist({item}) {
 }
 
 
-
+// web api call to remove / delete
 function Remove(item) {
     var axios = require('axios');
     var data = JSON.stringify({
@@ -101,13 +103,15 @@ function Remove(item) {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("removed")
     })
     .catch(function (error) {
     console.log(error);
     });
 }
 
-function disable() {
+// web api disable and enable calls
+function Disable() {
 
     {console.log(false)}
 
@@ -129,6 +133,7 @@ function disable() {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("disabled")
     })
     .catch(function (error) {
     console.log(error);
@@ -136,7 +141,7 @@ function disable() {
 
 }
 
-function enable() {
+function Enable() {
 
     {console.log(true)}
 
@@ -158,6 +163,7 @@ function enable() {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("enabled")
     })
     .catch(function (error) {
     console.log(error);

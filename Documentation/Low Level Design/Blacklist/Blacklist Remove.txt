@@ -6,39 +6,50 @@ participant "Blacklist Service" as bs
 participant "Blacklist Data Access Object" as dao
 database database
 
-User->bc: User selects "Remove from blacklist"
+User->bc: User selects remove "actor/genre"
 activate bc
 
+bc->bm: Remove(Blacklist item)
+activate bm
+bm->bm: check null
 
-bc->bm: Remove(string bName)
+group Invalid Fields Error
+bm->bc: return null
+bc-> User: return BadRequest
+end
+
+bc->bm: Remove(Blacklist item)
 
 
 bm->bs: BlacklistService()
 activate bs
 
-bm->bs: Remove(string bName)
+bm->bs: Remove(Blacklist item)
 
-bs->dao: Remove(string bName)
+bs->dao: Remove(Blacklist item)
 activate dao
 dao->dao: log database access
-dao->database: Remove(string bName) \n(deletes from database)
+dao->database: Remove(Blacklist item) \n(delete from database)
 activate database
 group Database Error
-database->dao: return false
-dao-> bs: return false
-bs->bm:return false
-bm-> bc: return false
-bc-> User: return "Unable to remove genre/actor. \nDatabase error."
+database->dao: return !1 or null
+dao-> bs: return !1 or null
+bs->bs: check rowsEffected
+
+bs->bm:return null
+bm-> bc: return null
+bc-> User: return BadRequest
 end
-database->dao: return true
+database->dao: return 1
 deactivate database
 
 dao->dao:log database return time
-dao->bs:return true
+dao->bs:return 1
+bs->bs: check rowsEffected
 deactivate dao
-bs->bm:return true
+bs->bm:return Blacklists
 deactivate bs
-bm->bc:return true
+bm->bc:return Blacklists
 deactivate bm
-bc->User:return "Actor/Genre Deleted."
+bc->User:return "Genre/Actor removed."
 deactivate bc

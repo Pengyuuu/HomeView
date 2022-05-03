@@ -9,45 +9,47 @@ database database
 User->bc: User selects a genre/actor \nchooses to add
 activate bc
 
-bc->bm: validateField(string uBlacklist)
+bc->bm: Add(Blacklist item)
 activate bm
-bm->bm: validate field 
+bm->bm: check null
 
 group Invalid Fields Error
-bm->bc: return false (invalid genre or actor)
-bc-> User: dislays to user an invalid genre\nor actor was selected
+bm->bc: return null
+bc-> User: return BadRequest
 end
-bm-> bc: return true (valid field)
 
-bc->bm: AddToBlacklist(string uBlacklist)
+bc->bm: Add(Blacklist item)
 
 
 bm->bs: BlacklistService()
 activate bs
 
-bm->bs: AddToBlacklist(string uBlacklist)
+bm->bs: Add(Blacklist item)
 
-bs->dao: AddToBlacklist(string uBlacklist)
+bs->dao: Add(Blacklist item)
 activate dao
 dao->dao: log database access
-dao->database: AddToBlacklist(string uBlacklist) \n(inserts into database)
+dao->database: Add(Blacklist item) \n(inserts into database)
 activate database
 group Database Error
-database->dao: return false
-dao-> bs: return false
-bs->bm:return false
-bm-> bc: return false
-bc-> User: return "Unable to add to Blacklist. \nDatabase error."
+database->dao: return !1 or null
+dao-> bs: return !1 or null
+bs->bs: check rowsEffected
+
+bs->bm:return null
+bm-> bc: return null
+bc-> User: return BadRequest
 end
-database->dao: return true
+database->dao: return 1
 deactivate database
 
 dao->dao:log database return time
-dao->bs:return true
+dao->bs:return 1
+bs->bs: check rowsEffected
 deactivate dao
-bs->bm:return true
+bs->bm:return Blacklists
 deactivate bs
-bm->bc:return true
+bm->bc:return Blacklists
 deactivate bm
 bc->User:return "Genre/Actor added."
 deactivate bc

@@ -15,7 +15,9 @@ function ModalButton({items}) {
         setShow(true);
     };
 
-    console.log(items)
+
+    //console.log(items)
+    // for each item (actor/genre), map as a button w/ onclick to show modal
     return(
         <>
         {items.length > 0 && items.map((item) => 
@@ -31,7 +33,7 @@ function ModalButton({items}) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Button className="blacklist-add-btn" onClick={()=>{call(item)}} >Add {item} Blacklist</Button>
+                <Button className="blacklist-add-btn" onClick={()=>{Add(item)}} >Add {item} Blacklist</Button>
                 {console.log(item)}
             </Modal.Body>
             <Modal.Footer>
@@ -45,11 +47,9 @@ function ModalButton({items}) {
 
     );
 }
-function hello() {
-    console.log("hello")
-}
 
-function call(item) {
+// post, adds item to blacklist
+function Add(item) {
     var axios = require('axios');
     var data = JSON.stringify({
     "blacklistItem": ""+item,
@@ -68,10 +68,12 @@ function call(item) {
     axios(config)
     .then(function (response) {
     console.log(JSON.stringify(response.data));
+    alert("added")
     })
     .catch(function (error) {
     console.log(error);
+    alert("unable to add")
     });
 }
-//<p>Genres: {genres.map((genre) => <Button>{genre}</Button>)}</p>
+
 export default ModalButton;

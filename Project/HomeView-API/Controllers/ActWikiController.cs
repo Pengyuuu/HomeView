@@ -15,6 +15,7 @@ namespace HomeView_API.Controllers
         {
             _actManager = new ActWikiManager();
         }
+        /**
         [HttpGet]
         public async Task<ActionResult<int>> GetAct(ActWiki act)
         {
@@ -28,6 +29,7 @@ namespace HomeView_API.Controllers
                 return NotFound(act.ActName);
             }
         }
+        */
  
     }
 }

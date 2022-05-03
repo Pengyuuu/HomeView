@@ -14,6 +14,7 @@ const BLACKLIST_API_GET_TOGGLE = {
     function MovieList() {
         const [toggle, setToggle] = useState();
 
+        // web api call get toggle
         useEffect(() => {
             axios.request(BLACKLIST_API_GET_TOGGLE).then(function (response) {
                 //console.log(response.data.blacklistToggle);
@@ -23,6 +24,8 @@ const BLACKLIST_API_GET_TOGGLE = {
             });
         }, []);
 
+        // if true return blacklist view
+        // else return regular view (all movies)
         if (toggle) {
             return <MovieListBlacklistTrue/>
         }
