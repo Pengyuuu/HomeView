@@ -4,7 +4,7 @@ namespace Features.Blacklist
     public class Blacklist
     {
     
-        // maybe make read only or priv idk?
+
         public string blacklistItem { get; set; }
         public string dispName { get; set; }
         public bool blacklistToggle { get; set; }

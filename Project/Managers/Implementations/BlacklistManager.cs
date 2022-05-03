@@ -29,6 +29,15 @@ namespace Managers.Implementations
             {
                 return null;
             }
+            var res = await _blacklistService.GetBlacklistAsync(blacklistItem.dispName);
+            foreach (var item in res)
+            {
+                if (item.blacklistItem == blacklistItem.blacklistItem)
+                {
+                    return null;
+                }
+            }
+
             return await _blacklistService.AddToBlacklistAsync(blacklistItem);
             
         }

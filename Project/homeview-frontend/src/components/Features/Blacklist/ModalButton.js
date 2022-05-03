@@ -72,6 +72,7 @@ function Add(item) {
     })
     .catch(function (error) {
     console.log(error);
+    alert("unable to add")
     });
 }
 
