@@ -19,9 +19,11 @@ namespace Test
         [Fact]
         public async void BlacklistManager_AddToBlacklistShouldReturnBlacklist()
         {
-            Blacklist user = new Blacklist("mWallace@pulp.com", "newmovietest");
+            Blacklist user = new Blacklist("mWallace@pulp.com", "realmovietest");
 
             var actual = await blacklistManager.AddToBlacklistAsync(user);
+
+            await blacklistManager.RemoveFromBlacklistAsync(user);
 
             Assert.NotNull(actual);
         }
@@ -73,7 +75,7 @@ namespace Test
         }
 
         [Fact]
-        public async void BlacklistManager_AddToBlacklistNULL()
+        public async void BlacklistManager_AddToBlacklistSHOULDFAIL()
         {
             Blacklist user = new Blacklist("invalidUser", "nulltest");
 
