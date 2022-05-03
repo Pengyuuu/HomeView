@@ -21,6 +21,7 @@ namespace Managers.Implementations
             _loggingManager = new LoggingManager();
         }
 
+        // need to check if already in list
         // check if list null, false return null, true return list
         public async Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem)
         {

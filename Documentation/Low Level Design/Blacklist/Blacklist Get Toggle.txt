@@ -1,4 +1,4 @@
-title Get Blacklist
+title Get Blacklist Toggle
 participant User
 participant "Blacklist Controller" as bc
 participant "Blacklist Manager" as bm
@@ -9,7 +9,7 @@ database database
 User->bc: User views Central Medial Library\nor account blacklist
 activate bc
 
-bc->bm: Get(string user)
+bc->bm: GetToggle(string user)
 activate bm
 bm->bm: check null
 
@@ -18,18 +18,18 @@ bm->bc: return null
 bc-> User: return BadRequest
 end
 
-bc->bm: Get(string user)
+bc->bm: GetToggle(string user)
 
 
 bm->bs: BlacklistService()
 activate bs
 
-bm->bs: Get(string user)
+bm->bs: GetToggle(string user)
 
-bs->dao: Get(string user)
+bs->dao: GetToggle(string user)
 activate dao
 dao->dao: log database access
-dao->database: Get(string user) \n(reads from database)
+dao->database: GetToggle(string user) \n(reads from database)
 activate database
 group Database Error
 database->dao: return null
@@ -39,16 +39,16 @@ bs->bm:return null
 bm-> bc: return null
 bc-> User: return BadRequest
 end
-database->dao: return Blacklist list
+database->dao: return Blacklist user
 deactivate database
 
 dao->dao:log database return time
-dao->bs:return Blacklist list
+dao->bs:return Blacklist user
 bs->bs: check if null
 deactivate dao
-bs->bm:return Blacklist list
+bs->bm:return Blacklist user
 deactivate bs
-bm->bc:return Blacklist list
+bm->bc:return Blacklist user
 deactivate bm
-bc->User:return Blacklist list
+bc->User:return Blacklist user
 deactivate bc

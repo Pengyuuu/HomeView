@@ -1,4 +1,4 @@
-title Get Blacklist
+title Enable/Disable Blacklist
 participant User
 participant "Blacklist Controller" as bc
 participant "Blacklist Manager" as bm
@@ -6,10 +6,10 @@ participant "Blacklist Service" as bs
 participant "Blacklist Data Access Object" as dao
 database database
 
-User->bc: User views Central Medial Library\nor account blacklist
+User->bc: User clicks enable/disable
 activate bc
 
-bc->bm: Get(string user)
+bc->bm: Toggle(Blacklist user)
 activate bm
 bm->bm: check null
 
@@ -18,37 +18,38 @@ bm->bc: return null
 bc-> User: return BadRequest
 end
 
-bc->bm: Get(string user)
+bc->bm: Toggle(Blacklist user)
 
 
 bm->bs: BlacklistService()
 activate bs
 
-bm->bs: Get(string user)
+bm->bs: Toggle(Blacklist user)
 
-bs->dao: Get(string user)
+bs->dao: Toggle(Blacklist user)
 activate dao
 dao->dao: log database access
-dao->database: Get(string user) \n(reads from database)
+dao->database: Toggle(Blacklist user) \n(posts to database)
 activate database
 group Database Error
-database->dao: return null
-dao-> bs: return null
-bs->bs: check if null
+database->dao: return !1 or null
+dao-> bs: return !1 or null
+bs->bs: check rowsEffected
+
 bs->bm:return null
 bm-> bc: return null
 bc-> User: return BadRequest
 end
-database->dao: return Blacklist list
+database->dao: return 1
 deactivate database
 
 dao->dao:log database return time
-dao->bs:return Blacklist list
-bs->bs: check if null
+dao->bs:return 1
+bs->bs: check rowsEffected
 deactivate dao
-bs->bm:return Blacklist list
+bs->bm:return Blacklist user
 deactivate bs
-bm->bc:return Blacklist list
+bm->bc:return Blacklist user
 deactivate bm
-bc->User:return Blacklist list
+bc->User:return "enabled/disabled."
 deactivate bc
