@@ -18,7 +18,6 @@ namespace Services.Implementations
         {
             SqlDataAccess db = new SqlDataAccess();
             _ActWikiDao = new ActWikiDao(db);
-            HttpClient = new HttpClient();
             
         }
 
