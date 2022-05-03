@@ -18,6 +18,7 @@ namespace HomeView_API.Controllers
         }
 
         // IActionResult, framework handles return type
+        // rename to blocklist
 
         // POST api/<BlacklistController>
         [HttpPost]

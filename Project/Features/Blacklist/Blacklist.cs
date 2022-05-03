@@ -4,11 +4,12 @@ namespace Features.Blacklist
     public class Blacklist
     {
     
-
+        // PascalCase members
         public string blacklistItem { get; set; }
         public string dispName { get; set; }
         public bool blacklistToggle { get; set; }
 
+        // take out constructors
         public Blacklist(string dispName, string blacklistItem)
         {
             this.dispName = dispName;

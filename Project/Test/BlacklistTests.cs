@@ -77,6 +77,7 @@ namespace Test
         [Fact]
         public async void BlacklistManager_AddToBlacklistSHOULDFAIL()
         {
+            // try catch 
             Blacklist user = new Blacklist("invalidUser", "nulltest");
 
             var actual = await blacklistManager.AddToBlacklistAsync(user);
