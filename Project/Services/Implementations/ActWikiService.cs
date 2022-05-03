@@ -4,21 +4,22 @@ using Data;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Services.Implementations
 {
     public class ActWikiService : IActWikiService
     {
         private ActWikiDao _ActWikiDao;
-        private const string APIKEY = "process.env.REACT_APP_TMDB_API_KEY";
-        private WebClient TMDB = new WebClient();
+        private static readonly HttpClient HttpClient;
+        private string API_KEY = "82da0caf88a6e84985e9fe3d753d6f43";
 
         public ActWikiService()
         {
             SqlDataAccess db = new SqlDataAccess();
             _ActWikiDao = new ActWikiDao(db);
-            var tmdbAPI = string.Format("https://api.themoviedb.org/3/search/" +
-                "person?api_key=<<api_key>>" + "&language=en-US&page=1&include_adult=false", APIKEY);
+            HttpClient = new HttpClient();
+            
         }
 
         public IEnumerable<ActWiki> GetAct(ActWiki act)
@@ -28,6 +29,7 @@ namespace Services.Implementations
 
         public bool StoreAct (int actID, string actName, string actBirth, int actGender, string actBio )
         {
+
             var isStored = _ActWikiDao.AsyncStoreAct(actID, actName, actBirth, actGender, actBio).Result;
             if (isStored == 0)
             {
