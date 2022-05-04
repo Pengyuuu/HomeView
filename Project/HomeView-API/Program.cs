@@ -29,6 +29,7 @@ builder.Services.AddSwaggerGen();
  */
 builder.Services.AddTransient<INewsManager, NewsManager>();
 builder.Services.AddTransient<IBlacklistManager, BlacklistManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

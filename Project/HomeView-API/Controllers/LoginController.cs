@@ -56,10 +56,10 @@ namespace HomeView_API.Controllers
         // this is after confirming user/authenticaated user
         [Route("get/{email}")]
         [HttpGet]
-        public ActionResult<User> GetUser(string email)
+        public async Task<ActionResult<User>> AsyncGetUser(string email)
         {
             // directs user to homepage and auto activates user's profile in user db and deletes from reg db
-            var fetchedUser = _userManager.GetUser(email);
+            var fetchedUser = await _userManager.AsyncGetUser(email);
             return fetchedUser;
 
 

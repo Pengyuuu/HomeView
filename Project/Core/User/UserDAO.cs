@@ -21,7 +21,7 @@ namespace Core.User
             _db = db;
         }
 
-        public async Task<bool> AsyncCreateUser(User user, int CREATION_MODE)
+        public async Task<int> AsyncCreateUser(User user, int CREATION_MODE)
         {
             // unverified, newly registered user
             if (CREATION_MODE == 0)
@@ -32,19 +32,12 @@ namespace Core.User
                     password = user.Password,
                     dob = user.Dob,
                     status = 0,
-                    token = user.Token,                   
+                    token = user.Token,
                     salt = user.Salt
                 };
 
-                try
-                {
-                    await _db.SaveData("dbo.RegisteredUsers_CreateUser", person);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
+                return await _db.SaveData("dbo.RegisteredUsers_CreateUser", person);
+
             }
             // verified, confirmed user
             else if (CREATION_MODE == 1)
@@ -62,21 +55,13 @@ namespace Core.User
                     token = user.Token,
                     salt = user.Salt
                 };
+                return await _db.SaveData("dbo.Users_CreateUser", person);
 
-                try
-                {
-                    await _db.SaveData("dbo.Users_CreateUser", person);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
             }
-            return false;
+            return 0;
         }
 
-        public async Task<bool> AsyncUpdateUser(User user)
+        public async Task<int> AsyncUpdateUser(User user)
         {
             var person = new
             {
@@ -91,15 +76,8 @@ namespace Core.User
                 token = user.Token,
                 salt = user.Salt
             };
-            try
-            {
-                await _db.SaveData("dbo.Users_UpdateUser", person);               
-            }
-            catch
-            {
-                return false;
-            }
-            return true;
+
+            return await _db.SaveData("dbo.Users_UpdateUser", person);               
         }
 
         public async Task<User?> AsyncReadUser(string email)
@@ -108,17 +86,8 @@ namespace Core.User
             {
                 email = email
             };
-            try
-            {
-                var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);             
-                
-                return results.FirstOrDefault();
-                
-            }
-            catch
-            {
-                return null;
-            }
+            var results = await _db.LoadData<User, dynamic>("dbo.Users_ReadUser", user);                            
+            return results.FirstOrDefault();              
         }
 
         public async Task<User?> AsyncReadRegisteredUser(string email)
@@ -127,96 +96,52 @@ namespace Core.User
             {
                 email = email
             };
-            try
-            {
-                var results = await _db.LoadData<User, dynamic>("dbo.RegisteredUsers_ReadUser", user);
+            var results = await _db.LoadData<User, dynamic>("dbo.RegisteredUsers_ReadUser", user);
+            return results.FirstOrDefault();
 
-                return results.FirstOrDefault();
-
-            }
-            catch
-            {
-                return null;
-            }
         }
 
 
         public async Task<User?> AsyncDisplayReadUser(string display)
         {
-            try
-            {
-                var results = await _db.LoadData<User, dynamic>("dbo.Users_DisplayGetUser", new { dispName = display });
-                return results.FirstOrDefault();
-            }
-            catch
-            {
-                return null;
-            }
+            var results = await _db.LoadData<User, dynamic>("dbo.Users_DisplayGetUser", new { dispName = display });
+            return results.FirstOrDefault();
         }
 
         public async Task<IEnumerable<User>> AsyncReadAllUsers()
         {
-            try
-            {
-                return await _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers", new { });
-            }
-            catch
-            {
-                return null;
-            }
+            return await _db.LoadData<User, dynamic>("dbo.Users_GetAllUsers", new { });
         }
 
-        public async Task<bool> AsyncDeleteUser(string email, int DELETION_MODE)
+        public async Task<int> AsyncDeleteUser(string email, int DELETION_MODE)
         {
             var user = new
             {
                 email = email
             };
+
             if (DELETION_MODE == 0)
             {
-                try
-                {
-                    await _db.SaveData("dbo.Users_DeleteUser", user);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
+                return await _db.SaveData("dbo.Users_DeleteUser", user);
             }
+
             else if (DELETION_MODE == 1)
             {
-                try
-                {
-                    await _db.SaveData("dbo.RegisteredUsers_DeleteUser", user);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
+                return await _db.SaveData("dbo.RegisteredUsers_DeleteUser", user);
             }
-            return false;
+
+            return 0;
         }
 
-        public async Task<bool> AsyncCreateUserSession(User user, string jwtToken)
+        public async Task<int> AsyncCreateUserSession(User user, string jwtToken)
         {
-
             var userSession = new
             {
                 email = user.Email,
                 sessionToken = jwtToken
             };
 
-            try
-            {
-                await _db.SaveData("dbo.Sessions_CreateUserSession", userSession);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }          
+            return await _db.SaveData("dbo.Sessions_CreateUserSession", userSession);     
             
         }
     }
