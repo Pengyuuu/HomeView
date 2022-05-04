@@ -7,7 +7,7 @@ import '../../../css/App.css'
 
 
 
-function ReviewSection({ average, reviewList, show}) {
+function ReviewSection({ title, average, reviewList, show}) {
     const [createRev, setCreate] = useState(null);
 
     function createReview() {
@@ -21,15 +21,15 @@ function ReviewSection({ average, reviewList, show}) {
 
     function CreateReview({ createRev }) {
         if (createRev !== null) {
-            return (< RatingReview  > Rating review section for specific title </RatingReview >);
+            return (< RatingReview  title = {title}> Rating review section for specific title </RatingReview >);
         }
         else { return (<br />); }
     }
 
     function deleteReview() {
-        const dispNameTest = 'testName';
-        const titleTest = 'Chris Tucker: Live';
-        const DELETE_URL = 'http://myhomeview.me/api/RatingReview/delete/title/user/' + titleTest + '/' + dispNameTest
+        console.log(title, "delete")
+        const dispNameTest = 'TestUser'
+        const DELETE_URL = 'http://54.219.16.154/api/RatingReview/delete/title/user/' + title + '/' + dispNameTest
         
         fetch(DELETE_URL, {
             method: 'DELETE',

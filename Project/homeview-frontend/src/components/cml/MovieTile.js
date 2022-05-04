@@ -18,10 +18,9 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     const [show, setShow] = useState(false);
     const [reviews, setReviews] = useState([]);
 
-    let titleReviews = [];
     const dispNameTest = 'testName';
     const testTitle = 'Power Rangers';
-    const GET_URL = 'http://myhomeview.me/api/RatingReview/submit/' + title
+    const GET_URL = 'http://54.219.16.154/api/RatingReview/get/' + title
 
     const testtitleReviews = {
         "rating": 4,
@@ -90,7 +89,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 <p>Genres: <BlacklistButton items = {genres}/></p>
                         <p>Actors: <BlacklistButton items = {cast}/></p>
                 </div>
-                    <ReviewSection average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show}/>
+                    <ReviewSection title ={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show}/>
 
             </Modal.Body>
             <Modal.Footer>
