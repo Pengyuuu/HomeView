@@ -35,7 +35,7 @@ export default function Login() {
                     Need an account? <Link to="/register">Sign Up</Link>
                 </div>
                 <div className="w-100 text-center mt-2 extraInfo">
-                    Forgot Password? <Link to="/account-recovery">AccountRecovery</Link>
+                    Forgot Password? <Link to="/account-recovery">Account Recovery</Link>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ function verifyUser(e) {
     
     console.log('start login')
     console.log(data)
-    const validateLoginUrl = 'http://myhomeview.me:80/api/login/validate/' + email +'/' + password
+    const validateLoginUrl = 'http://54.219.16.154/api/login/validate/' + email +'/' + password
     console.log(validateLoginUrl);
     
     fetch(validateLoginUrl, {

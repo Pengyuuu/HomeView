@@ -72,7 +72,7 @@ export default function Register() {
         
         console.log('start reg')
         
-        var ret = fetch('https://reqres.in/api/users', {
+        var ret = fetch('http://54.219.16.154/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

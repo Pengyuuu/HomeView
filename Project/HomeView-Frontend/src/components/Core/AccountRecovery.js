@@ -47,8 +47,6 @@ Store token in sessionStorage
 
 
 */
-
-// goes to validateLogin method in LoginController
 function verifyUser(e) {
     e.preventDefault();
     let email = e.target.Email.value;
@@ -58,13 +56,10 @@ function verifyUser(e) {
         email: email,
         username: username
     }
+
+    const accountRecoverURL = 'http://54.219.16.154/api/account/recover/' + email +'/' + username
     
-    console.log('start login')
-    console.log(data)
-    const validateLoginUrl = 'http://myhomeview.me:80/api/login/validate/' + email +'/' + username
-    console.log(validateLoginUrl);
-    
-    fetch(validateLoginUrl, {
+    fetch(accountRecoverURL, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -77,7 +72,7 @@ function verifyUser(e) {
 
 
     /**
-    axios.request(validateLoginUrl).then(function (response) {
+    axios.request(accountRecoverURL).then(function (response) {
         console.log(response.data);
     }).catch(function (error) {
         console.error(error);
