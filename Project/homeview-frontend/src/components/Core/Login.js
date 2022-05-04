@@ -3,6 +3,7 @@ import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../../css/App.css'
 import axios from 'axios';
+import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider';
 
 
 export default function Login() {
@@ -33,11 +34,13 @@ export default function Login() {
                 <div className="w-100 text-center mt-2 extraInfo">
                     Need an account? <Link to="/register">Sign Up</Link>
                 </div>
+                <div className="w-100 text-center mt-2 extraInfo">
+                    Forgot Password? <Link to="/account-recovery">AccountRecovery</Link>
+                </div>
             </div>
         </div>
     )
 }
-
 /*
 Get email and pass and verify w/ backend and send back a jwt token
 Store token in sessionStorage

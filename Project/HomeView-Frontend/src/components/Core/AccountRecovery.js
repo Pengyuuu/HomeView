@@ -3,10 +3,9 @@ import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../../css/App.css'
 import axios from 'axios';
-import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider';
 
 
-export default function Login() {
+export default function AccountRecovery() {
 
     return (
         <div>
@@ -14,19 +13,19 @@ export default function Login() {
             <div className='card-center'>
                 <Card>
                     <Card.Body>
-                        <h2 className="text-center mb-4"> Log In</h2>
+                        <h2 className="text-center mb-4"> Account Recovery</h2>
                         <Form id='form' onSubmit={verifyUser}>
                             <Form.Group id="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control name='Email' type="email" required id='email'></Form.Control>
                             </Form.Group>
-                            <Form.Group id="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control name='Password' type="password"  required id='password'></Form.Control>
+                            <Form.Group id="username">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control name='Username' required id='username'></Form.Control>
                             </Form.Group>
                             <br></br>
                             <Button className="w-100" type="submit" id="btn-login">
-                                Log In
+                                Recover Account
                             </Button>
                         </Form>
                     </Card.Body>
@@ -35,12 +34,13 @@ export default function Login() {
                     Need an account? <Link to="/register">Sign Up</Link>
                 </div>
                 <div className="w-100 text-center mt-2 extraInfo">
-                    Forgot Password? <Link to="/account-recovery">AccountRecovery</Link>
+                    Have an Account? <Link to="/login">Log In</Link>
                 </div>
             </div>
         </div>
     )
 }
+
 /*
 Get email and pass and verify w/ backend and send back a jwt token
 Store token in sessionStorage
@@ -52,16 +52,16 @@ Store token in sessionStorage
 function verifyUser(e) {
     e.preventDefault();
     let email = e.target.Email.value;
-    let password = e.target.Password.value;
+    let username = e.target.Username.value;
 
     var data = {
         email: email,
-        password: password
+        username: username
     }
     
     console.log('start login')
     console.log(data)
-    const validateLoginUrl = 'http://myhomeview.me:80/api/login/validate/' + email +'/' + password
+    const validateLoginUrl = 'http://myhomeview.me:80/api/login/validate/' + email +'/' + username
     console.log(validateLoginUrl);
     
     fetch(validateLoginUrl, {
