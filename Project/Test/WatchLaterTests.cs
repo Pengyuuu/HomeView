@@ -15,7 +15,7 @@ namespace WatchLaterTest
         {
             bool expected = true;
 
-            bool actual = watchLaterManager.AddToWatchLater("testing@gmail.com", "Tenet", "2020");
+            bool actual = watchLaterManager.AddToWatchLater("testing@gmail.com", "The Northman", "2022");
 
             Assert.Equal(expected, actual);
         }
