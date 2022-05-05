@@ -3,6 +3,7 @@ import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation'
 import BlacklistButton from '../Features/Blacklist/AccountButton'
+import WatchLaterList from './WatchLater/WatchLaterList';
 
 //<script src='/Core/Security.js'></script>
 
@@ -37,7 +38,10 @@ export class UserAccount extends Component {
                     <h3 className="text-left">Playlist</h3>
                     <Button name="button" href="/Playlist">+</Button>
                     <BlacklistButton/>
-                </Card>
+
+                    <WatchLaterList/>
+                    
+                    </Card>
             </div>
         </div>
             
