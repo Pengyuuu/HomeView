@@ -18,8 +18,8 @@ namespace RatingReviewTests
         {
             int expected = 1;
             // name, title, rating, review
-            RatingAndReview newReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
-            int actual = reviewManager.AsyncSubmitReviewRating("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)").Result;
+            RatingAndReview newReview = new RatingAndReview("may@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
+            int actual = reviewManager.AsyncSubmitReviewRating("may@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)").Result;
             
 
             Assert.Equal(expected, actual);
@@ -29,7 +29,7 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_CreateReviewShouldNotCreateForNonExistingUser()
         {
-            int expected = 1;
+            int expected = 0;
 
             int actual = reviewManager.AsyncSubmitReviewRating("abcdegfhg", "Testing", 3, "I love the Power Rangers! You should go watch the original! :)").Result;
 
@@ -91,9 +91,8 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_UpdateUserReviewForTitle()
         {
-            RatingAndReview exampleReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.");
-            //int isUpdated = reviewManager.AsyncUpdateReviewRating("HankHill@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.").Result;
-            var fetchedUpdate = reviewManager.AsyncGetSpecificReviewRating("HankHill@yahoo.com", "Power Rangers");
+            RatingAndReview exampleReview = new RatingAndReview("may@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.");
+            var fetchedUpdate = reviewManager.AsyncGetSpecificReviewRating("may@yahoo.com", "Power Rangers").Result;
             string actual = fetchedUpdate.ToString();
             string expected = exampleReview.ToString();
             Assert.Equal(expected, actual);

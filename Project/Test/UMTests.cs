@@ -11,7 +11,7 @@ namespace UMTests
 {
     public class UserTests
     {
-         
+
         static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
         static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Test\\UMBulkOp.csv"));
         IUserManager userManager = new UserManager();
@@ -24,14 +24,14 @@ namespace UMTests
         {
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("Password1234!", salt);
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "PropaneHank", salt);
+            User newUser = new User("May", "User", "may@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "Mayo", salt);
             string email = newUser.Email;
 
             // delete user first in case it already exists
-            int isDeleted = userManager.AsyncDeleteVerifiedUser(newUser.Email).Result;
+            int deleted = userManager.AsyncDeleteVerifiedUser(newUser.Email).Result;
 
 
-            int isCreated = userManager.AsyncCreateVerifiedUser("HankHill@yahoo.com", new DateTime(2011, 6, 10), hashedPw).Result;
+            int isCreated = userManager.AsyncCreateVerifiedUser("may@yahoo.com", new DateTime(2011, 6, 10), hashedPw).Result;
             string actual = "";
             try
             {
@@ -58,7 +58,7 @@ namespace UMTests
             User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", hashedPw, new DateTime(2000, 12, 12), "mWallace", salt);
 
 
-            int actual = userManager.AsyncCreateVerifiedUser("mWallace@pulp.com", new DateTime(2000,12,12), "iL0vem1@12345").Result;
+            int actual = userManager.AsyncCreateVerifiedUser("mWallace@pulp.com", new DateTime(2000, 12, 12), "iL0vem1@12345").Result;
 
             Assert.Equal(expected, actual);
         }
@@ -81,23 +81,15 @@ namespace UMTests
         [Fact]
         public void UserManager_Demo()
         {
-
-
-            userManager.AsyncCreateVerifiedUser("emai23423l@me.com",new DateTime(2020,03,09), "pwajsh23@#4");
-
+            userManager.AsyncCreateVerifiedUser("may@me.com", new DateTime(2007, 03, 09), "password@123");
         }
 
         [Fact]
         public void UserManager_ExportAllUsers()
         {
-
             string expected = "User data successfully exported to .csv file";
-
-
             string actual = userManager.AsyncExportAllUsers().Result;
-
             Assert.Equal(expected, actual);
-
         }
 
         [Fact]
@@ -105,7 +97,6 @@ namespace UMTests
         {
 
             List<User> actual = userManager.AsyncGetAllUsers().Result;
-
             Assert.True(actual.Any());
         }
 
@@ -114,10 +105,7 @@ namespace UMTests
         {
 
             string expected = "testing@gmail.com";
-
-
             User actual = userManager.AsyncGetUser(expected).Result;
-
             Assert.True(expected == actual.Email);
 
         }
@@ -125,16 +113,12 @@ namespace UMTests
         [Fact]
         public void UserManager_DeleteUserSuccesssful()
         {
-            int expected = 0;
+            int expected = 1;
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("dogsRcool1234!", salt);
             User newUser = new User("hanna", "lin", "hLin@balls.com", hashedPw, new DateTime(2000, 12, 12), "hLin", salt);
-
-
-            int isCreated = userManager.AsyncCreateVerifiedUser("hLin@balls.com", new DateTime(2000,12,12), "dogsRcool1234!").Result;
-
+            int isCreated = userManager.AsyncCreateVerifiedUser("hLin@balls.com", new DateTime(2000, 12, 12), "dogsRcool1234!").Result;
             int actual = userManager.AsyncDeleteVerifiedUser(newUser.Email).Result;
-
             Assert.Equal(expected, actual);
         }
 
@@ -145,15 +129,8 @@ namespace UMTests
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("dogsRcool1234!", salt);
             User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", hashedPw, new DateTime(2000, 12, 12), "hLin", salt);
-
-
-            // delete twice just in case
-            userManager.AsyncDeleteVerifiedUser(nonExistingUser.Email);
             int actual = userManager.AsyncDeleteVerifiedUser(nonExistingUser.Email).Result;
-
             Assert.Equal(expected, actual);
-
-
         }
 
         /*

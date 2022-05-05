@@ -53,7 +53,10 @@ namespace Core.User
                     status = 1,
                     role = (int)user.Role,
                     token = user.Token,
-                    salt = user.Salt
+                    salt = user.Salt,
+                    blacklistToggle = user.BlacklistToggle,
+                    firstTimer = 1
+
                 };
                 return await _db.SaveData("dbo.Users_CreateUser", person);
 
@@ -74,7 +77,9 @@ namespace Core.User
                 status = user.Status,
                 role = (int) user.Role,
                 token = user.Token,
-                salt = user.Salt
+                salt = user.Salt,
+                blacklistToggle = user.BlacklistToggle,
+                firstTimer = user.FirstTimer
             };
 
             return await _db.SaveData("dbo.Users_UpdateUser", person);               

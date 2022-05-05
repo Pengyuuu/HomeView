@@ -19,6 +19,8 @@ namespace Core.User
 		private Role _role;             // user's role (admin or user)
 		private string _token;          // user's token for 2FA
 		private string _salt; // salt generated for user's password
+		private bool _blacklistToggle;
+		private bool _firstTimer;
 
 		public string FirstName
         {
@@ -86,6 +88,18 @@ namespace Core.User
 			set { _salt = value; }
 		}
 
+		public bool BlacklistToggle
+        {
+			get { return _blacklistToggle; }
+			set { _blacklistToggle = value; }
+        }
+
+		public bool FirstTimer
+        {
+			get { return _firstTimer; }
+			set { _firstTimer = value; }
+        }
+
 		/** User Constructor
 		 * Creates a new User given first name, last name, userEmail address, password, 
 		 * date of birth, display name, and Role
@@ -102,6 +116,8 @@ namespace Core.User
 			this._dob = new DateTime();
 			this._status = false;
 			this._salt = "";
+			this._blacklistToggle = false;
+			this._firstTimer = false;
 		}
 
 		public User(string emailAddr, string userPassword)
@@ -123,6 +139,8 @@ namespace Core.User
 			_status = userStatus;
 			_role = Role.User;
 			_salt = salt;
+			_blacklistToggle = false;
+			_firstTimer = false;
 		}
 
 		public User(string fName, string lName, string emailAddr, string userPassword, DateTime userDob, 
@@ -136,6 +154,8 @@ namespace Core.User
 			_dob = userDob;
 			_status = userStatus;
 			_role = userRole;
+			_blacklistToggle = false;
+			_firstTimer = false;
 
 		}
 
@@ -151,7 +171,9 @@ namespace Core.User
 			_regDate = Convert.ToDateTime(delimiter[7]);
 			_role = (Role)(Convert.ToInt16(delimiter[7]));
 			_status = bool.Parse(delimiter[8]);
-			//_salt = delimiter[9];
+			_salt = delimiter[9];
+			_blacklistToggle = false;
+			_firstTimer = false;
 			return new User(_firstName, _lastName, _email, _password, _dob, _dispName,_role, _status);
 		}
 				
@@ -164,7 +186,7 @@ namespace Core.User
             }
             return this._firstName + ", "+ this._lastName + ", " + this._email 
 				+ ", " + this._password + ", " + this._dob + ", " + this._dispName + ", " 
-				+ this._regDate + ", " + this._role + "," +  this._status;
+				+ this._regDate + ", " + this._role + "," +  this._status + this._blacklistToggle + this._firstTimer;
         }
 
 		public bool Equals(User u)

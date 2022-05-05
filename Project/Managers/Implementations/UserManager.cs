@@ -70,14 +70,14 @@ namespace Managers.Implementations
 
         public async Task<int> AsyncDeleteVerifiedUser(string email)
         {
-            const int DELETION_MODE = 1;
+            const int DELETION_MODE = 0;
             return await _userService.AsyncDeleteUser(email, DELETION_MODE);
 
         }
 
         public async Task<int> AsyncDeleteRegistrationUser(string email)
         {
-            const int DELETION_MODE = 0;
+            const int DELETION_MODE = 1;
             return await _userService.AsyncDeleteUser(email, DELETION_MODE);
 
         }
