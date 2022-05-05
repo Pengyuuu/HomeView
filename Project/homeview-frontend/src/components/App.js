@@ -11,6 +11,7 @@ import { Movies } from "./Features/Movies"
 import News from "./Features/News/News"
 import Article from "./Features/News/Article"
 import ActWiki from "./Features/ActWiki/ActWiki"
+import StreamingService from "./Features/StreamingService/StreamingService"
 import { UserAccount } from "./Features/UserAccount"
 import Title from './Features/TitlePage/Title'
 
@@ -29,6 +30,7 @@ function App() {
                     <Route exact path="/news" element={<News />} />
                     <Route exact path="/news/article/:id" element={<Article />} />
                     <Route exact path="/actwiki" element={<ActWiki />} />
+                    <Route exact path="/streamingservice" element={<StreamingService />} />
                     <Route exact path="/useraccount" element={<UserAccount />} />
                     <Route exact path="/title" element={<Title />} />
                 </Routes>
