@@ -23,7 +23,7 @@ namespace LoggingTests
             Log actual = testLog;
 
             //act
-            logManager.LogData(testLog);
+            logManager.LogDataAsync(testLog);
             actual = (Log) logManager.GetLog(384);
 
             //assert
@@ -35,25 +35,22 @@ namespace LoggingTests
         {
             bool expected = true;
 
-            bool want = true;
+            bool actual = true;
 
+            logManager.LogDataAsync(testLog);
 
-            logManager.LogData(testLog);
-
-            var retrievedLog = logManager.GetLog(testLog.timeStamp).Result;
-
-            var result = testLog.timeStamp;
+            var retrievedLog = logManager.GetLogAsync(testLog.timeStamp).Result;
 
             foreach (var log in retrievedLog)
             {
-                if (log.timeStamp != result)
+                if (log.timeStamp != testLog.timeStamp)
                 {
-                    want = false;
+                    actual = false;
                     break;
                 }
             }
 
-            Assert.Equal(expected, want);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]

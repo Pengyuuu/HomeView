@@ -39,7 +39,7 @@ namespace Services.Implementations
                             timeStamp = DateTime.UtcNow
                         };
 
-                        _logging.LogData(info);
+                        _logging.LogDataAsync(info);
 
                         return false;
                     }
@@ -57,7 +57,7 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogData(error);
+                _logging.LogDataAsync(error);
 
                 return false;
             }
@@ -72,7 +72,7 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogData(error);
+                _logging.LogDataAsync(error);
 
                 return false;
             }
@@ -85,7 +85,7 @@ namespace Services.Implementations
                 timeStamp = DateTime.UtcNow
             };
 
-            _logging.LogData(success);
+            _logging.LogDataAsync(success);
 
             return true;
         }
@@ -104,7 +104,7 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogData(error);
+                _logging.LogDataAsync(error);
 
                 return false;
             }
@@ -119,7 +119,7 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogData(error);
+                _logging.LogDataAsync(error);
 
                 return false;
             }
@@ -132,7 +132,7 @@ namespace Services.Implementations
                 timeStamp = DateTime.UtcNow
             };
 
-            _logging.LogData(success);
+            _logging.LogDataAsync(success);
 
             return true;
         }

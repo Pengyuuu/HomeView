@@ -28,12 +28,12 @@ namespace Services.Implementations
             {
                 isCreated = _rrDAO.AsyncCreateRatingReview(userRatingAndReview).Result;
                 Log reviewLogTrue = new("Review successfully created to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogTrue);
+                _loggingService.LogDataAsync(reviewLogTrue);
             }
             catch
             {
                 Log reviewLogFalse = new("Cannot create review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
+                _loggingService.LogDataAsync(reviewLogFalse);
                 return false;
             }
             return isCreated;
@@ -48,12 +48,12 @@ namespace Services.Implementations
             {
                 isUpdated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
                 Log reviewLogTrue = new("Review successfully updated to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogTrue);
+                _loggingService.LogDataAsync(reviewLogTrue);
             }
             catch
             {
                 Log reviewLogFalse = new("Cannot update review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
+                _loggingService.LogDataAsync(reviewLogFalse);
                 return false;
             }
             return isUpdated;
@@ -67,7 +67,7 @@ namespace Services.Implementations
             {
                 fetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
                 Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogTrue);
+                _loggingService.LogDataAsync(reviewLogTrue);
                 if (fetchRatingReview.Any())
                 {
                     return fetchRatingReview;
@@ -81,7 +81,7 @@ namespace Services.Implementations
             catch
             {
                 Log reviewLogFalse = new("Cannot fetch review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
+                _loggingService.LogDataAsync(reviewLogFalse);
                 return null;
             }
         }
@@ -100,7 +100,7 @@ namespace Services.Implementations
                         if (isDeleted)
                         {
                             Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                            _loggingService.LogData(reviewLogTrue);
+                            _loggingService.LogDataAsync(reviewLogTrue);
                             return true;
                         }
                     }
@@ -110,7 +110,7 @@ namespace Services.Implementations
                     }
                 }
                 Log reviewLogFalse = new("Unsuccessful delete review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
+                _loggingService.LogDataAsync(reviewLogFalse);
                 return isDeleted;
             }
             catch

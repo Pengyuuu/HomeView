@@ -27,12 +27,12 @@ namespace Services.Implementations
             {
                 isCreated = _userDAO.AsyncCreateUser(userCreate, CREATION_MODE).Result;
                 Log userLog = new("User created.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+                _loggingService.LogDataAsync(userLog);
             }
             catch
             {
                 Log userLogFalse = new("Unsuccessful create user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLogFalse);
+                _loggingService.LogDataAsync(userLogFalse);
                 return false;
             }
             return isCreated;
@@ -46,7 +46,7 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+                _loggingService.LogDataAsync(userLog);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+                _loggingService.LogDataAsync(userLog);
             }
             return fetchedUser;
         }
@@ -74,7 +74,7 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+                _loggingService.LogDataAsync(userLog);
             }
             return fetchedUser;
         }
@@ -88,14 +88,14 @@ namespace Services.Implementations
                 {
 
                     Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(userLog);
+                    _loggingService.LogDataAsync(userLog);
                 }
                 return fetchedUsers.ToList();
             }
             catch (Exception ex)
             {
                 Log userLog = new("GetAllUsers failed " + ex.Message, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+                _loggingService.LogDataAsync(userLog);
             }
             return null;
         }
@@ -110,12 +110,12 @@ namespace Services.Implementations
                 if (isDeleted)
                 {
                     Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(userLogTrue);
+                    _loggingService.LogDataAsync(userLogTrue);
                     return true;
                 }
             }
             Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(userLogFalse);
+            _loggingService.LogDataAsync(userLogFalse);
             return false;
         }
 
@@ -128,7 +128,7 @@ namespace Services.Implementations
                 if (isUpdated)
                 {
                     Log userLogSuccess = new("User: " + user.Email + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(userLogSuccess);
+                    _loggingService.LogDataAsync(userLogSuccess);
                     return GetUser(user.Email);
                 }
             }
@@ -137,11 +137,11 @@ namespace Services.Implementations
                 const int CREATION_MODE = 1;
                 CreateUser(user, CREATION_MODE);
                 Log userLogCreate = new("User: " + user.Email + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLogCreate);
+                _loggingService.LogDataAsync(userLogCreate);
                 return user;
             }
             Log userLogFail = new("User: " + user.Email + " was unable to be modified. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(userLogFail);
+            _loggingService.LogDataAsync(userLogFail);
             return null;
 
         }
@@ -153,11 +153,11 @@ namespace Services.Implementations
             if (isCreated)
             {
                 Log userLogTrue = new("Successfully created user session.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLogTrue);
+                _loggingService.LogDataAsync(userLogTrue);
                 return true;
             }           
             Log userLogFalse = new("Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(userLogFalse);
+            _loggingService.LogDataAsync(userLogFalse);
             return false;
         }
 
@@ -180,12 +180,12 @@ namespace Services.Implementations
                 }
 
                 userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-                _loggingService.LogData(userLog);
+                _loggingService.LogDataAsync(userLog);
                 return "User data successfully exported to .csv file";
             }
 
             userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-            _loggingService.LogData(userLog);
+            _loggingService.LogDataAsync(userLog);
             return "Unable to export all users.";
 
         }

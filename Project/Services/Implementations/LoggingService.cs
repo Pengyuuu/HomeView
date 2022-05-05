@@ -18,17 +18,32 @@ namespace Services.Implementations
         }
 
         // Manager communicates with Service layer through this method
-        public Task LogData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public async Task<bool> LogDataAsync(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
             Log log = new Log(desc, level, category, timeStamp);
 
             // Call a logging service function to send in the log file
-            return _logDAO.StoreLog(log);
+            var result = await _logDAO.StoreLogAsync(log);
+
+            // If more than one row was inserted, then logging was not done correctly
+            if (result != 1)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        public Task LogData(Log log)
+        public async Task<bool> LogDataAsync(Log log)
         {
-            return _logDAO.StoreLog(log);
+            var result = await _logDAO.StoreLogAsync(log);
+
+            if (result != 1)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public Log GetLog(int id)
@@ -36,7 +51,10 @@ namespace Services.Implementations
             return (Log)_logDAO.GetLog(id).Result;
         }
 
-        public Task<IEnumerable<Log>> GetLog(DateTime timeStamp) => _logDAO.GetLogs(timeStamp);
+        public async Task<IEnumerable<Log>> GetLogAsync(DateTime timeStamp)
+        {
+            return await _logDAO.GetLogsAsync(timeStamp);
+        }
 
         public bool DeleteOldLog()
         {
