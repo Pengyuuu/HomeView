@@ -1,9 +1,10 @@
 ﻿using Core.User;
+using System.Threading.Tasks;
 
 namespace Services.Contracts
 {
     public interface IRegistrationService
     {
-        bool CreateUser(User userCreate, int CREATION_MODE);
+        Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE);
     }
 }

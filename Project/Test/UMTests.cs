@@ -11,7 +11,7 @@ namespace UMTests
 {
     public class UserTests
     {
-         
+
         static string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
         static string path = Path.GetFullPath(Path.Combine((System.IO.Path.GetDirectoryName(executable)), "@\\..\\..\\..\\..\\..\\..\\Project\\Test\\UMBulkOp.csv"));
         IUserManager userManager = new UserManager();
@@ -24,18 +24,18 @@ namespace UMTests
         {
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("Password1234!", salt);
-            User newUser = new User("Hank", "Hill", "HankHill@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "PropaneHank", salt);
+            User newUser = new User("May", "User", "may@yahoo.com", hashedPw, new DateTime(2011, 6, 10), "Mayo", salt);
             string email = newUser.Email;
 
             // delete user first in case it already exists
-            bool isDeleted = userManager.DeleteVerifiedUser(newUser.Email);
+            int deleted = userManager.AsyncDeleteVerifiedUser(newUser.Email).Result;
 
 
-            bool isCreated = userManager.CreateVerifiedUser("HankHill@yahoo.com", new DateTime(2011, 6, 10), hashedPw );
+            int isCreated = userManager.AsyncCreateVerifiedUser("may@yahoo.com", new DateTime(2011, 6, 10), hashedPw).Result;
             string actual = "";
             try
             {
-                User result = userManager.GetUser(newUser.Email);
+                User result = userManager.AsyncGetUser(newUser.Email).Result;
                 actual = result.Email;
             }
             catch
@@ -52,13 +52,13 @@ namespace UMTests
         [Fact]
         public void UserManager_CreationUserShouldDisplayNotCreateExistingUser()
         {
-            bool expected = false;
+            int expected = 0;
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("iL0vem1@12345", salt);
             User existingUser = new User("marsellus", "wallace", "mWallace@pulp.com", hashedPw, new DateTime(2000, 12, 12), "mWallace", salt);
 
 
-            bool actual = userManager.CreateVerifiedUser("mWallace@pulp.com", new DateTime(2000,12,12), "iL0vem1@12345");
+            int actual = userManager.AsyncCreateVerifiedUser("mWallace@pulp.com", new DateTime(2000, 12, 12), "iL0vem1@12345").Result;
 
             Assert.Equal(expected, actual);
         }
@@ -72,7 +72,7 @@ namespace UMTests
             string expected = "Successfully inserted " + insertedUsers + ".\n Failed to insert: " + failedInsert + ".\n";
 
 
-            string actual = userManager.DoBulkOp(filepath);
+            string actual = userManager.AsyncDoBulkOp(filepath).Result;
 
             Assert.Equal(expected, actual);
 
@@ -81,31 +81,22 @@ namespace UMTests
         [Fact]
         public void UserManager_Demo()
         {
-
-
-            userManager.CreateVerifiedUser("emai23423l@me.com",new DateTime(2020,03,09), "pwajsh23@#4");
-
+            userManager.AsyncCreateVerifiedUser("may@me.com", new DateTime(2007, 03, 09), "password@123");
         }
 
         [Fact]
         public void UserManager_ExportAllUsers()
         {
-
             string expected = "User data successfully exported to .csv file";
-
-
-            string actual = userManager.ExportAllUsers();
-
+            string actual = userManager.AsyncExportAllUsers().Result;
             Assert.Equal(expected, actual);
-
         }
 
         [Fact]
         public void UserManager_GetAllUsers()   // needs all users inside first to get expected
         {
 
-            List<User> actual = userManager.GetAllUsers();
-
+            List<User> actual = userManager.AsyncGetAllUsers().Result;
             Assert.True(actual.Any());
         }
 
@@ -114,10 +105,7 @@ namespace UMTests
         {
 
             string expected = "testing@gmail.com";
-
-
-            User actual = userManager.GetUser(expected);
-
+            User actual = userManager.AsyncGetUser(expected).Result;
             Assert.True(expected == actual.Email);
 
         }
@@ -125,35 +113,24 @@ namespace UMTests
         [Fact]
         public void UserManager_DeleteUserSuccesssful()
         {
-            bool expected = true;
+            int expected = 1;
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("dogsRcool1234!", salt);
             User newUser = new User("hanna", "lin", "hLin@balls.com", hashedPw, new DateTime(2000, 12, 12), "hLin", salt);
-
-
-            bool isCreated = userManager.CreateVerifiedUser("hLin@balls.com", new DateTime(2000,12,12), "dogsRcool1234!");
-
-            bool actual = userManager.DeleteVerifiedUser(newUser.Email);
-
+            int isCreated = userManager.AsyncCreateVerifiedUser("hLin@balls.com", new DateTime(2000, 12, 12), "dogsRcool1234!").Result;
+            int actual = userManager.AsyncDeleteVerifiedUser(newUser.Email).Result;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void UserManager_DeleteUserUnSucessful()
         {
-            bool expected = false;
+            int expected = 0;
             var salt = authenticationManager.GetSalt();
             var hashedPw = authenticationManager.HashPassword("dogsRcool1234!", salt);
             User nonExistingUser = new User("hanna", "lin", "hLin@balls.com", hashedPw, new DateTime(2000, 12, 12), "hLin", salt);
-
-
-            // delete twice just in case
-            userManager.DeleteVerifiedUser(nonExistingUser.Email);
-            bool actual = userManager.DeleteVerifiedUser(nonExistingUser.Email);
-
+            int actual = userManager.AsyncDeleteVerifiedUser(nonExistingUser.Email).Result;
             Assert.Equal(expected, actual);
-
-
         }
 
         /*

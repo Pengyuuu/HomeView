@@ -19,19 +19,10 @@ namespace Services.Implementations
             //_emailService = new EmailService();
         }
 
-        public bool CreateUser(User userCreate, int CREATION_MODE)
+        public async Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE)
         {
-            bool isCreated = false;
-            try
-            {
-                isCreated = _userService.CreateUser(userCreate, CREATION_MODE);
-            }
-            catch
-            {
-                // user is already in database
-                return false;
-            }
-            return isCreated;
+            return await _userService.AsyncCreateUser(userCreate, CREATION_MODE);
+           
         }
     }
 }
