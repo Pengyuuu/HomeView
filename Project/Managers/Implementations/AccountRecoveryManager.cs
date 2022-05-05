@@ -55,7 +55,25 @@ namespace Managers.Implementations
                     return "Recovery email sent.";
                 }
             }
-            return "Unable to send recovery email.";
+            return null;
+        }
+
+        /*
+         * Calls recovery validation fields method, then sends recovery email if valid user
+         */
+        public async Task<string> AsyncModifyUserAccount(User recoverUser)
+        {
+            
+            if (AsyncCheckValidRecovery(recoverUser).Result == true)
+            {
+                string recoverOtp = _authenticationService.GenerateOTP();
+                bool isSent = await _emailManager.AsyncSendRecoveryEmail(recoverUser.Email, recoverOtp);
+                if (isSent)
+                {
+                    return "User updated";
+                }
+            }
+            return null;
         }
 
     }
