@@ -96,21 +96,6 @@ namespace Services.Implementations
             
                 Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 await _loggingService.LogDataAsync(reviewLogTrue);
-
-                RatingAndReview userTitleReview = GetRatingReview(selectedReview).FirstOrDefault();
-                if (userTitleReview is not null)
-                {
-
-                    isDeleted = await _rrDAO.AsyncDeleteRatingReview(selectedReview).Result;
-                    if (isDeleted)
-                    {
-                        Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                        await _loggingService.LogDataAsync(reviewLogTrue);
-                    }
-                    
-                }
-                Log reviewLogFalse = new("Unsuccessful delete review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             if (isDeleted != 1)
             {
