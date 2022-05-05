@@ -46,9 +46,9 @@ namespace Services.Implementations
             return true;
         }
 
-        public Log GetLog(int id)
+        public async Task<IEnumerable<Log>> GetLogAsync(int id)
         {
-            return (Log)_logDAO.GetLog(id).Result;
+            return await _logDAO.GetLogAsync(id);
         }
 
         public async Task<IEnumerable<Log>> GetLogAsync(DateTime timeStamp)
@@ -56,22 +56,12 @@ namespace Services.Implementations
             return await _logDAO.GetLogsAsync(timeStamp);
         }
 
-        public bool DeleteOldLog()
+        public async Task<bool> DeleteOldLogAsync()
         {
 
-            _logDAO.DeleteOldLogs();
+            await _logDAO.DeleteOldLogsAsync();
 
             return true;
-            /*
-            if (_logDAO.DeleteOldLogs() is not null)
-            {
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }*/
         }
     }
 }

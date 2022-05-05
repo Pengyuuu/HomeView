@@ -28,40 +28,27 @@ namespace Core.Logging
                 timeStamp = log.timeStamp
             };
 
-            return await _db.SaveData("dbo.StoreLogs", newLog);
+            return await _db.SaveData("dbo.Logs_StoreLogs", newLog);
         }
 
-        public async Task<Log?> GetLog(int id)
+        public async Task<IEnumerable<Log>> GetLogAsync(int id)
         {
-
-            var results = await _db.LoadData<Log, dynamic>("dbo.GetLog", new { Id = id });
-            return results.FirstOrDefault();
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetLog", new { Id = id });
         }
 
-        public Task<IEnumerable<Log>> GetOldLogs()
+        public async Task<IEnumerable<Log>> GetOldLogsAsync()
         {
-            Task<IEnumerable<Log>> results;
-
-            try
-            {
-                results = _db.LoadData<Log, dynamic>("dbo.GetOldLog", "");
-            }
-            catch (Exception e)
-            {
-                results = null;
-            }
-
-            return results;
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetOldLog", "");
         }
 
-        public Task DeleteOldLogs()
+        public async Task<int> DeleteOldLogsAsync()
         {
-            return _db.SaveData("dbo.RemoveOldLogs", new { });
+            return await _db.SaveData("dbo.Logs_RemoveOldLogs", new { });
         }
 
         public async Task<IEnumerable<Log>> GetLogsAsync(DateTime time)
         {
-            return await _db.LoadData<Log, dynamic>("dbo.GetLogsTime", new { timeStamp = time });
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetLogTimes", new { timeStamp = time });
         }
     }
 }

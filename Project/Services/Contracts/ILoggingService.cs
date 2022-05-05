@@ -7,9 +7,9 @@ namespace Services.Contracts
 {
     public interface ILoggingService
     {
-        bool DeleteOldLog();
+        Task<bool> DeleteOldLogAsync();
         Task<IEnumerable<Log>> GetLogAsync(DateTime timeStamp);
-        Log GetLog(int id);
+        Task<IEnumerable<Log>> GetLogAsync(int id);
         Task<bool> LogDataAsync(Log log);
         Task<bool> LogDataAsync(string desc, LogLevel level, LogCategory category, DateTime timeStamp);
     }
