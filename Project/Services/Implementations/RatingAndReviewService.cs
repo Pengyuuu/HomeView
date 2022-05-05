@@ -28,12 +28,14 @@ namespace Services.Implementations
             if (isCreated == 1)
             {
                 Log reviewLogTrue = new("Review successfully created to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogTrue);
+
+                await _loggingService.LogDataAsync(reviewLogTrue);
             }
             else
             {
                 Log reviewLogFalse = new("Cannot create review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogFalse);
+
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             return isCreated;
         }
@@ -45,12 +47,14 @@ namespace Services.Implementations
             if (isUpdated == 1)
             {
                 Log reviewLogTrue = new("Review successfully updated to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogTrue);
+
+               await  _loggingService.LogDataAsync(reviewLogTrue);
             }
             else
             {
                 Log reviewLogFalse = new("Cannot update review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogFalse);
+
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             return isUpdated;
 
@@ -62,12 +66,21 @@ namespace Services.Implementations
             if (fetchRatingReview != null)
             {
                 Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogTrue);
+                await _loggingService.LogDataAsync(reviewLogTrue);
+                
+                if (fetchRatingReview.Any())
+                {
+                    return fetchRatingReview;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
                 Log reviewLogFalse = new("Cannot fetch review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogFalse);
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             return fetchRatingReview;
 
@@ -77,18 +90,32 @@ namespace Services.Implementations
         public async Task<int> AsyncDeleteRatingReview(RatingAndReview selectedReview)
         {
             int isDeleted = 0;
-
             isDeleted = await _rrDAO.AsyncDeleteRatingReview(selectedReview);
             if (isDeleted == 1)
             {
+            
                 Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogTrue);
-            }
+                await _loggingService.LogDataAsync(reviewLogTrue);
 
+                RatingAndReview userTitleReview = GetRatingReview(selectedReview).FirstOrDefault();
+                if (userTitleReview is not null)
+                {
+
+                    isDeleted = await _rrDAO.AsyncDeleteRatingReview(selectedReview).Result;
+                    if (isDeleted)
+                    {
+                        Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                        await _loggingService.LogDataAsync(reviewLogTrue);
+                    }
+                    
+                }
+                Log reviewLogFalse = new("Unsuccessful delete review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(reviewLogFalse);
+            }
             if (isDeleted != 1)
             {
                 Log reviewLogFalse = new("Unsuccessful delete review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(reviewLogFalse);
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             return isDeleted;
 

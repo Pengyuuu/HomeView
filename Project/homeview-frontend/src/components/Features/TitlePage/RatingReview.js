@@ -5,11 +5,8 @@ import Star from './Star'
 
 //<script src='/Security.js'></script>
 
-export default function RatingReview() {
-    const reviewRef = document.getElementById("id");
-    // title should get passed
-    //const titleRef = this.title
-    //const titleRef = document.getElementById("")  
+export default function RatingReview({title}) {
+    const [review, setReview] = useState(null);
     const [count, currCount] = useState(0);
     const [rating, setRating] = useState(null);
     const [hoverValue, setHover] = useState(0);
@@ -34,6 +31,7 @@ export default function RatingReview() {
     };
     const handleCount = (e) => {
         currCount(e.target.value.length);
+        setReview(e.target.value);
     }
 
 
@@ -44,7 +42,7 @@ export default function RatingReview() {
                 <br></br>
                     <h3 className="text-center" style={{color: 'black'}}> Create a Review</h3>
 
-                    <Form id="reviewForm" onSubmit={submitReview}>
+                    <Form id="reviewForm">
                             <Form.Group className="text-center" id="rating">
                                 <Star
                                     thresh={0.5}
@@ -92,48 +90,37 @@ export default function RatingReview() {
                     </Form.Group>
                         <Form.Group className="text-center color-style" id="review" >
                                 <br></br>
-                            <textarea className="w-100" id="review" placeholder="Type your review here" onChange={handleCount} ref={reviewRef} maxLength="2500"></textarea>
+                            <textarea className="w-100" id="review" placeholder="Type your review here" onChange={handleCount} maxLength="2500"></textarea>
                             <p className="color-style">Character count: {count} (Max is 2500)</p>
                              </Form.Group>
                     <br></br>
-                    <Button className="w-100" type="submit">
+                    <Button className="w-100" onClick={submitReview}>
                         Submit Review
                     </Button>
                 </Form>
-
-
             </Card.Body>
         </Card>
 
-      
     </>
     )
 
-    
-
     function submitReview() {
+        console.log(title, rating, review);
         const dispNameTest = 'testName';
-        const testTitle = 'Chris Tucker: Live';
-        const GET_URL = 'http://myhomeview.me/api/RatingReview/submit/' + testTitle + '/' + dispNameTest + '/' + rating + '/' + reviewRef
+        const POST_URL = 'http://54.219.16.154/api/RatingReview/submit/' + title + '/' + dispNameTest + '/' + rating + '/' + review
 
-        fetch(GET_URL, {
-            method: 'GET',
+        fetch(POST_URL, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
             console.log(res)
-            return res.json()
+            //return res.json()
         })
-            .then(data => console.log("reach"))
-        return true;
+            .then(data => console.log("submitting review"))
+        //return true;
     }
-
-    function saveReview() {
-        return false
-    }
-
-  
 }
 
 

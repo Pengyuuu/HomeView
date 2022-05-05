@@ -29,12 +29,15 @@ namespace Services.Implementations
             if (createdUser == 1)
             {
                 Log userLog = new("User created.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             else
             {
                 Log userLogFalse = new("Unsuccessful create user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogFalse);
+
+                await _loggingService.LogDataAsync(userLogFalse);
+
             }
             return createdUser;
 
@@ -47,7 +50,8 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             else
             {
@@ -64,11 +68,11 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             return fetchedUser;
         }
-
 
         public async Task<User> AsyncDisplayGetUser(string display)
         {
@@ -76,7 +80,8 @@ namespace Services.Implementations
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             return fetchedUser;
         }
@@ -87,13 +92,16 @@ namespace Services.Implementations
             IEnumerable<User> fetchedUsers = await _userDAO.AsyncReadAllUsers();
             if (fetchedUsers != null)
             {
+
                 Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLog);
+                await _loggingService.LogDataAsync(userLog);
+                }
+                return fetchedUsers.ToList();
             }
             else
             {
-                Log userLog = new("GetAllUsers failed ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLog);
+                Log userLog = new("GetAllUsers failed " + ex.Message, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLog);
             }
             return fetchedUsers.ToList();
         }
@@ -105,14 +113,15 @@ namespace Services.Implementations
             if (isDeleted == 1)
             {
                 Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogTrue);
+                await _loggingService.LogDataAsync(userLogTrue);
             }
             else
             {
                 Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogFalse);
+                await _loggingService.LogDataAsync(userLogFalse);
             }
             return isDeleted;
+
         }
 
         public async Task<int> AsyncModifyUser(User user)
@@ -131,15 +140,17 @@ namespace Services.Implementations
                 else
                 {
                     Log userLogFail = new("User: " + user.Email + " was unable to be modified. Database error. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    await _loggingService.LogData(userLogFail);
+                    await _loggingService.LogDataAsync(userLogFail);
+
                 }
             }
             else
             {
                 Log userLogFail = new("User: " + user.Email + " was unable to be modified. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogFail);
+                await _loggingService.LogDataAsync(userLogFail);
             }
             return isUpdated;
+
 
         }
 
@@ -150,15 +161,16 @@ namespace Services.Implementations
             if (isCreated == 1)
             {
                 Log userLogTrue = new("Successfully created user session.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogTrue);
+                await _loggingService.LogDataAsync(userLogTrue);
 
             }
             else
             {
                 Log userLogFalse = new("Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogFalse);
+                await _loggingService.LogDataAsync(userLogFalse);
             }
             return isCreated;
+
         }
 
         // Write to CSV File
@@ -180,12 +192,14 @@ namespace Services.Implementations
                 }
 
                 userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-                await _loggingService.LogData(userLog);
+                await _loggingService.LogDataAsync(userLog);
+
                 return "User data successfully exported to .csv file";
             }
 
             userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-            await _loggingService.LogData(userLog);
+            await _loggingService.LogDataAsync(userLog);
+
             return "Unable to export all users.";
 
         }

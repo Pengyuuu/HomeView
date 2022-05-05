@@ -16,7 +16,7 @@ namespace HomeView_API.Controllers
             _watchLaterManager = watchLaterManager;
         }
 
-        [HttpPost("watchlater/{email}/{title}/{year}")]
+        [HttpPost("{email}/{title}/{year}")]
         public ActionResult<bool> AddToWatchLater(string email, string title, string year)
         {
             bool result = _watchLaterManager.AddToWatchLater(email, title, year);
@@ -29,7 +29,7 @@ namespace HomeView_API.Controllers
             return Ok($"{title} ({year}) successfully added");
         }
 
-        [HttpDelete("watchlater/delete/{email}/{title}/{year}")]
+        [HttpDelete("delete/{email}/{title}/{year}")]
         public ActionResult<bool> RemoveFromList(string email, string title, string year)
         {
             bool result = _watchLaterManager.RemoveFromList(email, title, year);
@@ -42,7 +42,7 @@ namespace HomeView_API.Controllers
             return Ok($"{title} ({year}) successfully removed");
         }
 
-        [HttpGet("watchlater/{email}")]
+        [HttpGet("{email}")]
         public ActionResult<IEnumerable<WatchLaterTitle>> GetList(string email)
         {
             var result = _watchLaterManager.GetList(email);
