@@ -56,7 +56,7 @@ namespace Services.Implementations
             else
             {
                 Log userLogFalse = new("User not found.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                await _loggingService.LogData(userLogFalse);
+                await _loggingService.LogDataAsync(userLogFalse);
             }
             return fetchedUser;
         }
@@ -95,12 +95,11 @@ namespace Services.Implementations
 
                 Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 await _loggingService.LogDataAsync(userLog);
-                }
-                return fetchedUsers.ToList();
+                
             }
             else
             {
-                Log userLog = new("GetAllUsers failed " + ex.Message, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                Log userLog = new("GetAllUsers failed ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 await _loggingService.LogDataAsync(userLog);
             }
             return fetchedUsers.ToList();
@@ -135,7 +134,7 @@ namespace Services.Implementations
                 if (isUpdated == 1)
                 {
                     Log userLogSuccess = new("User: " + user.Email + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    await _loggingService.LogData(userLogSuccess);
+                    await _loggingService.LogDataAsync(userLogSuccess);
                 }
                 else
                 {
