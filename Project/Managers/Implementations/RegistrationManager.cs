@@ -11,13 +11,13 @@ namespace Managers.Implementations
     {
         private readonly IUserManager _userManager;
         private readonly IRegistrationService _registrationService;
-        //private readonly IEmailManager _emailManager;
+        private readonly IEmailManager _emailManager;
         private readonly IAuthenticationManager _authenticationManager;
 
         public RegistrationManager()
         {
             _userManager = new UserManager();
-            //_emailManager = new EmailManager();
+            _emailManager = new EmailManager();
             _authenticationManager = new AuthenticationManager();
             _registrationService = new RegistrationService();
         }

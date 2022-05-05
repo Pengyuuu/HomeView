@@ -11,11 +11,11 @@ namespace Managers.Implementations
     public class RatingAndReviewManager : IRatingAndReviewManager
     {
 
-        private IRatingAndReviewService _ratingAndReviewService;
+        private readonly IRatingAndReviewService _ratingAndReviewService;
 
         public RatingAndReviewManager()
         {
-            this._ratingAndReviewService = new RatingAndReviewService();
+            _ratingAndReviewService = new RatingAndReviewService();
         }
 
         // Checks valid review fields
