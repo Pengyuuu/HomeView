@@ -4,7 +4,7 @@ using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
 using Services.Implementations;
-
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
@@ -13,7 +13,6 @@ namespace Managers.Implementations
         private IUserService _userService;
         private IAuthenticationService _authenticationService;
 
-
         public UserManager()
         {
             _userService = new UserService();
@@ -21,7 +20,7 @@ namespace Managers.Implementations
         }
 
         // creates verified/confirmed user into user database
-        public bool CreateVerifiedUser(string email, DateTime birth, string pw)
+        public async Task<int> AsyncCreateVerifiedUser(string email, DateTime birth, string pw)
         {
             var user = new User();
             user.Email = email;
@@ -32,20 +31,13 @@ namespace Managers.Implementations
             user.Password = pw;
             const int CREATION_MODE = 1;
 
-            if (GetUser(user.Email) is null)
-            {
-                var isCreated = _userService.CreateUser(user, CREATION_MODE);
-                if (isCreated)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return await _userService.AsyncCreateUser(user, CREATION_MODE);
+
 
         }
 
         // creates new, registered (unverified/unconfirmed) user into registration accounts database
-        public bool CreateRegistrationUser(string email, DateTime birth, string pw)
+        public async Task<int> AsyncCreateRegistrationUser(string email, DateTime birth, string pw)
         {
             var user = new User();
             user.Email = email;
@@ -56,56 +48,51 @@ namespace Managers.Implementations
             user.Password = pw;
             const int CREATION_MODE = 0;
 
-            if (GetUser(user.Email) is null)
-            {
-                var isCreated = _userService.CreateUser(user, CREATION_MODE);
-                if (isCreated)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return await _userService.AsyncCreateUser(user, CREATION_MODE);
 
         }
 
         // Gets user
-        public User GetUser(string email)
+        public async Task<User> AsyncGetUser(string email)
         {
-            return _userService.GetUser(email);
+            return await _userService.AsyncGetUser(email);
         }
 
-        public User DisplayGetUser(string display)
+        public async Task<User> DisplayGetUser(string display)
         {
-            return _userService.DisplayGetUser(display);
+            return await _userService.AsyncDisplayGetUser(display);
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<User>> AsyncGetAllUsers()
         {
-            return _userService.GetAllUsers();
+            return await _userService.AsyncGetAllUsers();
         }
 
-        public bool DeleteVerifiedUser(string email)
-        {
-            const int DELETION_MODE = 1;
-            return _userService.DeleteUser(email, DELETION_MODE);
-        }
-
-        public bool DeleteRegistrationUser(string email)
+        public async Task<int> AsyncDeleteVerifiedUser(string email)
         {
             const int DELETION_MODE = 0;
-            return _userService.DeleteUser(email, DELETION_MODE);
+            return await _userService.AsyncDeleteUser(email, DELETION_MODE);
+
         }
 
-        public User ModifyUser(User user)
+        public async Task<int> AsyncDeleteRegistrationUser(string email)
         {
-            return _userService.ModifyUser(user);
+            const int DELETION_MODE = 1;
+            return await _userService.AsyncDeleteUser(email, DELETION_MODE);
+
+        }
+
+        public async Task<int> AsyncModifyUser(User user)
+        {
+            return await _userService.AsyncModifyUser(user);
+
 
         }
 
         // Write to CSV File
-        public String ExportAllUsers()
+        public async Task<String> AsyncExportAllUsers()
         {
-            return _userService.ExportAllUsers();
+            return await _userService.AsyncExportAllUsers();
 
         }
 
@@ -116,9 +103,9 @@ namespace Managers.Implementations
 		 * what to do if want to delete?
 		 * Returns a success or unsuccessful message
 		 */
-        public String DoBulkOp(string file)
+        public async Task<String> AsyncDoBulkOp(string file)
         {
-            return _userService.DoBulkOp(file);
+            return await _userService.AsyncDoBulkOp(file);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Managers.Implementations
     // scope: any user attempting to use the system
     public class AuthenticationManager : IAuthenticationManager
     {
-        private UserManager _userManager;
+        private readonly IUserManager _userManager;
         private readonly IAuthenticationService _authenticationService;
         public AuthenticationManager()
         {

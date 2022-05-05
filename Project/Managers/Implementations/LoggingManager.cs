@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Managers.Contracts;
 using Core.Logging;
 using Services.Contracts;
+using Services.Implementations;
 
 
 namespace Managers.Implementations
@@ -13,33 +14,33 @@ namespace Managers.Implementations
         private ILoggingService _loggingService;
         public LoggingManager()
         {
-
+            _loggingService = new LoggingService();
         }
 
         // Manager communicates with Service layer through this method
-        public Task LogData(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
+        public async Task<bool> LogDataAsync(string desc, LogLevel level, LogCategory category, DateTime timeStamp)
         {
-            return _loggingService.LogData(desc, level, category, timeStamp);
+            return await _loggingService.LogDataAsync(desc, level, category, timeStamp);
         }
 
-        public Task LogData(Log log)
+        public async Task<bool> LogDataAsync(Log log)
         {
-            return _loggingService.LogData(log);
+            return await _loggingService.LogDataAsync(log);
         }
 
-        public Log GetLog(int id)
+        public async Task<IEnumerable<Log>> GetLogAsync(int id)
         {
-            return _loggingService.GetLog(id);
+            return await _loggingService.GetLogAsync(id);
         }
 
-        public Task<IEnumerable<Log>> GetLog(DateTime timeStamp)
+        public async Task<IEnumerable<Log>> GetLogAsync(DateTime timeStamp)
         {
-            return _loggingService.GetLog(timeStamp);
+            return await _loggingService.GetLogAsync(timeStamp);
         }
 
-        public bool DeleteOldLog()
+        public async Task<bool> DeleteOldLogAsync()
         {
-            return _loggingService.DeleteOldLog();
+            return await _loggingService.DeleteOldLogAsync();
         }
 
 

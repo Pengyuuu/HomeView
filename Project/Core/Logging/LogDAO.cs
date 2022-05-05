@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Data;
-//using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Data;
 using System.Linq;
@@ -20,53 +18,37 @@ namespace Core.Logging
         {
             _db = db;
         }
-        public Task StoreLog(Log log)
+        public async Task<int> StoreLogAsync(Log log)
         {
-            return _db.SaveData("dbo.StoreLogs", new { description = log.Description, logLevel = log.Level, logCategory = log.Category, timeStamp = log.timeStamp });
+            var newLog = new
+            {
+                description = log.Description,
+                logLevel = log.Level,
+                logCategory = log.Category,
+                timeStamp = log.timeStamp
+            };
+
+            return await _db.SaveData("dbo.Logs_StoreLogs", newLog);
         }
 
-        public async Task<Log?> GetLog(int id)
+        public async Task<IEnumerable<Log>> GetLogAsync(int id)
         {
-
-            var results = await _db.LoadData<Log, dynamic>("dbo.GetLog", new { Id = id });
-            return results.FirstOrDefault();
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetLog", new { Id = id });
         }
 
-        public Task<IEnumerable<Log>> GetOldLogs()
+        public async Task<IEnumerable<Log>> GetOldLogsAsync()
         {
-            Task<IEnumerable<Log>> results;
-
-            try
-            {
-                results = _db.LoadData<Log, dynamic>("dbo.GetOldLog", "");
-            }
-            catch (Exception e)
-            {
-                results = null;
-            }
-
-            return results;
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetOldLog", "");
         }
 
-        public Task DeleteOldLogs()
+        public async Task<int> DeleteOldLogsAsync()
         {
-            return _db.SaveData("dbo.RemoveOldLogs", new { });
+            return await _db.SaveData("dbo.Logs_RemoveOldLogs", new { });
         }
 
-        public Task<IEnumerable<Log>> GetLogs(DateTime time)
+        public async Task<IEnumerable<Log>> GetLogsAsync(DateTime time)
         {
-            Task<IEnumerable<Log>> results;
-
-            try
-            {
-                results = _db.LoadData<Log, dynamic>("dbo.GetLogsTime", new { timeStamp = time });
-            }
-            catch (Exception e)
-            {
-                results = null;
-            }
-
-            return results;
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetLogTimes", new { timeStamp = time });
         }
     }
 }

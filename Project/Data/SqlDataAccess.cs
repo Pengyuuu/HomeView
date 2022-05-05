@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
+using System;
 
 namespace Data
 {
@@ -36,9 +37,17 @@ namespace Data
 
 		public async Task<int> SaveData<T>(string storedProcedure, T parameters)
 		{
+			
 			using IDbConnection conn = new SqlConnection(_connStr);
-			var affectedRows = await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
-			return affectedRows;
+			try
+			{
+				var affectedRows = await conn.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+				return affectedRows;
+			}
+			catch (Exception dbError)
+            {
+				return 0;
+            }
         }
 	}
 }

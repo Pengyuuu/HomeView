@@ -23,6 +23,9 @@ namespace Managers.Implementations
 
         // need to check if already in list
         // check if list null, false return null, true return list
+        // no need to return for POST request
+        // handle dups in db
+        // take out 34-41
         public async Task<IEnumerable<Blacklist>> AddToBlacklistAsync(Blacklist blacklistItem)
         {
             if (blacklistItem == null)

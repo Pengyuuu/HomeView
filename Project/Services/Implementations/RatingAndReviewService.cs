@@ -5,6 +5,7 @@ using Features.Ratings_and_Reviews;
 using Services.Contracts;
 using Core.Logging;
 using Data;
+using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
@@ -20,54 +21,53 @@ namespace Services.Implementations
             _loggingService = new LoggingService();
         }
 
-        public bool CreateRatingReview(RatingAndReview userRatingAndReview)
+        public async Task<int> AsyncCreateRatingReview(RatingAndReview userRatingAndReview)
         {
 
-            bool isCreated = false;
-            try
+            int isCreated = await _rrDAO.AsyncCreateRatingReview(userRatingAndReview);
+            if (isCreated == 1)
             {
-                isCreated = _rrDAO.AsyncCreateRatingReview(userRatingAndReview).Result;
                 Log reviewLogTrue = new("Review successfully created to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogTrue);
+
+                await _loggingService.LogDataAsync(reviewLogTrue);
             }
-            catch
+            else
             {
                 Log reviewLogFalse = new("Cannot create review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
-                return false;
+
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             return isCreated;
-
         }
 
-        public bool UpdateRatingReview(RatingAndReview userRatingAndReview)
+        public async Task<int> AsyncUpdateRatingReview(RatingAndReview userRatingAndReview)
         {
 
-            bool isUpdated = false;
-            try
+            int isUpdated = await _rrDAO.AsyncUpdateRateReview(userRatingAndReview);
+            if (isUpdated == 1)
             {
-                isUpdated = _rrDAO.AsyncUpdateRateReview(userRatingAndReview).Result;
                 Log reviewLogTrue = new("Review successfully updated to database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogTrue);
+
+               await  _loggingService.LogDataAsync(reviewLogTrue);
             }
-            catch
+            else
             {
                 Log reviewLogFalse = new("Cannot update review to database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
-                return false;
+
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
             return isUpdated;
 
         }
 
-        public IEnumerable<RatingAndReview> GetRatingReview(RatingAndReview getReview)
+        public async Task<IEnumerable<RatingAndReview>> AsyncGetRatingReview(RatingAndReview getReview)
         {
-            IEnumerable<RatingAndReview> fetchRatingReview = Enumerable.Empty<RatingAndReview>();
-            try
+            IEnumerable<RatingAndReview> fetchRatingReview = await _rrDAO.AsyncGetRatingReviews(getReview);
+            if (fetchRatingReview != null)
             {
-                fetchRatingReview = _rrDAO.AsyncGetRatingReviews(getReview).Result;
                 Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogTrue);
+                await _loggingService.LogDataAsync(reviewLogTrue);
+                
                 if (fetchRatingReview.Any())
                 {
                     return fetchRatingReview;
@@ -76,47 +76,34 @@ namespace Services.Implementations
                 {
                     return null;
                 }
-
             }
-            catch
+            else
             {
                 Log reviewLogFalse = new("Cannot fetch review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
-                return null;
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
+            return fetchRatingReview;
+
+
         }
 
-        public bool DeleteRatingReview(RatingAndReview selectedReview)
+        public async Task<int> AsyncDeleteRatingReview(RatingAndReview selectedReview)
         {
-            bool isDeleted = false;
-            try
+            int isDeleted = 0;
+            isDeleted = await _rrDAO.AsyncDeleteRatingReview(selectedReview);
+            if (isDeleted == 1)
             {
-                RatingAndReview userTitleReview = GetRatingReview(selectedReview).FirstOrDefault();
-                if (userTitleReview is not null)
-                {
-                    try
-                    {
-                        isDeleted = _rrDAO.AsyncDeleteRatingReview(selectedReview).Result;
-                        if (isDeleted)
-                        {
-                            Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                            _loggingService.LogData(reviewLogTrue);
-                            return true;
-                        }
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                }
+            
+                Log reviewLogTrue = new("Review successfully deleted from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(reviewLogTrue);
+            }
+            if (isDeleted != 1)
+            {
                 Log reviewLogFalse = new("Unsuccessful delete review from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(reviewLogFalse);
-                return isDeleted;
+                await _loggingService.LogDataAsync(reviewLogFalse);
             }
-            catch
-            {
-                return false;
-            }
+            return isDeleted;
+
         }
 
     }

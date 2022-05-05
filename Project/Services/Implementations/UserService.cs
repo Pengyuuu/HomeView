@@ -5,13 +5,14 @@ using Core.User;
 using Core.Logging;
 using System.IO;
 using Services.Contracts;
+using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
     public class UserService : IUserService
     {
-        private ILoggingService _loggingService;
-        private UserDAO _userDAO;
+        private readonly ILoggingService _loggingService;
+        private readonly UserDAO _userDAO;
 
         public UserService()
         {
@@ -20,151 +21,161 @@ namespace Services.Implementations
         }
 
         // creates user given user fields and creation mode (either verified user, sent to user db, or unverified user, sent to accounts db )
-        public bool CreateUser(User userCreate, int CREATION_MODE)
+        public async Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE)
         {
-            bool isCreated = false;
-            try
+            int createdUser = 0;
+
+            createdUser = await _userDAO.AsyncCreateUser(userCreate, CREATION_MODE);
+            if (createdUser == 1)
             {
-                isCreated = _userDAO.AsyncCreateUser(userCreate, CREATION_MODE).Result;
                 Log userLog = new("User created.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
-            catch
+            else
             {
                 Log userLogFalse = new("Unsuccessful create user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLogFalse);
-                return false;
+
+                await _loggingService.LogDataAsync(userLogFalse);
+
             }
-            return isCreated;
+            return createdUser;
 
         }
 
         // Gets user
-        public User GetUser(string email)
+        public async Task<User> AsyncGetUser(string email)
         {
-            User fetchedUser = (User)_userDAO.AsyncReadUser(email).Result;
+            User fetchedUser = await _userDAO.AsyncReadUser(email);
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             else
             {
-                fetchedUser = (User)_userDAO.AsyncReadRegisteredUser(email).Result;
+                Log userLogFalse = new("User not found.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLogFalse);
             }
             return fetchedUser;
         }
 
         // Gets registered user
-        public User GetRegisteredUser(string email)
+        public async Task<User> AsyncGetRegisteredUser(string email)
         {
             User fetchedUser = (User)_userDAO.AsyncReadRegisteredUser(email).Result;
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             return fetchedUser;
         }
 
-
-        public User DisplayGetUser(string display)
+        public async Task<User> AsyncDisplayGetUser(string display)
         {
             User fetchedUser = (User)_userDAO.AsyncDisplayReadUser(display).Result;
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+
+                await _loggingService.LogDataAsync(userLog);
             }
             return fetchedUser;
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<User>> AsyncGetAllUsers()
         {
-            try
-            {
-                IEnumerable<User> fetchedUsers = _userDAO.AsyncReadAllUsers().Result;
-                if (fetchedUsers != null)
-                {
 
-                    Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(userLog);
-                }
-                return fetchedUsers.ToList();
-            }
-            catch (Exception ex)
+            IEnumerable<User> fetchedUsers = await _userDAO.AsyncReadAllUsers();
+            if (fetchedUsers != null)
             {
-                Log userLog = new("GetAllUsers failed " + ex.Message, LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLog);
+
+                Log userLog = new("All users retrieved.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLog);
+                
             }
-            return null;
+            else
+            {
+                Log userLog = new("GetAllUsers failed ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLog);
+            }
+            return fetchedUsers.ToList();
         }
 
-        public bool DeleteUser(string email, int DELETION_MODE)
+        public async Task<int> AsyncDeleteUser(string email, int DELETION_MODE)
         {
-
-            User user = GetUser(email);
-            if (user is not null)
+            User user = await AsyncGetUser(email);
+            int isDeleted = await _userDAO.AsyncDeleteUser(email, DELETION_MODE);
+            if (isDeleted == 1)
             {
-                var isDeleted = _userDAO.AsyncDeleteUser(email, DELETION_MODE).Result;
-                if (isDeleted)
-                {
-                    Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(userLogTrue);
-                    return true;
-                }
+                Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLogTrue);
             }
-            Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(userLogFalse);
-            return false;
+            else
+            {
+                Log userLogFalse = new("User: " + email + " - unsuccessful delete user.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLogFalse);
+            }
+            return isDeleted;
+
         }
 
-        public User ModifyUser(User user)
+        public async Task<int> AsyncModifyUser(User user)
         {
-            User currentUser = GetUser(user.Email);
+            User currentUser = await AsyncGetUser(user.Email);
+            int isUpdated = 0;
+
             if (user is not null && currentUser is not null)
             {
-                var isUpdated = _userDAO.AsyncUpdateUser(user).Result;
-                if (isUpdated)
+                isUpdated = await _userDAO.AsyncUpdateUser(user);
+                if (isUpdated == 1)
                 {
                     Log userLogSuccess = new("User: " + user.Email + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                    _loggingService.LogData(userLogSuccess);
-                    return GetUser(user.Email);
+                    await _loggingService.LogDataAsync(userLogSuccess);
+                }
+                else
+                {
+                    Log userLogFail = new("User: " + user.Email + " was unable to be modified. Database error. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                    await _loggingService.LogDataAsync(userLogFail);
+
                 }
             }
             else
             {
-                const int CREATION_MODE = 1;
-                CreateUser(user, CREATION_MODE);
-                Log userLogCreate = new("User: " + user.Email + " could not be modified because it did not exist. Creating user.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLogCreate);
-                return user;
+                Log userLogFail = new("User: " + user.Email + " was unable to be modified. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLogFail);
             }
-            Log userLogFail = new("User: " + user.Email + " was unable to be modified. ", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(userLogFail);
-            return null;
+            return isUpdated;
+
 
         }
 
-        public bool CreateUserSession(User user, string jwtToken)
+        public async Task<int> AsyncCreateUserSession(User user, string jwtToken)
         {
-            
-            var isCreated = _userDAO.AsyncCreateUserSession(user, jwtToken).Result;
-            if (isCreated)
+
+            var isCreated = await _userDAO.AsyncCreateUserSession(user, jwtToken);
+            if (isCreated == 1)
             {
                 Log userLogTrue = new("Successfully created user session.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
-                _loggingService.LogData(userLogTrue);
-                return true;
-            }           
-            Log userLogFalse = new("Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
-            _loggingService.LogData(userLogFalse);
-            return false;
+                await _loggingService.LogDataAsync(userLogTrue);
+
+            }
+            else
+            {
+                Log userLogFalse = new("Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(userLogFalse);
+            }
+            return isCreated;
+
         }
 
         // Write to CSV File
-        public String ExportAllUsers()
+        public async Task<String> AsyncExportAllUsers()
         {
-            var userList = _userDAO.AsyncReadAllUsers().Result;
+            var userList = await _userDAO.AsyncReadAllUsers();
             string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
             Log userLog;
 
@@ -180,12 +191,14 @@ namespace Services.Implementations
                 }
 
                 userLog = new("Exported all users to .csv", LogLevel.Info, LogCategory.View, DateTime.Now);
-                _loggingService.LogData(userLog);
+                await _loggingService.LogDataAsync(userLog);
+
                 return "User data successfully exported to .csv file";
             }
 
             userLog = new("Unable to export all users to file.", LogLevel.Error, LogCategory.View, DateTime.Now);
-            _loggingService.LogData(userLog);
+            await _loggingService.LogDataAsync(userLog);
+
             return "Unable to export all users.";
 
         }
@@ -197,7 +210,7 @@ namespace Services.Implementations
 		 * what to do if want to delete?
 		 * Returns a success or unsuccessful message
 		 */
-        public String DoBulkOp(string file)
+        public async Task<String> AsyncDoBulkOp(string file)
         {
             Log userLog = new();
 
@@ -231,15 +244,15 @@ namespace Services.Implementations
                     {
                         if (mode == "Create")
                         {
-                            CreateUser(userMod, CREATION_MODE);
+                            await AsyncCreateUser(userMod, CREATION_MODE);
                         }
                         else if (mode == "Modify")
                         {
-                            ModifyUser(userMod);
+                            await AsyncModifyUser(userMod);
                         }
                         else if (mode == "Delete")
                         {
-                            DeleteUser(userMod.Email, DELETION_MODE);
+                            await AsyncDeleteUser(userMod.Email, DELETION_MODE);
                         }
                         successMods++;
                     }

@@ -37,7 +37,7 @@ namespace HomeView_API.Controllers
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);
             if (isValid)
             {
-                bool isCreated = _registrationManager.CreateUser(email, dob, pw);
+                bool isCreated = _registrationManager.AsyncCreateUser(email, dob, pw).Result;
                 if (isCreated)
                 {
                     return "pass";

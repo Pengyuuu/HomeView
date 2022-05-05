@@ -13,7 +13,7 @@ namespace RegistrationTests
         {
             bool expected = true;
 
-            bool actual = _registrationManager.CreateUser("testing@gmail.com","2000-12-09", "TestPassword!12344556755");
+            bool actual = _registrationManager.AsyncCreateUser("may@gmail.com","2000-12-09", "TestPassword!1234").Result;
 
             Assert.Equal(expected, actual);
 
@@ -24,7 +24,7 @@ namespace RegistrationTests
         {
             bool expected = false;
 
-            bool actual = _registrationManager.CreateUser("csulbtestingtestingtesting@gmail.com", "2000-12-09", "TestPassword!12344556755");
+            bool actual = _registrationManager.AsyncCreateUser("may@gmail.com", "2000-12-09", "Test!1234").Result;
 
 
             Assert.Equal(expected, actual);

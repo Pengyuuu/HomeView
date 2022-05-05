@@ -29,6 +29,16 @@ builder.Services.AddSwaggerGen();
  */
 builder.Services.AddTransient<INewsManager, NewsManager>();
 builder.Services.AddTransient<IBlacklistManager, BlacklistManager>();
+builder.Services.AddTransient<IRatingAndReviewManager, RatingAndReviewManager>();
+builder.Services.AddTransient<ILoggingManager, LoggingManager>();
+builder.Services.AddTransient<IUserManager, UserManager>();
+builder.Services.AddTransient<IRegistrationManager, RegistrationManager>();
+builder.Services.AddTransient<IAccountRecoveryManager, AccountRecoveryManager>();
+builder.Services.AddTransient<IAuthenticationManager, AuthenticationManager>();
+builder.Services.AddTransient<IEmailManager, EmailManager>();
+
+builder.Services.AddTransient<IWatchLaterManager,WatchLaterManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -77,7 +77,7 @@ namespace Services.Implementations
 
         public bool AuthenticateRegisteredUser(string email, string userOtp)
         {
-            var fetchedUser = _userService.GetRegisteredUser(email);
+            var fetchedUser = _userService.AsyncGetRegisteredUser(email).Result;
             // user is found and they're unconfirmed
             if (fetchedUser != null && (!fetchedUser.Status))
             {
@@ -89,7 +89,7 @@ namespace Services.Implementations
                     fetchedUser.Status = true;
                     // resets token so it is no longer valid now that user is confirmed already
                     fetchedUser.Token = "";
-                    _userService.CreateUser(fetchedUser, 1);
+                    _userService.AsyncCreateUser(fetchedUser, 1);
                     return true;
                 }
             }
@@ -99,7 +99,7 @@ namespace Services.Implementations
         public string AuthenticateLogInUser(string email, string pw)
         {
             
-            var fetchedUser = _userService.GetUser(email);
+            var fetchedUser = _userService.AsyncGetUser(email).Result;
             if (fetchedUser != null)
             {
                 string hashedPW = HashPassword(pw, fetchedUser.Salt);
@@ -107,7 +107,7 @@ namespace Services.Implementations
                 if ((fetchedUser.Password == hashedPW))
                 {
                     var jwtToken = GenerateJWTToken(email);
-                    _userService.CreateUserSession(fetchedUser, jwtToken);
+                    _userService.AsyncCreateUserSession(fetchedUser, jwtToken);
                     return jwtToken;
                 }
             }                     

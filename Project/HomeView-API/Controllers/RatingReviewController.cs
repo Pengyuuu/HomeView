@@ -20,75 +20,48 @@ namespace HomeView_API.Controllers
 
         // post: /submit a review
         [HttpPost("submit/{title}/{dispName}")]
-        public ActionResult<bool> SubmitReview(string title, string dispName, float rating, string review)
+        public ActionResult<string> SubmitReview(string title, string dispName, float rating, string review)
         {
-            try
+
+            var result = _reviewManager.AsyncSubmitReviewRating(dispName, title, rating, review).Result;
+            if (result == 1)
             {
-                bool result = _reviewManager.CheckReviewFields(title, rating, review);
-                if (result)
-                {
-                    result = _reviewManager.SubmitReviewRating(dispName, title, rating, review);
-                    if (result)
-                    {
-                        return Ok("Rating/Review submitted");
-                    }
-                    return BadRequest("Unable to submit review/rating. Database error.");
-                }
-                return BadRequest("Please enter valid fields.");
+                return Ok("Successfully created review.");
             }
-            catch
-            {
-                return BadRequest("Cannot submit rating review. System error.");
-            }
+            return BadRequest("Unable to submit review/rating. Database error.");
+            
         }
 
         // post: update a user's review
         [HttpPost("update/{title}/{dispName}")]
-        public ActionResult<bool> UpdateReview(string title, string dispName, double rating, string review)
+        public ActionResult<string> UpdateReview(string title, string dispName, double rating, string review)
         {
-            try
+ 
+            int result = _reviewManager.AsyncUpdateReviewRating(dispName, title, rating, review).Result;
+            if (result == 1)
             {
-                bool result = _reviewManager.CheckReviewFields(title, rating, review);
-                if (result)
-                {
-                    result = _reviewManager.UpdateReviewRating(dispName, title, rating, review);
-                    if (result)
-                    {
-                        return Ok("Rating/Review updated.");
-                    }
-                    return BadRequest("Unable to update review/rating. Database error.");
-                }
-                return BadRequest("Please enter valid fields.");
+                return Ok("Rating/Review updated.");
             }
-            catch
-            {
-                return BadRequest("Cannot update rating review. System Error.");
-            }
+            return BadRequest("Unable to update review/rating. Database error.");
 
         }
     
         // GET list of all reviews for the title
         [HttpGet("get/title/{title}")]
-        public string GetTitleReviews(string title)
+        public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
         {
-            return title;
-            try
+
+            List<RatingAndReview> titleList = (List<RatingAndReview>)(_reviewManager.AsyncGetTitleReviewRating(title).Result);
+            double avgRating = _reviewManager.AsyncGetAverageRating(title).Result;
+            if ((titleList.Count != 0) && (avgRating > 0))
             {
-                List<RatingAndReview> titleList = (List<RatingAndReview>)(_reviewManager.GetTitleReviewRating(title));
-                double avgRating = _reviewManager.GetAverageRating(title);
-                if ((titleList.Count != 0) && (avgRating > 0))
-                {
-                    TitleInfo info = new TitleInfo();
-                    info.Rating = avgRating;
-                    info.RatingAndReviews = titleList;
-                    //return Ok(info);
-                }
-                //return BadRequest("Unable to get title's rating reviews information. Database error.");
+                TitleInfo info = new TitleInfo();
+                info.Rating = avgRating;
+                info.RatingAndReviews = titleList;
+                return Ok(info);
             }
-            catch
-            {
-                //return BadRequest("Unable to get title's rating reviews information. System error.");
-            }
+            return BadRequest("Unable to get title's rating reviews information. Database error.");
+                       
         }
 
 
@@ -96,38 +69,28 @@ namespace HomeView_API.Controllers
         [HttpGet("get/title/user/{title}/{dispName}")]
         public ActionResult<RatingAndReview> GetUserTitleReview(string title, string dispName)
         {
-            try {
-                RatingAndReview review = _reviewManager.GetSpecificReviewRating(dispName, title);
-                if (review!= null)
-                {
-                    return Ok(review);
-                }
-                return BadRequest("Unable to get user's specific title review information. Database error.");
-            }
-            catch
+            RatingAndReview review = _reviewManager.AsyncGetSpecificReviewRating(dispName, title).Result;
+            if (review!= null)
             {
-                return BadRequest("Unable to get user's specific title review information. System error.");
+                return Ok(review);
             }
+            return BadRequest("Unable to get user's specific title review information. Database error.");
+  
         }
 
         // GET ALL of user's reviews
         [HttpGet("get/user/reviews/{dispName}")]
         public ActionResult<IEnumerable<RatingAndReview>> GetUsersReview(string dispName)
         {
-            try
+
+            IEnumerable<RatingAndReview> userList = _reviewManager.AsyncGetUserReviewRating(dispName).Result;
+            List<RatingAndReview> userReviews = (List<RatingAndReview>)userList;
+            if (userReviews.Count > 0)
             {
-                IEnumerable<RatingAndReview> userList = _reviewManager.GetUserReviewRating(dispName);
-                List<RatingAndReview> userReviews = (List<RatingAndReview>)userList;
-                if (userReviews.Count > 0)
-                {
-                    return Ok(userReviews);
-                }
-                return BadRequest("No list of reviews found for user.");
+                return Ok(userReviews);
             }
-            catch
-            {
-                return BadRequest("Unable to get user's list of reviews. System error.");
-            }
+             return BadRequest("No list of reviews found for user.");
+
         }
 
 
@@ -135,18 +98,13 @@ namespace HomeView_API.Controllers
         [HttpDelete("delete/title/user/{title}/{dispName}")]
         public ActionResult<bool> DeleteReview(string title, string dispName)
         {
-            try {
-                bool result = _reviewManager.DeleteReviewRating(dispName, title);
-                if (result)
-                {
-                    return Ok("Rating review deleted.");
-                }
-                return BadRequest("Unable to delete the requested rating review. Database error.");
-            }
-            catch
+            int result = _reviewManager.AsyncDeleteReviewRating(dispName, title).Result;
+            if (result == 1)
             {
-                return BadRequest("Unable to delete the requested rating review. System error.");
+                return Ok("Rating review deleted.");
             }
+            return BadRequest("Unable to delete the requested rating review. Database error.");
+
         }
 
     }

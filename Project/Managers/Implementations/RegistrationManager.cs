@@ -3,7 +3,7 @@ using Managers.Contracts;
 using Services.Contracts;
 using Core.User;
 using Services.Implementations;
-
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
@@ -11,13 +11,13 @@ namespace Managers.Implementations
     {
         private readonly IUserManager _userManager;
         private readonly IRegistrationService _registrationService;
-        //private readonly IEmailManager _emailManager;
+        private readonly IEmailManager _emailManager;
         private readonly IAuthenticationManager _authenticationManager;
 
         public RegistrationManager()
         {
             _userManager = new UserManager();
-            //_emailManager = new EmailManager();
+            _emailManager = new EmailManager();
             _authenticationManager = new AuthenticationManager();
             _registrationService = new RegistrationService();
         }
@@ -30,7 +30,7 @@ namespace Managers.Implementations
                 if (email.Contains("@") && (email.Contains(".edu") || email.Contains(".com")))
                 {
                     // check if in db
-                    if (_userManager.GetUser(email) == null)
+                    if (_userManager.AsyncGetUser(email).Result == null)
                     {
                         return true;
                     }
@@ -91,14 +91,14 @@ namespace Managers.Implementations
         }
 
         // creates user into reg db and sends confirmation email
-        public bool CreateUser(string email, string birth, string pw)
+        public async Task<bool> AsyncCreateUser(string email, string birth, string pw)
         {
             if (ValidateFields(email, birth, pw))
             {
                 string userSalt = _authenticationManager.GetSalt();
                 string hashedPw = _authenticationManager.HashPassword(pw, userSalt);
                 string userOtp = _authenticationManager.GenerateOTP();
-                User existingUser = _userManager.GetUser(email);
+                User existingUser = _userManager.AsyncGetUser(email).Result;
                 if (existingUser == null)
                 {
                     User userCreate = new User();
@@ -108,8 +108,8 @@ namespace Managers.Implementations
                     userCreate.Token = userOtp;
                     userCreate.Salt = userSalt;
                     const int CREATION_MODE = 0;
-                    bool isCreatedDB = _registrationService.CreateUser(userCreate, CREATION_MODE);
-                    if (isCreatedDB)
+                    int isCreatedDB = await _registrationService.AsyncCreateUser(userCreate, CREATION_MODE);
+                    if (isCreatedDB == 1)
                     {
                         return true;
                         //return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);

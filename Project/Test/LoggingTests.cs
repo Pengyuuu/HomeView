@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Core.Logging;
 using Managers.Contracts;
+using Managers.Implementations;
 
 namespace LoggingTests
 {
     public class LoggingTests
 
     {
+        private Log testLog = new Log("5:40 New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
 
-        private Log testLog = new("5:40 New Test log", LogLevel.Info, LogCategory.Data, DateTime.UtcNow);
-        private ILoggingManager logManager;
+        ILoggingManager logManager = new LoggingManager();
 
         [Fact]
         public void LoggingManager_getLogShouldReturnLogFromTable()
@@ -23,11 +20,11 @@ namespace LoggingTests
             Log actual = testLog;
 
             //act
-            logManager.LogData(testLog);
-            actual = (Log) logManager.GetLog(384);
+            logManager.LogDataAsync(testLog);
+            var result = logManager.GetLogAsync(384).Result;
 
             //assert
-            Assert.NotNull(actual);
+            Assert.NotNull(result);
         }
 
         [Fact]
@@ -35,25 +32,22 @@ namespace LoggingTests
         {
             bool expected = true;
 
-            bool want = true;
+            bool actual = true;
 
+            var result = logManager.LogDataAsync(testLog);
 
-            logManager.LogData(testLog);
-
-            var retrievedLog = logManager.GetLog(testLog.timeStamp).Result;
-
-            var result = testLog.timeStamp;
+            var retrievedLog = logManager.GetLogAsync(testLog.timeStamp).Result;
 
             foreach (var log in retrievedLog)
             {
-                if (log.timeStamp != result)
+                if (log.timeStamp != testLog.timeStamp)
                 {
-                    want = false;
+                    actual = false;
                     break;
                 }
             }
 
-            Assert.Equal(expected, want);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -62,7 +56,7 @@ namespace LoggingTests
 
             bool expected = true;
 
-            bool actual = logManager.DeleteOldLog();
+            bool actual = logManager.DeleteOldLogAsync().Result;
 
             Assert.Equal(expected, actual);
         }

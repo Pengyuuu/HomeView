@@ -26,7 +26,7 @@ namespace Managers.Implementations
             // If playlist name is blank then create an error log and return false
             if (playlistName == "")
             {
-                _loggingManager.LogData(
+                _loggingManager.LogDataAsync(
                     $"User: {email} Playlist {playlistName} blank or invalid", 
                     LogLevel.Error, 
                     LogCategory.Data, 

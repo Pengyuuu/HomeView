@@ -16,10 +16,10 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_CreateReviewShouldCreateNewReview()
         {
-            bool expected = true;
+            int expected = 1;
             // name, title, rating, review
-            RatingAndReview newReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
-            bool actual = reviewManager.SubmitReviewRating("HankHill@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
+            RatingAndReview newReview = new RatingAndReview("may@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)");
+            int actual = reviewManager.AsyncSubmitReviewRating("may@yahoo.com", "Power Rangers", 5, "I love the Power Rangers! You should go watch the original! :)").Result;
             
 
             Assert.Equal(expected, actual);
@@ -29,9 +29,9 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_CreateReviewShouldNotCreateForNonExistingUser()
         {
-            bool expected = false;
+            int expected = 0;
 
-            bool actual = reviewManager.SubmitReviewRating("abcdegfhg", "Testing", 3, "I love the Power Rangers! You should go watch the original! :)");
+            int actual = reviewManager.AsyncSubmitReviewRating("abcdegfhg", "Testing", 3, "I love the Power Rangers! You should go watch the original! :)").Result;
 
             Assert.Equal(expected, actual);
         }
@@ -41,7 +41,7 @@ namespace RatingReviewTests
         public void ReviewManager_GetAllUserReviews()   
         {
 
-            IEnumerable<RatingAndReview> actual = reviewManager.GetUserReviewRating("HankHill@yahoo.com");
+            IEnumerable<RatingAndReview> actual = reviewManager.AsyncGetUserReviewRating("HankHill@yahoo.com").Result;
             Assert.True(actual.Any());
         }
 
@@ -53,7 +53,7 @@ namespace RatingReviewTests
             string actual = "";
             try
             {
-                var result = reviewManager.GetSpecificReviewRating(newReview.DispName, newReview.Title);
+                var result = reviewManager.AsyncGetSpecificReviewRating(newReview.DispName, newReview.Title).Result;
                 actual = result.ToString();
             }
             catch
@@ -74,7 +74,7 @@ namespace RatingReviewTests
             IEnumerable<RatingAndReview> actual = Enumerable.Empty<RatingAndReview>();
             try
             {
-                actual = reviewManager.GetTitleReviewRating("Power Rangers");
+                actual = reviewManager.AsyncGetTitleReviewRating("Power Rangers").Result;
                 if (actual.Any())
                 {
                     hasReviews = true;
@@ -91,9 +91,8 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_UpdateUserReviewForTitle()
         {
-            RatingAndReview exampleReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.");
-            bool isUpdated = reviewManager.UpdateReviewRating("HankHill@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.");
-            var fetchedUpdate = reviewManager.GetSpecificReviewRating("HankHill@yahoo.com", "Power Rangers");
+            RatingAndReview exampleReview = new RatingAndReview("may@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.");
+            var fetchedUpdate = reviewManager.AsyncGetSpecificReviewRating("may@yahoo.com", "Power Rangers").Result;
             string actual = fetchedUpdate.ToString();
             string expected = exampleReview.ToString();
             Assert.Equal(expected, actual);
@@ -103,8 +102,8 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_DeleteReviewSuccesssful()
         {
-            bool expected = true;
-            bool actual = reviewManager.DeleteReviewRating("HankHill@yahoo.com", "Power Rangers");
+            int expected = 0;
+            int actual = reviewManager.AsyncDeleteReviewRating("HankHill@yahoo.com", "Power Rangers").Result;
 
             Assert.Equal(expected, actual);
         }
@@ -113,8 +112,8 @@ namespace RatingReviewTests
         public void ReviewManager_DeleteReviewUnSucessful()
         {
             // unsuccessful if user did not create a review for given title
-            bool expected = false;
-            bool actual = reviewManager.DeleteReviewRating("mWallace@pulp.com", "Power Rangers");
+            int expected = 0;
+            int actual = reviewManager.AsyncDeleteReviewRating("mWallace@pulp.com", "Power Rangers").Result;
            
             Assert.Equal(expected, actual);
         }
@@ -124,7 +123,7 @@ namespace RatingReviewTests
         {
             // unsuccessful if user did not create a review for given title
             double expected = 5;
-            double actual = reviewManager.GetAverageRating("Power Rangers");
+            double actual = reviewManager.AsyncGetAverageRating("Power Rangers").Result;
             Assert.Equal(expected, actual);
         }
     }

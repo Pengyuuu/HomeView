@@ -4,17 +4,18 @@ using Services.Contracts;
 using Features.Ratings_and_Reviews;
 using Services.Implementations;
 using Managers.Contracts;
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
     public class RatingAndReviewManager : IRatingAndReviewManager
     {
 
-        private IRatingAndReviewService _ratingAndReviewService;
+        private readonly IRatingAndReviewService _ratingAndReviewService;
 
         public RatingAndReviewManager()
         {
-            this._ratingAndReviewService = new RatingAndReviewService();
+            _ratingAndReviewService = new RatingAndReviewService();
         }
 
         // Checks valid review fields
@@ -22,7 +23,7 @@ namespace Managers.Implementations
         {
 
             const int MAX_REVIEW_CHARACTERS = 2500;
-            
+
             if ((uRating <= 5) & (uRating >= 1))
             {
                 if ((uReview is null) || (uReview.Length <= MAX_REVIEW_CHARACTERS))
@@ -33,74 +34,64 @@ namespace Managers.Implementations
                     }
                 }
             }
-                    
             return false;
 
         }
 
-        public bool SubmitReviewRating(string dispName, string titleSelected, double uRating, string uReview)
+        public async Task<int> AsyncSubmitReviewRating(string dispName, string titleSelected, double uRating, string uReview)
         {
-            
             RatingAndReview userReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
             bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
-            if (isValidReview)
-            {
-                return _ratingAndReviewService.CreateRatingReview(userReview);
-            }           
-            return false;
+            return await _ratingAndReviewService.AsyncCreateRatingReview(userReview);
+
         }
 
-        public bool DeleteReviewRating(string dispName, string titleSelected)
+        public async Task<int> AsyncDeleteReviewRating(string dispName, string titleSelected)
         {
-            
             RatingAndReview deleteReview = new RatingAndReview();
             deleteReview.DispName = dispName;
             deleteReview.Title = titleSelected;
-            return _ratingAndReviewService.DeleteRatingReview(deleteReview);
-            
+            return await _ratingAndReviewService.AsyncDeleteRatingReview(deleteReview);
+
+
         }
 
-        public bool UpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview)
+        public async Task<int> AsyncUpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview)
         {
             RatingAndReview updateReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
             bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
-            RatingAndReview oldReview = _ratingAndReviewService.GetRatingReview(updateReview).FirstOrDefault();
-            if ((oldReview is not null) && (isValidReview))
-            {
-                return _ratingAndReviewService.UpdateRatingReview(updateReview);
-            }
-
-            return false;
+            var oldReview = (await _ratingAndReviewService.AsyncGetRatingReview(updateReview)).FirstOrDefault();
+            return await _ratingAndReviewService.AsyncUpdateRatingReview(updateReview);
 
         }
 
-        public RatingAndReview GetSpecificReviewRating(string dispName, string selectedTitle)
+        public async Task<RatingAndReview> AsyncGetSpecificReviewRating(string dispName, string selectedTitle)
         {
             RatingAndReview specificReview = new RatingAndReview();
             specificReview.DispName = dispName;
             specificReview.Title = selectedTitle;
-            return _ratingAndReviewService.GetRatingReview(specificReview).FirstOrDefault();
+            return (await _ratingAndReviewService.AsyncGetRatingReview(specificReview)).FirstOrDefault();
 
         }
 
-        public IEnumerable<RatingAndReview> GetTitleReviewRating(string selectedTitle)
+        public async Task<IEnumerable<RatingAndReview>> AsyncGetTitleReviewRating(string selectedTitle)
         {
             RatingAndReview titleReviews = new RatingAndReview();
             titleReviews.Title = selectedTitle;
-            return _ratingAndReviewService.GetRatingReview(titleReviews);
+            return await _ratingAndReviewService.AsyncGetRatingReview(titleReviews);
         }
 
-        public IEnumerable<RatingAndReview> GetUserReviewRating(string dispName)
+        public async Task<IEnumerable<RatingAndReview>> AsyncGetUserReviewRating(string dispName)
         {
             RatingAndReview userReviews = new RatingAndReview();
             userReviews.DispName = dispName;
-            return _ratingAndReviewService.GetRatingReview(userReviews);
+            return await _ratingAndReviewService.AsyncGetRatingReview(userReviews);
         }
 
-        public double GetAverageRating(string selectedTitle)
+        public async Task<double> AsyncGetAverageRating(string selectedTitle)
         {
             double totalRating = 0;
-            var titleReviews = GetTitleReviewRating(selectedTitle);
+            var titleReviews = await AsyncGetTitleReviewRating(selectedTitle);
             if (titleReviews.Count() > 0)
             {
                 foreach (var review in titleReviews)

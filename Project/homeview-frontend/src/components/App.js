@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-rou
 import Register from "./Core/Register"
 import Home from './Features/Home'
 import Login from './Core/Login'
+import AccountRecovery from './Core/AccountRecovery'
 import { TVShows } from "./Features/TVShows"
 import { Movies } from "./Features/Movies"
 import News from "./Features/News/News"
@@ -23,6 +24,7 @@ function App() {
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/login" element={<Login />} />
+                    <Route exact path="/account-recovery" element={<AccountRecovery/>}/>
                     <Route exact path="/tvshows" element={<TVShows />} />
                     <Route exact path="/movies" element={<Movies />} />
                     <Route exact path="/news" element={<News />} />

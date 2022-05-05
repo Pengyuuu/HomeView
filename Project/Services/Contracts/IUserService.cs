@@ -1,20 +1,20 @@
 ﻿using Core.User;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Services.Contracts
+namespace Services.Implementations
 {
     public interface IUserService
     {
-        bool CreateUser(User userCreate, int CREATION_MODE);
-        bool DeleteUser(string email, int DELETION_MODE);
-        User DisplayGetUser(string display);
-        string DoBulkOp(string file);
-        string ExportAllUsers();
-        List<User> GetAllUsers();
-        User GetUser(string email);
-        User GetRegisteredUser(string email);
-        User ModifyUser(User user);
-        bool CreateUserSession(User user, string jwtToken);
-
+        Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE);
+        Task<int> AsyncCreateUserSession(User user, string jwtToken);
+        Task<int> AsyncDeleteUser(string email, int DELETION_MODE);
+        Task<User> AsyncDisplayGetUser(string display);
+        Task<string> AsyncDoBulkOp(string file);
+        Task<string> AsyncExportAllUsers();
+        Task<List<User>> AsyncGetAllUsers();
+        Task<User> AsyncGetRegisteredUser(string email);
+        Task<User> AsyncGetUser(string email);
+        Task<int> AsyncModifyUser(User user);
     }
 }

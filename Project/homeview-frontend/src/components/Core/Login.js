@@ -3,6 +3,7 @@ import {Form, Button, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../../css/App.css'
 import axios from 'axios';
+import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider';
 
 
 export default function Login() {
@@ -33,11 +34,13 @@ export default function Login() {
                 <div className="w-100 text-center mt-2 extraInfo">
                     Need an account? <Link to="/register">Sign Up</Link>
                 </div>
+                <div className="w-100 text-center mt-2 extraInfo">
+                    Forgot Password? <Link to="/account-recovery">Account Recovery</Link>
+                </div>
             </div>
         </div>
     )
 }
-
 /*
 Get email and pass and verify w/ backend and send back a jwt token
 Store token in sessionStorage
@@ -58,7 +61,7 @@ function verifyUser(e) {
     
     console.log('start login')
     console.log(data)
-    const validateLoginUrl = 'http://myhomeview.me:80/api/login/validate/' + email +'/' + password
+    const validateLoginUrl = 'http://54.219.16.154/api/login/validate/' + email +'/' + password
     console.log(validateLoginUrl);
     
     fetch(validateLoginUrl, {

@@ -21,6 +21,8 @@ namespace Features.Blacklist
         public async Task<int> AddToBlacklistAsync(Blacklist blacklistItem)
         {
             // get parameters from blacklistItem
+            // try catch here
+            // handle multiple items
             var blacklistReq = new
             {
                 dispName = blacklistItem.dispName,
