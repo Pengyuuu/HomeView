@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Services.Implementations
+namespace Services.Contracts
 {
     public interface IUserService
     {
