@@ -8,7 +8,7 @@ namespace Managers.Contracts
     public interface IUserManager
     {
         Task<int> AsyncCreateRegistrationUser(string email, DateTime birth, string pw);
-        Task<int> AsyncCreateVerifiedUser(string email, DateTime birth, string pw);
+        Task<int> AsyncCreateVerifiedUser(string email, DateTime birth, string pw, string salt);
         Task<int> AsyncDeleteRegistrationUser(string email);
         Task<int> AsyncDeleteVerifiedUser(string email);
         Task<string> AsyncDoBulkOp(string file);
