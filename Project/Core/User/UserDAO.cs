@@ -135,7 +135,7 @@ namespace Core.User
                 return await _db.SaveData("dbo.RegisteredUsers_DeleteUser", user);
             }
 
-            return 0;
+            return -1;
         }
 
         public async Task<int> AsyncCreateUserSession(User user, string jwtToken)

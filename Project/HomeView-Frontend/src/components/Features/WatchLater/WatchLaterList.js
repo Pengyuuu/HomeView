@@ -1,21 +1,24 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 
-export default function WatchLaterList() {
+function WatchLaterList() {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => { setShow(false); }
+    const handleClose = () => { setShow(false); };
 
-    const handleShow = () => { setShow(true); }
+    const handleShow = () => { setShow(true); };
 
-    return (
-        <div>
-            <Button onClick={handleShow()}>Watch Later</Button>
+    return(
+        <>
+            <Button onClick={()=> {handleShow()}}>Watch Later</Button>
 
-            <Modal show={show} onHide={handleClose()}>
-
+            <Modal show={show} onHide={()=>handleClose()}>
+            <Modal.Body>
+                Hello
+            </Modal.Body>
             </Modal>
-        </div>
+        </>
     )
 }
+export default WatchLaterList

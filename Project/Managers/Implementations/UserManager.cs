@@ -20,14 +20,14 @@ namespace Managers.Implementations
         }
 
         // creates verified/confirmed user into user database
-        public async Task<int> AsyncCreateVerifiedUser(string email, DateTime birth, string pw)
+        public async Task<int> AsyncCreateVerifiedUser(string email, DateTime birth, string pw, string salt)
         {
             var user = new User();
             user.Email = email;
             user.Dob = birth;
-            string salt = _authenticationService.GenerateSalt();
+            //string salt = _authenticationService.GenerateSalt();
             user.Salt = salt;
-            user.Password = _authenticationService.HashPassword(pw, salt);
+            //user.Password = _authenticationService.HashPassword(pw, salt);
             user.Password = pw;
             const int CREATION_MODE = 1;
 
