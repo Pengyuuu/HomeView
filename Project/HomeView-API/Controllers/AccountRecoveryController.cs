@@ -31,7 +31,7 @@ namespace HomeView_API.Controllers
             return BadRequest("Unable to send recovery email.");
         }
 
-
+        /**
         // when user clicks registration link from email -> authenticates user
         [Route("confirmRecoveryLink/{userOtp}/{email}")]
         //[AllowAnonymous]
@@ -47,6 +47,6 @@ namespace HomeView_API.Controllers
             return BadRequest("Invalid confirmation.");
 
 
-        }
+        }**/
     }
 }
