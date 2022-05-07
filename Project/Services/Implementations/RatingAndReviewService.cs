@@ -108,7 +108,7 @@ namespace Services.Implementations
 
         public async Task<int> AsyncGetReviewDateCount(DateTime date)
         {
-            int count = -1;
+            int count = 0;
             count = await _rrDAO.AsyncGetReviewCount(date);
             if (count >= -1)
             {

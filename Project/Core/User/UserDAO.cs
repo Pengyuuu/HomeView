@@ -155,7 +155,7 @@ namespace Core.User
         {
             var selectedDate = new
             {
-                reviewDate = date
+                regDate = date
             };
 
             var result = await _db.LoadData<int, dynamic>("dbo.RegisteredUsers_GetCountDate", selectedDate);
@@ -170,7 +170,7 @@ namespace Core.User
         {
             var selectedDate = new
             {
-                reviewDate = date
+                regDate = date
             };
 
             var result = await _db.LoadData<int, dynamic>("dbo.Sessions_GetLogInCountDate", selectedDate);

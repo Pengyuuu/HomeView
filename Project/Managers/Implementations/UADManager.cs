@@ -13,57 +13,77 @@ namespace Managers.Implementations
         private readonly INewsService _newsService;
         private readonly IUserService _userService;
         private readonly ILoggingService _loggingService;
+        private readonly IRatingAndReviewService _ratingAndReviewService;
         public UADManager()
         {
             //_newsService = new NewsService();
             _userService = new UserService();
             _loggingService = new LoggingService();
+            _ratingAndReviewService = new RatingAndReviewService();
 
         }
 
+        /* Gets a list of the number of registrations per day within the span of 3 months
+         * Returns a list of int
+         */
         public List<int> GetRegistrationCount()
         {
             List<int> registrationCount = new List<int>();
             var today = DateTime.Now;
+            // gets the month of 3 months ago
             var recent = today.Month - 3;
-            DateTime previous = new DateTime(recent);
+            // gets the first day of the month from 3 months ago
+            DateTime previous = new DateTime(today.Year, recent, today.Day);
+            // adds 92 days (3 months) to get the end date
             var history = previous.AddDays(92);
-            //var sampleDates = [2022 - 04 - 20 21:51:20.893]
-            for (var i = previous; i <= history; i = i.AddDays(1))
+
+            for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                
+                registrationCount.Add(_userService.AsyncGetRegistrationCount(i).Result);
             }
             return registrationCount;
         }
 
+        /* Gets a list of the number of log ins per day within the span of 3 months
+         * Returns a list of int
+         */
         public List<int> GetLogInCount()
         {
             List<int> registrationCount = new List<int>();
             var today = DateTime.Now;
+            // gets the month of 3 months ago
             var recent = today.Month - 3;
-            DateTime previous = new DateTime(recent);
+            // gets the first day of the month from 3 months ago
+            DateTime previous = new DateTime(today.Year, recent, today.Day);
+            // adds 92 days (3 months) to get the end date
             var history = previous.AddDays(92);
-            //var sampleDates = [2022 - 04 - 20];
-            for (var i = previous; i <= history; i = i.AddDays(1))
+
+            for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                
+                registrationCount.Add(_userService.AsyncGetRegistrationCount(i).Result);
             }
             return registrationCount;
         }
 
+        /* Gets a list of the number of news articles created per day within the span of 3 months
+         * Returns a list of int
+         */
         public List<int> GetNewsCount()
         {
-            List<int> registrationCount = new List<int>();
+            List<int> newsCount = new List<int>();
             var today = DateTime.Now;
+            // gets the month of 3 months ago
             var recent = today.Month - 3;
-            DateTime previous = new DateTime(recent);
+            // gets the first day of the month from 3 months ago
+            DateTime previous = new DateTime(today.Year, recent, today.Day);
+            // adds 92 days (3 months) to get the end date
             var history = previous.AddDays(92);
-            //var sampleDates = [2022 - 04 - 20];
-            for (var i = previous; i <= history; i = i.AddDays(1))
+
+            for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                
+                newsCount.Add(_newsService.AsyncGetNewsDateCount(i).Result);
             }
-            return registrationCount;
+            return newsCount;
         }
 
         /* Gets number of reviews made per day within 3 months
@@ -71,17 +91,20 @@ namespace Managers.Implementations
          */
         public List<int> GetReviewCount()
         {
-            List<int> registrationCount = new List<int>();
+            List<int> reviewCount = new List<int>();
             var today = DateTime.Now;
+            // gets the month of 3 months ago
             var recent = today.Month - 3;
-            DateTime previous = new DateTime(recent);
+            // gets the first day of the month from 3 months ago
+            DateTime previous = new DateTime(today.Year, recent, today.Day);
+            // adds 92 days (3 months) to get the end date
             var history = previous.AddDays(92);
-            //var sampleDates = [2022 - 04 - 20];
-            for (var i = previous; i <= history; i = i.AddDays(1))
+
+            for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                
+                reviewCount.Add(_ratingAndReviewService.AsyncGetReviewDateCount(i).Result);
             }
-            return registrationCount;
+            return reviewCount;
         }
 
         /* Gets the top 5 most visited view of all time

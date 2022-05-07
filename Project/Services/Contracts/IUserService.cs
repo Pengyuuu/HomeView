@@ -1,4 +1,5 @@
 ﻿using Core.User;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,5 +17,7 @@ namespace Services.Contracts
         Task<User> AsyncGetRegisteredUser(string email);
         Task<User> AsyncGetUser(string email);
         Task<int> AsyncModifyUser(User user);
+        Task<int> AsyncGetRegistrationCount(DateTime date);
+
     }
 }

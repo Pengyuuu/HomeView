@@ -265,5 +265,14 @@ namespace Services.Implementations
             sysMessage = "Successfully modified " + successMods + ".\n Failed to modify: " + failedMods + ".\n";
             return sysMessage;
         }
+
+        // 
+        /* Gets count of registered users on a certain day
+		 */
+        public async Task<int> AsyncGetRegistrationCount(DateTime date)
+        {
+            return await _userDAO.AsyncGetRegisteredCount(date);
+        }
+
     }
 }
