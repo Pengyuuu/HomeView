@@ -3,6 +3,13 @@ import React from "react";
 
 export default function WatchLater(title, year) {
 
+    function Watchlater({item}) {
+        return (
+            <li>
+                item.title (item.year)
+            </li>
+        )
+    }
     const AddToWatchLater = ({title, year}) => {
         const email = 'testing@gmail.com';
 
