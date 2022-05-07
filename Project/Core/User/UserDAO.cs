@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Data;
+using System;
 //using System;
 
 namespace Core.User
@@ -148,6 +149,36 @@ namespace Core.User
 
             return await _db.SaveData("dbo.Sessions_CreateUserSession", userSession);     
             
+        }
+
+        public async Task<int> AsyncGetRegisteredCount(DateTime date)
+        {
+            var selectedDate = new
+            {
+                reviewDate = date
+            };
+
+            var result = await _db.LoadData<int, dynamic>("dbo.RegisteredUsers_GetCountDate", selectedDate);
+            if (result.Count() == 1)
+            {
+                return result.FirstOrDefault();
+            }
+            return -1;
+        }
+
+        public async Task<int> AsyncGetLogInCount(DateTime date)
+        {
+            var selectedDate = new
+            {
+                reviewDate = date
+            };
+
+            var result = await _db.LoadData<int, dynamic>("dbo.Sessions_GetLogInCountDate", selectedDate);
+            if (result.Count() == 1)
+            {
+                return result.FirstOrDefault();
+            }
+            return -1;
         }
     }
 }

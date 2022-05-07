@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Features.Ratings_and_Reviews
 {
     public class RatingAndReview
@@ -11,6 +13,7 @@ namespace Features.Ratings_and_Reviews
         // The given title
         public string Title { get; set; }
         public string DispName { get; set; }
+        public DateTime ReviewDate { get; set; }
 
        
         public RatingAndReview()
@@ -19,6 +22,7 @@ namespace Features.Ratings_and_Reviews
             this.Review = "";
             this.Title = "";
             this.DispName = "";
+            this.ReviewDate = DateTime.Today;
         }
 
         public RatingAndReview(string dispName, string selectedTitle)
@@ -27,6 +31,8 @@ namespace Features.Ratings_and_Reviews
             this.Review = "";
             this.Title = selectedTitle;
             this.DispName = dispName;
+            this.ReviewDate = DateTime.Today;
+
         }
 
         public RatingAndReview(string dispName, string selectedTitle, double userRating)
@@ -35,6 +41,8 @@ namespace Features.Ratings_and_Reviews
             this.Review = "";
             this.Title = selectedTitle;
             this.DispName = dispName;
+            this.ReviewDate = DateTime.Today;
+
         }
 
         public RatingAndReview(string dispName, string selectedTitle, string userReview)
@@ -43,6 +51,8 @@ namespace Features.Ratings_and_Reviews
             this.Review = userReview;
             this.Title = selectedTitle;
             this.DispName = dispName;
+            this.ReviewDate = DateTime.Today;
+
         }
 
         public RatingAndReview(string dispName, string selectedTitle, double userRating, string userReview)
@@ -51,6 +61,8 @@ namespace Features.Ratings_and_Reviews
             this.Review = userReview;
             this.Title = selectedTitle;
             this.DispName = dispName;
+            this.ReviewDate = DateTime.Today;
+
         }
     }
 }
