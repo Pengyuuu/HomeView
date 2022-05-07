@@ -28,10 +28,40 @@ function WatchLaterList() {
         });
     }
 
+    function Remove(title, year) {
+
+        var axios = require('axios');
+
+        var data = JSON.stringify({
+            "email": email,
+            "title": title,
+            "year": year
+        });
+
+        var config = {
+            method: "delete",
+            url: `http://54.219.16.154/api/watchlater/delete/${email}/${title}/${year}`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: data
+        };
+
+        axios(config).then(function (response) {
+            console.log(JSON.stringify(response.data));
+
+            alert(`Removed ${title} (${year}) from Watch Later`)
+        }).catch(function (error) {
+
+            console.log(error);
+        });
+    }
+
     function WatchLater({title, year}) {
         return (
             <li>
-                {title} {(year)}
+                {title} ({year})
+                <Button variant="outline-danger" onClick={() => Remove(title, year)}>Remove</Button>
             </li>
         )
     }
