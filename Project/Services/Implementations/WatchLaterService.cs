@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Logging;
 using Data;
 using Features.WatchLater;
@@ -21,14 +22,17 @@ namespace Services.Implementations
             _logging = new LoggingService();
         }
 
-        public bool AddToWatchLater(WatchLaterTitle selectedTitle)
+        public async Task<bool> AddToWatchLaterAsync(WatchLaterTitle selectedTitle)
         {
-            var isDuplicate = (List<WatchLaterTitle>) GetList(selectedTitle.Email);
+            // Get user's Watch Later list to check if Title is already in there
+            var isDuplicate = (List<WatchLaterTitle>) GetListAsync(selectedTitle.Email).Result;
 
+            // If list is populated, check, if not then try to add Title to their Watch Later list
             if (isDuplicate.Count > 0)
             {
                 foreach (var item in isDuplicate)
                 {
+                    // If the selected Title in the database matches the Title user is trying to add, then return false;
                     if (item.Title == selectedTitle.Title && item.Year == selectedTitle.Year)
                     {
                         Log info = new Log
@@ -39,14 +43,16 @@ namespace Services.Implementations
                             timeStamp = DateTime.UtcNow
                         };
 
-                        _logging.LogDataAsync(info);
+                        await _logging.LogDataAsync(info);
 
                         return false;
                     }
                 }
             }
-            var result = _watchLaterDAO.AsyncAddToWatchLater(selectedTitle).Result;
+            // Add Title to database
+            var result = await _watchLaterDAO.AddToWatchLaterAsync(selectedTitle);
 
+            // If no rows were affected, then an error occurred
             if (result == 0)
             {
                 Log error = new Log
@@ -57,11 +63,12 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogDataAsync(error);
+                await _logging.LogDataAsync(error);
 
                 return false;
             }
 
+            // If more than one rows were affected, then an error occurred
             if (result > 1)
             {
                 Log error = new Log
@@ -72,11 +79,12 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogDataAsync(error);
+                await _logging.LogDataAsync(error);
 
                 return false;
             }
 
+            // Log successful insert
             Log success = new Log
             {
                 Description = $"Successfully added {selectedTitle.Title} ({selectedTitle.Year}) to {selectedTitle.Email}",
@@ -85,15 +93,17 @@ namespace Services.Implementations
                 timeStamp = DateTime.UtcNow
             };
 
-            _logging.LogDataAsync(success);
+            await _logging.LogDataAsync(success);
 
             return true;
         }
 
-        public bool RemoveFromList(WatchLaterTitle selectedTitle)
+        public async Task<bool> RemoveFromListAsync(WatchLaterTitle selectedTitle)
         {
-            var result = _watchLaterDAO.AsyncRemoveFromList(selectedTitle).Result;
+            // Remove Title from user's Watch Later database
+            var result = _watchLaterDAO.RemoveFromListAsync(selectedTitle).Result;
 
+            // If no rows were affected, an error occurred or the Title was not in there
             if (result == 0)
             {
                 Log error = new Log
@@ -104,11 +114,12 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogDataAsync(error);
+                await _logging.LogDataAsync(error);
 
                 return false;
             }
 
+            // If more than one row was affected, an error occurred
             if (result > 1)
             {
                 Log error = new Log
@@ -119,11 +130,12 @@ namespace Services.Implementations
                     timeStamp = DateTime.UtcNow
                 };
 
-                _logging.LogDataAsync(error);
+                await _logging.LogDataAsync(error);
 
                 return false;
             }
 
+            // Log success
             Log success = new Log
             {
                 Description = $"Successfully removed {selectedTitle.Title} ({selectedTitle.Year}) from {selectedTitle.Email}'s Watch Later",
@@ -132,14 +144,15 @@ namespace Services.Implementations
                 timeStamp = DateTime.UtcNow
             };
 
-            _logging.LogDataAsync(success);
+            await _logging.LogDataAsync(success);
 
             return true;
         }
 
-        public IEnumerable<WatchLaterTitle> GetList(string userEmail)
+        public async Task<IEnumerable<WatchLaterTitle>> GetListAsync(string userEmail)
         {
-            return _watchLaterDAO.AsyncGetList(userEmail).Result;
+            // Return user's Watch Later list
+            return await _watchLaterDAO.GetListAsync(userEmail);
         }
     }
 }

@@ -3,6 +3,7 @@ using Services.Contracts;
 using Services.Implementations;
 using Features.WatchLater;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
@@ -15,22 +16,9 @@ namespace Managers.Implementations
             _watchLaterService = new WatchLaterService();
         }
 
-        public bool AddToWatchLater(string email, string title, string year)
+        public async Task<bool> AddToWatchLaterAsync(string email, string title, string year)
         {
-            /*
-            var isDuplicate = GetList(email);
-
-            if (isDuplicate.Count > 0)
-            {
-                foreach (var item in isDuplicate)
-                {
-                    if (item.Title == title && item.Year == year)
-                    {
-                        return false;
-                    } 
-                }
-            }*/
-
+            // Creates a WatchLaterTitle with given arguments
             WatchLaterTitle targetTitle = new WatchLaterTitle
             {
                 Title = title,
@@ -38,11 +26,13 @@ namespace Managers.Implementations
                 Email = email
             };
 
-            return _watchLaterService.AddToWatchLater(targetTitle);
+            // Calls service method
+            return await _watchLaterService.AddToWatchLaterAsync(targetTitle);
         }
 
-        public bool RemoveFromList(string email, string title, string year)
+        public async Task<bool> RemoveFromListAsync(string email, string title, string year)
         {
+            // Creates a WatchLaterTitle with given arguments
             WatchLaterTitle targetTitle = new WatchLaterTitle
             {
                 Title = title,
@@ -50,13 +40,14 @@ namespace Managers.Implementations
                 Email = email,
             };
 
-            return _watchLaterService.RemoveFromList(targetTitle);
+            // Calls service method
+            return await _watchLaterService.RemoveFromListAsync(targetTitle);
         }
 
-
-        public List<WatchLaterTitle> GetList(string userEmail)
+        public async Task<IEnumerable<WatchLaterTitle>> GetListAsync(string userEmail)
         {
-            return (List<WatchLaterTitle>) _watchLaterService.GetList(userEmail);
+            // Calls service method
+            return await _watchLaterService.GetListAsync(userEmail);
         }
     }
 }
