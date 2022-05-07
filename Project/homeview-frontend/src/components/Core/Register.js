@@ -46,7 +46,8 @@ export default function Register() {
     
     function validatePass(event) {
         var password = event.target.value
-        console.log(password)
+        // uncomment to see password on console as you type
+        //console.log(password)
         if (/^(?=.*[A-Z])(?=.*?[#?!@$%^&*-]).{12,}$/.test(password)) {
             setDisable(false);
         }
@@ -69,22 +70,29 @@ export default function Register() {
         }
         
         
+
+
         
         console.log('start reg')
+
+        var axios = require('axios');
+        var config = {
+        method: 'post',
+        url: `http://54.219.16.154/api/registration?email=${email}&dob=${birthday}&pw=${password}`,
+        headers: { }
+        };
+
+        axios(config)
+        .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        alert("registered successfully")
+        })
+        .catch(function (error) {
+        console.log(error);
+        alert("unable to register")
+        });
         
-        var ret = fetch('http://54.219.16.154/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                data
-            })
-        }).then (res=> {
-                return res.json()
-            })
-            .then (data=> console.log(data))
-        
+
         console.log('end reg')
     }
 }

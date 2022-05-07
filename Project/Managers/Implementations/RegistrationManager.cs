@@ -17,7 +17,7 @@ namespace Managers.Implementations
         public RegistrationManager()
         {
             _userManager = new UserManager();
-            _emailManager = new EmailManager();
+            //_emailManager = new EmailManager();
             _authenticationManager = new AuthenticationManager();
             _registrationService = new RegistrationService();
         }
