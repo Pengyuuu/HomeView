@@ -17,11 +17,12 @@ namespace LogInTests
         [Fact]
         public void LogIn_ShouldLogInUserSuccess()
         {
+            string expected = "9XEOEJjXnDO/udjYShl0SM25lZw7qkJsTSt46INvp3I=";
+            string actual = _authenticationManager.AuthenticateLogInUser("may@yahoo.com", "Password1234!");
 
-            string actual = _authenticationManager.AuthenticateLogInUser("may@yahoo.com", "Password!1234");
-
-            Assert.NotNull(actual);
+            Assert.Equal(expected, actual);
 
         }
+
     }
 }
