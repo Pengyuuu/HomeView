@@ -15,15 +15,19 @@ import StreamingService from "./Features/StreamingService/StreamingService"
 import  UserAccount  from "./Features/UserAccount"
 import Title from './Features/TitlePage/Title'
 import UAD from './Core/UAD/UAD'
+import ProtectedRoute from './Core/ProtectedRoute';
 
 
 function App() {
+
+
+    const user = true;
 
     return (
         <div className="app">
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<Home />} />
+                    <Route exact path ="/" element={<Home/>}/>
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/account-recovery" element={<AccountRecovery/>}/>
@@ -33,7 +37,14 @@ function App() {
                     <Route exact path="/news/article/:id" element={<Article />} />
                     <Route exact path="/actwiki" element={<ActWiki />} />
                     <Route exact path="/streamingservice" element={<StreamingService />} />
-                    <Route exact path="/useraccount" element={<UserAccount />} />
+                    <Route
+                        exact path="/useraccount"
+                        element={
+                            <ProtectedRoute user={user}>
+                            <UserAccount />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route exact path="/title" element={<Title />} />
                     <Route exact path="/uad" element={<UAD />} />
 

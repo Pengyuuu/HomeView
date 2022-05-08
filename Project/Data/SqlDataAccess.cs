@@ -23,7 +23,7 @@ namespace Data
 		public SqlDataAccess()
         {
 			//_connStr = ConfigurationManager.ConnectionStrings["RDS"].ConnectionString;
-			_connStr = "";
+			_connStr = "Data Source=homeviewdb.cotk9avwlowj.us-west-1.rds.amazonaws.com,1433;Initial Catalog=homeviewdb;User ID=awshomeviewadmin;Password=CsulbHomeview562!";
 		}
 
 		/*
