@@ -1,5 +1,7 @@
 import React from 'react';
 import Trend from 'react-trend';
+import '../../../css/uad.css'
+
 
 const BarGraph = () => (
     <Trend
@@ -14,3 +16,4 @@ const BarGraph = () => (
         strokeLinecap={'square'}
     />
 );
+export default BarGraph;
