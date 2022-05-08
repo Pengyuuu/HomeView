@@ -20,7 +20,7 @@ namespace Managers.Implementations
             _newsService = new NewsService(new Features.News.NewsDAO(new Data.SqlDataAccess()));
             _userService = new UserService();
             _loggingService = new LoggingService();
-            _ratingAndReviewService = new RatingAndReviewService();
+            _ratingAndReviewService = new RatingAndReviewService();          
 
         }
 
@@ -148,29 +148,56 @@ namespace Managers.Implementations
          */
         public List<int> GetTopMostVisitedView()
         {
-            List<int> loginCount = new List<int>();
-            var today = DateTime.Now;
-            // gets the month of 3 months ago
-            var recent = today.Month - 3;
-            // gets the first day of the month from 3 months ago
-            DateTime previous = new DateTime(today.Year, recent, today.Day);
-            // adds 92 days (3 months) to get the end date
-            var history = previous.AddDays(92);
-
-            for (var i = previous; i <= today; i = i.AddDays(1))
+            int homeViewCount = 0;
+            int tvViewCount = 0;
+            int movieViewCount = 0;
+            int newsViewCount = 0;
+            int actWikiViewCount = 0;
+            int streamingViewCount = 0; 
+            int accountViewCount = 0;
+            List<int> viewCount = new List<int>()
             {
-                var dayLogs = _loggingService.GetLogAsync(i).Result;
-                int dayCount = 0;
-                foreach (Log j in dayLogs)
+
+            };
+
+            var dayLogs = _loggingService.GetAllLogsAsync().Result;
+
+
+            foreach (Log i in dayLogs)
+            {
+                if (i.Category == 0)
                 {
-                    if (j.Description == "Successfully created user session.")
+                    if (i.Description == "Home Page View accessed.")
                     {
-                        dayCount++;
+                        homeViewCount++;
+                    }
+                    else if (i.Description == "TV Shows View accessed.")
+                    {
+                        tvViewCount++;
+                    }
+                    else if (i.Description == "Movies View accessed.")
+                    {
+                        movieViewCount++;
+                    }
+                    else if (i.Description == "News View accessed.")
+                    {
+                        newsViewCount++;
+                    }
+                    else if (i.Description == "ActWiki View accessed.")
+                    {
+                        actWikiViewCount++;
+                    }
+                    else if (i.Description == "Streaming Services View accessed.")
+                    {
+                        streamingViewCount++;
+                    }
+                    else if (i.Description == "Account View accessed.")
+                    {
+                        accountViewCount++;
                     }
                 }
-                loginCount.Add(dayCount);
             }
-            return loginCount;
+            return viewCount;
         }
 
         /* Gets the top 5 average duration per view of all time
