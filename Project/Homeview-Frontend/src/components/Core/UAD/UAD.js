@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 // Custom and styling
 import Navigation from '../../Navigation';
-//import './../../../../css/news.css';
 import TrendGraph from './TrendGraph';
 import '../../../css/uad.css'
 
@@ -38,7 +37,12 @@ export default function UAD() {
      * leave blank [] to only execute once and prevent calling API every state change*/
 
     /* length check to ensure it doesn't try generating initial "Loading..." val */
-    const loginCount = [0, 1, 0, 2, 0, 5, 1];
+    const loginCount = [{
+        "2020-05-05": 2,
+        "2020-05-06": 1,
+        "2020-05-07": 0,
+        "2020-05-08": 4
+    }];
     const registerCount = [0, 1, 0, 2, 0, 5, 1];
     const reviewCount = [0, 1, 0, 2, 0, 5, 1];
     const newsCount = [0, 1, 0, 2, 0, 5, 1];
@@ -51,9 +55,9 @@ export default function UAD() {
             <h1>Usage Analysis Dashboard (UAD)</h1>
             <div>
                 <TrendGraph title={"Number of Logins per day (last 3 months)"} dataList={loginCount} />
-                <TrendGraph title={"Number of Registrations per day (last 3 months)"} dataList={registerCount} />
-                <TrendGraph title={"Number of Reviews Created per day (last 3 months)"} dataList={reviewCount} />
-                <TrendGraph title={"Number of News Articles Created per day (last 3 months)"} dataList={newsCount} />
+                <TrendGraph title={"Number of Registrations per day (last 3 months)"} dataList={loginCount} />
+                <TrendGraph title={"Number of Reviews Created per day (last 3 months)"} dataList={loginCount} />
+                <TrendGraph title={"Number of News Articles Created per day (last 3 months)"} dataList={loginCount} />
 
             </div>
         </div>
