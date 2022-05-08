@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Features.WatchLater;
 
 namespace Managers.Contracts
 {
     public interface IWatchLaterManager
     {
-        bool AddToWatchLater(string email, string title, string year);
+        Task<bool> AddToWatchLaterAsync(string email, string title, string year);
 
-        bool RemoveFromList(string email, string title, string year);
+        Task<bool> RemoveFromListAsync(string email, string title, string year);
 
-        List<WatchLaterTitle> GetList(string userEmail);
+        Task<IEnumerable<WatchLaterTitle>> GetListAsync(string userEmail);
     }
 }

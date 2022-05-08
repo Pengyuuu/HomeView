@@ -26,7 +26,7 @@ export default function WatchLater(title, year) {
         .then(function (response) {
             console.log(JSON.stringify(response.data));
 
-            alert("Added")
+            alert(`Added ${title} (${year}) to Watch Later`)
         })
         .catch(function (error){
             

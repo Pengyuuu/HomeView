@@ -70,5 +70,14 @@ namespace AuthTesting
             Assert.True(actual.Any());
         }
 
+        [Fact]
+        public void HashPasswordTemp()
+        {
+            string expected = "test";
+            string actual = _authManager.HashPassword("Password1234!", "PkvaMaj5QjIstpwWKT496HGHYPNouaTpkTZ42GBacEI=");
+
+            Assert.Equal(expected, actual);
+
+        }
     }
 }

@@ -7,8 +7,8 @@ import WatchLaterList from './WatchLater/WatchLaterList';
 
 //<script src='/Core/Security.js'></script>
 
-export class UserAccount extends Component {
-    render() {
+export default function UserAccount() {
+
         return (
         <div>
             <div className='background-Homeview'></div>
@@ -47,4 +47,3 @@ export class UserAccount extends Component {
             
         )
     }
-}

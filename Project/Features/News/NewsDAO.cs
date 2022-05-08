@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
@@ -77,6 +78,21 @@ namespace Features.News
                 articleID = articleId,
             };
             return await _db.SaveData("dbo.NewsDelete", sp_params);
+        }
+
+        public async Task<int> AsyncGetNewsCount(DateTime date)
+        {
+            var selectedDate = new
+            {
+                publishDate = date
+            };
+
+            var result = await _db.LoadData<int, dynamic>("dbo.News_GetNewsCountDate", selectedDate);
+            if (result.Count() == 1)
+            {
+                return result.FirstOrDefault();
+            }
+            return -1;
         }
     }
 

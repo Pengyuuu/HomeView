@@ -17,37 +17,37 @@ namespace HomeView_API.Controllers
         }
 
         [HttpPost("{email}/{title}/{year}")]
-        public ActionResult<bool> AddToWatchLater(string email, string title, string year)
+        public async void AddToWatchLaterAsync(string email, string title, string year)
         {
-            bool result = _watchLaterManager.AddToWatchLater(email, title, year);
+            bool result = await _watchLaterManager.AddToWatchLaterAsync(email, title, year);
 
             if (!result)
             {
-                return BadRequest("Error inserting into database. Please check logs");
+                BadRequest("Error inserting into database. Please check logs");
             }
 
-            return Ok($"{title} ({year}) successfully added");
+            Ok($"{title} ({year}) successfully added");
         }
 
         [HttpDelete("delete/{email}/{title}/{year}")]
-        public ActionResult<bool> RemoveFromList(string email, string title, string year)
+        public async void RemoveFromListAsync(string email, string title, string year)
         {
-            bool result = _watchLaterManager.RemoveFromList(email, title, year);
+            bool result = await _watchLaterManager.RemoveFromListAsync(email, title, year);
 
             if (!result)
             {
-                return BadRequest($"Error removing {title} ({year}). Please check logs");
+                BadRequest($"Error removing {title} ({year}). Please check logs");
             }
 
-            return Ok($"{title} ({year}) successfully removed");
+            Ok($"{title} ({year}) successfully removed");
         }
 
         [HttpGet("{email}")]
-        public ActionResult<IEnumerable<WatchLaterTitle>> GetList(string email)
+        public async Task<IEnumerable<WatchLaterTitle>> GetListAsync(string email)
         {
-            var result = _watchLaterManager.GetList(email);
+            var result = await _watchLaterManager.GetListAsync(email);
 
-            return Ok(result);
+            return result;
         }
     }
 }

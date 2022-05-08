@@ -41,6 +41,11 @@ namespace Core.Logging
             return await _db.LoadData<Log, dynamic>("dbo.Logs_GetOldLog", "");
         }
 
+        public async Task<IEnumerable<Log>> GetAllLogsAsync()
+        {
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetAllLogs", "");
+        }
+
         public async Task<int> DeleteOldLogsAsync()
         {
             return await _db.SaveData("dbo.Logs_RemoveOldLogs", new { });

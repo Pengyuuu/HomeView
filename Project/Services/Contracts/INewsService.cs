@@ -1,4 +1,5 @@
 ﻿using Features.News;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +12,7 @@ namespace Services.Contracts
         Task<Article> AsyncGetArticleById(int id);
         Task<IEnumerable<Article>> AsyncGetNews();
         Task<Article> AsyncUpdateArticleById(Article article);
+        Task<int> AsyncGetNewsDateCount(DateTime date);
+
     }
 }

@@ -19,9 +19,9 @@ namespace Services.Implementations
             //_emailService = new EmailService();
         }
 
-        public async Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE)
+        public async Task<int> CreateUserAsync(User userCreate, int CREATION_MODE)
         {
-            return await _userService.AsyncCreateUser(userCreate, CREATION_MODE);
+            return await _userService.CreateUserAsync(userCreate, CREATION_MODE);
            
         }
     }

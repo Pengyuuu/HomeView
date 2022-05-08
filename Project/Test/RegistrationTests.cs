@@ -8,12 +8,13 @@ namespace RegistrationTests
     {
         private readonly IRegistrationManager _registrationManager = new RegistrationManager();
 
+        // Passed as of 5/7/2022
         [Fact]
         public void Register_ShouldRegisterUserSuccess()
         {
             bool expected = true;
 
-            bool actual = _registrationManager.AsyncCreateUser("may@gmail.com","2000-12-09", "TestPassword!1234").Result;
+            bool actual = _registrationManager.AsyncCreateUser("may2@gmail.com","2000-12-09", "TestPassword!1234").Result;
 
             Assert.Equal(expected, actual);
 

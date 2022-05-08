@@ -4,6 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import  ReviewSection  from './../Features/TitlePage/ReviewSection'
 //import  ReviewItem  from './../Features/TitlePage/ReviewItem'
 import BlacklistButton from './../Features/Blacklist/ModalButton'
+import WatchLater from '../Features/WatchLater/WatchLater'
 
 import axios from 'axios';
 import GenreList from './MovieList'
@@ -89,7 +90,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                 <p>Genres: <BlacklistButton items = {genres}/></p>
                         <p>Actors: <BlacklistButton items = {cast}/></p>
                 </div>
-                    <ReviewSection title ={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show}/>
+                    <ReviewSection title={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show} />
+                    <WatchLater title={title} year={year}/>
 
             </Modal.Body>
             <Modal.Footer>

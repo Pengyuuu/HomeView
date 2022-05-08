@@ -18,7 +18,7 @@ export default function Home() {
             <>
                 <Navigation/>
                 <div className='logo'>
-                    TESTING
+                    Your HomeViews
                 </div>
                 <FirstTimeUser></FirstTimeUser>
 

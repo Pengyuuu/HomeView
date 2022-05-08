@@ -18,7 +18,7 @@ namespace HomeView_API.Controllers
            
         }
 
-
+        // Probably don't need this since we test in FrontEnd and CreateNewUser Manager
         // POST /registration/email/dob/pw
         [Route("validate/{email}/{dob}/{pw}")]
         [HttpGet]
@@ -28,10 +28,9 @@ namespace HomeView_API.Controllers
         }
 
 
-        // POST /registration/email/dob/pw
-        [Route("/register/{email}/{dob}/{pw}")]
+        // POST /registration
         [HttpPost]
-        public ActionResult<string> CreateNewUser(string email, string dob, string pw)
+        public ActionResult<string> CreateNewUser([FromQuery] string email, [FromQuery] string dob, [FromQuery] string pw)
         {
             
             bool isValid = _registrationManager.ValidateFields(email, dob, pw);
@@ -40,14 +39,14 @@ namespace HomeView_API.Controllers
                 bool isCreated = _registrationManager.AsyncCreateUser(email, dob, pw).Result;
                 if (isCreated)
                 {
-                    return "pass";
+                    return Ok("pass");
                 }
-                return "already created";
+                return BadRequest("already created");
 
             }
             else
             {
-                return "not valid";
+                return BadRequest("not valid");
             }
         }
     
