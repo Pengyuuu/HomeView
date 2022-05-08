@@ -108,7 +108,7 @@ namespace Managers.Implementations
                     userCreate.Token = userOtp;
                     userCreate.Salt = userSalt;
                     const int CREATION_MODE = 0;
-                    int isCreatedDB = await _registrationService.AsyncCreateUser(userCreate, CREATION_MODE);
+                    int isCreatedDB = await _registrationService.CreateUserAsync(userCreate, CREATION_MODE);
                     if (isCreatedDB == 1)
                     {
                         return true;

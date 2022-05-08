@@ -36,6 +36,8 @@ builder.Services.AddTransient<IRegistrationManager, RegistrationManager>();
 builder.Services.AddTransient<IAccountRecoveryManager, AccountRecoveryManager>();
 builder.Services.AddTransient<IAuthenticationManager, AuthenticationManager>();
 builder.Services.AddTransient<IEmailManager, EmailManager>();
+builder.Services.AddTransient<IUADManager, UADManager>();
+
 
 builder.Services.AddTransient<IWatchLaterManager,WatchLaterManager>();
 

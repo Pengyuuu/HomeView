@@ -7,17 +7,17 @@ namespace Services.Contracts
 {
     public interface IUserService
     {
-        Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE);
-        Task<int> AsyncCreateUserSession(User user, string jwtToken);
-        Task<int> AsyncDeleteUser(string email, int DELETION_MODE);
-        Task<User> AsyncDisplayGetUser(string display);
-        Task<string> AsyncDoBulkOp(string file);
-        Task<string> AsyncExportAllUsers();
-        Task<List<User>> AsyncGetAllUsers();
-        Task<User> AsyncGetRegisteredUser(string email);
-        Task<User> AsyncGetUser(string email);
-        Task<int> AsyncModifyUser(User user);
-        Task<int> AsyncGetRegistrationCount(DateTime date);
+        Task<int> CreateUserAsync(User userCreate, int CREATION_MODE);
+        Task<int> CreateUserSessionAsync(User user, string jwtToken);
+        Task<int> DeleteUserAsync(string email, int DELETION_MODE);
+        Task<User> DisplayGetUserAsync(string display);
+        Task<string> DoBulkOpAsync(string file);
+        Task<string> ExportAllUsersAsync();
+        Task<List<User>> GetAllUsersAsync();
+        Task<User> GetRegisteredUserAsync(string email);
+        Task<User> GetUserAsync(string email);
+        Task<int> ModifyUserAsync(User user);
+        Task<int> GetRegistrationCountAsync(DateTime date);
 
     }
 }

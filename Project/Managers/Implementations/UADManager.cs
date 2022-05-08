@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Core.Logging;
 using Services.Contracts;
 using Services.Implementations;
+using Managers.Contracts;
+using System.Threading.Tasks;
 
 namespace Managers.Implementations
 {
-    public class UADManager
+    public class UADManager : IUADManager
     {
         private readonly INewsService _newsService;
         private readonly IUserService _userService;
@@ -20,14 +19,14 @@ namespace Managers.Implementations
             _newsService = new NewsService(new Features.News.NewsDAO(new Data.SqlDataAccess()));
             _userService = new UserService();
             _loggingService = new LoggingService();
-            _ratingAndReviewService = new RatingAndReviewService();          
+            _ratingAndReviewService = new RatingAndReviewService();
 
         }
 
         /* Gets a list of the number of registrations per day within the span of 3 months
          * Returns a list of int
          */
-        public List<int> GetRegistrationCount()
+        public async Task<List<int>> GetRegistrationCountAsync()
         {
             List<int> registrationCount = new List<int>();
             var today = DateTime.Now;
@@ -40,7 +39,7 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                registrationCount.Add(_userService.AsyncGetRegistrationCount(i).Result);
+                registrationCount.Add(await _userService.GetRegistrationCountAsync(i));
             }
             return registrationCount;
         }
@@ -48,7 +47,7 @@ namespace Managers.Implementations
         /* Gets a list of the number of log ins per day within the span of 3 months
          * Returns a list of int
          */
-        public List<int> GetLogInCount()
+        public async Task<List<int>> GetLogInCountAsync()
         {
             List<int> loginCount = new List<int>();
             var today = DateTime.Now;
@@ -61,7 +60,7 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                var dayLogs = _loggingService.GetLogAsync(i).Result;
+                var dayLogs = await _loggingService.GetLogAsync(i);
                 int dayCount = 0;
                 foreach (Log j in dayLogs)
                 {
@@ -78,7 +77,7 @@ namespace Managers.Implementations
         /* Gets a list of the number of news articles created per day within the span of 3 months
          * Returns a list of int
          */
-        public List<int> GetNewsCount()
+        public async Task<List<int>> GetNewsCountAsync()
         {
             List<int> newsCount = new List<int>();
             var today = DateTime.Now;
@@ -91,7 +90,7 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                newsCount.Add(_newsService.AsyncGetNewsDateCount(i).Result);
+                newsCount.Add(await _newsService.AsyncGetNewsDateCount(i));
             }
             return newsCount;
         }
@@ -99,7 +98,7 @@ namespace Managers.Implementations
         /* Gets number of reviews made per day within 3 months
          * Returns an array to be used for trend chart in front end
          */
-        public List<int> GetReviewCount()
+        public async Task<List<int>> GetReviewCountAsync()
         {
             List<int> reviewCount = new List<int>();
             var today = DateTime.Now;
@@ -112,7 +111,7 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                var dayLogs = _loggingService.GetLogAsync(i).Result;
+                var dayLogs = await _loggingService.GetLogAsync(i);
                 int dayCount = 0;
                 foreach (Log j in dayLogs)
                 {
@@ -141,27 +140,26 @@ namespace Managers.Implementations
             }
             return reviewCount;**/
 
-        }     
+        }
 
         /* Gets the top 5 most visited view of all time
          * Returns an array to be used for bar chart in front end
          */
-        public List<int> GetTopMostVisitedView()
+        public async Task<List<int>> GetTopMostVisitedViewAsync()
         {
             int homeViewCount = 0;
             int tvViewCount = 0;
             int movieViewCount = 0;
             int newsViewCount = 0;
             int actWikiViewCount = 0;
-            int streamingViewCount = 0; 
+            int streamingViewCount = 0;
             int accountViewCount = 0;
             List<int> viewCount = new List<int>()
             {
 
             };
 
-            var dayLogs = _loggingService.GetAllLogsAsync().Result;
-
+            var dayLogs = await _loggingService.GetAllLogsAsync();
 
             foreach (Log i in dayLogs)
             {
@@ -203,7 +201,7 @@ namespace Managers.Implementations
         /* Gets the top 5 average duration per view of all time
          * Returns an array to be used for bar chart in front end
          */
-        public List<int> GetTopViewDuration()
+        public async Task<List<int>> GetTopViewDurationAsync()
         {
             List<int> loginCount = new List<int>();
             var today = DateTime.Now;
@@ -216,7 +214,7 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                var dayLogs = _loggingService.GetLogAsync(i).Result;
+                var dayLogs = await _loggingService.GetLogAsync(i);
                 int dayCount = 0;
                 foreach (Log j in dayLogs)
                 {

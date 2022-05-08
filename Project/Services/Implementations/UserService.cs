@@ -21,11 +21,11 @@ namespace Services.Implementations
         }
 
         // creates user given user fields and creation mode (either verified user, sent to user db, or unverified user, sent to accounts db )
-        public async Task<int> AsyncCreateUser(User userCreate, int CREATION_MODE)
+        public async Task<int> CreateUserAsync(User userCreate, int CREATION_MODE)
         {
             int createdUser = 0;
 
-            createdUser = await _userDAO.AsyncCreateUser(userCreate, CREATION_MODE);
+            createdUser = await _userDAO.CreateUserAsync(userCreate, CREATION_MODE);
             if (createdUser == 1)
             {
                 Log userLog = new("User created.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -44,9 +44,9 @@ namespace Services.Implementations
         }
 
         // Gets user
-        public async Task<User> AsyncGetUser(string email)
+        public async Task<User> GetUserAsync(string email)
         {
-            User fetchedUser = await _userDAO.AsyncReadUser(email);
+            User fetchedUser = await _userDAO.ReadUserAsync(email);
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -62,9 +62,9 @@ namespace Services.Implementations
         }
 
         // Gets registered user
-        public async Task<User> AsyncGetRegisteredUser(string email)
+        public async Task<User> GetRegisteredUserAsync(string email)
         {
-            User fetchedUser = (User)_userDAO.AsyncReadRegisteredUser(email).Result;
+            User fetchedUser = (User)_userDAO.ReadRegisteredUserAsync(email).Result;
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -74,9 +74,9 @@ namespace Services.Implementations
             return fetchedUser;
         }
 
-        public async Task<User> AsyncDisplayGetUser(string display)
+        public async Task<User> DisplayGetUserAsync(string display)
         {
-            User fetchedUser = (User)_userDAO.AsyncDisplayReadUser(display).Result;
+            User fetchedUser = (User)_userDAO.DisplayReadUserAsync(display).Result;
             if (fetchedUser != null)
             {
                 Log userLog = new("User found.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -86,10 +86,10 @@ namespace Services.Implementations
             return fetchedUser;
         }
 
-        public async Task<List<User>> AsyncGetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
 
-            IEnumerable<User> fetchedUsers = await _userDAO.AsyncReadAllUsers();
+            IEnumerable<User> fetchedUsers = await _userDAO.ReadAllUsersAsync();
             if (fetchedUsers != null)
             {
 
@@ -105,10 +105,10 @@ namespace Services.Implementations
             return fetchedUsers.ToList();
         }
 
-        public async Task<int> AsyncDeleteUser(string email, int DELETION_MODE)
+        public async Task<int> DeleteUserAsync(string email, int DELETION_MODE)
         {
-            User user = await AsyncGetUser(email);
-            int isDeleted = await _userDAO.AsyncDeleteUser(email, DELETION_MODE);
+            User user = await GetUserAsync(email);
+            int isDeleted = await _userDAO.DeleteUserAsync(email, DELETION_MODE);
             if (isDeleted == 1)
             {
                 Log userLogTrue = new("User: " + user.Email + " - successfully deleted.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -123,14 +123,14 @@ namespace Services.Implementations
 
         }
 
-        public async Task<int> AsyncModifyUser(User user)
+        public async Task<int> ModifyUserAsync(User user)
         {
-            User currentUser = await AsyncGetUser(user.Email);
+            User currentUser = await GetUserAsync(user.Email);
             int isUpdated = 0;
 
             if (user is not null && currentUser is not null)
             {
-                isUpdated = await _userDAO.AsyncUpdateUser(user);
+                isUpdated = await _userDAO.UpdateUserAsync(user);
                 if (isUpdated == 1)
                 {
                     Log userLogSuccess = new("User: " + user.Email + " updated.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -153,10 +153,10 @@ namespace Services.Implementations
 
         }
 
-        public async Task<int> AsyncCreateUserSession(User user, string jwtToken)
+        public async Task<int> CreateUserSessionAsync(User user, string jwtToken)
         {
 
-            var isCreated = await _userDAO.AsyncCreateUserSession(user, jwtToken);
+            var isCreated = await _userDAO.CreateUserSessionAsync(user, jwtToken);
             if (isCreated == 1)
             {
                 Log userLogTrue = new("Successfully created user session.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
@@ -173,9 +173,9 @@ namespace Services.Implementations
         }
 
         // Write to CSV File
-        public async Task<String> AsyncExportAllUsers()
+        public async Task<String> ExportAllUsersAsync()
         {
-            var userList = await _userDAO.AsyncReadAllUsers();
+            var userList = await _userDAO.ReadAllUsersAsync();
             string filePath = Path.GetFullPath("@\\..\\..\\..\\..\\..\\..\\Project\\Data\\ExportedUserData.csv");
             Log userLog;
 
@@ -210,7 +210,7 @@ namespace Services.Implementations
 		 * what to do if want to delete?
 		 * Returns a success or unsuccessful message
 		 */
-        public async Task<String> AsyncDoBulkOp(string file)
+        public async Task<String> DoBulkOpAsync(string file)
         {
             Log userLog = new();
 
@@ -244,15 +244,15 @@ namespace Services.Implementations
                     {
                         if (mode == "Create")
                         {
-                            await AsyncCreateUser(userMod, CREATION_MODE);
+                            await CreateUserAsync(userMod, CREATION_MODE);
                         }
                         else if (mode == "Modify")
                         {
-                            await AsyncModifyUser(userMod);
+                            await ModifyUserAsync(userMod);
                         }
                         else if (mode == "Delete")
                         {
-                            await AsyncDeleteUser(userMod.Email, DELETION_MODE);
+                            await DeleteUserAsync(userMod.Email, DELETION_MODE);
                         }
                         successMods++;
                     }
@@ -269,9 +269,9 @@ namespace Services.Implementations
         // 
         /* Gets count of registered users on a certain day
 		 */
-        public async Task<int> AsyncGetRegistrationCount(DateTime date)
+        public async Task<int> GetRegistrationCountAsync(DateTime date)
         {
-            return await _userDAO.AsyncGetRegisteredCount(date);
+            return await _userDAO.GetRegisteredCountAsync(date);
         }
 
     }

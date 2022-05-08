@@ -32,7 +32,7 @@ namespace Managers.Implementations
         {
             if (recoverUser != null)
             {
-                User fetchUser = await _userService.AsyncGetUser(recoverUser.Email);
+                User fetchUser = await _userService.GetUserAsync(recoverUser.Email);
                 if (fetchUser != null)
                 {
                     return true;

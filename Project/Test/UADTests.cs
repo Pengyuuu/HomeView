@@ -17,8 +17,8 @@ namespace UADTests
         [Fact]
         public void UAD_ShouldGetRegisterCountHistory()
         {
-            var registerCount = _uadManager.GetRegistrationCount();
-            List<int> check = registerCount;
+            var registerCount = _uadManager.GetRegistrationCountAsync();
+            var check = registerCount;
             
             Assert.NotNull(registerCount);
 
@@ -27,8 +27,8 @@ namespace UADTests
         [Fact]
         public void UAD_ShouldGetReviewCountHistory()
         {
-            var reviewCount = _uadManager.GetReviewCount();
-            List<int> check = reviewCount;
+            var reviewCount = _uadManager.GetReviewCountAsync();
+            var check = reviewCount;
 
             Assert.NotNull(reviewCount);
 
@@ -37,8 +37,8 @@ namespace UADTests
         [Fact]
         public void UAD_ShouldGetNewsCountHistory()
         {
-            var reviewCount = _uadManager.GetReviewCount();
-            List<int> check = reviewCount;
+            var reviewCount = _uadManager.GetReviewCountAsync();
+            var check = reviewCount;
 
             Assert.NotNull(reviewCount);
 
