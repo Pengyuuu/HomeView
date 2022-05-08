@@ -165,7 +165,7 @@ namespace Services.Implementations
             }
             else
             {
-                Log userLogFalse = new("Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                Log userLogFalse = new("Invalid login. Unsuccessful create user session", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
                 await _loggingService.LogDataAsync(userLogFalse);
             }
             return isCreated;

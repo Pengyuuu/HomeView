@@ -24,7 +24,6 @@ namespace Features.Ratings_and_Reviews
                 title = userRatingReview.Title,          
                 rating = userRatingReview.Rating,
                 review = userRatingReview.Review,
-                reviewDate = userRatingReview.ReviewDate
             };
 
             return await _db.SaveData("dbo.RatingReviews_CreateRatingReview", ratingReview);
@@ -39,8 +38,6 @@ namespace Features.Ratings_and_Reviews
                 title = userRatingReview.Title,
                 rating = userRatingReview.Rating,
                 review = userRatingReview.Review,
-                reviewDate = userRatingReview.ReviewDate
-
             };
 
             return await _db.SaveData("dbo.RatingReviews_UpdateRatingReview", newRatingReview);
