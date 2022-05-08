@@ -1,9 +1,12 @@
 import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { BrowserRouter, Link, useHistory, useNavigate } from 'react-router-dom'
 import '../../css/App.css'
 import axios from 'axios';
 import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider';
+import { Navigate } from "react-router-dom";
+
+
 
 
 export default function Login() {
@@ -74,13 +77,14 @@ function verifyUser(e) {
       console.log(JSON.stringify(response.data));
       alert("login success")
       sessionStorage.setItem('token', response.data)
+      
     })
     .catch(function (error) {
       console.log(error);
       alert("login failed")
     });
     
-
+}
 
     /**
     axios.request(validateLoginUrl).then(function (response) {
@@ -151,4 +155,4 @@ function loginUser(email) {
     */
 
     
-}
+

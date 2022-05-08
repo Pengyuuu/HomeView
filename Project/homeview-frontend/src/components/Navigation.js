@@ -3,8 +3,13 @@ import{NavLink} from 'react-router-dom'
 import{Navbar, Nav} from 'react-bootstrap'
 import './../css/navigation.css';
 
-export class Navigation extends Component {
-  render() {
+function Navigation() {
+
+    function clearToken() {
+        console.log('clear tokens')
+    
+        sessionStorage.removeItem('token');
+    }
       return (
         <div className="navigation">
             <Navbar bg="dark" expand="lg">
@@ -34,13 +39,13 @@ export class Navigation extends Component {
                         <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/UserAccount">
                             Account
                         </NavLink>
-                    <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/login">
+                    <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/login" >
                         Log Out
                     </NavLink>
             </Navbar>
         </div>
     )
   } 
-}
+
 export default Navigation
 

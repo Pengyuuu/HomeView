@@ -21,7 +21,7 @@ import ProtectedRoute from './Core/ProtectedRoute';
 function App() {
 
 
-    const user = true;
+    const user = sessionStorage.getItem("token");
 
     return (
         <div className="app">
