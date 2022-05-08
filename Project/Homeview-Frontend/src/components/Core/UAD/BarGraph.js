@@ -1,18 +1,38 @@
 import React from 'react';
 import '../../../css/uad.css'
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS } from 'chart.js/auto';
 
 
-const BarGraph = () => (
-    <Trend
-        smooth
-        autoDraw
-        autoDrawDuration={3000}
-        autoDrawEasing="ease-out"
-        data={[0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]}
-        gradient={['#00c6ff', '#F0F', '#FF0']}
-        radius={10}
-        strokeWidth={2}
-        strokeLinecap={'square'}
-    />
-);
+const BarGraph = ({ title, dataList }) => {
+    console.log(dataList);
+    let xList = [];
+    let yList = [];
+    for (let x of Object.keys(dataList[0])) {
+        xList.push(x);
+    };
+    for (let x of Object.values(dataList[0])) {
+        yList.push(x);
+    };
+    const labels = xList;
+    const dataset = {
+        labels,
+        datasets: [
+            {
+                label: "View Count",
+                data: yList,
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)"
+            }
+        ]
+    };
+
+    return (
+        <div className="graph-container">
+            <h3>{title}</h3>
+            <Bar data={dataset} />
+        </div>
+    );
+};
 export default BarGraph;

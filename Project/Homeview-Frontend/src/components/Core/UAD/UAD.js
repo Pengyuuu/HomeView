@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 // Custom and styling
 import Navigation from '../../Navigation';
 import TrendGraph from './TrendGraph';
+import BarGraph from './BarGraph';
 import '../../../css/uad.css'
 
 
@@ -58,6 +59,8 @@ export default function UAD() {
                 <TrendGraph title={"Number of Registrations per day (last 3 months)"} dataList={loginCount} />
                 <TrendGraph title={"Number of Reviews Created per day (last 3 months)"} dataList={loginCount} />
                 <TrendGraph title={"Number of News Articles Created per day (last 3 months)"} dataList={loginCount} />
+                <BarGraph title={"Top 5 Most Visited Views"} dataList={loginCount} />
+                <BarGraph title={"Top 5 Views Based on Duration"} dataList={loginCount} />
 
             </div>
         </div>
