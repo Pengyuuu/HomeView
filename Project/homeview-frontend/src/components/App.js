@@ -6,13 +6,13 @@ import Register from "./Core/Register"
 import Home from './Features/Home'
 import Login from './Core/Login'
 import AccountRecovery from './Core/AccountRecovery'
-import { TVShows } from "./Features/TVShows"
-import { Movies } from "./Features/Movies"
+import  TVShows  from "./Features/TVShows"
+import  Movies  from "./Features/Movies"
 import News from "./Features/News/News"
 import Article from "./Features/News/Article"
 import ActWiki from "./Features/ActWiki/ActWiki"
 import StreamingService from "./Features/StreamingService/StreamingService"
-import { UserAccount } from "./Features/UserAccount"
+import  UserAccount  from "./Features/UserAccount"
 import Title from './Features/TitlePage/Title'
 
 function App() {

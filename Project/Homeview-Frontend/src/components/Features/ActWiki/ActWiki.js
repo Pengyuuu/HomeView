@@ -12,8 +12,9 @@ const ActWiki = ({}) =>
         console.log(actDetails);
 
         return (
-            <div className = "container">
-                <Navigation/>
+            <>
+            <Navigation/>
+            <div className = "container">    
                 <div className = 'card-center'>
                     <Card>
                         <Card.Body>
@@ -25,6 +26,7 @@ const ActWiki = ({}) =>
                     </Card>
                 </div>
             </div>
+            </>
         )
 
         function GetAct(actName)

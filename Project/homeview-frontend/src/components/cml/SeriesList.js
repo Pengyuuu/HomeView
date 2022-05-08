@@ -1,0 +1,38 @@
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import MovieTile from './MovieTile';
+//import './../../css/movietile.css';
+import SeriesBlacklistTrue from '../Features/Blacklist/SeriesBlacklistTrue'
+import SeriesBlacklistFalse from '../Features/Blacklist/SeriesBlacklistFalse'
+
+const BLACKLIST_API_GET_TOGGLE = {
+    method: 'get',
+    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=HankHill@yahoo.com',
+    headers: { }
+};
+
+    function MovieList() {
+        const [toggle, setToggle] = useState();
+
+        // web api call get toggle
+        useEffect(() => {
+            axios.request(BLACKLIST_API_GET_TOGGLE).then(function (response) {
+                //console.log(response.data.blacklistToggle);
+                setToggle(response.data.blacklistToggle);
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }, []);
+
+        // if true return blacklist view
+        // else return regular view (all movies)
+        if (toggle) {
+            return <SeriesBlacklistTrue/>
+        }
+        else {
+            return <SeriesBlacklistFalse/>
+        }
+            
+    }
+
+export default MovieList

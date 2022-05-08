@@ -60,20 +60,26 @@ function verifyUser(e) {
     }
     
     console.log('start login')
-    console.log(data)
-    const validateLoginUrl = 'http://54.219.16.154/api/login/validate/' + email +'/' + password
-    console.log(validateLoginUrl);
+
+    var axios = require('axios');
+
+    var config = {
+      method: 'get',
+      url: `http://54.219.16.154/api/login/?email=${email}&pw=${password}`,
+      headers: { }
+    };
     
-    fetch(validateLoginUrl, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        console.log(res)
-            return res.json()
-        })
-        .then (data=> console.log("reach"))
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      alert("login success")
+      sessionStorage.setItem('token', response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("login failed")
+    });
+    
 
 
     /**
