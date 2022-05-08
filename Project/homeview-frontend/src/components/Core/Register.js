@@ -69,17 +69,14 @@ export default function Register() {
             birthday: birthday 
         }
         
-        
-
-
-        
         console.log('start reg')
 
         var axios = require('axios');
         var config = {
-        method: 'post',
-        url: `http://54.219.16.154/api/registration?email=${email}&dob=${birthday}&pw=${password}`,
-        headers: { }
+            method: 'post',
+            url: `http://54.219.16.154/api/registration?email=${email}&dob=${birthday}&pw=${password}`,
+            headers: {},
+            data: data
         };
 
         axios(config)
@@ -91,7 +88,6 @@ export default function Register() {
         console.log(error);
         alert("unable to register")
         });
-        
 
         console.log('end reg')
     }
