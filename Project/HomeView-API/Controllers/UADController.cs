@@ -2,6 +2,7 @@
 using Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Core.UAD;
 
 namespace HomeView_API.Controllers
 {
@@ -24,25 +25,9 @@ namespace HomeView_API.Controllers
          * pagination - set limit per page and every subsequent "show more" (ie load 20 every time)
          */
         [HttpGet]
-        public async Task<IActionResult> GetLogInCountAsync()
+        public async Task<ActionResult<UADResponse>> GetUADAsync()
         {
-            var result = await _uadManager.GetLogInCountAsync();
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            return NotFound();
-        }
-
-        // GET api/<NewsController>/id
-        /*
-         * use IActionResult, no need to Serialize, framework will handle return type
-         * Async must be suffix
-         */
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<int>>> AsyncGetRegistrationCount()
-        {
-            var result = await _uadManager.GetLogInCountAsync();
+            var result = await _uadManager.GetAllCountsAsync();
             if (result != null)
             {
                 return Ok(result);

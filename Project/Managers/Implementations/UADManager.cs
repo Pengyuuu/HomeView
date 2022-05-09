@@ -5,6 +5,7 @@ using Services.Contracts;
 using Services.Implementations;
 using Managers.Contracts;
 using System.Threading.Tasks;
+using Core.UAD;
 
 namespace Managers.Implementations
 {
@@ -26,9 +27,9 @@ namespace Managers.Implementations
         /* Gets a list of the number of registrations per day within the span of 3 months
          * Returns a list of int
          */
-        public async Task<List<int>> GetRegistrationCountAsync()
+        public async Task<List<KeyValuePair<DateTime, int>>> GetRegistrationCountAsync()
         {
-            List<int> registrationCount = new List<int>();
+            var registrationList = new List<KeyValuePair<DateTime, int>>();
             var today = DateTime.Now;
             // gets the month of 3 months ago
             var recent = today.Month - 3;
@@ -39,17 +40,19 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                registrationCount.Add(await _userService.GetRegistrationCountAsync(i));
+                var regCount = await _userService.GetRegistrationCountAsync(i);
+                registrationList.Add(new KeyValuePair<DateTime, int>(i, regCount));
+
             }
-            return registrationCount;
+            return registrationList;
         }
 
         /* Gets a list of the number of log ins per day within the span of 3 months
          * Returns a list of int
          */
-        public async Task<List<int>> GetLogInCountAsync()
+        public async Task<List<KeyValuePair<DateTime, int>>> GetLogInCountAsync()
         {
-            List<int> loginCount = new List<int>();
+            var loginList = new List<KeyValuePair<DateTime, int>>();
             var today = DateTime.Now;
             // gets the month of 3 months ago
             var recent = today.Month - 3;
@@ -69,17 +72,17 @@ namespace Managers.Implementations
                         dayCount++;
                     }
                 }
-                loginCount.Add(dayCount);
+                loginList.Add(new KeyValuePair<DateTime, int>(i, dayCount));
             }
-            return loginCount;
+            return loginList;
         }
 
         /* Gets a list of the number of news articles created per day within the span of 3 months
          * Returns a list of int
          */
-        public async Task<List<int>> GetNewsCountAsync()
+        public async Task<List<KeyValuePair<DateTime, int>>> GetNewsCountAsync()
         {
-            List<int> newsCount = new List<int>();
+            var newsCount = new List<KeyValuePair<DateTime, int>>();
             var today = DateTime.Now;
             // gets the month of 3 months ago
             var recent = today.Month - 3;
@@ -90,7 +93,8 @@ namespace Managers.Implementations
 
             for (var i = previous; i <= today; i = i.AddDays(1))
             {
-                newsCount.Add(await _newsService.AsyncGetNewsDateCount(i));
+                var count = await _newsService.AsyncGetNewsDateCount(i);
+                newsCount.Add(new KeyValuePair<DateTime, int>(i, count));
             }
             return newsCount;
         }
@@ -98,9 +102,9 @@ namespace Managers.Implementations
         /* Gets number of reviews made per day within 3 months
          * Returns an array to be used for trend chart in front end
          */
-        public async Task<List<int>> GetReviewCountAsync()
+        public async Task<List<KeyValuePair<DateTime, int>>> GetReviewCountAsync()
         {
-            List<int> reviewCount = new List<int>();
+            var reviewCount = new List<KeyValuePair<DateTime, int>>();
             var today = DateTime.Now;
             // gets the month of 3 months ago
             var recent = today.Month - 3;
@@ -120,7 +124,7 @@ namespace Managers.Implementations
                         dayCount++;
                     }
                 }
-                reviewCount.Add(dayCount);
+                reviewCount.Add(new KeyValuePair<DateTime, int>(i, dayCount));
             }
             return reviewCount;
 
@@ -226,6 +230,18 @@ namespace Managers.Implementations
                 loginCount.Add(dayCount);
             }
             return loginCount;
+        }
+
+        public async Task<UADResponse> GetAllCountsAsync()
+        {
+            UADResponse response = new UADResponse();
+            response.registrationCount = await GetRegistrationCountAsync();
+            response.loginCount = await GetLogInCountAsync();
+            response.newsCount = await GetNewsCountAsync();
+            response.reviewCount = await GetReviewCountAsync();
+            response.topViewCount = await GetTopMostVisitedViewAsync();
+            response.durationViewCount = await GetTopViewDurationAsync();
+            return response;
         }
     }
 }

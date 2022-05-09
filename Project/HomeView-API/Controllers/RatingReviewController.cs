@@ -33,7 +33,7 @@ namespace HomeView_API.Controllers
         }
 
         // post: update a user's review
-        [HttpPost("update/{title}/{dispName}")]
+        [HttpPut("update/{title}/{dispName}")]
         public ActionResult<string> UpdateReview(string title, string dispName, double rating, string review)
         {
  
@@ -51,12 +51,8 @@ namespace HomeView_API.Controllers
         public ActionResult<TitleInfo> GetTitleReviews(string title)
         {
 
-            var titleReviewInfo = _reviewManager.AsyncGetTitleReviews(title);
-            if (titleReviewInfo != null)
-            {                
-                return Ok(titleReviewInfo);
-            }
-            return BadRequest("Unable to get title's rating reviews information. Database error.");                      
+            var titleReviewInfo = _reviewManager.AsyncGetTitleReviews(title).Result;
+            return Ok(titleReviewInfo);                      
         }
 
 

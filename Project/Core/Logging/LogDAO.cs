@@ -43,7 +43,7 @@ namespace Core.Logging
 
         public async Task<IEnumerable<Log>> GetAllLogsAsync()
         {
-            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetAllLogs", "");
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetAllLogs", new { timeStamp = DateTime.Now });
         }
 
         public async Task<int> DeleteOldLogsAsync()

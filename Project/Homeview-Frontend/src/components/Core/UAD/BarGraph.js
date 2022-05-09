@@ -3,7 +3,7 @@ import '../../../css/uad.css'
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from 'chart.js/auto';
 
-
+// data = {2020-02-02: 5, etc}
 const BarGraph = ({ title, dataList }) => {
     console.log(dataList);
     let xList = [];
