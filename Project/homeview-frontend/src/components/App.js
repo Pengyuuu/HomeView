@@ -37,14 +37,7 @@ function App() {
                     <Route exact path="/news/article/:id" element={<Article />} />
                     <Route exact path="/actwiki" element={<ActWiki />} />
                     <Route exact path="/streamingservice" element={<StreamingService />} />
-                    <Route
-                        exact path="/useraccount"
-                        element={
-                            <ProtectedRoute user={user}>
-                            <UserAccount />
-                            </ProtectedRoute>
-                        }
-                    />
+                    <Route exact path="/useraccount" element={<UserAccount />} />
                     <Route exact path="/title" element={<Title />} />
                     <Route exact path="/uad" element={<UAD />} />
 
