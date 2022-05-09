@@ -41,7 +41,7 @@ namespace RatingReviewTests
         public void ReviewManager_GetAllUserReviews()   
         {
 
-            IEnumerable<RatingAndReview> actual = reviewManager.AsyncGetUserReviewRating("HankHill@yahoo.com").Result;
+            IEnumerable<RatingAndReview> actual = reviewManager.AsyncGetUserReviewRating("testName").Result;
             Assert.True(actual.Any());
         }
 
@@ -49,7 +49,7 @@ namespace RatingReviewTests
         [Fact]
         public void ReviewManager_GetUserSpecificReviews()   
         {
-            RatingAndReview newReview = new RatingAndReview("HankHill@yahoo.com", "Power Rangers");
+            RatingAndReview newReview = new RatingAndReview("testName", "Bee Movie");
             string actual = "";
             try
             {
@@ -74,25 +74,22 @@ namespace RatingReviewTests
             IEnumerable<RatingAndReview> actual = Enumerable.Empty<RatingAndReview>();
             try
             {
-                actual = reviewManager.AsyncGetTitleReviewRating("Power Rangers").Result;
-                if (actual.Any())
-                {
-                    hasReviews = true;
-                }
+                actual = reviewManager.AsyncGetTitleReviewRating("Bee Movie").Result;
+                
             }
             catch 
             {
                 hasReviews = false;
             }
-            Assert.Equal(expected, hasReviews);
+            Assert.NotNull(actual);
 
         }
 
         [Fact]
         public void ReviewManager_UpdateUserReviewForTitle()
         {
-            RatingAndReview exampleReview = new RatingAndReview("may@yahoo.com", "Power Rangers", 2, "I don't like any series after In Space. It just went downhill.");
-            var fetchedUpdate = reviewManager.AsyncGetSpecificReviewRating("may@yahoo.com", "Power Rangers").Result;
+            RatingAndReview exampleReview = new RatingAndReview("testName", "Bee Movie", 3, "I don't like any series after In Space. It just went downhill.");
+            var fetchedUpdate = reviewManager.AsyncGetSpecificReviewRating("testName", "Bee Movie").Result;
             string actual = fetchedUpdate.ToString();
             string expected = exampleReview.ToString();
             Assert.Equal(expected, actual);
@@ -122,8 +119,8 @@ namespace RatingReviewTests
         public void ReviewManager_GetAverageRating()
         {
             // unsuccessful if user did not create a review for given title
-            double expected = 5;
-            double actual = reviewManager.AsyncGetAverageRating("Power Rangers").Result;
+            double expected = 4;
+            double actual = reviewManager.AsyncGetAverageRating("Bee Movie").Result;
             Assert.Equal(expected, actual);
         }
     }

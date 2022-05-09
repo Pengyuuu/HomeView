@@ -48,20 +48,15 @@ namespace HomeView_API.Controllers
     
         // GET list of all reviews for the title
         [HttpGet("get/title/{title}")]
-        public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
+        public ActionResult<TitleInfo> GetTitleReviews(string title)
         {
 
-            List<RatingAndReview> titleList = (List<RatingAndReview>)(_reviewManager.AsyncGetTitleReviewRating(title).Result);
-            double avgRating = _reviewManager.AsyncGetAverageRating(title).Result;
-            if ((titleList.Count != 0) && (avgRating > 0))
-            {
-                TitleInfo info = new TitleInfo();
-                info.Rating = avgRating;
-                info.RatingAndReviews = titleList;
-                return Ok(info);
+            var titleReviewInfo = _reviewManager.AsyncGetTitleReviews(title);
+            if (titleReviewInfo != null)
+            {                
+                return Ok(titleReviewInfo);
             }
-            return BadRequest("Unable to get title's rating reviews information. Database error.");
-                       
+            return BadRequest("Unable to get title's rating reviews information. Database error.");                      
         }
 
 
