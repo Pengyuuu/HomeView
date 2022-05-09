@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReviewItem from './ReviewItem'
 import RatingReview from './RatingReview'
@@ -7,7 +7,7 @@ import '../../../css/App.css'
 
 
 
-function ReviewSection({ title, average, reviewList, show}) {
+function ReviewSection({ title, average, reviewList, show }) {
     const [createRev, setCreate] = useState(null);
 
     function createReview() {
@@ -21,16 +21,15 @@ function ReviewSection({ title, average, reviewList, show}) {
 
     function CreateReview({ createRev }) {
         if (createRev !== null) {
-            return (< RatingReview  title = {title}> Rating review section for specific title </RatingReview >);
+            return (< RatingReview title={title}> Rating review section for specific title </RatingReview >);
         }
         else { return (<br />); }
     }
 
     function deleteReview() {
-        console.log(title, "delete")
-        const dispNameTest = 'TestUser'
+        const dispNameTest = 'testName'
         const DELETE_URL = 'http://54.219.16.154/api/RatingReview/delete/title/user/' + title + '/' + dispNameTest
-        
+
         fetch(DELETE_URL, {
             method: 'DELETE',
             headers: {
@@ -44,20 +43,35 @@ function ReviewSection({ title, average, reviewList, show}) {
         return true;
     }
 
-
     if (show) {
-        return (
-            <div >
-                <h5>Review Section</h5>
-                <p> Average Rating: {average} </p>
-                <Button className="mr-1" style={{ color: 'white' }} onClick={createReview}>Create/Update a review</Button>
-                <Button className="mr-1" style={{ backgroundColor: 'red', color:'white' }} onClick={deleteReview}>Delete a review</Button>
-                <CreateReview createRev={createRev} />
-                {reviewList.length > 0 && reviewList.map((review) => (
-                    <ReviewItem key={review.dispName} {...review} />
-                ))}
-            </div>
-        );
+
+        if (reviewList !== undefined) {
+            console.log({ reviewList });
+
+            return (
+                <div >
+                    <h5>Review Section</h5>
+                    <p> Average Rating: {average} </p>
+                    <Button className="mr-1" style={{ color: 'white' }} onClick={createReview}>Create/Update a review</Button>
+                    <Button className="mr-1" style={{ backgroundColor: 'red', color: 'white' }} onClick={deleteReview}>Delete a review</Button>
+                    <CreateReview createRev={createRev} />
+                    {reviewList.length > 0 && reviewList.map((review) => (
+                        <ReviewItem key={review.dispName} {...review} />
+                    ))}
+                </div>
+            );
+        }
+        else {
+            return (
+                <div >
+                    <h5>Review Section</h5>
+                    <p> Average Rating: {average} </p>
+                    <Button className="mr-1" style={{ color: 'white' }} onClick={createReview}>Create/Update a review</Button>
+                    <Button className="mr-1" style={{ backgroundColor: 'red', color: 'white' }} onClick={deleteReview}>Delete a review</Button>
+                    <CreateReview createRev={createRev} />
+                </div>
+            );
+        }
     }
     else {
         return null;
