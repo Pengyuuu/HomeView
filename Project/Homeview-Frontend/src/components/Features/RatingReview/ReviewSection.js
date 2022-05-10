@@ -46,7 +46,6 @@ function ReviewSection({ title, average, reviewList, show }) {
     if (show) {
 
         if (reviewList !== undefined) {
-            console.log({ reviewList });
 
             return (
                 <div >

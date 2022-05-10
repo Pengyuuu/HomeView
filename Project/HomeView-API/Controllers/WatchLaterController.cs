@@ -16,13 +16,17 @@ namespace HomeView_API.Controllers
             _watchLaterManager = watchLaterManager;
         }
 
-        [HttpPost("{email}/{title}/{year}")]
+        // Use object as parameter
+        // Code for many
+        [HttpPost("/{title}/{year}")]
         public async void AddToWatchLaterAsync(string email, string title, string year)
         {
+            // isSucceeded better name
             bool result = await _watchLaterManager.AddToWatchLaterAsync(email, title, year);
 
             if (!result)
             {
+                // Other reasosn for failure
                 BadRequest("Error inserting into database. Please check logs");
             }
 
