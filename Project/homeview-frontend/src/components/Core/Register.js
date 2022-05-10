@@ -1,11 +1,48 @@
 import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import AuthService from "./../../services/authentication"
 
 
 export default function Register() {
 
     const [disable, setDisable] = React.useState(false);
+
+    const navigate = useNavigate();
+
+    function validatePass(event) {
+        var password = event.target.value
+        // uncomment to see password on console as you type
+        //console.log(password)
+        if (/^(?=.*[A-Z])(?=.*?[#?!@$%^&*-]).{12,}$/.test(password)) {
+            setDisable(false);
+        }
+        else{
+            setDisable(true);
+        }
+    }
+
+    const handleRegister = async (e) => {
+        e.preventDefault()
+        let email = e.target.Email.value;
+        let password = e.target.Password.value;
+        let birthday = e.target.birthday.value;
+
+        try {
+            await AuthService.register(email, password, birthday).then (
+                () => {
+                    navigate("/login");
+                    window.location.reload();
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
             <div>
@@ -14,7 +51,7 @@ export default function Register() {
                     <Card>
                         <Card.Body>
                             <h2 className="text-center mb-4"> Sign Up</h2>
-                            <Form id="form" onSubmit={registerUser}>
+                            <Form id="form" onSubmit={handleRegister}>
                                 <Form.Group id="email">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control name='Email' type="email" required placeholder="Email" id="email"></Form.Control>
@@ -41,54 +78,4 @@ export default function Register() {
                 </div>
             </div>
     )
-
-
-    
-    function validatePass(event) {
-        var password = event.target.value
-        // uncomment to see password on console as you type
-        //console.log(password)
-        if (/^(?=.*[A-Z])(?=.*?[#?!@$%^&*-]).{12,}$/.test(password)) {
-            setDisable(false);
-        }
-        else{
-            setDisable(true);
-        }
-    }
-
-    function registerUser(event) {
-        event.preventDefault()
-        
-        let email = event.target.Email.value;
-        let password = event.target.Password.value;
-        let birthday = event.target.birthday.value;
-        console.log(email)
-        var data = {
-            email: email,
-            password: password,
-            birthday: birthday 
-        }
-        
-        console.log('start reg')
-
-        var axios = require('axios');
-        var config = {
-            method: 'post',
-            url: `http://54.219.16.154/api/registration?email=${email}&dob=${birthday}&pw=${password}`,
-            headers: {},
-            data: data
-        };
-
-        axios(config)
-        .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        alert("registered successfully")
-        })
-        .catch(function (error) {
-        console.log(error);
-        alert("unable to register")
-        });
-
-        console.log('end reg')
-    }
 }

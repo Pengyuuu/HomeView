@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import{NavLink} from 'react-router-dom'
 import{Navbar, Nav} from 'react-bootstrap'
 import './../css/navigation.css';
+import AuthService from '../services/authentication';
 
 function Navigation() {
 
@@ -16,7 +17,7 @@ function Navigation() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>
-                            <NavLink className = "d-inline p-2 bg-dark text-white" to="/">
+                            <NavLink className = "d-inline p-2 bg-dark text-white" to="/Home">
                                 Home
                             </NavLink>
                             <NavLink className = "d-inline p-2 bg-dark text-white" to="/TVShows">
@@ -39,9 +40,9 @@ function Navigation() {
                         <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/UserAccount">
                             Account
                         </NavLink>
-                    <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/login" >
-                        Log Out
-                    </NavLink>
+                        <a href="/login" className="d-inline p-2 bg-dark text-white ml-autoe" onClick={AuthService.logout}>Logout</a> <span></span>
+
+
             </Navbar>
         </div>
     )

@@ -22,7 +22,7 @@ function App() {
 
 
     const user = sessionStorage.getItem("token");
-
+    
     return (
         <div className="app">
             <BrowserRouter>
@@ -40,7 +40,6 @@ function App() {
                     <Route exact path="/useraccount" element={<UserAccount />} />
                     <Route exact path="/title" element={<Title />} />
                     <Route exact path="/uad" element={<UAD />} />
-
                 </Routes>
             </BrowserRouter>
         </div>

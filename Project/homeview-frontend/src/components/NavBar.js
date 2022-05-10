@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 
 
 
-
 function Navbar() {
     return (
             <nav className='navBar'>
@@ -16,8 +15,6 @@ function Navbar() {
                     <Link className="color-style" to="/">News</Link> <span></span>
                     <Link className="color-style" to="/">ActWiki</Link> <span></span>
                     <Link className="color-style" to="/">Streaming Service Info</Link> <span></span>
-                    <Link className="color-style" to="/">Account</Link> <span></span>
-                    <Button className="color-style" type="submit" >Log Out </Button>
                 </div>
             </nav>
     );
