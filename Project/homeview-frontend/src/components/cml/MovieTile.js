@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
-import ReviewSection from './../Features/TitlePage/ReviewSection'
-//import  ReviewItem  from './../Features/TitlePage/ReviewItem'
+import ReviewSection from '../Features/RatingReview/ReviewSection'
 import BlacklistButton from './../Features/Blacklist/ModalButton'
 import WatchLater from '../Features/WatchLater/WatchLater'
 
@@ -20,31 +19,11 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     const [reviews, setReviews] = useState([]);
 
     const dispNameTest = 'testName';
-    const testTitle = 'Power Rangers';
     const GET_URL = 'http://54.219.16.154/api/RatingReview/get/title/' + title;
     const REVIEW_API_GET = {
         method: 'get',
         url: GET_URL,
         headers: {}
-    };
-
-
-    const testtitleReviews = {
-        "rating": 4,
-        "ratingAndReviews": [
-            {
-                "rating": 4,
-                "review": "???",
-                "title": "Power Rangers",
-                "dispName": "HankHill@yahoo.com"
-            },
-            {
-                "rating": 4,
-                "review": "???",
-                "title": "Power Rangers",
-                "dispName": "HankHill@yahoo.com"
-            }
-        ]
     };
 
     function getReviewList() {
