@@ -38,31 +38,44 @@ import'./../../../css/movietile.css';
     };
 
     // if blacklist toggle is true, render this
-    function MovieList() {
+    function MovieList({service}) {
         const [ movies, setMovies ] = useState([]);
         const [items, setItems] = useState([])
 
         const blacklist = []
         const bItems = []
 
-        useEffect(() => {
-            
-            axios.request(MOVIES_API).then(function (response) {
-                console.log(response.data);
+        let offset = 1;
+
+        const loadMoreMovies = () => {
+            axios.get(`https://streaming-availability.p.rapidapi.com/search/basic?country=us&service=${service}&type=movie&language=en&page=${offset}`,
+             {headers: {'X-RapidAPI-Key': 'cc4a9a7618msh29ea64bd110ca53p17eeefjsncd4c7af4a976'}})
+             .then(function (response) {
                 console.log(response.data.results);
-                setMovies(response.data.results);
+                setMovies(oldMovies => [...oldMovies, ...response.data.results]);
             }).catch(function (error) {
                 console.error(error);
             });
-            
-            
+            offset += 1;
+        }
 
+        const handleScroll=(e)=> {
+            if (window.innerHeight + e.target.documentElement.scrollTop + 1 >= e.target.documentElement.scrollHeight) {
+                loadMoreMovies();
+            }
+        }
+
+        useEffect(() => {
+        
             axios.request(BLACKLIST_API_GET).then(function (response) {
                 console.log(response.data);
                 setItems(response.data);
             }).catch(function (error) {
                 console.error(error);
             });
+
+            loadMoreMovies();
+            window.addEventListener('scroll', handleScroll)
 
         }, []);
         
