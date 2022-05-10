@@ -26,13 +26,13 @@ namespace HomeView_API.Controllers
             var result = _reviewManager.AsyncSubmitReviewRating(dispName, title, rating, review).Result;
             if (result == 1)
             {
-                return Ok("Successfully created review.");
+                return Ok("Successfully created/modified review.");
             }
             return BadRequest("Unable to submit review/rating. Database error.");
             
         }
 
-        // post: update a user's review
+        // put: update a user's review
         [HttpPut("update/{title}/{dispName}")]
         public ActionResult<string> UpdateReview(string title, string dispName, double rating, string review)
         {

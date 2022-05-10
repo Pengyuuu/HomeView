@@ -51,8 +51,20 @@ namespace Managers.Implementations
         {
             RatingAndReview userReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
             bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
-            return await _ratingAndReviewService.AsyncCreateRatingReview(userReview);
-
+            if (isValidReview)
+            {
+                var existingReview = await AsyncGetSpecificReviewRating(dispName, titleSelected);
+                if (existingReview != null)
+                {
+                    return await _ratingAndReviewService.AsyncUpdateRatingReview(userReview);
+                }
+                else
+                {
+                    return await _ratingAndReviewService.AsyncCreateRatingReview(userReview);
+                }
+            }
+            // -1 if invalid fields
+            return -1;
         }
 
         /** Deletes a review - calls RR service to delete review
@@ -76,10 +88,8 @@ namespace Managers.Implementations
         public async Task<int> AsyncUpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview)
         {
             RatingAndReview updateReview = new RatingAndReview(dispName, titleSelected, uRating, uReview);
-            bool isValidReview = CheckReviewFields(titleSelected, uRating, uReview);
             var oldReview = (await _ratingAndReviewService.AsyncGetRatingReview(updateReview)).FirstOrDefault();
             return await _ratingAndReviewService.AsyncUpdateRatingReview(updateReview);
-
         }
 
         /** Gets a specific review - calls RR service to get user's review for a specific title
@@ -106,7 +116,7 @@ namespace Managers.Implementations
             return await _ratingAndReviewService.AsyncGetRatingReview(titleReviews);
         }
 
-        /** Gets all reviews for a title
+        /** Gets all reviews and average rating of all reviews for a title
          * Takes in title selected
          * Returns a TitleInfo Response (contains list of reviews and the average rating based on its reviews)
          */
@@ -126,6 +136,10 @@ namespace Managers.Implementations
             return info;
         }
 
+        /** Gets all reviews a user has made
+         * Takes in user's display name
+         * Returns a list of reviews
+         */
         public async Task<IEnumerable<RatingAndReview>> AsyncGetUserReviewRating(string dispName)
         {
             RatingAndReview userReviews = new RatingAndReview();
@@ -133,6 +147,10 @@ namespace Managers.Implementations
             return await _ratingAndReviewService.AsyncGetRatingReview(userReviews);
         }
 
+        /** Gets average review rating for a title
+         * Takes in title selected
+         * Returns average rating as a double
+         */
         public async Task<double> AsyncGetAverageRating(string selectedTitle)
         {
             double totalRating = 0;
