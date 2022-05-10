@@ -1,12 +1,16 @@
 ﻿using Xunit;
 using Managers.Contracts;
 using Managers.Implementations;
+using Services.Implementations;
+using Services.Contracts;
 
 namespace RegistrationTests
 {
     public class RegistrationTests
     {
         private readonly IRegistrationManager _registrationManager = new RegistrationManager();
+        private readonly IUserService _userservice = new UserService();
+
 
         // Passed as of 5/7/2022
         [Fact]
@@ -70,7 +74,15 @@ namespace RegistrationTests
 
             Assert.Equal(expected, actual);
         }
-        
+
+        [Fact]
+        public void Register_ReadUser()
+        {
+            var actual = _userservice.GetRegisteredUserAsync("r@gmail.com").Result;
+
+            Assert.NotNull(actual);
+        }
+
     }
 
 }

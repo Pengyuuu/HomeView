@@ -82,7 +82,7 @@ namespace Services.Implementations
             if (fetchedUser != null && (!fetchedUser.Status))
             {
                 var expireTime = (fetchedUser.RegDate).AddMinutes(2);     // otp expires after 2 minutes
-                if ((DateTime.UtcNow < expireTime) && (fetchedUser.Token == userOtp))
+                if ((DateTime.Now < expireTime) && (fetchedUser.Token == userOtp))
                 {
                     // creates user into user db
                     // status is set to true for being a first time user

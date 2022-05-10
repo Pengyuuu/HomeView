@@ -32,6 +32,7 @@ namespace Core.User
                     email = user.Email,
                     password = user.Password,
                     dob = user.Dob,
+                    regDate = user.RegDate,
                     status = 0,
                     token = user.Token,
                     salt = user.Salt

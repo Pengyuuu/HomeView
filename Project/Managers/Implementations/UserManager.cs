@@ -45,7 +45,7 @@ namespace Managers.Implementations
             string salt = _authenticationService.GenerateSalt();
             user.Salt = salt;
             user.Password = _authenticationService.HashPassword(pw, salt);
-            user.Password = pw;
+            user.RegDate = DateTime.Now;
             const int CREATION_MODE = 0;
 
             return await _userService.CreateUserAsync(user, CREATION_MODE);
