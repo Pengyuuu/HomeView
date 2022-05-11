@@ -106,5 +106,24 @@ namespace Services.Implementations
 
         }
 
+        public async Task<int> AsyncGetReviewDateCount(DateTime date)
+        {
+            int count = 0;
+            count = await _rrDAO.AsyncGetReviewCount(date);
+            if (count >= -1)
+            {
+
+                Log reviewLogTrue = new("Successful fetched review count from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(reviewLogTrue);
+            }
+            else
+            {
+                Log reviewLogFalse = new("Unsuccessful fetched review count from database.", LogLevel.Error, LogCategory.DataStore, DateTime.Now);
+                await _loggingService.LogDataAsync(reviewLogFalse);
+            }
+            return count;
+
+        }
+
     }
 }

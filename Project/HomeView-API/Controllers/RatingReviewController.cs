@@ -26,14 +26,14 @@ namespace HomeView_API.Controllers
             var result = _reviewManager.AsyncSubmitReviewRating(dispName, title, rating, review).Result;
             if (result == 1)
             {
-                return Ok("Successfully created review.");
+                return Ok("Successfully created/modified review.");
             }
             return BadRequest("Unable to submit review/rating. Database error.");
             
         }
 
-        // post: update a user's review
-        [HttpPost("update/{title}/{dispName}")]
+        // put: update a user's review
+        [HttpPut("update/{title}/{dispName}")]
         public ActionResult<string> UpdateReview(string title, string dispName, double rating, string review)
         {
  
@@ -48,20 +48,11 @@ namespace HomeView_API.Controllers
     
         // GET list of all reviews for the title
         [HttpGet("get/title/{title}")]
-        public ActionResult<IEnumerable<RatingAndReview>> GetTitleReviews(string title)
+        public ActionResult<TitleInfo> GetTitleReviews(string title)
         {
 
-            List<RatingAndReview> titleList = (List<RatingAndReview>)(_reviewManager.AsyncGetTitleReviewRating(title).Result);
-            double avgRating = _reviewManager.AsyncGetAverageRating(title).Result;
-            if ((titleList.Count != 0) && (avgRating > 0))
-            {
-                TitleInfo info = new TitleInfo();
-                info.Rating = avgRating;
-                info.RatingAndReviews = titleList;
-                return Ok(info);
-            }
-            return BadRequest("Unable to get title's rating reviews information. Database error.");
-                       
+            var titleReviewInfo = _reviewManager.AsyncGetTitleReviews(title).Result;
+            return Ok(titleReviewInfo);                      
         }
 
 

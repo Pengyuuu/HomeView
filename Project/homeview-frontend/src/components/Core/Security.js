@@ -8,12 +8,13 @@ export default function clearToken() {
 
     function isValid(token) {
         var isJwt = token && window.jwt_decode(token)
-    }
+    
 
-    if(isJwt) {
-        return true;
+        if(isJwt) {
+            return true;
+        }
+        return false;
     }
-    return false;
 
     function authorizeView() {
         const token = window.sessionStorage.getItem('token');

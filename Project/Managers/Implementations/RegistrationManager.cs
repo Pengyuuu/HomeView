@@ -17,7 +17,7 @@ namespace Managers.Implementations
         public RegistrationManager()
         {
             _userManager = new UserManager();
-            _emailManager = new EmailManager();
+            //_emailManager = new EmailManager();
             _authenticationManager = new AuthenticationManager();
             _registrationService = new RegistrationService();
         }
@@ -107,12 +107,13 @@ namespace Managers.Implementations
                     userCreate.Password = hashedPw;
                     userCreate.Token = userOtp;
                     userCreate.Salt = userSalt;
+                    userCreate.RegDate = DateTime.Now;
                     const int CREATION_MODE = 0;
-                    int isCreatedDB = await _registrationService.AsyncCreateUser(userCreate, CREATION_MODE);
+                    int isCreatedDB = await _registrationService.CreateUserAsync(userCreate, CREATION_MODE);
                     if (isCreatedDB == 1)
                     {
-                        return true;
-                        //return _emailManager.SendConfirmationEmail(userCreate.Email, userOtp);
+                        //return true;
+                        return _emailManager.AsyncSendConfirmationEmail(userCreate.Email, userOtp).Result;
                     }
                 }
             }

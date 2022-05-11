@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data;
 
@@ -21,7 +23,7 @@ namespace Features.Ratings_and_Reviews
                 dispName = userRatingReview.DispName,
                 title = userRatingReview.Title,          
                 rating = userRatingReview.Rating,
-                review = userRatingReview.Review            
+                review = userRatingReview.Review,
             };
 
             return await _db.SaveData("dbo.RatingReviews_CreateRatingReview", ratingReview);
@@ -35,7 +37,7 @@ namespace Features.Ratings_and_Reviews
                 dispName = userRatingReview.DispName,
                 title = userRatingReview.Title,
                 rating = userRatingReview.Rating,
-                review = userRatingReview.Review
+                review = userRatingReview.Review,
             };
 
             return await _db.SaveData("dbo.RatingReviews_UpdateRatingReview", newRatingReview);
@@ -99,6 +101,21 @@ namespace Features.Ratings_and_Reviews
 
             return await _db.SaveData("dbo.RatingReviews_DeleteRatingReview", deleteReview);
 
+        }
+
+        public async Task<int> AsyncGetReviewCount(DateTime date)
+        {
+            var selectedDate = new
+            {
+                reviewDate = date
+            };
+
+            var result = await _db.LoadData<int, dynamic>("dbo.RatingReviews_GetReviewCountDate", selectedDate);
+            if (result.Count() == 1)
+            {
+                return result.FirstOrDefault();
+            }
+            return -1;
         }
     }
 }

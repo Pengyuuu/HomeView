@@ -2,16 +2,22 @@ import React,{Component} from 'react'
 import{NavLink} from 'react-router-dom'
 import{Navbar, Nav} from 'react-bootstrap'
 import './../css/navigation.css';
+import AuthService from '../services/authentication';
 
-export class Navigation extends Component {
-  render() {
+function Navigation() {
+
+    function clearToken() {
+        console.log('clear tokens')
+    
+        sessionStorage.removeItem('token');
+    }
       return (
         <div className="navigation">
             <Navbar bg="dark" expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>
-                            <NavLink className = "d-inline p-2 bg-dark text-white" to="/">
+                            <NavLink className = "d-inline p-2 bg-dark text-white" to="/Home">
                                 Home
                             </NavLink>
                             <NavLink className = "d-inline p-2 bg-dark text-white" to="/TVShows">
@@ -34,13 +40,13 @@ export class Navigation extends Component {
                         <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/UserAccount">
                             Account
                         </NavLink>
-                    <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/login">
-                        Log Out
-                    </NavLink>
+                        <a href="/login" className="d-inline p-2 bg-dark text-white ml-autoe" onClick={AuthService.logout}>Logout</a> <span></span>
+
+
             </Navbar>
         </div>
     )
   } 
-}
+
 export default Navigation
 

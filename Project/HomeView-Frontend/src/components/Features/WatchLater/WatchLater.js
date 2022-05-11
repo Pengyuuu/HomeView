@@ -1,30 +1,44 @@
 import { Button } from "react-bootstrap";
 import React from "react";
 
-export default function WatchLater() {
+export default function WatchLater(title, year) {
 
     const AddToWatchLater = ({title, year}) => {
-        const email = 'testing@gmail.com';
+        const email = 'may@gmail.com';
 
-        const POST_URL = `http://myhomeview.me/api/WatchLater/${email}/${title}/${year}`;
+        var axios = require('axios');
+        var data = JSON.stringify({
+            "email": email,
+            "title": title.title,
+            "year": year.year
+        });
 
-        fetch(POST_URL, {
+        var config = {
+            method: 'post',
+            url: `http://54.219.16.154/api/WatchLater/${email}/${title}/${year}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
 
-            method: 'POST',
+        axios(config)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data));
 
-            headers: { 'Content-Type': 'application/json' }
-        }).then(res => {
-            console.log(res);
-
-            return res.json();
+            alert(`Added ${title} (${year}) to Watch Later`)
         })
+        .catch(function (error){
+            
+            console.log(error);
 
-        return true;
+            alert("Unable to add")
+        });
     }
 
     return (
         <div>
-            <Button onClick={AddToWatchLater}>Watch Later</Button>
+            <Button onClick={() => {AddToWatchLater(title, year)}}>Watch Later</Button>
         </div>
     );
 }

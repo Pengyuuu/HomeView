@@ -10,6 +10,7 @@ namespace Managers.Contracts
         Task<double> AsyncGetAverageRating(string selectedTitle);
         Task<RatingAndReview> AsyncGetSpecificReviewRating(string dispName, string selectedTitle);
         Task<IEnumerable<RatingAndReview>> AsyncGetTitleReviewRating(string selectedTitle);
+        Task<TitleInfo> AsyncGetTitleReviews(string title);
         Task<IEnumerable<RatingAndReview>> AsyncGetUserReviewRating(string dispName);
         Task<int> AsyncSubmitReviewRating(string dispName, string titleSelected, double uRating, string uReview);
         Task<int> AsyncUpdateReviewRating(string dispName, string titleSelected, double uRating, string uReview);

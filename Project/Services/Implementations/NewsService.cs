@@ -75,6 +75,11 @@ namespace Services.Implementations
             }
             return 0;
         }
+
+        public async Task<int> AsyncGetNewsDateCount(DateTime date)
+        {
+            return await _newsDAO.AsyncGetNewsCount(date);          
+        }
     }
 }
 

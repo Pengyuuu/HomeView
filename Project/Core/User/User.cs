@@ -61,7 +61,9 @@ namespace Core.User
 		public DateTime RegDate
         {
 			get { return _regDate; }
-        }
+			set { _regDate = value; }
+
+		}
 
 		public bool Status
         {

@@ -32,8 +32,8 @@ namespace Managers.Implementations
 
             //for creating email confirmation token
             var token = HttpUtility.UrlEncode(userOtp);
-            //creating link of API and attaching token and email
-            string confirmationUrl = "http://54.219.16.154/api/account/confirmEmailLink/" + token + "/" + registerEmail;
+            //creating link of API and attaching token and email    account/confirmEmailLink/{userOtp}/{email}
+            string confirmationUrl = "http://54.219.16.154/api/login/account/confirmEmailLink/" + token + "/" + registerEmail;
             StringBuilder stringAppend = new StringBuilder();
 
             MailMessage message = new MailMessage(_fromEmail, registerEmail);

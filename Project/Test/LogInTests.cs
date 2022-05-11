@@ -11,18 +11,17 @@ namespace LogInTests
 {
     public class LogInTests
     {
-        private readonly IAuthenticationManager _authenticationManager = new AuthenticationManager();
+        private IAuthenticationManager _authenticationManager = new AuthenticationManager();
 
-        /*
+        
         [Fact]
         public void LogIn_ShouldLogInUserSuccess()
         {
-            bool expected = true;
+            string actual = _authenticationManager.AuthenticateLogInUser("may@yahoo.com", "Password1234!");
 
-            bool actual = _authenticationManager.AuthenticateLogInUser("testing@gmail.com", "TestPassword!12344556755");
+            Assert.NotNull(actual);
 
-            Assert.Equal(expected, actual);
+        }
 
-        }*/
     }
 }

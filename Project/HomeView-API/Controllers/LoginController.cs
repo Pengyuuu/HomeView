@@ -18,9 +18,10 @@ namespace HomeView_API.Controllers
             _authenticationManager = new AuthenticationManager();
         }
 
-        [Route("validate/{email}/{pw}")]
+        // Upon successful login, user is generated a jwt Token
+        // GET api/<LoginController>
         [HttpGet]
-        public ActionResult<string> ValidateLogIn(string email, string pw)
+        public ActionResult<string> ValidateLogIn([FromQuery]string email, [FromQuery] string pw)
         {
             var valid = _authenticationManager.AuthenticateLogInUser(email, pw); 
             if (valid is not null)
@@ -33,7 +34,6 @@ namespace HomeView_API.Controllers
 
         // when user clicks registration link from email -> authenticates user
         [Route("account/confirmEmailLink/{userOtp}/{email}")]
-        //[AllowAnonymous]
         [HttpGet]
         public ActionResult<string> ConfirmRegisteredUser(string userOtp, string email)
         {
@@ -46,11 +46,9 @@ namespace HomeView_API.Controllers
             bool result = _authenticationManager.AuthenticateRegisteredUser(email, userOtp);
             if (result)
             {
-                return "Email confirmed.";
+                return Ok("Email confirmed. Go to myhomeview.me to log in. Happy watching!");
             }
-            return Ok("Invalid confirmation.");
-            
-        
+            return BadRequest("Invalid confirmation.");
         }
 
         // this is after confirming user/authenticaated user

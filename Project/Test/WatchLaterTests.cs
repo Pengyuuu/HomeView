@@ -15,7 +15,9 @@ namespace WatchLaterTest
         {
             bool expected = true;
 
-            bool actual = watchLaterManager.AddToWatchLater("testing@gmail.com", "The Northman", "2022");
+            bool actual = watchLaterManager.AddToWatchLaterAsync("testing@gmail.com", "Star Wars: Episode IV – A New Hope", "1977").Result;
+
+            // Get information from db and compare it to value
 
             Assert.Equal(expected, actual);
         }
@@ -25,7 +27,7 @@ namespace WatchLaterTest
         {
             bool expected = false;
 
-            bool actual = watchLaterManager.AddToWatchLater("testing@gmail.com", "Tenet", "2020");
+            bool actual = watchLaterManager.AddToWatchLaterAsync("testing@gmail.com", "Star Wars: Episode IV – A New Hope", "1977").Result;
 
             Assert.Equal(expected, actual);
         }
@@ -35,7 +37,7 @@ namespace WatchLaterTest
         {
             bool expected = true;
 
-            bool actual = watchLaterManager.RemoveFromList("testing@gmail.com", "Tenet", "2020");
+            bool actual = watchLaterManager.RemoveFromListAsync("testing@gmail.com", "Star Wars: Episode IV – A New Hope", "1977").Result;
 
             Assert.Equal(expected, actual);
         }
@@ -43,7 +45,7 @@ namespace WatchLaterTest
         [Fact]
         public void WatchLater_GetListSuccessful()
         {
-            List<WatchLaterTitle> result = watchLaterManager.GetList("testing@gmail.com");
+            IEnumerable<WatchLaterTitle> result = watchLaterManager.GetListAsync("testing@gmail.com").Result;
 
             Assert.True(result.Any());
         }

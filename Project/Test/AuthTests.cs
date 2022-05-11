@@ -14,12 +14,22 @@ namespace AuthTesting
         private readonly IAuthenticationManager _authManager = new AuthenticationManager();
 
         [Fact]
-        public void AuthManager_ShouldGenereateJWTToken()
+        public void AuthManager_ShouldGenerateJWTToken()
         {
             string testEmail = "bob@gmail.com";
             var actual = _authManager.GenerateJWTToken(testEmail);
 
             Assert.True(actual.Any());
+
+        }
+
+        [Fact]
+        public void AuthManager_ShouldValidateUser()
+        {
+            string testEmail = "may@yahoo.com";
+            var actual = _authManager.AuthenticateLogInUser(testEmail, "Password1234!");
+
+            Assert.NotNull(actual);
 
         }
 
@@ -60,5 +70,14 @@ namespace AuthTesting
             Assert.True(actual.Any());
         }
 
+        [Fact]
+        public void HashPasswordTemp()
+        {
+            string expected = "test";
+            string actual = _authManager.HashPassword("Password1234!", "PkvaMaj5QjIstpwWKT496HGHYPNouaTpkTZ42GBacEI=");
+
+            Assert.Equal(expected, actual);
+
+        }
     }
 }
