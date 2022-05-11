@@ -9,7 +9,7 @@ import MovieListBlacklistFalse from '../Features/Blacklist/MovieListBlacklistFal
 
 const BLACKLIST_API_GET_TOGGLE = {
     method: 'get',
-    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=HankHill@yahoo.com',
+    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=may@yahoo.com',
     headers: { }
 };
 

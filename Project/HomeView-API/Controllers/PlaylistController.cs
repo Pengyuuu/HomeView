@@ -51,8 +51,6 @@ namespace HomeView_API.Controllers
         public IEnumerable<Playlist> GetPlaylist(string email)
         {
             return _playlistManager.GetPlaylist(email);
-
-            
         }
     }
 }

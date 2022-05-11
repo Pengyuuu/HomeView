@@ -33,7 +33,7 @@ import'./../../../css/movietile.css';
 
     const BLACKLIST_API_GET = {
         method: 'get',
-        url: 'http://54.219.16.154/api/blacklist/?selectedUser=HankHill@yahoo.com',
+        url: 'http://54.219.16.154/api/blacklist/?selectedUser=may@yahoo.com',
         headers: { }
     };
 

@@ -39,8 +39,7 @@ export default function UserAccount() {
                             <Button name="button" type="submit">Edit</Button>
                         </Form>
                     </Card.Body>
-                    <h3 className="text-left">Playlist</h3>
-                    <Button name="button" href="/Playlist">+</Button>
+                    <Button name="button" href="/Playlist">Playlists</Button>
                     <BlacklistButton />
 
                     <WatchLaterList />

@@ -15,7 +15,7 @@ import Title from './Features/RatingReview/Title'
 import UAD from './Core/UAD/UAD'
 import Terms from './Core/Terms'
 import UserPrivacy from './Core/UserPrivacy'
-
+import Playlist from './Features/Playlist/Playlist'
 
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
                     <Route exact path="/uad" element={<UAD />} />
                     <Route exact path="/terms" element={<Terms />} />
                     <Route exact path="/user-privacy" element={<UserPrivacy />} />
-
+                    <Route exact path="/playlist" element={<Playlist />} />
                 </Routes>
             </BrowserRouter>
         </div>

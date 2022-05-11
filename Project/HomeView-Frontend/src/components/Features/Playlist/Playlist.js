@@ -31,6 +31,9 @@ export default function Playlist() {
     <div>
       <Navigation/>
       <div className='background-Homeview'></div>
+      {data.map((playlist) => (
+        console.log(playlist)
+      ))}
       {data.length > 0 && data.map((playlist) => (
         <PlaylistList playlist={playlist} />
       ))}
