@@ -5,7 +5,7 @@ import ReviewSection from '../Features/RatingReview/ReviewSection'
 import BlacklistButton from './../Features/Blacklist/ModalButton'
 import CastButton from '../Features/Blacklist/CastButton';
 import WatchLater from '../Features/WatchLater/WatchLater'
-
+import AddToPlaylist from '../Features/Playlist/AddToPlaylist';
 import axios from 'axios';
 import GenreList from './MovieList'
 import './../../css/Modal.css';
@@ -78,6 +78,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                         <p>Actors: <CastButton items={cast} /></p>
                     </div>
                     <ReviewSection title={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show} />
+                    <AddToPlaylist />
                     <WatchLater title={title} year={year} />
 
                 </Modal.Body>
