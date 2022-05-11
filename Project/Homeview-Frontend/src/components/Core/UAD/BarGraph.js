@@ -5,15 +5,18 @@ import { Chart as ChartJS } from 'chart.js/auto';
 
 // data = {2020-02-02: 5, etc}
 const BarGraph = ({ title, dataList }) => {
-    console.log(dataList);
+    const converted = (Object.values(dataList));
+    const dates = converted.map((k) => (k.key, k.key));
+    const dateCounts = converted.map((k) => (k.key, k.value));
+
     let xList = [];
     let yList = [];
-    for (let x of Object.keys(dataList[0])) {
+    for (let x of dates) {
         xList.push(x);
     };
-    for (let x of Object.values(dataList[0])) {
-        yList.push(x);
-    };
+    for (let y of dateCounts) {
+        yList.push(y);
+    }
     const labels = xList;
     const dataset = {
         labels,
