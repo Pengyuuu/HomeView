@@ -1,8 +1,5 @@
 using Managers.Implementations;
 using Managers.Contracts;
-using System.Net.Http.Headers;
-using System.Web.Http;
-using Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var homeViewClient = "homeviewClient";
@@ -37,20 +34,13 @@ builder.Services.AddTransient<IAccountRecoveryManager, AccountRecoveryManager>()
 builder.Services.AddTransient<IAuthenticationManager, AuthenticationManager>();
 builder.Services.AddTransient<IEmailManager, EmailManager>();
 builder.Services.AddTransient<IUADManager, UADManager>();
-
-
+builder.Services.AddTransient<IPlaylistManager, PlaylistManager>();
 builder.Services.AddTransient<IWatchLaterManager,WatchLaterManager>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-if (app.Environment.IsProduction())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();

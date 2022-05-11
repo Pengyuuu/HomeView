@@ -54,13 +54,13 @@ namespace Managers.Implementations
             if (isValidReview)
             {
                 var existingReview = await AsyncGetSpecificReviewRating(dispName, titleSelected);
-                if (existingReview != null)
+                if (existingReview == null)
                 {
-                    return await _ratingAndReviewService.AsyncUpdateRatingReview(userReview);
+                    return await _ratingAndReviewService.AsyncCreateRatingReview(userReview);
                 }
                 else
                 {
-                    return await _ratingAndReviewService.AsyncCreateRatingReview(userReview);
+                    return await _ratingAndReviewService.AsyncUpdateRatingReview(userReview);
                 }
             }
             // -1 if invalid fields
@@ -76,9 +76,12 @@ namespace Managers.Implementations
             RatingAndReview deleteReview = new RatingAndReview();
             deleteReview.DispName = dispName;
             deleteReview.Title = titleSelected;
+            var existingReview = await AsyncGetSpecificReviewRating(dispName, titleSelected);
+            if (existingReview == null)
+            {
+                return -1;
+            }
             return await _ratingAndReviewService.AsyncDeleteRatingReview(deleteReview);
-
-
         }
 
         /** Updates a valid review - calls RR service to update review
@@ -96,7 +99,7 @@ namespace Managers.Implementations
          * Takes in user's display name, title selected
          * Returns an the review if found
          */
-        public async Task<RatingAndReview> AsyncGetSpecificReviewRating(string dispName, string selectedTitle)
+        public async Task<RatingAndReview?> AsyncGetSpecificReviewRating(string dispName, string selectedTitle)
         {
             RatingAndReview specificReview = new RatingAndReview();
             specificReview.DispName = dispName;

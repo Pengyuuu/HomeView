@@ -3,6 +3,7 @@ using System.Linq;
 using Xunit;
 using Features.Playlist;
 using Managers.Implementations;
+using System;
 
 namespace PlaylistTests
 {
@@ -53,7 +54,7 @@ namespace PlaylistTests
         [Fact]
         public void Playlist_GetUsersPlaylistSuccessful()
         {
-            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testing@gmail.com");
+            IEnumerable<Playlist> result = playlistManager.GetPlaylist("may@gmail.com");
 
             Assert.True(result.Any());
         }

@@ -15,7 +15,7 @@ export default function WatchLater(title, year) {
 
         var config = {
             method: 'post',
-            url: `http://54.219.16.154/api/WatchLater/${email}/${title}/${year}`,
+            url: `http://54.219.16.154/api/WatchLater/add/?email=${email}&title=${title}&year=${year}`,
             headers: {
                 'Content-Type': 'application/json'
             },

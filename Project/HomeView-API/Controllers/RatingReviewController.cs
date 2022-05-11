@@ -94,7 +94,7 @@ namespace HomeView_API.Controllers
             {
                 return Ok("Rating review deleted.");
             }
-            return BadRequest("Unable to delete the requested rating review. Database error.");
+            return BadRequest("No reviw for this title to delete.");
 
         }
 

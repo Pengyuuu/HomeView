@@ -29,7 +29,8 @@ import'./../../../css/movietile.css';
       };  
 
     // if blacklist toggle is false, render this (all movies)
-    function MovieList({service}) {
+    function MovieList() {
+        const service = window.localStorage.getItem('state');
         let offset = 1;
         const [ movies, setMovies ] = useState([]);
 
@@ -61,7 +62,7 @@ import'./../../../css/movietile.css';
         return (
             <div className='movie-container'>
                 {movies.length > 0 && movies.map((movie) => (
-                    <MovieTile key={movie.tmdbID} {...movie} />            
+                    <MovieTile key={movie.tmdbID} {...movie} service = {service}/>            
                 ))}
                 {useEffect(() => {
                     return () => {

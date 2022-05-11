@@ -33,7 +33,12 @@ namespace Core.Logging
 
         public async Task<IEnumerable<Log>> GetLogAsync(int id)
         {
-            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetLog", new { Id = id });
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_ReadLog", new { Id = id });
+        }
+
+        public async Task<IEnumerable<Log>> GetCategoryLogAsync(int category)
+        {
+            return await _db.LoadData<Log, dynamic>("dbo.Logs_GetCategoryLog", new { logCategory = category });
         }
 
         public async Task<IEnumerable<Log>> GetOldLogsAsync()

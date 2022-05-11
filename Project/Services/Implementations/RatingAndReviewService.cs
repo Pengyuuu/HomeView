@@ -60,10 +60,11 @@ namespace Services.Implementations
 
         }
 
-        public async Task<IEnumerable<RatingAndReview>> AsyncGetRatingReview(RatingAndReview getReview)
+        public async Task<IEnumerable<RatingAndReview?>> AsyncGetRatingReview(RatingAndReview getReview)
         {
             IEnumerable<RatingAndReview> fetchRatingReview = await _rrDAO.AsyncGetRatingReviews(getReview);
-            if (fetchRatingReview != null)
+            var list = fetchRatingReview.ToList();
+            if (list.Count != 0)
             {
                 Log reviewLogTrue = new("Review successfully fetched from database.", LogLevel.Info, LogCategory.DataStore, DateTime.Now);
                 await _loggingService.LogDataAsync(reviewLogTrue);

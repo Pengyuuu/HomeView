@@ -12,8 +12,10 @@ namespace Managers.Contracts
         Task<List<KeyValuePair<DateTime, int>>> GetRegistrationCountAsync();
         Task<List<KeyValuePair<DateTime, int>>> GetReviewCountAsync();
         Task<List<int>> GetTopMostVisitedViewAsync();
-        Task<List<int>> GetTopViewDurationAsync();
+        Task<List<double>> GetTopViewDurationAsync();
         Task<UADResponse> GetAllCountsAsync();
+        double GetAverageDuration(List<double> durations);
+
 
     }
 }

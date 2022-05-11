@@ -13,8 +13,13 @@ namespace Managers.Contracts
 
         Task<IEnumerable<Log>> GetLogAsync(int id);
 
+        Task<IEnumerable<Log>> GetCategoryLogAsync(LogCategory category);
+
         Task<bool> LogDataAsync(Log log);
 
         Task<bool> LogDataAsync(string desc, LogLevel level, LogCategory category, DateTime timeStamp);
+
+        Task<bool> LogDataAsync(int viewId, string token);
+
     }
 }

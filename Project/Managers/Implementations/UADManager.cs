@@ -6,6 +6,7 @@ using Services.Implementations;
 using Managers.Contracts;
 using System.Threading.Tasks;
 using Core.UAD;
+using System.Linq;
 
 namespace Managers.Implementations
 {
@@ -162,74 +163,175 @@ namespace Managers.Implementations
             {
 
             };
-
-            var dayLogs = await _loggingService.GetAllLogsAsync();
+            const int LOG_VIEW_CATEGORY = 0;
+            var dayLogs = await _loggingService.GetCategoryLogsAsync(LOG_VIEW_CATEGORY);
 
             foreach (Log i in dayLogs)
             {
-                if (i.Category == 0)
+                
+                string[] descSplit = i.Description.Split(":");
+
+                if (descSplit[0] == "Home Page View accessed.")
                 {
-                    if (i.Description == "Home Page View accessed.")
-                    {
-                        homeViewCount++;
-                    }
-                    else if (i.Description == "TV Shows View accessed.")
-                    {
-                        tvViewCount++;
-                    }
-                    else if (i.Description == "Movies View accessed.")
-                    {
-                        movieViewCount++;
-                    }
-                    else if (i.Description == "News View accessed.")
-                    {
-                        newsViewCount++;
-                    }
-                    else if (i.Description == "ActWiki View accessed.")
-                    {
-                        actWikiViewCount++;
-                    }
-                    else if (i.Description == "Streaming Services View accessed.")
-                    {
-                        streamingViewCount++;
-                    }
-                    else if (i.Description == "Account View accessed.")
-                    {
-                        accountViewCount++;
-                    }
+                    homeViewCount++;
                 }
+                else if (descSplit[0] == "TV Shows View accessed.")
+                {
+                    tvViewCount++;
+                }
+                else if (descSplit[0] == "Movies View accessed.")
+                {
+                    movieViewCount++;
+                }
+                else if (descSplit[0] == "News View accessed.")
+                {
+                    newsViewCount++;
+                }
+                else if (descSplit[0] == "ActWiki View accessed.")
+                {
+                    actWikiViewCount++;
+                }
+                else if (descSplit[0] == "Streaming Services View accessed.")
+                {
+                    streamingViewCount++;
+                }
+                else if (descSplit[0] == "Account View accessed.")
+                {
+                    accountViewCount++;
+                }
+                
             }
+            viewCount.Add(homeViewCount);
+            viewCount.Add(accountViewCount);
+            viewCount.Add(newsViewCount);
+            viewCount.Add(movieViewCount);
+            viewCount.Add(tvViewCount);
+            viewCount.Add(streamingViewCount);
+            viewCount.Add(actWikiViewCount);
             return viewCount;
         }
 
         /* Gets the top 5 average duration per view of all time
          * Returns an array to be used for bar chart in front end
          */
-        public async Task<List<int>> GetTopViewDurationAsync()
+        public async Task<List<double>> GetTopViewDurationAsync()
         {
-            List<int> loginCount = new List<int>();
-            var today = DateTime.Now;
-            // gets the month of 3 months ago
-            var recent = today.Month - 3;
-            // gets the first day of the month from 3 months ago
-            DateTime previous = new DateTime(today.Year, recent, today.Day);
-            // adds 92 days (3 months) to get the end date
-            var history = previous.AddDays(92);
+ 
+            List<double> viewCount = new List<double>(){};
+            List<double> homeDuration = new List<double>() { };
+            List<double> accountDuration = new List<double>() { };
+            List<double> newsDuration = new List<double>() { };
+            List<double> movieDuration = new List<double>() { };
+            List<double> showDuration = new List<double>() { };
+            List<double> actDuration = new List<double>() { };
+            List<double> streamingDuration = new List<double>() { };
+            List<string> userLog = new List<string>() { };
 
-            for (var i = previous; i <= today; i = i.AddDays(1))
+
+            //List<Log> dayLogs = (await _loggingService.GetAllLogsAsync()).ToList();
+         
+            const int LOG_VIEW_CATEGORY = 0;
+            List<Log> dayLogs = (await _loggingService.GetCategoryLogsAsync(LOG_VIEW_CATEGORY)).ToList();
+            for (int i = 0; i < dayLogs.Count-2; i++)
             {
-                var dayLogs = await _loggingService.GetLogAsync(i);
-                int dayCount = 0;
-                foreach (Log j in dayLogs)
-                {
-                    if (j.Description == "Successfully created user session.")
+                int count = i;
+                Log tempLog = dayLogs[i];
+
+                string[] descSplit = tempLog.Description.Split(":");
+
+                // identifies user by logged token
+                var user = descSplit[1];
+                var check = userLog;
+                if (!userLog.Contains(user)) {
+                    userLog.Add(user);
+
+                    // user's last accessed view, most recent
+                    var currentView = descSplit[0];
+                    var currentTime = tempLog.timeStamp;
+
+                    // iterates through rest of logs to find user's access history
+                    for (int j = i + 1; j < dayLogs.Count-1; j++)
                     {
-                        dayCount++;
+ 
+                        Log nextLog = dayLogs[j];
+                        string[] nextSplit = nextLog.Description.Split(":");
+                        // identifies user by logged token
+                        var checkUser = nextSplit[1];
+
+                        // user's last accessed view, most recent
+                        var recentView = nextSplit[0];
+                        var recentTime = nextLog.timeStamp;
+
+                        // checks if next recent log is from same user
+                        if (user == checkUser)
+                        {
+                            if (currentView != recentView)
+                            {
+                                var duration = Math.Abs(currentTime.Subtract(recentTime).TotalMinutes);
+
+                                if (currentView == "Home Page View accessed.")
+                                {
+                                    homeDuration.Add(duration);
+                                }
+                                else if (currentView == "TV Shows View accessed.")
+                                {
+                                    showDuration.Add(duration);
+                                }
+                                else if (currentView == "Movies View accessed.")
+                                {
+                                    movieDuration.Add(duration);
+                                }
+                                else if (currentView == "News View accessed.")
+                                {
+                                    newsDuration.Add(duration);
+                                }
+                                else if (currentView == "ActWiki View accessed.")
+                                {
+                                    actDuration.Add(duration);
+                                }
+                                else if (currentView == "Streaming Services View accessed.")
+                                {
+                                    streamingDuration.Add(duration);
+                                }
+                                else if (currentView == "Account View accessed.")
+                                {
+                                    accountDuration.Add(duration);
+                                }
+                                currentView = recentView;
+                            }
+                        }
                     }
-                }
-                loginCount.Add(dayCount);
+                }               
             }
-            return loginCount;
+            List<List<double>> dList = new List<List<double>>();
+            dList.Add(homeDuration);
+            dList.Add(accountDuration);
+            dList.Add(newsDuration);
+            dList.Add(movieDuration);
+            dList.Add(showDuration);
+            dList.Add(streamingDuration);
+            dList.Add(actDuration);
+
+            foreach (var list in dList)
+            {
+                var avgDuration = GetAverageDuration(list);
+                viewCount.Add(avgDuration);
+            }
+            return viewCount;
+        }
+
+        public double GetAverageDuration(List<double> durations)
+        {
+            double avgDuration = 0;
+            if (durations.Count() > 0)
+            {
+                foreach (var d in durations)
+                {
+                    avgDuration += d;
+                }
+                avgDuration = avgDuration / (durations.Count());
+            }
+            return avgDuration;
         }
 
         public async Task<UADResponse> GetAllCountsAsync()

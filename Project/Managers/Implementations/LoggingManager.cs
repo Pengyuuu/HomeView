@@ -28,9 +28,51 @@ namespace Managers.Implementations
             return await _loggingService.LogDataAsync(log);
         }
 
+        public async Task<bool> LogDataAsync(int viewId, string token)
+        {
+            Log viewAccessed = new Log();
+            viewAccessed.Level = 0;
+            viewAccessed.Category = 0;
+            viewAccessed.timeStamp = DateTime.Now;
+            if (viewId == 1)
+            {
+                viewAccessed.Description = "Account View accessed." + ":" + token;
+            }
+            else if (viewId == 2)
+            {
+                viewAccessed.Description = "Home Page View accessed." + ":" + token;
+            }
+            else if (viewId == 3)
+            {
+                viewAccessed.Description = "Movies View accessed." + ":" + token;
+            }
+            else if (viewId == 4)
+            {
+                viewAccessed.Description = "TV Shows View accessed." + ":" + token;
+            }
+            else if (viewId == 5)
+            {
+                viewAccessed.Description = "ActWiki View accessed." + ":" + token;
+            }
+            else if (viewId == 6)
+            {
+                viewAccessed.Description = "Streaming Services View accessed." + ":" + token;
+            }
+            else if (viewId == 7)
+            {
+                viewAccessed.Description = "News View accessed." + ":" + token;
+            }
+            return await _loggingService.LogDataAsync(viewAccessed);
+        }
+
         public async Task<IEnumerable<Log>> GetLogAsync(int id)
         {
             return await _loggingService.GetLogAsync(id);
+        }
+        public async Task<IEnumerable<Log>> GetCategoryLogAsync(LogCategory category)
+        {
+            int logCat = Convert.ToInt32(category);
+            return await _loggingService.GetLogAsync(logCat);
         }
 
         public async Task<IEnumerable<Log>> GetLogAsync(DateTime timeStamp)

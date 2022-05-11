@@ -44,7 +44,7 @@ namespace Features.Ratings_and_Reviews
 
         }
 
-        public async Task<IEnumerable<RatingAndReview>> AsyncGetRatingReviews(RatingAndReview fetchReview)
+        public async Task<IEnumerable<RatingAndReview?>> AsyncGetRatingReviews(RatingAndReview fetchReview)
         {
             // fetch a user's list of reviews
             if ((fetchReview.DispName.Length != 0) && (fetchReview.Title.Length == 0))

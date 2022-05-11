@@ -9,7 +9,7 @@ import MovieListBlacklistFalse from '../Features/Blacklist/MovieListBlacklistFal
 
 const BLACKLIST_API_GET_TOGGLE = {
     method: 'get',
-    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=HankHill@yahoo.com',
+    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=may@yahoo.com',
     headers: { }
 };
 
@@ -25,7 +25,7 @@ const COUNTRIES_API = {
     function MovieList() {
         const [toggle, setToggle] = useState();
         const [ streamService, setStreamService ] = useState([]); 
-        const [value, setValue] = useState('netflix');
+        const [value, setValue] = useState();
 
         // web api call get toggle
         useEffect(() => {
@@ -41,12 +41,24 @@ const COUNTRIES_API = {
             }).catch(function (error) {
                 console.error(error);   
             });
+
+
+            if (window.localStorage.getItem('state') == null) {
+                window.localStorage.setItem('state', 'netflix')
+                setValue('netflix')
+            }
+            else {
+                setValue(window.localStorage.getItem('state'))
+            }
+
         }, []);
 
         const handleChange = (event) => {
-            setValue(event.target.value);
-            window.location.reload();
+           window.localStorage.setItem('state', event.target.value)
+           window.location.reload();
         }
+
+        
 
         // if true return blacklist view
         // else return regular view (all movies)
@@ -62,8 +74,6 @@ const COUNTRIES_API = {
                     <option key={option} value={streamService.value}>{option}</option>))}
                 </select>
             </label>
-
-            <p>We use {value}!</p>
             </div>       
             <MovieListBlacklistTrue service = {value} />
             </>)
@@ -81,10 +91,10 @@ const COUNTRIES_API = {
                         </select>
                     </label>
 
-                    <p>We use {value}!</p>
+                    <p></p>
                 </div>    
 
-                <MovieListBlacklistFalse service = {value}/>
+                <MovieListBlacklistFalse/>
                 </>
             ) 
         }
