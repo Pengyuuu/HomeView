@@ -163,44 +163,51 @@ namespace Managers.Implementations
             {
 
             };
-
-            var dayLogs = await _loggingService.GetAllLogsAsync();
+            const int LOG_VIEW_CATEGORY = 0;
+            var dayLogs = await _loggingService.GetCategoryLogsAsync(LOG_VIEW_CATEGORY);
 
             foreach (Log i in dayLogs)
             {
-                // category is View
-                if (i.Category == LogCategory.View)
+                
+                string[] descSplit = i.Description.Split(":");
+
+                if (descSplit[0] == "Home Page View accessed.")
                 {
-                    if (i.Description == "Home Page View accessed.")
-                    {
-                        homeViewCount++;
-                    }
-                    else if (i.Description == "TV Shows View accessed.")
-                    {
-                        tvViewCount++;
-                    }
-                    else if (i.Description == "Movies View accessed.")
-                    {
-                        movieViewCount++;
-                    }
-                    else if (i.Description == "News View accessed.")
-                    {
-                        newsViewCount++;
-                    }
-                    else if (i.Description == "ActWiki View accessed.")
-                    {
-                        actWikiViewCount++;
-                    }
-                    else if (i.Description == "Streaming Services View accessed.")
-                    {
-                        streamingViewCount++;
-                    }
-                    else if (i.Description == "Account View accessed.")
-                    {
-                        accountViewCount++;
-                    }
+                    homeViewCount++;
                 }
+                else if (descSplit[0] == "TV Shows View accessed.")
+                {
+                    tvViewCount++;
+                }
+                else if (descSplit[0] == "Movies View accessed.")
+                {
+                    movieViewCount++;
+                }
+                else if (descSplit[0] == "News View accessed.")
+                {
+                    newsViewCount++;
+                }
+                else if (descSplit[0] == "ActWiki View accessed.")
+                {
+                    actWikiViewCount++;
+                }
+                else if (descSplit[0] == "Streaming Services View accessed.")
+                {
+                    streamingViewCount++;
+                }
+                else if (descSplit[0] == "Account View accessed.")
+                {
+                    accountViewCount++;
+                }
+                
             }
+            viewCount.Add(homeViewCount);
+            viewCount.Add(tvViewCount);
+            viewCount.Add(movieViewCount);
+            viewCount.Add(newsViewCount);
+            viewCount.Add(actWikiViewCount);
+            viewCount.Add(streamingViewCount);
+            viewCount.Add(accountViewCount);
             return viewCount;
         }
 

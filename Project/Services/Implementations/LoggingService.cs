@@ -61,6 +61,11 @@ namespace Services.Implementations
             return await _logDAO.GetAllLogsAsync();
         }
 
+        public async Task<IEnumerable<Log>> GetCategoryLogsAsync(int category)
+        {
+            return await _logDAO.GetCategoryLogAsync(category);
+        }
+       
         public async Task<bool> DeleteOldLogAsync()
         {
 

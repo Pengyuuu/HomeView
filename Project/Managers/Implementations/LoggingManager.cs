@@ -69,6 +69,11 @@ namespace Managers.Implementations
         {
             return await _loggingService.GetLogAsync(id);
         }
+        public async Task<IEnumerable<Log>> GetCategoryLogAsync(LogCategory category)
+        {
+            int logCat = Convert.ToInt32(category);
+            return await _loggingService.GetLogAsync(logCat);
+        }
 
         public async Task<IEnumerable<Log>> GetLogAsync(DateTime timeStamp)
         {
