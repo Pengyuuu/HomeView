@@ -27,6 +27,27 @@ function Popular() {
 
     }, []);
 
+    /**
+     * import axios from "axios";
+
+    const options = {
+    method: 'GET',
+    url: 'https://streaming-availability.p.rapidapi.com/get/basic',
+    params: {country: 'us', tmdb_id: 'movie/284052', output_language: 'en'},
+    headers: {
+        'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com',
+        'X-RapidAPI-Key': 'cc4a9a7618msh29ea64bd110ca53p17eeefjsncd4c7af4a976'
+    }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+
+    tmdb_id = id
+     */
     return (
         <div className='pop-container'>
             <div className='main-titles'>
