@@ -12,6 +12,7 @@ namespace HomeView_API.Controllers
     public class ActWikiController : Controller
     {
         private readonly IActWikiManager _actManager;
+        HttpClient client = new HttpClient();
         private string API_KEY = "82da0caf88a6e84985e9fe3d753d6f43";
 
         public ActWikiController()
@@ -20,18 +21,14 @@ namespace HomeView_API.Controllers
         }
 
         [HttpGet]
-        public async Task <IActionResult> SearchAct(string searchAct)
+        public async Task SearchAct(string searchAct)
         {
-            HttpWebRequest request = WebRequest.Create("https://api.themoviedb.org/3/search/person?api_key=" + API_KEY 
-                + "&language=en-US&query=" + searchAct + "&page=&include_adult=false") as HttpWebRequest;
-            string response = "";
-            using (HttpWebResponse apiResponse = request.GetResponse() as HttpWebResponse)
+            HttpResponseMessage response = await client.GetAsync("https://api.themoviedb.org/3/search/person?api_key=" + API_KEY
+                + "&language=en-US&query=" + searchAct + "&page=1&include_adult=false");
+            if(response.IsSuccessStatusCode)
             {
-                StreamReader reader = new StreamReader(apiResponse.GetResponseStream());
-                response = reader.ReadToEnd();
-                return Ok(response);
+                string actor = await response.Content.ReadFromJsonAsync<string>();
             }
-            ActWiki act = JsonConvert.DeserializeObject<ActWiki>(response);
         }
 
         /*
