@@ -53,7 +53,7 @@ namespace PlaylistTests
         [Fact]
         public void Playlist_GetUsersPlaylistSuccessful()
         {
-            IEnumerable<Playlist> result = playlistManager.GetPlaylist("testing@gmail.com");
+            IEnumerable<Playlist> result = playlistManager.GetPlaylist("may@gmail.com");
 
             Assert.True(result.Any());
         }
