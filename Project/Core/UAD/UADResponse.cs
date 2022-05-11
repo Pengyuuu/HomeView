@@ -21,7 +21,7 @@ namespace Core.UAD
         public List<int> topViewCount { get; set; }
 
         // duration view count list
-        public List<int> durationViewCount { get; set; }
+        public List<double> durationViewCount { get; set; }
 
         public UADResponse()
         {
@@ -33,7 +33,7 @@ namespace Core.UAD
             this.durationViewCount = null;
         }
 
-        public UADResponse(List<KeyValuePair<DateTime, int>> regCount, List<KeyValuePair<DateTime, int>> logCount, List<KeyValuePair<DateTime, int>> nCount, List<KeyValuePair<DateTime, int>> revCount, List<int> viewCount, List<int> dCount)
+        public UADResponse(List<KeyValuePair<DateTime, int>> regCount, List<KeyValuePair<DateTime, int>> logCount, List<KeyValuePair<DateTime, int>> nCount, List<KeyValuePair<DateTime, int>> revCount, List<int> viewCount, List<double> dCount)
         {
             this.registrationCount = regCount;
             this.loginCount = logCount;

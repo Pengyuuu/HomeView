@@ -5,6 +5,7 @@ import { Chart as ChartJS } from 'chart.js/auto';
 
 // data = {2020-02-02: 5, etc}
 const BarGraph = ({ title, dataList }) => {
+    const VIEW_LABELS = ["Home View", "Account View", "News View", "Movies View", "TV Shows View", "Streaming Service View", "ActWiki View"];
     const converted = (Object.values(dataList));
     const dates = converted.map((k) => (k.key, k.key));
     const dateCounts = converted.map((k) => (k.key, k.value));
@@ -17,7 +18,7 @@ const BarGraph = ({ title, dataList }) => {
     for (let y of dateCounts) {
         yList.push(y);
     }
-    const labels = xList;
+    const labels = VIEW_LABELS;
     const dataset = {
         labels,
         datasets: [
