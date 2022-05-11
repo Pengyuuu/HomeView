@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-export default function AddToList(playlist) {
+export default function AddToList(playlist, showTitle) {
 
+    console.log(showTitle);
     return (
         <>
             <li>
