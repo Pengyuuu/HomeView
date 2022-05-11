@@ -12,11 +12,11 @@ export default function TVShows() {
   return (
     <>
       <Navigation />
-      <div className="container">
+      <div className="series-page">
         Series
+        </div>
         <SeriesList />
-
-      </div>
+     
     </>
   )
 } 

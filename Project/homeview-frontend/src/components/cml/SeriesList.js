@@ -59,8 +59,8 @@ const COUNTRIES_API = {
             return (
                 <>
                 <div className ="container p-5">
-                <label>
-                    Select a Streaming Service
+                <label className='select-service'>
+                    Select a Streaming Service 
                     <select value={value} onChange={handleChange}>
                     {Object.keys(streamService).map((option) => (
                         <option key={option} value={streamService.value}>{option}</option>))}
@@ -77,8 +77,8 @@ const COUNTRIES_API = {
             return (
                 <>
                 <div className ="container p-5">
-                    <label>
-                        Select a Streaming Service
+                    <label className='select-service'>
+                        Select a Streaming Service 
                         <select value={value} onChange={handleChange}>
                         {Object.keys(streamService).map((option) => (
                             <option key={option} value={streamService.value}>{option}</option>))}

@@ -13,11 +13,11 @@ export default function Movies() {
   return (
     <>
       <Navigation />
-      <div className="container">
+      <div className="movies-page">
         Movies
+        </div>
         <MovieList />
-
-      </div>
+      
     </>
   )
 }
