@@ -7,7 +7,7 @@ import SeriesBlacklistFalse from '../Features/Blacklist/SeriesBlacklistFalse'
 
 const BLACKLIST_API_GET_TOGGLE = {
     method: 'get',
-    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=HankHill@yahoo.com',
+    url: 'http://54.219.16.154/api/blacklist/toggle?selectedUser=may@yahoo.com',
     headers: { }
 };
 const COUNTRIES_API = {

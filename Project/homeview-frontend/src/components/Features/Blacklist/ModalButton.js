@@ -56,11 +56,11 @@ function ModalButton({items}) {
         <Modal show={show} onHide={()=>handleClose()}>
             <Modal.Header closeButton>
                 <Modal.Title id = "contained-modal-title-vcenter">
-                    Blacklist
+                    Blocklist
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Button className="blacklist-add-btn" onClick={()=>{Add(item)}} >Add {item} Blacklist</Button>
+                <Button className="blacklist-add-btn" onClick={()=>{Add(item)}} >Add {item} to Blocklist</Button>
                 {console.log(item)}
             </Modal.Body>
             <Modal.Footer>
@@ -81,7 +81,7 @@ function Add(item) {
     var axios = require('axios');
     var data = JSON.stringify({
     "blacklistItem": ""+item,
-    "dispName": "HankHill@yahoo.com"
+    "dispName": "may@yahoo.com"
     });
 
     var config = {

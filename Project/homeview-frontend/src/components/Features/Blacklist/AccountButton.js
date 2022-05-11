@@ -5,9 +5,11 @@ import { callbackify } from "util";
 
 const BLACKLIST_API_GET = {
     method: 'get',
-    url: 'http://54.219.16.154/api/blacklist/?selectedUser=HankHill@yahoo.com',
+    url: 'http://54.219.16.154/api/blacklist/?selectedUser=may@yahoo.com',
     headers: {}
 };
+
+
 
 
 function AccountButton() {
@@ -38,13 +40,13 @@ function AccountButton() {
     return (
         <>
             <Button onClick={() => { handleShow(); Get() }}>
-                Show Blacklist
+                Show Blocklist
             </Button>
 
             <Modal show={show} onHide={() => handleClose()}>
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Your Blacklist
+                        Your Blocklist
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -73,9 +75,19 @@ function AccountButton() {
 }
 
 function Blacklist({ item }) {
+    var newItem = item;
+    const genres = {"1":"Biography","10402":"Music","10749":"Romance","10751":"Family","10752":"War","10763":"News","10764":"Reality","10767":"Talk Show","12":"Adventure","14":"Fantasy","16":"Animation","18":"Drama","2":"Film Noir","27":"Horror","28":"Action","3":"Game Show","35":"Comedy","36":"History","37":"Western","4":"Musical","5":"Sport","53":"Thriller","6":"Short","7":"Adult","80":"Crime","878":"Science Fiction","9648":"Mystery","99":"Documentary"}
+    if (!isNaN(item)) {
+        for (const [key, value] of Object.entries(genres)) {
+            if (key == item) {
+                newItem = value;
+            }
+        }
+    }
+
     return (
         <li>
-            {item}
+            {newItem}
             <Button variant="outline-danger" size="sm" onClick={() => Remove(item)}> Remove </Button>
         </li>
 
@@ -88,7 +100,7 @@ function Remove(item) {
     var axios = require('axios');
     var data = JSON.stringify({
         "blacklistItem": "" + item,
-        "dispName": "HankHill@yahoo.com"
+        "dispName": "may@yahoo.com"
     });
 
     var config = {
@@ -117,7 +129,7 @@ function Disable() {
 
     var axios = require('axios');
     var data = JSON.stringify({
-        "dispName": "HankHill@yahoo.com",
+        "dispName": "may@yahoo.com",
         "blacklistToggle": false
     });
 
@@ -147,7 +159,7 @@ function Enable() {
 
     var axios = require('axios');
     var data = JSON.stringify({
-        "dispName": "HankHill@yahoo.com",
+        "dispName": "may@yahoo.com",
         "blacklistToggle": true
     });
 
