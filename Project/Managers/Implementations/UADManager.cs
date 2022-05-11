@@ -228,80 +228,80 @@ namespace Managers.Implementations
             List<string> userLog = new List<string>() { };
 
 
-            // sorted list of logs by time
-            List<Log> dayLogs = (await _loggingService.GetAllLogsAsync()).ToList();
-
- 
-            for (int i = 0; i < dayLogs.Count; i++)
+            //List<Log> dayLogs = (await _loggingService.GetAllLogsAsync()).ToList();
+         
+            const int LOG_VIEW_CATEGORY = 0;
+            List<Log> dayLogs = (await _loggingService.GetCategoryLogsAsync(LOG_VIEW_CATEGORY)).ToList();
+            for (int i = 0; i < dayLogs.Count-2; i++)
             {
+                int count = i;
                 Log tempLog = dayLogs[i];
-                // category is business - for duration
-                if (tempLog.Category == LogCategory.Business)
-                {
-                    string[] descSplit = tempLog.Description.Split(":");
 
-                    // identifies user by logged token
-                    var user = descSplit[1];
-                    if (!userLog.Contains(user)) {
-                        userLog.Add(user);
+                string[] descSplit = tempLog.Description.Split(":");
+
+                // identifies user by logged token
+                var user = descSplit[1];
+                var check = userLog;
+                if (!userLog.Contains(user)) {
+                    userLog.Add(user);
+
+                    // user's last accessed view, most recent
+                    var currentView = descSplit[0];
+                    var currentTime = tempLog.timeStamp;
+
+                    // iterates through rest of logs to find user's access history
+                    for (int j = i + 1; j < dayLogs.Count-1; j++)
+                    {
+ 
+                        Log nextLog = dayLogs[j];
+                        string[] nextSplit = nextLog.Description.Split(":");
+                        // identifies user by logged token
+                        var checkUser = nextSplit[1];
 
                         // user's last accessed view, most recent
-                        var currentView = descSplit[0];
-                        var currentTime = tempLog.timeStamp;
+                        var recentView = nextSplit[0];
+                        var recentTime = nextLog.timeStamp;
 
-                        // iterates through rest of logs to find user's access history
-                        for (int j = i + 1; i < dayLogs.Count; j++)
+                        // checks if next recent log is from same user
+                        if (user == checkUser)
                         {
-                            Log nextLog = dayLogs[j];
-                            string[] nextSplit = nextLog.Description.Split(":");
-                            // identifies user by logged token
-                            var checkUser = nextSplit[1];
-
-                            // user's last accessed view, most recent
-                            var recentView = nextSplit[0];
-                            var recentTime = nextLog.timeStamp;
-
-                            // checks if next recent log is from same user
-                            if (user == checkUser)
+                            if (currentView != recentView)
                             {
-                                if (currentView != recentView)
-                                {
-                                    var duration = currentTime.Subtract(recentTime).TotalSeconds;
+                                var duration = Math.Abs(currentTime.Subtract(recentTime).TotalMinutes);
 
-                                    if (currentView == "Home Page View accessed.")
-                                    {
-                                        homeDuration.Add(duration);
-                                    }
-                                    else if (currentView == "TV Shows View accessed.")
-                                    {
-                                        showDuration.Add(duration);
-                                    }
-                                    else if (currentView == "Movies View accessed.")
-                                    {
-                                        movieDuration.Add(duration);
-                                    }
-                                    else if (currentView == "News View accessed.")
-                                    {
-                                        newsDuration.Add(duration);
-                                    }
-                                    else if (currentView == "ActWiki View accessed.")
-                                    {
-                                        actDuration.Add(duration);
-                                    }
-                                    else if (currentView == "Streaming Services View accessed.")
-                                    {
-                                        streamingDuration.Add(duration);
-                                    }
-                                    else if (currentView == "Account View accessed.")
-                                    {
-                                        accountDuration.Add(duration);
-                                    }
-                                    currentView = recentView;
+                                if (currentView == "Home Page View accessed.")
+                                {
+                                    homeDuration.Add(duration);
                                 }
+                                else if (currentView == "TV Shows View accessed.")
+                                {
+                                    showDuration.Add(duration);
+                                }
+                                else if (currentView == "Movies View accessed.")
+                                {
+                                    movieDuration.Add(duration);
+                                }
+                                else if (currentView == "News View accessed.")
+                                {
+                                    newsDuration.Add(duration);
+                                }
+                                else if (currentView == "ActWiki View accessed.")
+                                {
+                                    actDuration.Add(duration);
+                                }
+                                else if (currentView == "Streaming Services View accessed.")
+                                {
+                                    streamingDuration.Add(duration);
+                                }
+                                else if (currentView == "Account View accessed.")
+                                {
+                                    accountDuration.Add(duration);
+                                }
+                                currentView = recentView;
                             }
                         }
                     }
-                }
+                }               
             }
             List<List<double>> dList = new List<List<double>>();
             dList.Add(homeDuration);

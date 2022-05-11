@@ -21,7 +21,7 @@ namespace LoggingTests
 
             //act
             logManager.LogDataAsync(testLog);
-            var result = logManager.GetLogAsync(384).Result;
+            var result = logManager.GetLogAsync(1495).Result;
 
             //assert
             Assert.NotNull(result);
