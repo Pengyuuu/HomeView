@@ -3,6 +3,7 @@ using System.Linq;
 using Xunit;
 using Features.Playlist;
 using Managers.Implementations;
+using System;
 
 namespace PlaylistTests
 {
