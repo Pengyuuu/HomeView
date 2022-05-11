@@ -1,19 +1,22 @@
-import React,{Component} from 'react'
-import  Navigation  from '../Navigation'
+import React, { Component } from 'react'
+import Navigation from '../Navigation'
 import SeriesList from '../cml/SeriesList'
+import LogAccess from '../Core/LogAccess'
 
 
 //<script src='/Core/Security.js'></script>
 
 export default function TVShows() {
-    return(
-        <>
-        <Navigation/>
-          <div className="container">
-              Series
-          <SeriesList/>
-    
-        </div>
-        </>
-      )
+  const TV_VIEW_ID = 4;
+  LogAccess(TV_VIEW_ID);
+  return (
+    <>
+      <Navigation />
+      <div className="container">
+        Series
+        <SeriesList />
+
+      </div>
+    </>
+  )
 } 

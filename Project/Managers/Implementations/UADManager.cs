@@ -202,12 +202,12 @@ namespace Managers.Implementations
                 
             }
             viewCount.Add(homeViewCount);
-            viewCount.Add(tvViewCount);
-            viewCount.Add(movieViewCount);
-            viewCount.Add(newsViewCount);
-            viewCount.Add(actWikiViewCount);
-            viewCount.Add(streamingViewCount);
             viewCount.Add(accountViewCount);
+            viewCount.Add(newsViewCount);
+            viewCount.Add(movieViewCount);
+            viewCount.Add(tvViewCount);
+            viewCount.Add(streamingViewCount);
+            viewCount.Add(actWikiViewCount);
             return viewCount;
         }
 

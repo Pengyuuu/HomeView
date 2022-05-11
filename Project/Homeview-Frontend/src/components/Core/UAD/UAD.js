@@ -25,7 +25,7 @@ export default function UAD() {
 
         let config = {
             method: 'get',
-            url: 'http://54.219.16.154/api/uad',
+            url: 'https://localhost:7034/api/uad',
             headers: {}
         };
 
@@ -43,7 +43,6 @@ export default function UAD() {
             });
 
     }, []);
-
 
     return (
         <div className="uad-container">

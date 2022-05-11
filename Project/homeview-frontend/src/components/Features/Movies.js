@@ -1,21 +1,24 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import Navigation from '../Navigation'
 import MovieList from '../cml/MovieList'
+import LogAccess from '../Core/LogAccess'
 
 
 //<script src='/Security.js'></script>
 
 export default function Movies() {
+  const MOVIE_VIEW_ID = 3;
+  LogAccess(MOVIE_VIEW_ID);
 
-  return(
+  return (
     <>
-    <Navigation/>
+      <Navigation />
       <div className="container">
         Movies
-      <MovieList/>
+        <MovieList />
 
-    </div>
+      </div>
     </>
   )
-} 
+}
 

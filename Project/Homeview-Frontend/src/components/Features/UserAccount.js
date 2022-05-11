@@ -5,11 +5,14 @@ import Navigation from '../Navigation'
 import BlacklistButton from '../Features/Blacklist/AccountButton'
 import WatchLaterList from './WatchLater/WatchLaterList';
 import ReviewList from './RatingReview/ReviewList';
+import LogAccess from '../Core/LogAccess';
+
 
 //<script src='/Core/Security.js'></script>
 
 export default function UserAccount() {
-
+    const ACCOUNT_VIEW_ID = 1;
+    LogAccess(ACCOUNT_VIEW_ID);
     return (
         <div>
             <div className='background-Homeview'></div>
