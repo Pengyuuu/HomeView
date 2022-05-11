@@ -18,15 +18,14 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
 
     const [show, setShow] = useState(false);
     const [reviews, setReviews] = useState([]);
-
     const dispNameTest = 'testName';
     const GET_URL = 'http://54.219.16.154/api/RatingReview/get/title/' + title;
+    //const GET_URL = 'https://localhost:7034/api/RatingReview/get/title/' + title;
     const REVIEW_API_GET = {
         method: 'get',
         url: GET_URL,
         headers: {}
     };
-
     function getReviewList() {
         axios.request(REVIEW_API_GET).then(function (response) {
             console.log(response.data);
@@ -71,8 +70,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                     <div className="title-details">
                         <p>Year: {year}</p>
                         <p>Rating: {imdbRating}</p>
-                        <p >Streaming Service:  
-                            <a href = {String(streamingInfo.netflix.us.link)}>{Object.keys((streamingInfo))}</a>
+                        <p >Streaming Service:
+                            <a href={String(streamingInfo.netflix.us.link)}>{Object.keys((streamingInfo))}</a>
                         </p>
                         <p>Genres: <BlacklistButton items={genres} /></p>
                         <p>Actors: <CastButton items={cast} /></p>
