@@ -2,21 +2,23 @@ import React, {useState, useEffect} from 'react'
 import Navigation from '../../Navigation'
 import PlaylistList from './PlaylistList';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 export default function Playlist() {
     
   const [data, setData] = useState([]);
 
+  const email = "may@gmail.com"
+
   useEffect(() => {
 
     //const email = "may@gmail.com";
-    const email = "may@gmail.com"
     /*
     const PLAYLIST_API_GET = `${process.env.REACT_APP_WEB_API}`;
     */
     const PLAYLIST_API_GET = {
         method: 'get',
-        url: `http://54.219.16.154/get/playlist/${email}`,
+        url: `http://54.219.16.154/api/playlist/get/?email=${email}`,
         headers: { }
     };
 
@@ -31,9 +33,7 @@ export default function Playlist() {
     <div>
       <Navigation/>
       <div className='background-Homeview'></div>
-      {data.map((playlist) => (
-        console.log(playlist)
-      ))}
+      <Button>Create a Playlist</Button>
       {data.length > 0 && data.map((playlist) => (
         <PlaylistList playlist={playlist} />
       ))}

@@ -16,7 +16,7 @@ function WatchLaterList() {
 
     const WATCHLATER_API_GET = {
         method: 'get',
-        url: `http://54.219.16.154/api/WatchLater/${email}`,
+        url: `http://54.219.16.154/api/WatchLater/get/?email=${email}`,
         headers: { }
     };
 
@@ -40,7 +40,7 @@ function WatchLaterList() {
 
         var config = {
             method: "delete",
-            url: `http://54.219.16.154/api/watchlater/delete/${email}/${title}/${year}`,
+            url: `http://54.219.16.154/api/watchlater/delete/?email=${email}&title=${title}&year=${year}`,
             headers: {
                 "Content-Type": "application/json"
             },

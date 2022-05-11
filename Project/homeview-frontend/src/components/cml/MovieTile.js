@@ -77,7 +77,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                         <p>Actors: <CastButton items={cast} /></p>
                     </div>
                     <ReviewSection title={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show} />
-                    <AddToPlaylist />
+                    <AddToPlaylist title={title} year={year}/>
                     <WatchLater title={title} year={year} />
 
                 </Modal.Body>
