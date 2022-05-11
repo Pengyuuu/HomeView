@@ -8,14 +8,18 @@ import '../../../css/uad.css'
 
 
 //<script src='/Core/Security.js'></script>
-
 /* export is used for js modules (when importing from other files) */
 export default function UAD() {
-
+    //const API_URL = `${process.env.REACT_APP_WEB_API}`.get(API_URL + `/uad`)
     /* useState automatically creates a state variable (data), and its mutator (setData)
      * setData renders the page on state change */
-    //const [data, setData] = useState(["Loading..."]);
-    /**
+    const [loginCount, setloginCount] = useState([]);
+    const [regCount, setReg] = useState([]);
+    const [revCount, setRev] = useState([]);
+    const [newsCount, setNews] = useState([]);
+    const [topView, setTopView] = useState([]);
+    const [durationCount, setDuration] = useState([]);
+
     useEffect(() => {
         let axios = require('axios');
 
@@ -27,28 +31,18 @@ export default function UAD() {
 
         axios(config)
             .then(function (response) {
-                setData(response.data);
+                setloginCount(response.data.loginCount);
+                setReg(response.data.registrationCount);
+                setRev(response.data.reviewCount);
+                setNews(response.data.newsCount);
+                setTopView(response.data.topViewCount);
+                setDuration(response.data.durationViewCount);
             })
             .catch(function (error) {
                 console.log(error);
             });
 
-    }, []);**/
-    /* useEffect is executed every time a state inside [] is changed (ie [data])
-     * leave blank [] to only execute once and prevent calling API every state change*/
-
-    /* length check to ensure it doesn't try generating initial "Loading..." val */
-    const loginCount = [{
-        "2020-05-05": 2,
-        "2020-05-06": 1,
-        "2020-05-07": 0,
-        "2020-05-08": 4
-    }];
-    const registerCount = [0, 1, 0, 2, 0, 5, 1];
-    const reviewCount = [0, 1, 0, 2, 0, 5, 1];
-    const newsCount = [0, 1, 0, 2, 0, 5, 1];
-    const mostViewCount = [0, 1, 0, 2, 0, 5, 1];
-    const durationViewCount = [0, 1, 0, 2, 0, 5, 1];
+    }, []);
 
     return (
         <div className="uad-container">
@@ -56,11 +50,11 @@ export default function UAD() {
             <h1>Usage Analysis Dashboard (UAD)</h1>
             <div>
                 <TrendGraph title={"Number of Logins per day (last 3 months)"} dataList={loginCount} />
-                <TrendGraph title={"Number of Registrations per day (last 3 months)"} dataList={loginCount} />
-                <TrendGraph title={"Number of Reviews Created per day (last 3 months)"} dataList={loginCount} />
-                <TrendGraph title={"Number of News Articles Created per day (last 3 months)"} dataList={loginCount} />
-                <BarGraph title={"Top 5 Most Visited Views"} dataList={loginCount} />
-                <BarGraph title={"Top 5 Views Based on Duration"} dataList={loginCount} />
+                <TrendGraph title={"Number of Registrations per day (last 3 months)"} dataList={regCount} />
+                <TrendGraph title={"Number of Reviews Created per day (last 3 months)"} dataList={revCount} />
+                <TrendGraph title={"Number of News Articles Created per day (last 3 months)"} dataList={newsCount} />
+                <BarGraph title={"Top 5 Most Visited Views"} dataList={topView} />
+                <BarGraph title={"Top 5 Views Based on Duration"} dataList={durationCount} />
 
             </div>
         </div>

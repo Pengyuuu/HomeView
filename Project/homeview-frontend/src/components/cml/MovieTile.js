@@ -70,7 +70,9 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                     <div className="title-details">
                         <p>Year: {year}</p>
                         <p>Rating: {imdbRating}</p>
-                        <p>Streaming Service: {Object.keys((streamingInfo))}</p>
+                        <p >Streaming Service:  
+                            <a href = {String(streamingInfo.netflix.us.link)}>{Object.keys((streamingInfo))}</a>
+                        </p>
                         <p>Genres: <BlacklistButton items={genres} /></p>
                         <p>Actors: <BlacklistButton items={cast} /></p>
                     </div>
