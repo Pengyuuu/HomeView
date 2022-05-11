@@ -18,11 +18,11 @@ namespace Features.ActWiki
         {
             var newAct = new
             {
-                actID = act.ActID,
-                actName = act.ActID,
-                actBirth = act.ActBirth,
-                actGender = act.ActGender,
-                actBio = act.ActBio,
+                id = act.id,
+                name = act.name,
+                birthday = act.birthday,
+                gender = act.gender,
+                biography = act.biography,
             };
 
             var result = await _db.SaveData("dbo.ActWiki_StoreAct", newAct);

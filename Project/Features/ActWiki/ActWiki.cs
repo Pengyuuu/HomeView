@@ -6,36 +6,36 @@ namespace Features.ActWiki
     public class ActWiki
     {
         // ID represnting Actor / Actress
-        public int ActID { get; set; }
+        public int id { get; set; }
         // Name of Actor / Actress
-        public string ActName { get; set; }
+        public string name { get; set; }
         // Birthday of Actor / Actress
-        public string ActBirth { get; set; }
+        public string birthday { get; set; }
         // Gender of Actor / Actress
-        public int ActGender { get; set; }
+        public int gender { get; set; }
         // Biography of Actor / Actress
-        public string ActBio { get; set; }
-        public string profile_path { get; set; } 
-        public string SearchAct { get; set; } 
+        public string biography { get; set; }
 
         // Default Constructor for Actor / Actress
         public ActWiki()
         {
-            ActID = 0;
-            ActName = "";
-            ActBirth = "";
-            ActGender = 0;
-            ActBio = "";
-            profile_path = "";
+            id = 0;
+            name = "";
+            birthday = "";
+            gender = 0;
+            biography = "";
+
         }
 
-        public ActWiki(int actID, string actName, string actBirth, int actGender, string actBio, string profile_path)
+        public ActWiki(int id, string name, string birthday, int gender, string biography)
         {
-            ActID = actID;
-            ActName = actName;
-            ActBirth = actBirth;
-            ActGender = actGender;
-            ActBio = actBio;
+            this.id = id;
+            this.name = name;
+            this.birthday = birthday;
+            this.gender = gender;
+            this.biography = biography;
         }
+
     }
+
 }
