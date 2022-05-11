@@ -22,7 +22,7 @@ const COUNTRIES_API = {
     function MovieList() {
         const [toggle, setToggle] = useState();
         const [ streamService, setStreamService ] = useState([]); 
-        const [value, setValue] = useState('netflix');
+        const [value, setValue] = useState();
         // web api call get toggle
         useEffect(() => {
             axios.request(BLACKLIST_API_GET_TOGGLE).then(function (response) {
@@ -37,10 +37,19 @@ const COUNTRIES_API = {
             }).catch(function (error) {
                 console.error(error);   
             });
+
+            if (window.localStorage.getItem('state') == null) {
+                window.localStorage.setItem('state', 'netflix')
+                setValue('netflix')
+            }
+            else {
+                setValue(window.localStorage.getItem('state'))
+            }
+
         }, []);
         
         const handleChange = (event) => {
-            setValue(event.target.value);
+            window.localStorage.setItem('state', event.target.value)
             window.location.reload();
         }
 
@@ -58,7 +67,6 @@ const COUNTRIES_API = {
                     </select>
                 </label>
     
-                <p>We use {value}!</p>
                 </div>       
                 <SeriesBlacklistTrue service = {value} />
                 </>
@@ -77,7 +85,6 @@ const COUNTRIES_API = {
                         </select>
                     </label>
 
-                    <p>We use {value}!</p>
                 </div>    
 
                 <SeriesBlacklistFalse service = {value}/>

@@ -38,7 +38,9 @@ import'./../../../css/movietile.css';
     };
 
     // if blacklist toggle is true, render this
-    function MovieList({service}) {
+    function MovieList() {
+        const service = window.localStorage.getItem('state');
+
         const [ movies, setMovies ] = useState([]);
         const [items, setItems] = useState([])
 

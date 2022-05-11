@@ -15,7 +15,8 @@ const IMG_API = "https://image.tmdb.org/t/p/original/"
 
 
 const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, genres, cast }) => {
-
+    const service = window.localStorage.getItem('state');
+   // console.log(String(streamingInfo[`${service}`].us.link))
     const [show, setShow] = useState(false);
     const [reviews, setReviews] = useState([]);
 
@@ -72,7 +73,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                         <p>Year: {year}</p>
                         <p>Rating: {imdbRating}</p>
                         <p >Streaming Service:  
-                            <a href = {String(streamingInfo.netflix.us.link)}>{Object.keys((streamingInfo))}</a>
+                            <a href = {String(streamingInfo[`${service}`].us.link)}>{Object.keys((streamingInfo))}</a>
                         </p>
                         <p>Genres: <BlacklistButton items={genres} /></p>
                         <p>Actors: <CastButton items={cast} /></p>
