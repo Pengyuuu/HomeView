@@ -2,11 +2,7 @@ import React, { useEffect } from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import { BrowserRouter, Link, useHistory, useNavigate } from 'react-router-dom'
 import '../../css/App.css'
-import axios from 'axios';
-import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider';
-import Home from '.././Features/Home'
 import AuthService from "./../../services/authentication"
-
 
 
 
