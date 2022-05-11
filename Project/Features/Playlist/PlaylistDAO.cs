@@ -123,7 +123,23 @@ namespace Features.Playlist
                 email = targetPlaylist.Email
             };
 
-            return await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", targetUser);
+            var userList = await _db.LoadData<Playlist, dynamic>("dbo.Playlist_GetPlaylist", targetUser);
+
+            foreach (var playlist in userList)
+            {
+                PlaylistTitle targetList = new PlaylistTitle();
+
+                targetList.PlaylistId = playlist.playlistID;
+
+                var titlesList = await AsyncPopulatePlaylist(targetList);
+
+                foreach (var title in titlesList)
+                {
+                    playlist.Titles.Add(title);
+                }
+            }
+
+            return userList;
         }
 
         public async Task<IEnumerable<PlaylistTitle>> AsyncPopulatePlaylist(PlaylistTitle titles)
