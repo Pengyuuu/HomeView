@@ -1,9 +1,7 @@
-import React, { useState,useEffect,Component } from 'react'
+import React, { useState,useEffect} from 'react'
 import { Card } from 'react-bootstrap'
 import axios from 'axios';
 import Navigation from '../../Navigation'
-
-
 //<script src='/Core/Security.js'></script>
 const COUNTRIES_API = {
     method: 'GET',

@@ -13,30 +13,25 @@ namespace Features.ActWiki
         {
             _db = db;
         }
-
-        public async Task<IEnumerable<ActWiki>> AsyncGetAct ( ActWiki act )
+        
+        public async Task<bool> AsyncStoreAct(ActWiki act)
         {
-            var searchAct = new
-
+            var newAct = new
             {
                 actID = act.ActID,
-              
+                actName = act.ActID,
+                actBirth = act.ActBirth,
+                actGender = act.ActGender,
+                actBio = act.ActBio,
             };
 
-            return await _db.LoadData<ActWiki,dynamic>("dbo.GetAct", searchAct);
-        }
-
-        public async Task<int>AsyncStoreAct(int actID, string actName, string actBirth, int actGender, string actBio)
-        {
-            var act = new
+            var result = await _db.SaveData("dbo.ActWiki_StoreAct", newAct);
+            if( result != 1)
             {
-                actID = actID,
-                actName = actName,
-                actBirth = actBirth,
-                actGender = actGender,
-                actBio = actBio
-            };
-            return await _db.SaveData("dbo.ActWiki_StoreAct", act);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Features.ActWiki
         public int ActGender { get; set; }
         // Biography of Actor / Actress
         public string ActBio { get; set; }
+        public string profile_path { get; set; } 
+        public string SearchAct { get; set; } 
 
         // Default Constructor for Actor / Actress
         public ActWiki()
@@ -24,10 +26,12 @@ namespace Features.ActWiki
             ActBirth = "";
             ActGender = 0;
             ActBio = "";
+            profile_path = "";
         }
 
-        public ActWiki(string actName, string actBirth, int actGender, string actBio)
+        public ActWiki(int actID, string actName, string actBirth, int actGender, string actBio, string profile_path)
         {
+            ActID = actID;
             ActName = actName;
             ActBirth = actBirth;
             ActGender = actGender;
