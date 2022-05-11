@@ -48,16 +48,11 @@ namespace HomeView_API.Controllers
 
         // GET: User's playlists
         [HttpGet("get")]
-        public ActionResult<Playlist> GetPlaylist(string email)
+        public IEnumerable<Playlist> GetPlaylist(string email)
         {
-            List<Playlist> playlists = (List<Playlist>) _playlistManager.GetPlaylist(email);
+            return _playlistManager.GetPlaylist(email);
 
-            if (playlists.Count() == 0)
-            {
-                return BadRequest("Error retrieving playlists or user has no playlists");
-            }
-
-            return Ok(playlists);
+            
         }
     }
 }
