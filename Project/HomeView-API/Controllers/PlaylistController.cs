@@ -5,13 +5,15 @@ using Features.Playlist;
 
 namespace HomeView_API.Controllers
 {
-    public class PlaylistController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PlaylistController : ControllerBase
     {
         private readonly IPlaylistManager _playlistManager;
 
-        public PlaylistController()
+        public PlaylistController(IPlaylistManager playlistManager)
         {
-            _playlistManager = new PlaylistManager();
+            _playlistManager = playlistManager;
         }
 
         // POST: Create a new playlist
