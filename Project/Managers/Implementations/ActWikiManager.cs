@@ -16,9 +16,9 @@ namespace Managers.Implementations
             _ActWikiService = new ActWikiService(); 
         }
 
-        public bool StoreAct(int id, string name, string birth, int gender, string bio, string profile_path)
+        public bool StoreAct(int id, string name, string birthday, int gender, string biography)
         {
-            ActWiki newAct = new ActWiki(id, name, birth, gender, bio, profile_path);
+            ActWiki newAct = new ActWiki(id, name, birthday, gender, biography);
 
             return _ActWikiService.StoreAct(newAct);
 

@@ -32,9 +32,6 @@ function Navigation() {
                             <NavLink className = "d-inline p-2 bg-dark text-white" to="/ActWiki">
                                 Act Wiki
                             </NavLink>
-                            <NavLink className="d-inline p-2 bg-dark text-white" to="/StreamingService">
-                                Streaming Service Info
-                            </NavLink>
                         </Nav>
                         </Navbar.Collapse>
                         <NavLink className="d-inline p-2 bg-dark text-white ml-auto" to="/UserAccount">

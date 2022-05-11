@@ -6,7 +6,7 @@ namespace Test
     public class ActWikiTesting
     {
         ActWikiManager _actwikiManager = new ActWikiManager();
-
+        /*
         [Fact]
         public async void actWikiManager_StoreActShouldStoreAct()
         {
@@ -14,5 +14,6 @@ namespace Test
             var actual =  _actwikiManager.StoreAct();
             
         }
+        */
     }
 }
