@@ -20,6 +20,8 @@ namespace HomeView_API.Controllers
         {
             _actManager = new ActWikiManager();
         }
+
+        [HttpGet]
         public void SearchAct(string searchAct, int page)
         {
             int pageNumber = Convert.ToInt32(page) == 0 ? 1 : Convert.ToInt32(page);
@@ -34,7 +36,7 @@ namespace HomeView_API.Controllers
             ActWiki act = JsonConvert.DeserializeObject<ActWiki>(response);
         }
 
-
+        /*
         public ActionResult GetAct(int id)
         {
             HttpWebRequest request = WebRequest.Create("https://api.themoviedb.org/3/person/" +
@@ -47,7 +49,7 @@ namespace HomeView_API.Controllers
             }
             ActWiki act = JsonConvert.DeserializeObject<ActWiki>(response);
             //_actManager.StoreAct(act.ActID,)
-        }
+        }*/
 
     }
 }
