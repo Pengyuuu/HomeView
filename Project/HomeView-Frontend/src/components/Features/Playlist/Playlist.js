@@ -2,11 +2,17 @@ import React, {useState, useEffect} from 'react'
 import Navigation from '../../Navigation'
 import PlaylistList from './PlaylistList';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import { Button, Modal, Card, Form } from 'react-bootstrap';
 
 export default function Playlist() {
     
   const [data, setData] = useState([]);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => { setShow(false); };
+
+  const handleShow = () => { setShow(true); };
 
   const email = "may@gmail.com"
 
@@ -33,10 +39,29 @@ export default function Playlist() {
     <div>
       <Navigation/>
       <div className='background-Homeview'></div>
-      <Button>Create a Playlist</Button>
+      <Button onClick={() => {handleShow()}}>Create a Playlist</Button>
       {data.length > 0 && data.map((playlist) => (
         <PlaylistList playlist={playlist} />
       ))}
+
+      <Modal show={show} onHide={() => handleClose()}>
+        <Modal.Title>
+          <Modal.Header>
+            Create New Playlist
+          </Modal.Header>
+        </Modal.Title>
+        <Modal.Body>
+          <Card.Body>
+              <Form id="form">
+                  <Form.Group id="email">
+                      <Form.Label>Playlist Name</Form.Label>
+                      <Form.Control name='playlistname'></Form.Control>
+                  </Form.Group>
+                  <Button name="button" type="submit">Submit</Button>
+              </Form>
+          </Card.Body>
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }
