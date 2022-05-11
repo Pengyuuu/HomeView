@@ -22,16 +22,16 @@ namespace HomeView_API.Controllers
         }
 
         [HttpGet]
-        public void SearchAct(string searchAct, int page)
+        public async Task <IActionResult> SearchAct(string searchAct)
         {
-            int pageNumber = Convert.ToInt32(page) == 0 ? 1 : Convert.ToInt32(page);
             HttpWebRequest request = WebRequest.Create("https://api.themoviedb.org/3/search/person?api_key=" + API_KEY 
-                + "&language=en-US&query=" + searchAct + "&page=" + pageNumber + "&include_adult=false") as HttpWebRequest;
+                + "&language=en-US&query=" + searchAct + "&page=&include_adult=false") as HttpWebRequest;
             string response = "";
             using (HttpWebResponse apiResponse = request.GetResponse() as HttpWebResponse)
             {
                 StreamReader reader = new StreamReader(apiResponse.GetResponseStream());
                 response = reader.ReadToEnd();
+                return Ok(response);
             }
             ActWiki act = JsonConvert.DeserializeObject<ActWiki>(response);
         }
