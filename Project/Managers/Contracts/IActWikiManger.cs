@@ -6,7 +6,6 @@ namespace Managers.Contracts
 {
     public interface IActWikiManager
     {
-        IEnumerable<ActWiki> GetAct(ActWiki act);
-        bool StoreAct(int actID, string actName, string actBirth, int actGender, string actBio);
+        bool StoreAct(int id, string name, string birth, int gender, string bio, string profile_path);
     }
 }

@@ -1,5 +1,4 @@
 import React from "react"
-import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
 import Register from "./Core/Register"
 import Home from './Features/Home'
@@ -14,7 +13,6 @@ import StreamingService from "./Features/StreamingService/StreamingService"
 import UserAccount from "./Features/UserAccount"
 import Title from './Features/RatingReview/Title'
 import UAD from './Core/UAD/UAD'
-import ProtectedRoute from './Core/ProtectedRoute';
 
 
 function App() {

@@ -16,14 +16,13 @@ namespace Managers.Implementations
             _ActWikiService = new ActWikiService(); 
         }
 
-        public IEnumerable<ActWiki> GetAct ( ActWiki act)
+        public bool StoreAct(int id, string name, string birth, int gender, string bio, string profile_path)
         {
-            return _ActWikiService.GetAct(act);
-        }
-        
-        public bool StoreAct( int actID, string actName, string actBirth, int actGender, string actBio)
-        {
-            return _ActWikiService.StoreAct(actID, actName, actBirth, actGender, actBio);
+            ActWiki newAct = new ActWiki(id, name, birth, gender, bio, profile_path);
+
+            return _ActWikiService.StoreAct(newAct);
+
+
         }
     }
 }

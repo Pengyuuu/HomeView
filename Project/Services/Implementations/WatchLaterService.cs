@@ -24,6 +24,7 @@ namespace Services.Implementations
 
         public async Task<bool> AddToWatchLaterAsync(WatchLaterTitle selectedTitle)
         {
+            // Should be done in db end to improve performance
             // Get user's Watch Later list to check if Title is already in there
             var isDuplicate = (List<WatchLaterTitle>) GetListAsync(selectedTitle.Email).Result;
 

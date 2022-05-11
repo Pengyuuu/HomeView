@@ -16,20 +16,24 @@ namespace HomeView_API.Controllers
             _watchLaterManager = watchLaterManager;
         }
 
-        [HttpPost("{email}/{title}/{year}")]
+        // Use object as parameter
+        // Code for many
+        [HttpPost("add")]
         public async void AddToWatchLaterAsync(string email, string title, string year)
         {
+            // isSucceeded better name
             bool result = await _watchLaterManager.AddToWatchLaterAsync(email, title, year);
 
             if (!result)
             {
+                // Other reasosn for failure
                 BadRequest("Error inserting into database. Please check logs");
             }
 
             Ok($"{title} ({year}) successfully added");
         }
 
-        [HttpDelete("delete/{email}/{title}/{year}")]
+        [HttpDelete("delete")]
         public async void RemoveFromListAsync(string email, string title, string year)
         {
             bool result = await _watchLaterManager.RemoveFromListAsync(email, title, year);
@@ -42,7 +46,7 @@ namespace HomeView_API.Controllers
             Ok($"{title} ({year}) successfully removed");
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("get")]
         public async Task<IEnumerable<WatchLaterTitle>> GetListAsync(string email)
         {
             var result = await _watchLaterManager.GetListAsync(email);

@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Features.ActWiki;
+using Managers.Implementations;
+using Xunit;
 namespace Test
 {
-    internal class ActWikiTesting
+    public class ActWikiTesting
     {
+        ActWikiManager _actwikiManager = new ActWikiManager();
+
+        [Fact]
+        public async void actWikiManager_StoreActShouldStoreAct()
+        {
+            ActWiki act = new ActWiki();
+            var actual =  _actwikiManager.StoreAct();
+            
+        }
     }
 }

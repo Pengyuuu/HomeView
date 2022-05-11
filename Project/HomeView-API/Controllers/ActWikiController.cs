@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Managers.Implementations;
-using Features.ActWiki;
 using Managers.Contracts;
+using Features.ActWiki;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace HomeView_API.Controllers
 {
@@ -10,26 +14,42 @@ namespace HomeView_API.Controllers
     public class ActWikiController : Controller
     {
         private readonly IActWikiManager _actManager;
+        private string API_KEY = "82da0caf88a6e84985e9fe3d753d6f43";
 
         public ActWikiController()
         {
             _actManager = new ActWikiManager();
         }
-        /**
+
         [HttpGet]
-        public async Task<ActionResult<int>> GetAct(ActWiki act)
+        public void SearchAct(string searchAct, int page)
         {
-            var found = await _actManager.AsyncGetAct(act);
-            if(found != null)
+            int pageNumber = Convert.ToInt32(page) == 0 ? 1 : Convert.ToInt32(page);
+            HttpWebRequest request = WebRequest.Create("https://api.themoviedb.org/3/search/person?api_key=" + API_KEY 
+                + "&language=en-US&query=" + searchAct + "&page=" + pageNumber + "&include_adult=false") as HttpWebRequest;
+            string response = "";
+            using (HttpWebResponse apiResponse = request.GetResponse() as HttpWebResponse)
             {
-                return Ok(found);
+                StreamReader reader = new StreamReader(apiResponse.GetResponseStream());
+                response = reader.ReadToEnd();
             }
-            else
-            {
-                return NotFound(act.ActName);
-            }
+            ActWiki act = JsonConvert.DeserializeObject<ActWiki>(response);
         }
-        */
- 
+
+        /*
+        public ActionResult GetAct(int id)
+        {
+            HttpWebRequest request = WebRequest.Create("https://api.themoviedb.org/3/person/" +
+                id + "?api_key=" + API_KEY + "&language=en-US") as HttpWebRequest;
+            string response = "";
+            using (HttpWebResponse apiResponse = request.GetResponse() as HttpWebResponse)
+            {
+                StreamReader reader = new StreamReader(apiResponse.GetResponseStream());
+                response = reader.ReadToEnd();
+            }
+            ActWiki act = JsonConvert.DeserializeObject<ActWiki>(response);
+            //_actManager.StoreAct(act.ActID,)
+        }*/
+
     }
 }

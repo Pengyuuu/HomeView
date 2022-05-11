@@ -17,6 +17,8 @@ namespace WatchLaterTest
 
             bool actual = watchLaterManager.AddToWatchLaterAsync("testing@gmail.com", "Star Wars: Episode IV – A New Hope", "1977").Result;
 
+            // Get information from db and compare it to value
+
             Assert.Equal(expected, actual);
         }
 
