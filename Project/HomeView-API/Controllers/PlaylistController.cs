@@ -15,7 +15,7 @@ namespace HomeView_API.Controllers
         }
 
         // POST: Create a new playlist
-        [HttpPost("create/{email}/{playlistName}")]
+        [HttpPost("create")]
         public ActionResult<bool> CreatePlaylist(string playlistName, string email, PlaylistViewMode viewMode)
         {
             if (!_playlistManager.ValidateName(playlistName, email))
@@ -32,7 +32,7 @@ namespace HomeView_API.Controllers
         }
 
         // DELETE: User's playlist
-        [HttpDelete("delete/playlist/user/{playlistTitle}/{email}")]
+        [HttpDelete("delete")]
         public ActionResult<bool> DeletePlaylist(string playlistTitle, string email)
         {
             if (!_playlistManager.DeletePlaylist(playlistTitle, email))
@@ -45,7 +45,7 @@ namespace HomeView_API.Controllers
 
 
         // GET: User's playlists
-        [HttpGet("get/playlist/{email}")]
+        [HttpGet("get")]
         public ActionResult<Playlist> GetPlaylist(string email)
         {
             List<Playlist> playlists = (List<Playlist>) _playlistManager.GetPlaylist(email);
