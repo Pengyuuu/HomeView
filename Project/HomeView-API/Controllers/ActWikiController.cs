@@ -3,9 +3,7 @@ using Managers.Implementations;
 using Managers.Contracts;
 using Features.ActWiki;
 using System.Net;
-using System.IO;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace HomeView_API.Controllers
 {
