@@ -19,15 +19,14 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
    // console.log(String(streamingInfo[`${service}`].us.link))
     const [show, setShow] = useState(false);
     const [reviews, setReviews] = useState([]);
-
     const dispNameTest = 'testName';
     const GET_URL = 'http://54.219.16.154/api/RatingReview/get/title/' + title;
+    //const GET_URL = 'https://localhost:7034/api/RatingReview/get/title/' + title;
     const REVIEW_API_GET = {
         method: 'get',
         url: GET_URL,
         headers: {}
     };
-
     function getReviewList() {
         axios.request(REVIEW_API_GET).then(function (response) {
             console.log(response.data);
@@ -79,7 +78,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                         <p>Actors: <CastButton items={cast} /></p>
                     </div>
                     <ReviewSection title={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show} />
-                    <AddToPlaylist />
+                    <AddToPlaylist title={title} year={year}/>
                     <WatchLater title={title} year={year} />
 
                 </Modal.Body>

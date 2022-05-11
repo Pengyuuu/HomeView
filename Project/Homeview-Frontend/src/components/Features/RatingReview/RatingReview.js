@@ -108,6 +108,7 @@ export default function RatingReview({ title }) {
         console.log(title, rating, review);
         const dispNameTest = 'testName';
         const POST_URL = 'http://54.219.16.154/api/RatingReview/submit/' + title + '/' + dispNameTest + '?rating=' + rating + '&review=' + review
+        //const POST_URL = 'https://localhost:7034/api/RatingReview/submit/' + title + '/' + dispNameTest + '?rating=' + rating + '&review=' + review
 
         fetch(POST_URL, {
             method: 'POST',

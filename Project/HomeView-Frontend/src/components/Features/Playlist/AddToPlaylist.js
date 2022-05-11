@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Button, Modal } from "react-bootstrap";
 import AddToList from "./AddToList";
 
-export default function AddToPlaylist() {
+export default function AddToPlaylist(title, year) {
 
     const [data, setData] = useState([]);
 
@@ -19,7 +19,7 @@ export default function AddToPlaylist() {
 
         const PLAYLIST_API_GET = {
             method: 'get',
-            url: `http://54.219.16.154/get/playlist/${email}`,
+            url: `http://54.219.16.154/api/Playlist/get/?email=${email}`,
             headers: { }
         };
 
@@ -42,7 +42,7 @@ export default function AddToPlaylist() {
                 </Modal.Title>
                 <Modal.Body>
                     {data.length > 0 && data.map((playlist) => (
-                        <AddToList playlist={playlist} />
+                        <AddToList playlist={playlist} showTitle={title} />
                     ))}
                 </Modal.Body>
             </Modal>
