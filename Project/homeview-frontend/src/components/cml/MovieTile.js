@@ -3,6 +3,7 @@ import './../../css/movietile.css';
 import { Button, Modal } from 'react-bootstrap';
 import ReviewSection from '../Features/RatingReview/ReviewSection'
 import BlacklistButton from './../Features/Blacklist/ModalButton'
+import CastButton from '../Features/Blacklist/CastButton';
 import WatchLater from '../Features/WatchLater/WatchLater'
 
 import axios from 'axios';
@@ -74,7 +75,7 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
                             <a href = {String(streamingInfo.netflix.us.link)}>{Object.keys((streamingInfo))}</a>
                         </p>
                         <p>Genres: <BlacklistButton items={genres} /></p>
-                        <p>Actors: <BlacklistButton items={cast} /></p>
+                        <p>Actors: <CastButton items={cast} /></p>
                     </div>
                     <ReviewSection title={title} average={reviews.rating} reviewList={reviews.ratingAndReviews} show={show} />
                     <WatchLater title={title} year={year} />
