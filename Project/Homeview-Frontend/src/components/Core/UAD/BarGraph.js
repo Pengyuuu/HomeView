@@ -3,27 +3,30 @@ import '../../../css/uad.css'
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from 'chart.js/auto';
 
-// data = {2020-02-02: 5, etc}
 const BarGraph = ({ title, dataList }) => {
+    const VIEW_LABELS = ["Home View", "Account View", "News View", "Movies View", "TV Shows View", "Streaming Service View", "ActWiki View"];
     const converted = (Object.values(dataList));
-    const dates = converted.map((k) => (k.key, k.key));
-    const dateCounts = converted.map((k) => (k.key, k.value));
+    let obj = {};
 
-    let xList = [];
-    let yList = [];
-    for (let x of dates) {
-        xList.push(x);
+    // maps views to respective count
+    for (var i = 0; i < VIEW_LABELS.length; i++) {
+        obj[VIEW_LABELS[i]] = converted[i];
     };
-    for (let y of dateCounts) {
-        yList.push(y);
+
+    // sorts views from greatest to least
+    let topFive = {};
+    const sorted = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+    for (var i = 0; i < 5; i++) {
+        topFive[sorted[i][0]] = sorted[i][1];
     }
-    const labels = xList;
+
+    const labels = Object.keys(topFive);
     const dataset = {
         labels,
         datasets: [
             {
                 label: "View Count",
-                data: yList,
+                data: Object.values(topFive),
                 fill: false,
                 backgroundColor: "rgba(75,192,192,0.2)",
                 borderColor: "rgba(75,192,192,1)"

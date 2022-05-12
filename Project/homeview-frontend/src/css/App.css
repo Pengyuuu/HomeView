@@ -73,3 +73,23 @@
     padding:4px;
 }
 
+.select-service {
+    color: white;
+    font-family:'Century Gothic';
+    font-size: 20px;
+    text-align: left;
+}
+
+.movies-page{
+    color: white;
+    font-family:'Century Gothic';
+    font-size: 50px;
+    text-align: center;
+}
+
+.series-page{
+    color: white;
+    font-family:'Century Gothic';
+    font-size: 50px;
+    text-align: center;
+}

@@ -83,7 +83,7 @@ namespace UMTests
         public int UserManager_Demo()
         {
             //userManager.AsyncCreateVerifiedUser("may@me.com", new DateTime(2007, 03, 09), "password@123");
-            int n = userManager.AsyncDeleteVerifiedUser("may@yahoo.com").Result;
+            int n = userManager.AsyncDeleteVerifiedUser("HankHill@yahoo.com").Result;
             return 0;
 
         }

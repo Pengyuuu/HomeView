@@ -5,11 +5,13 @@ import React, { useState, useEffect } from 'react';
 import Navigation from '../../Navigation';
 import ArticleThumb from './ArticleThumb.js'
 import './../../../css/news.css';
+import LogAccess from '../../Core/LogAccess';
 
 
 /* export is used for js modules (when importing from other files) */
 const News = () => {
-
+    const NEWS_VIEW_ID = 7;
+    LogAccess(NEWS_VIEW_ID);
     /* useState automatically creates a state variable (data), and its mutator (setData)
      * setData renders the page on state change */
     const [data, setData] = useState(["Loading..."]);
@@ -49,5 +51,7 @@ const News = () => {
         </div>
     );
 }
+
+
 
 export default News;

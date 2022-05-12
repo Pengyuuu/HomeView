@@ -17,13 +17,6 @@ namespace HomeView_API.Controllers
             _uadManager = uadManager;
         }
 
-        // GET api/<NewsController>
-
-        /* adjust endpoint to handle large requests
-         * always cap, or partition requests that involve getting all rows from db
-         * 
-         * pagination - set limit per page and every subsequent "show more" (ie load 20 every time)
-         */
         [HttpGet]
         public async Task<ActionResult<UADResponse>> GetUADAsync()
         {

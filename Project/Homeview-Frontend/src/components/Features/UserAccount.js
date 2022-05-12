@@ -4,11 +4,14 @@ import Navigation from '../Navigation'
 import BlacklistButton from '../Features/Blacklist/AccountButton'
 import WatchLaterList from './WatchLater/WatchLaterList';
 import ReviewList from './RatingReview/ReviewList';
+import LogAccess from '../Core/LogAccess';
+
 
 //<script src='/Core/Security.js'></script>
 
 export default function UserAccount() {
-
+    const ACCOUNT_VIEW_ID = 1;
+    LogAccess(ACCOUNT_VIEW_ID);
     return (
         <div>
             <div className='background-Homeview'></div>
@@ -35,8 +38,7 @@ export default function UserAccount() {
                             <Button name="button" type="submit">Edit</Button>
                         </Form>
                     </Card.Body>
-                    <h3 className="text-left">Playlist</h3>
-                    <Button name="button" href="/Playlist">+</Button>
+                    <Button name="button" href="/Playlist">Playlists</Button>
                     <BlacklistButton />
 
                     <WatchLaterList />

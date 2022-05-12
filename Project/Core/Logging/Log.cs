@@ -27,6 +27,16 @@ namespace Core.Logging
             this.timeStamp = timeStamp;
 
         }
+
+        public Log(string desc, LogLevel level, int category, DateTime timeStamp)
+        {
+            this.Description = desc;
+            this.Level = level;
+            this.Category = (LogCategory) category;
+            this.timeStamp = timeStamp;
+
+        }
+
         public Log()
         {
 

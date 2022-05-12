@@ -34,8 +34,7 @@ builder.Services.AddTransient<IAccountRecoveryManager, AccountRecoveryManager>()
 builder.Services.AddTransient<IAuthenticationManager, AuthenticationManager>();
 builder.Services.AddTransient<IEmailManager, EmailManager>();
 builder.Services.AddTransient<IUADManager, UADManager>();
-
-
+builder.Services.AddTransient<IPlaylistManager, PlaylistManager>();
 builder.Services.AddTransient<IWatchLaterManager,WatchLaterManager>();
 
 var app = builder.Build();

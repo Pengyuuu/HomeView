@@ -45,6 +45,26 @@ namespace UADTests
         }
 
         [Fact]
+        public void UAD_ShouldGetDurationCountHistory()
+        {
+            var reviewCount = _uadManager.GetTopViewDurationAsync().Result;
+            var check = reviewCount;
+
+            Assert.NotNull(reviewCount);
+
+        }
+
+        [Fact]
+        public void UAD_ShouldGetViewCountHistory()
+        {
+            var reviewCount = _uadManager.GetTopMostVisitedViewAsync().Result;
+            var check = reviewCount;
+
+            Assert.NotNull(reviewCount);
+
+        }
+
+        [Fact]
         public void UAD_ShouldGetAllCounts()
         {
             var reviewCount = _uadManager.GetAllCountsAsync().Result;
