@@ -1,16 +1,11 @@
-import React,{Component} from 'react'
+import React from 'react'
 import{NavLink} from 'react-router-dom'
 import{Navbar, Nav} from 'react-bootstrap'
-import './../css/navigation.css';
+import './../css/Navigation.css';
 import AuthService from '../services/authentication';
 
 function Navigation() {
 
-    function clearToken() {
-        console.log('clear tokens')
-    
-        sessionStorage.removeItem('token');
-    }
       return (
         <div className="navigation">
             <Navbar bg="dark" expand="lg">

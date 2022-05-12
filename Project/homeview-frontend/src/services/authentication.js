@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = `${process.env.REACT_APP_WEB_API}`
+//const API_URL = `${process.env.REACT_APP_WEB_API}`
+const API_URL = "https://localhost:7034/api"
 
 const login = (email, password) => {
     return axios
@@ -28,9 +29,28 @@ const logout = () => {
     sessionStorage.removeItem("token");
 }
 
+const validate = () => {
+    let axios = require('axios');
+
+    let config = {
+        method: 'get',
+        url: API_URL + '/login/validate',
+        headers: {'Authorization': sessionStorage.getItem("token")}
+    };
+
+    return axios(config)
+        .then(function (response) {
+            return true;
+        })
+        .catch(function (error) {
+            return false;
+        });
+}
+
 const AuthService = {
     login,
     register,
-    logout
+    logout,
+    validate
 };
 export default AuthService;

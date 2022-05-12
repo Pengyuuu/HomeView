@@ -1,16 +1,12 @@
-export default function clearToken() {
-    console.log('clear tokens')
 
-    window.sessionStorage.removeItem('token');
-}
-
+/*
 (() => {
 
     function isValid(token) {
         var isJwt = token && window.jwt_decode(token)
     
 
-        if(isJwt) {
+        if (isJwt) {
             return true;
         }
         return false;
@@ -24,4 +20,4 @@ export default function clearToken() {
         }
         window.onload = authorizeView;
     }
-})()
+})()*/

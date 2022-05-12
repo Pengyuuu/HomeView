@@ -22,7 +22,7 @@ namespace HomeView_API.Controllers
          * pagination - set limit per page and every subsequent "show more" (ie load 20 every time)
          */
         [HttpGet]
-        public async Task<ActionResult<string>> GetNews()
+        public async Task<IActionResult> GetNews()
         {
             var result = await _newsManager.AsyncGetNews();
             if (result == null)
@@ -58,7 +58,7 @@ namespace HomeView_API.Controllers
         
         // POST api/<NewsController>
         [HttpPost]
-        public async Task<ActionResult<string>> Post([FromBody] Article article)
+        public async Task<IActionResult> Post([FromBody] Article article)
         {
             if (article == null)
             {
@@ -72,7 +72,7 @@ namespace HomeView_API.Controllers
 
         // PUT api/<NewsController>/5
         [HttpPut]
-        public async Task<ActionResult<string>> Put([FromBody] Article article)
+        public async Task<IActionResult> Put([FromBody] Article article)
         {
             if (article == null)
             {

@@ -79,5 +79,12 @@ namespace AuthTesting
             Assert.Equal(expected, actual);
 
         }
+
+        [Fact]
+        public void AuthManager_TestJWT()
+        {
+            _authManager.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1heUB5YWhvby5jb20iLCJuYmYiOjE2NTIyOTkxMjcsImV4cCI6MTY1MjMwMDAyNywiaWF0IjoxNjUyMjk5MTI3LCJpc3MiOiJIb21lVmlldyIsImF1ZCI6IkhvbWVWaWV3VXNlciJ9.eKgcLk2spI8y9t2KHao0O2Fs7WAoGfDYw3O_ATP2bIm");
+
+        }
     }
 }

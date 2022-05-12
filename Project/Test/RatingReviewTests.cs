@@ -3,6 +3,7 @@ using System.Linq;
 using Xunit;
 using Features.Ratings_and_Reviews;
 using Managers.Implementations;
+using System.Net.Http;
 
 namespace RatingReviewTests
 {

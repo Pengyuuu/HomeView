@@ -17,7 +17,7 @@ namespace Services.Implementations
         public AuthenticationService()
         {
             _userService = new UserService();
-            _secretkey = "";
+            _secretkey = "TeamUniteSecretKey";
         }
 
         public string GenerateJWTToken(string email)
@@ -45,9 +45,26 @@ namespace Services.Implementations
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             if (tokenHandler.CanReadToken(jwtToken))
             {
-                //var claims = tokenHandler.ValidateToken(jwtToken, );
-
-                return true;
+                var encodeKey = Base64UrlEncoder.Encode(_secretkey);
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encodeKey));
+                TokenValidationParameters validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = "HomeView",
+                    ValidAudience = "HomeViewUser",
+                    IssuerSigningKey = key,
+                };
+                try
+                {
+                    tokenHandler.ValidateToken(jwtToken, validationParameters, out SecurityToken validatedToken);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }                
                 
             }
             return false;

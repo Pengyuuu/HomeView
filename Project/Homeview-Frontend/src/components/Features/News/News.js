@@ -6,7 +6,6 @@ import Navigation from '../../Navigation';
 import ArticleThumb from './ArticleThumb.js'
 import './../../../css/news.css';
 
-//<script src='/Core/Security.js'></script>
 
 /* export is used for js modules (when importing from other files) */
 const News = () => {

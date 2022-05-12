@@ -3,8 +3,6 @@ import { Form, Button, Card } from 'react-bootstrap'
 import Star from './Star'
 
 
-//<script src='/Security.js'></script>
-
 export default function RatingReview({ title }) {
     const [review, setReview] = useState(null);
     const [count, currCount] = useState(0);
@@ -107,19 +105,19 @@ export default function RatingReview({ title }) {
     function submitReview() {
         console.log(title, rating, review);
         const dispNameTest = 'testName';
-        const POST_URL = 'http://54.219.16.154/api/RatingReview/submit/' + title + '/' + dispNameTest + '?rating=' + rating + '&review=' + review
+        //const POST_URL = 'http://54.219.16.154/api/RatingReview/submit/' + title + '/' + dispNameTest + '?rating=' + rating + '&review=' + review
+        const POST_URL = 'https://localhost:7034/api/RatingReview/submit/' + title + '/' + dispNameTest + '?rating=' + rating + '&review=' + review
 
         fetch(POST_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem('token')
             }
         }).then(res => {
             console.log(res)
-            //return res.json()
         })
             .then(data => console.log("submitting review"))
-        //return true;
     }
 }
 

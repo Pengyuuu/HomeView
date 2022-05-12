@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
-import { BrowserRouter, Link, useHistory, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../../css/App.css'
 import AuthService from "./../../services/authentication"
 
@@ -22,7 +22,7 @@ export default function Login() {
                     window.location.reload();
                 },
                 (error) => {
-                    console.log(error);
+                    alert("Wrong Username/password combination.")
                 }
             );
         }

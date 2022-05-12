@@ -12,24 +12,31 @@ namespace HomeView_API.Controllers
     {
 
         private readonly IRatingAndReviewManager _reviewManager;
+        private readonly IAuthenticationManager _authenticationManager;
 
-        public RatingReviewController(IRatingAndReviewManager ratingAndReviewManager)
+        public RatingReviewController(IRatingAndReviewManager ratingAndReviewManager, IAuthenticationManager authenticationManager)
         {
+            _authenticationManager = authenticationManager;
             _reviewManager = ratingAndReviewManager;
         }
 
         // post: /submit a review
         [HttpPost("submit/{title}/{dispName}")]
-        public ActionResult<string> SubmitReview(string title, string dispName, float rating, string review)
+        public IActionResult SubmitReview(string title, string dispName, float rating, string review)
         {
-
-            var result = _reviewManager.AsyncSubmitReviewRating(dispName, title, rating, review).Result;
-            if (result == 1)
-            {
-                return Ok("Successfully created/modified review.");
+            bool headerTry = Request.Headers.TryGetValue("Authorization", out var token);
+            if ( headerTry && _authenticationManager.ValidateToken(token)) {
+                var result = _reviewManager.AsyncSubmitReviewRating(dispName, title, rating, review).Result;
+                if (result == 1)
+                {
+                    return Ok("Successfully created/modified review.");
+                }
+                return BadRequest("Unable to submit review/rating. Database error.");
             }
-            return BadRequest("Unable to submit review/rating. Database error.");
-            
+            else
+            {
+                return Unauthorized("Failed to validate token");
+            }
         }
 
         // put: update a user's review

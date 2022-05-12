@@ -1,6 +1,5 @@
 import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
-//<script src='/Core/Security.js'></script>
 
 
 export default function FirstTimeUser() {

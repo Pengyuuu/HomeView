@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import { Form, Button, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
 import Navigation from '../Navigation'
 import BlacklistButton from '../Features/Blacklist/AccountButton'
 import WatchLaterList from './WatchLater/WatchLaterList';

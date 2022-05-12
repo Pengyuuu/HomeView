@@ -8,5 +8,6 @@
         string GenerateOTP();
         string GetSalt();
         string HashPassword(string pw, string salt);
+        bool ValidateToken(string token);
     }
 }

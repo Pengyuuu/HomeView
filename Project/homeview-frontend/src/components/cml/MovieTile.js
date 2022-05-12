@@ -19,7 +19,8 @@ const Movie = ({ title, posterPath, overview, year, imdbRating, streamingInfo, g
     const [reviews, setReviews] = useState([]);
 
     const dispNameTest = 'testName';
-    const GET_URL = 'http://54.219.16.154/api/RatingReview/get/title/' + title;
+    //const GET_URL = 'http://54.219.16.154/api/RatingReview/get/title/' + title;
+    const GET_URL = 'https://localhost:7034/api/RatingReview/get/title/' + title;
     const REVIEW_API_GET = {
         method: 'get',
         url: GET_URL,

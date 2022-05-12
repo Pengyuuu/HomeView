@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Register from "./Core/Register"
 import Home from './Features/Home'
 import Login from './Core/Login'
@@ -13,18 +13,14 @@ import StreamingService from "./Features/StreamingService/StreamingService"
 import UserAccount from "./Features/UserAccount"
 import Title from './Features/RatingReview/Title'
 import UAD from './Core/UAD/UAD'
-
+import ProtectedRoutes from "./ProtectedRoutes"
 
 function App() {
-
-
-    const user = sessionStorage.getItem("token");
 
     return (
         <div className="app">
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<Home />} />
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/account-recovery" element={<AccountRecovery />} />
@@ -34,7 +30,11 @@ function App() {
                     <Route exact path="/news/article/:id" element={<Article />} />
                     <Route exact path="/actwiki" element={<ActWiki />} />
                     <Route exact path="/streamingservice" element={<StreamingService />} />
-                    <Route exact path="/useraccount" element={<UserAccount />} />
+                    <Route element={<ProtectedRoutes />}>
+                        <Route exact path="/useraccount" element={<UserAccount />} />
+                        <Route exact path="/Home" element={<Home />} />
+                        <Route exact path="/" element={<Home />} />
+                    </Route >
                     <Route exact path="/title" element={<Title />} />
                     <Route exact path="/uad" element={<UAD />} />
                 </Routes>

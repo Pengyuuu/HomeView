@@ -42,6 +42,11 @@ namespace Managers.Implementations
             return _authenticationService.HashPassword(pw, salt);
         }
 
+        public bool ValidateToken(string token)
+        {
+            return _authenticationService.ValidateJWTToken(token);
+        }
+
         public string GetSalt()
         {
             return _authenticationService.GenerateSalt();

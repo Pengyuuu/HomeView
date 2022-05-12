@@ -5,7 +5,7 @@ using Managers.Implementations;
 
 namespace HomeView_API.Controllers
 {
-    [Route("api/login")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -21,9 +21,9 @@ namespace HomeView_API.Controllers
         // Upon successful login, user is generated a jwt Token
         // GET api/<LoginController>
         [HttpGet]
-        public ActionResult<string> ValidateLogIn([FromQuery]string email, [FromQuery] string pw)
+        public IActionResult ValidateLogIn([FromQuery] string email, [FromQuery] string pw)
         {
-            var valid = _authenticationManager.AuthenticateLogInUser(email, pw); 
+            var valid = _authenticationManager.AuthenticateLogInUser(email, pw);
             if (valid is not null)
             {
                 return Ok(valid);
@@ -51,33 +51,25 @@ namespace HomeView_API.Controllers
             return BadRequest("Invalid confirmation.");
         }
 
-        // this is after confirming user/authenticaated user
-        [Route("get/{email}")]
-        [HttpGet]
-        public async Task<ActionResult<User>> AsyncGetUser(string email)
+        [HttpGet("validate")]
+        public IActionResult ValidateJWT()
         {
-            // directs user to homepage and auto activates user's profile in user db and deletes from reg db
-            var fetchedUser = await _userManager.AsyncGetUser(email);
-            return fetchedUser;
-
-
+            bool headerTry = Request.Headers.TryGetValue("Authorization", out var token);
+            if (headerTry)
+            {
+                if (_authenticationManager.ValidateToken(token))
+                {
+                    return Ok(token);
+                }
+                else
+                {
+                    return Unauthorized("Could not validate token");
+                }
+            }
+            else
+            {
+                return BadRequest("No JWT token found");
+            }
         }
-
-        // generates JWT token for a valid user
-        [Route("get/token/{email}")]
-        [HttpGet]
-        public ActionResult<string> GetJWTToken(string email)
-        {
-            // directs user to homepage and auto activates user's profile in user db and deletes from reg db
-            var token = _authenticationManager.GenerateJWTToken(email);
-
-            return token;
-
-
-        }
-
-
-
-
     }
 }
